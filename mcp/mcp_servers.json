@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "./prompts", "./tests/eval"]
+    },
+    "supabase": {
+      "command": "uvx",
+      "args": ["supabase-mcp"],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_ROLE_KEY": "${SUPABASE_SERVICE_ROLE_KEY}"
+      }
+    },
+    "qdrant": {
+      "command": "python",
+      "args": ["-m", "mcp.servers.qdrant_mcp"],
+      "env": {
+        "QDRANT_URL": "${QDRANT_URL}",
+        "QDRANT_API_KEY": "${QDRANT_API_KEY}"
+      }
+    },
+    "n8n": {
+      "command": "node",
+      "args": ["mcp/servers/n8n_mcp/dist/index.js"],
+      "env": {
+        "N8N_BASE_URL": "${N8N_URL}",
+        "N8N_API_KEY": "${N8N_API_KEY}"
+      }
+    }
+  }
+}

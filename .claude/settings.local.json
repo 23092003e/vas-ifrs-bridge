@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(New-Item -ItemType File -Force -Path \"C:\\\\Users\\\\ADMIN\\\\Desktop\\\\vas-ifrs-bridge\\\\prompts\\\\v1\\\\.gitkeep\")",
+      "Read(//c/Users/ADMIN/Desktop/vas-ifrs-bridge/apps/frontend/src/app/\\(app\\)/chat/**)"
+    ]
+  }
+}

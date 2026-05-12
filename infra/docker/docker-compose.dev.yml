@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  backend:
+    build: ../../apps/backend
+    ports: ["8000:8000"]
+    env_file: ../../apps/backend/.env
+    depends_on: [qdrant, redis]
+
+  frontend:
+    build: ../../apps/frontend
+    ports: ["3000:3000"]
+    env_file: ../../apps/frontend/.env.local
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports: ["6333:6333", "6334:6334"]
+    volumes: [qdrant_data:/qdrant/storage]
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  ollama:
+    image: ollama/ollama:latest
+    ports: ["11434:11434"]
+    volumes: [ollama_data:/root/.ollama]
+
+volumes:
+  qdrant_data:
+  redis_data:
+  ollama_data:

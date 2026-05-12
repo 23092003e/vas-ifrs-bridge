@@ -1,0 +1,30 @@
+prompts:
+  base.system:
+    default: v1
+    versions:
+      v1: system/base.{lang}.j2
+  retrieval.qa:
+    default: v2
+    versions:
+      v1: system/retrieval_qa.j2
+      v2: system/retrieval_qa.j2
+  ifrs.compare:
+    default: v1
+    versions:
+      v1: system/ifrs_compare.j2
+  gl.mapping:
+    default: v1
+    versions:
+      v1: system/gl_mapping.j2
+  adjustment.entry:
+    default: v1
+    versions:
+      v1: system/adjustment_entry.j2
+  report.synthesis:
+    default: v1
+    versions:
+      v1: system/report_synthesis.j2
+fragments:
+  citation: fragments/citation.j2
+  tenant_ctx: fragments/tenant_ctx.j2
+  safety: fragments/safety.j2

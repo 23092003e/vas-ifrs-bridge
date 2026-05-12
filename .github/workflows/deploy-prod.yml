@@ -1,0 +1,14 @@
+name: Deploy Prod
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "TODO: helmfile apply + alembic upgrade"

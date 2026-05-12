@@ -1,0 +1,11 @@
+name: Eval Nightly
+on:
+  schedule:
+    - cron: '0 20 * * *'  # 03:00 SGT
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "TODO: run eval suite vs staging"
