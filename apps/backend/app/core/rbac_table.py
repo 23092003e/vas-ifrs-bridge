@@ -1,19 +1,26 @@
-"""Static RBAC permission table mapping roles to allowed actions."""
+"""Static RBAC permission table — no imports from rbac.py to avoid circular deps."""
 from __future__ import annotations
 
-from app.core.rbac import Role
+# role string → set of allowed actions
+PERMISSIONS: dict[str, set[str]] = {
+    "owner":      {"read", "write", "admin", "export", "manage_users"},
+    "admin":      {"read", "write", "admin", "export", "manage_users"},
+    "accountant": {"read", "write", "export"},
+    "auditor":    {"read", "export"},
+    "viewer":     {"read"},
+}
 
-# Maps (role, action) -> bool
-# Actions: read, write, admin, export, manage_users
-PERMISSIONS: dict[Role, set[str]] = {
-    Role.OWNER: {"read", "write", "admin", "export", "manage_users"},
-    Role.ADMIN: {"read", "write", "admin", "export", "manage_users"},
-    Role.ACCOUNTANT: {"read", "write", "export"},
-    Role.AUDITOR: {"read", "export"},
-    Role.VIEWER: {"read"},
+# route path prefix → minimum role string required (None = no role gate)
+ROUTE_ROLE_MAP: dict[str, str] = {
+    "/v1/admin":              "admin",
+    "/v1/admin/users":        "admin",
+    "/v1/admin/audit":        "auditor",
+    "/v1/reports/generate":   "accountant",
+    "/v1/adjustments/generate": "accountant",
+    "/v1/gl/uploads":         "accountant",
+    "/v1/documents":          "accountant",
 }
 
 
-def has_permission(role: Role, action: str) -> bool:
-    """Return True if the given role is allowed to perform action."""
+def has_permission(role: str, action: str) -> bool:
     return action in PERMISSIONS.get(role, set())

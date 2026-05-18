@@ -1,18 +1,188 @@
-"""Runs Unstructured.io on raw documents and writes normalised JSON output."""
+"""
+Parse raw documents (PDF/DOCX/XLSX/TXT) into plain text + metadata JSON.
+
+Output format (one JSON file per input document):
+  {
+    "source_path": "...",
+    "filename": "...",
+    "lang": "vi|en|bi",
+    "standard_code": "VAS-15|IFRS-15|null",
+    "text": "full plain text...",
+    "sections": [{"heading": "...", "text": "..."}, ...]
+  }
+
+Run:
+  python ingestion/unstructured_runner.py --input ingestion/documents/shared/vas --output ingestion/parsed/shared/vas
+  python ingestion/unstructured_runner.py --input ingestion/documents/shared/ifrs --output ingestion/parsed/shared/ifrs
+"""
 from __future__ import annotations
 
 import argparse
+import json
+import logging
+import re
+import sys
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+_STANDARD_CODE_RE = re.compile(
+    r"\b(VAS|IAS|IFRS|VFRS)[\s\-]?(\d+[A-Z]?)\b", re.IGNORECASE
+)
 
 
-def main(input_path: str, output_path: str) -> None:
-    """Process a document with Unstructured and save element JSON."""
-    # TODO: call unstructured partition() and serialize elements
-    pass
+def _detect_lang(text: str) -> str:
+    vi_chars = sum(1 for c in text if c in "àáảãạăắằẵặẳâấầẫậẩđèéẻẽẹêếềễệểìíỉĩịòóỏõọôốồỗộổơớờỡợởùúủũụưứừữựửỳýỷỹỵ")
+    if vi_chars / max(len(text), 1) > 0.02:
+        return "vi"
+    return "en"
+
+
+def _extract_standard_code(filename: str, text: str) -> str | None:
+    m = _STANDARD_CODE_RE.search(filename) or _STANDARD_CODE_RE.search(text[:2000])
+    if m:
+        prefix = m.group(1).upper()
+        num = m.group(2)
+        return f"{prefix}-{num}"
+    return None
+
+
+def _parse_pdf(path: Path) -> tuple[str, list[dict]]:
+    import fitz  # pymupdf
+    doc = fitz.open(str(path))
+    pages: list[str] = []
+    for page in doc:
+        pages.append(page.get_text("text"))
+    doc.close()
+    full_text = "\n".join(pages)
+    return full_text, []
+
+
+def _parse_docx(path: Path) -> tuple[str, list[dict]]:
+    from docx import Document
+    doc = Document(str(path))
+    sections: list[dict] = []
+    current_heading = ""
+    current_body: list[str] = []
+
+    for para in doc.paragraphs:
+        style = para.style.name or ""
+        text = para.text.strip()
+        if not text:
+            continue
+        if style.startswith("Heading"):
+            if current_body:
+                sections.append({"heading": current_heading, "text": "\n".join(current_body)})
+            current_heading = text
+            current_body = []
+        else:
+            current_body.append(text)
+
+    if current_body:
+        sections.append({"heading": current_heading, "text": "\n".join(current_body)})
+
+    full_text = "\n".join(p.text for p in doc.paragraphs if p.text.strip())
+    return full_text, sections
+
+
+def _parse_xlsx(path: Path) -> tuple[str, list[dict]]:
+    import openpyxl
+    wb = openpyxl.load_workbook(str(path), read_only=True, data_only=True)
+    parts: list[str] = []
+    sections: list[dict] = []
+    for sheet in wb.worksheets:
+        rows: list[str] = []
+        for row in sheet.iter_rows(values_only=True):
+            cells = [str(c) if c is not None else "" for c in row]
+            if any(c.strip() for c in cells):
+                rows.append("\t".join(cells))
+        if rows:
+            body = "\n".join(rows)
+            parts.append(f"## {sheet.title}\n{body}")
+            sections.append({"heading": sheet.title, "text": body})
+    wb.close()
+    return "\n\n".join(parts), sections
+
+
+def _parse_txt(path: Path) -> tuple[str, list[dict]]:
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return text, []
+
+
+_PARSERS = {
+    ".pdf": _parse_pdf,
+    ".docx": _parse_docx,
+    ".doc": _parse_docx,
+    ".xlsx": _parse_xlsx,
+    ".xls": _parse_xlsx,
+    ".txt": _parse_txt,
+    ".md": _parse_txt,
+}
+
+
+def parse_document(path: Path) -> dict:
+    suffix = path.suffix.lower()
+    parser = _PARSERS.get(suffix)
+    if parser is None:
+        raise ValueError(f"unsupported file type: {suffix}")
+
+    text, sections = parser(path)
+    lang = _detect_lang(text)
+    std_code = _extract_standard_code(path.name, text)
+
+    return {
+        "source_path": str(path),
+        "filename": path.name,
+        "lang": lang,
+        "standard_code": std_code,
+        "text": text,
+        "sections": sections,
+    }
+
+
+def process_directory(input_dir: Path, output_dir: Path) -> int:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    processed = 0
+    errors = 0
+
+    extensions = set(_PARSERS.keys())
+    files = [f for f in input_dir.rglob("*") if f.suffix.lower() in extensions]
+    logger.info("found %d documents in %s", len(files), input_dir)
+
+    for fp in files:
+        out_path = output_dir / (fp.stem + ".json")
+        if out_path.exists():
+            logger.debug("skip (already parsed): %s", fp.name)
+            continue
+        try:
+            result = parse_document(fp)
+            out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+            logger.info("parsed: %s → %s (%d chars)", fp.name, out_path.name, len(result["text"]))
+            processed += 1
+        except Exception as exc:
+            logger.error("FAILED %s: %s", fp.name, exc)
+            errors += 1
+
+    print(f"\nDone: {processed} parsed, {errors} errors")
+    return errors
+
+
+def main() -> None:
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    parser = argparse.ArgumentParser(description="Parse documents to JSON")
+    parser.add_argument("--input", required=True, help="Input directory with PDF/DOCX/XLSX/TXT")
+    parser.add_argument("--output", required=True, help="Output directory for JSON files")
+    parser.add_argument("--file", default=None, help="Parse single file instead of directory")
+    args = parser.parse_args()
+
+    if args.file:
+        result = parse_document(Path(args.file))
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return
+
+    errors = process_directory(Path(args.input), Path(args.output))
+    sys.exit(1 if errors else 0)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", required=True)
-    parser.add_argument("--output", required=True)
-    args = parser.parse_args()
-    main(args.input, args.output)
+    main()

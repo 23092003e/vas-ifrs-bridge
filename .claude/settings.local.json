@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "PowerShell(New-Item -ItemType File -Force -Path \"C:\\\\Users\\\\ADMIN\\\\Desktop\\\\vas-ifrs-bridge\\\\prompts\\\\v1\\\\.gitkeep\")",
-      "Read(//c/Users/ADMIN/Desktop/vas-ifrs-bridge/apps/frontend/src/app/\\(app\\)/chat/**)"
+      "Read(//c/Users/ADMIN/Desktop/vas-ifrs-bridge/apps/frontend/src/app/\\(app\\)/chat/**)",
+      "Bash(python -c \"from app.core.auth import AuthMiddleware; from app.core.tenant import TenantCtx; from app.core.rbac import Role, require; from app.core.audit import AuditMiddleware; from app.rag.citation import wrap_chunks_for_prompt; from app.rag.chunker import chunk_document; print\\('imports OK'\\)\")"
     ]
   }
 }
