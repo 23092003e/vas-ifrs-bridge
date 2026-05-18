@@ -3,7 +3,28 @@ export interface ChatRequest {
   content: string
   lang: 'vi' | 'en' | 'auto'
   scope: 'shared' | 'tenant' | 'both'
+  reasoning?: 'fast' | 'balanced' | 'deep'
 }
 
-export interface ChatTokenEvent { type: 'token'; delta: string }
-export interface ChatCitationEvent { type: 'citation'; key: string; doc_id: string; snippet: string }
+export type SSEEvent =
+  | { type: 'intent'; intent: string; model: string }
+  | { type: 'token'; delta: string }
+  | { type: 'citation'; key: string; doc_id: string; chunk_id: string; snippet: string; standard_code: string | null }
+  | { type: 'final'; content: string }
+  | { type: 'error'; message: string }
+
+export interface Citation {
+  key: string
+  doc_id: string
+  chunk_id: string
+  snippet: string
+  standard_code: string | null
+}
+
+export interface Message {
+  id: string
+  role: 'user' | 'assistant'
+  content: string
+  citations: Citation[]
+  loading?: boolean
+}

@@ -38,8 +38,12 @@ import logging
 import os
 import sys
 import uuid
+import warnings
 from pathlib import Path
 from typing import Optional
+
+# Suppress Python 3.9 EOL warnings from google-auth (cosmetic only, no functional impact)
+warnings.filterwarnings("ignore", category=FutureWarning, module="google")
 
 logger = logging.getLogger(__name__)
 
@@ -80,6 +84,9 @@ GEMINI_EMBED_MODEL = "models/gemini-embedding-001"
 GEMINI_EMBED_DIM = 3072
 
 
+_GEMINI_RATE_DELAY = 1.5  # seconds between calls → ~40 RPM, safely under free-tier limit
+
+
 async def _embed_gemini(texts: list[str]) -> list[list[float]]:
     """Gemini gemini-embedding-001 (dim=3072). Used when TEI unavailable."""
     import asyncio as _aio
@@ -98,26 +105,34 @@ async def _embed_gemini(texts: list[str]) -> list[list[float]]:
 
     client = genai.Client(api_key=api_key)
     results: list[list[float]] = []
+    total = len(texts)
     for i, text in enumerate(texts):
-        for attempt in range(5):
+        for attempt in range(8):
             try:
                 resp = await client.aio.models.embed_content(
                     model=GEMINI_EMBED_MODEL,
                     contents=text,
                 )
                 results.append(list(resp.embeddings[0].values))
-                # Small delay to stay under rate limit (1500 RPM free tier)
-                await _aio.sleep(0.05)
+                if i < total - 1:
+                    await _aio.sleep(_GEMINI_RATE_DELAY)
+                if (i + 1) % 10 == 0:
+                    logger.info("  gemini embed: %d/%d chunks", i + 1, total)
                 break
-            except ClientError as exc:
-                if exc.status_code == 429:
-                    wait = 2 ** attempt  # 1, 2, 4, 8, 16s
-                    logger.warning("rate limit hit chunk %d/%d, waiting %ds...", i + 1, len(texts), wait)
+            except (ClientError, Exception) as exc:
+                is_rate_limit = (
+                    (isinstance(exc, ClientError) and exc.code == 429)
+                    or "429" in str(exc)
+                    or "RESOURCE_EXHAUSTED" in str(exc)
+                )
+                if is_rate_limit:
+                    wait = min(30 * (attempt + 1), 120)  # 30, 60, 90, 120s
+                    logger.warning("rate limit chunk %d/%d, retry %d/%d, waiting %ds...", i + 1, total, attempt + 1, 8, wait)
                     await _aio.sleep(wait)
                 else:
                     raise
         else:
-            raise RuntimeError(f"Gemini embedding failed after 5 retries for chunk {i}")
+            raise RuntimeError(f"Gemini embedding failed after 8 retries for chunk {i}")
     return results
 
 
@@ -129,7 +144,7 @@ def _get_qdrant():
     from qdrant_client import QdrantClient
     if QDRANT_URL == ":memory:":
         return QdrantClient(":memory:")
-    kwargs = {"url": QDRANT_URL}
+    kwargs = {"url": QDRANT_URL, "check_compatibility": False}
     if QDRANT_API_KEY:
         kwargs["api_key"] = QDRANT_API_KEY
     return QdrantClient(**kwargs)
@@ -261,11 +276,32 @@ async def ingest(
     # Embed in batches
     texts = [m["text"] for m in all_chunks_meta]
     vectors: list[list[float]] = []
-    for i in range(0, len(texts), 64):
-        batch = texts[i : i + 64]
-        logger.info("embedding batch %d/%d ...", i // 64 + 1, (len(texts) + 63) // 64)
-        batch_vecs = await embed_texts(batch)
+    # TEI: large batches OK. Gemini: small batches to avoid front-loading RPM.
+    # We don't know backend yet — start with batch=10; TEI will handle any size, Gemini stays safe.
+    gemini_batch = 10
+    tei_batch = 64
+    batch_size = tei_batch  # will shrink to gemini_batch after first TEI failure detected
+    _tei_failed = False
+    i = 0
+    batch_num = 0
+    while i < len(texts):
+        if _tei_failed:
+            batch_size = gemini_batch
+        batch = texts[i : i + batch_size]
+        batch_num += 1
+        total_batches = (len(texts) + batch_size - 1) // batch_size
+        logger.info("embedding batch %d (~%d remaining) ...", batch_num, len(texts) - i)
+        try:
+            batch_vecs = await _embed_tei(batch)
+        except Exception as exc:
+            if not _tei_failed:
+                logger.warning("TEI unavailable (%s), switching to Gemini (slower)", exc)
+                _tei_failed = True
+                batch_size = gemini_batch
+                batch = texts[i : i + batch_size]
+            batch_vecs = await _embed_gemini(batch)
         vectors.extend(batch_vecs)
+        i += len(batch)
 
     # Detect actual dim from first vector
     actual_dim = len(vectors[0]) if vectors else EMBED_DIM

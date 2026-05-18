@@ -8,7 +8,7 @@ from typing import Any, AsyncIterator
 from app.agents.base import AgentBase
 from app.agents.citation_validator import CitationValidator
 from app.rag.citation import Citation, build_citation_list, wrap_chunks_for_prompt
-from app.rag.retriever import RetrievedChunk, retrieve_multi
+from app.rag.retriever import RetrievedChunk, retrieve, retrieve_multi
 from app.settings import settings
 
 logger = logging.getLogger(__name__)
@@ -45,15 +45,37 @@ class RetrievalAgent(AgentBase):
         model_hint: str = "qwen",
         **kwargs: Any,
     ) -> AsyncIterator[str]:
-        # 1. Retrieve
-        chunks = await retrieve_multi(
-            query,
-            shared_collection="kb_shared_vas",
-            tenant_collection=tenant_collection,
-            tenant_id=tenant_id,
-            lang=lang,
-            k=k,
-        )
+        # 1. Retrieve from all shared collections + tenant
+        import asyncio as _asyncio
+        from app.rag.reranker import rerank as _rerank
+
+        tasks = [
+            retrieve(query, collection="kb_shared_vas",  scope="shared", lang=lang, k=40, skip_rerank=True),
+            retrieve(query, collection="kb_shared_ifrs", scope="shared", lang=lang, k=40, skip_rerank=True),
+        ]
+        if tenant_collection and tenant_id:
+            tasks.append(retrieve(query, collection=tenant_collection, tenant_id=tenant_id, scope="tenant", lang=lang, k=40, skip_rerank=True))
+
+        all_results = await _asyncio.gather(*tasks, return_exceptions=True)
+        merged_raw: list[dict] = []
+        for res in all_results:
+            if isinstance(res, Exception):
+                logger.warning("retrieval partial failure: %s", res)
+                continue
+            merged_raw.extend({
+                "id": c.id, "doc_id": c.doc_id, "text": c.text,
+                "score": c.score, "rerank_score": c.rerank_score, "metadata": c.metadata,
+            } for c in res)
+
+        reranked = await _rerank(query, merged_raw, top_k=k)
+        chunks = [
+            RetrievedChunk(
+                id=c["id"], doc_id=c["doc_id"], text=c["text"],
+                score=c["score"], rerank_score=c.get("rerank_score", c["score"]),
+                metadata=c["metadata"], citation_key=f"C{i + 1}",
+            )
+            for i, c in enumerate(reranked)
+        ]
 
         context_block, citation_map = wrap_chunks_for_prompt(chunks)
         system = SYSTEM_PROMPT.format(lang=lang, context=context_block)

@@ -1,3 +1,5 @@
+import ChatStream from '@/components/chat/ChatStream'
+
 export default function ChatPage() {
-  return <div>New conversation</div>
+  return <ChatStream />
 }

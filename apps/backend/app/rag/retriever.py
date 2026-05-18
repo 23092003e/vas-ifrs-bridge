@@ -1,4 +1,4 @@
-"""Hybrid retriever: dense Qdrant + sparse BM25 fusion → reranker."""
+﻿"""Hybrid retriever: dense Qdrant + sparse BM25 fusion â†’ reranker."""
 from __future__ import annotations
 
 import asyncio
@@ -35,6 +35,7 @@ def _qdrant_client() -> AsyncQdrantClient:
     return AsyncQdrantClient(
         url=settings.qdrant_url,
         api_key=settings.qdrant_api_key or None,
+        check_compatibility=False,
     )
 
 
@@ -59,7 +60,7 @@ def _build_filter(
         conditions.append(
             FieldCondition(key="tenant_id", match=MatchValue(value=tenant_id))
         )
-    # scope == "both" → no filter; both shared + tenant returned
+    # scope == "both" â†’ no filter; both shared + tenant returned
 
     return Filter(must=conditions) if conditions else None
 
@@ -78,7 +79,7 @@ async def retrieve(
     Full retrieval pipeline:
       1. embed query
       2. dense search in Qdrant (top DENSE_K)
-      3. rerank → top k
+      3. rerank â†’ top k
     Returns list of RetrievedChunk with citation_key assigned.
     """
     vec = await embed_query(query)
@@ -86,13 +87,14 @@ async def retrieve(
 
     client = _qdrant_client()
     try:
-        hits = await client.search(
+        result = await client.query_points(
             collection_name=collection,
-            query_vector=vec,
+            query=vec,
             query_filter=flt,
             limit=DENSE_K,
             with_payload=True,
         )
+        hits = result.points
     except Exception as exc:
         raise QdrantUnavailable(f"Qdrant search failed: {exc}") from exc
     finally:
@@ -196,3 +198,4 @@ async def retrieve_multi(
         )
         for i, c in enumerate(reranked)
     ]
+
