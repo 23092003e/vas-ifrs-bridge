@@ -339,15 +339,39 @@ apps/backend/app/
         └── gemini.py         Gemini 2.5 Flash (primary LLM)
 
 ingestion/
-├── documents/
+├── raw/                      ← Bỏ tài liệu vào đây
 │   ├── shared/
-│   │   ├── vas/              ← Bỏ VAS circulars vào đây
-│   │   └── ifrs/             ← Bỏ IFRS standards vào đây
+│   │   ├── ifrs/             IFRS 1–17, IAS, IFRIC, SIC, Framework, Taxonomy
+│   │   │   ├── standards/
+│   │   │   ├── ias/
+│   │   │   ├── ifric/
+│   │   │   ├── sic/
+│   │   │   ├── framework/
+│   │   │   └── taxonomy/
+│   │   └── vas/              VAS circulars, thông tư, quyết định
+│   │       ├── standards/
+│   │       ├── circulars/
+│   │       ├── decisions/
+│   │       └── adoption/
 │   └── tenant/
-│       └── dev-tenant/       ← Tài liệu riêng tenant
-├── batch_embed.py            Chunk → embed (TEI/Gemini) → upsert Qdrant
-├── unstructured_runner.py    PDF/DOCX/XLSX/TXT → JSON (lang detect, std_code extract)
-└── parsed/                   ← Auto-created: intermediate JSON per document
+│       └── dev-tenant/       FS, audit, contracts, internal
+│           ├── fs/
+│           ├── audit/
+│           ├── contracts/
+│           └── internal/
+├── processed/                ← Auto-generated
+│   ├── markdown/
+│   ├── cleaned/
+│   ├── chunks/
+│   └── embeddings/
+├── metadata/                 VAS↔IFRS mapping, paragraph graph, citations, taxonomy
+└── pipelines/
+    ├── parsers/
+    │   └── unstructured_runner.py   PDF/DOCX/XLSX/TXT → JSON (lang detect, std_code)
+    ├── chunkers/
+    ├── embedders/
+    │   └── batch_embed.py           Chunk → embed (TEI/Gemini) → upsert Qdrant
+    └── retrievers/
 
 ingest.ps1                    One-command ingest runner (PowerShell, repo root)
 ```
@@ -386,36 +410,47 @@ Client          API           Orchestrator    Retriever      Gemini
 ## 11. Ingestion Pipeline (Offline)
 
 ```
-PDF / DOCX / XLSX / TXT
-        │
-        ▼
-┌───────────────────────────┐
-│  unstructured_runner.py   │  PyMuPDF, python-docx, openpyxl
-│                           │  → lang detect (VI/EN by Unicode)
-│                           │  → standard_code extract (VAS-15, IFRS-15)
-│                           │  → JSON: {text, sections, lang, standard_code}
-└────────────┬──────────────┘
-             │
-             ▼
-┌───────────────────────────┐
-│  batch_embed.py           │
-│  chunk_document()         │  800 token target, 120 overlap
-│  → List[Chunk]            │  section-aware, table-aware
-└────────────┬──────────────┘
-             │
-             ▼
-┌───────────────────────────┐
-│  embed_texts()            │  TEI bge-m3 (dim=1024)  ← preferred
-│                           │  Gemini text-embedding-004 (dim=768) ← fallback
-└────────────┬──────────────┘
-             │
-             ▼
-┌───────────────────────────┐
-│  Qdrant upsert            │
-│  kb_shared_vas            │  VAS circulars
-│  kb_shared_ifrs           │  IFRS standards
-│  tenant_{id}              │  Private per-tenant
-└───────────────────────────┘
+ingestion/raw/shared/vas/          ingestion/raw/shared/ifrs/
+  standards/ circulars/ ...          standards/ ias/ ifric/ ...
+        │                                    │
+        └────────────┬───────────────────────┘
+                     ▼
+┌───────────────────────────────────────────┐
+│  pipelines/parsers/unstructured_runner.py │
+│                                           │
+│  PyMuPDF (PDF), python-docx (DOCX),       │
+│  openpyxl (XLSX), plain text (TXT/MD)     │
+│                                           │
+│  → lang detect (VI/EN by Unicode %)       │
+│  → standard_code extract (VAS-15, IAS-1)  │
+│  → {text, sections[], lang, standard_code}│
+└────────────────┬──────────────────────────┘
+                 │
+                 ▼
+┌───────────────────────────────────────────┐
+│  pipelines/embedders/batch_embed.py       │
+│                                           │
+│  chunk_document()  (app.rag.chunker)      │
+│    800 token target, 120 overlap          │
+│    section-aware, table-aware             │
+│  → List[Chunk]  (written to processed/)  │
+└────────────────┬──────────────────────────┘
+                 │
+                 ▼
+┌───────────────────────────────────────────┐
+│  embed_texts()                            │
+│    TEI bge-m3 dim=1024      ← preferred   │
+│    Gemini text-embedding-004 dim=768      │
+│                             ← auto-fallback│
+└────────────────┬──────────────────────────┘
+                 │
+                 ▼
+┌───────────────────────────────────────────┐
+│  Qdrant upsert                            │
+│    kb_shared_vas   ← VAS circulars        │
+│    kb_shared_ifrs  ← IFRS standards       │
+│    tenant_{id}     ← Private per-tenant   │
+└───────────────────────────────────────────┘
 ```
 
 ### Embedding backend selection

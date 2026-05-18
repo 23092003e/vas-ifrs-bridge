@@ -1,27 +1,33 @@
 """
 Batch ingestion: parse → chunk → embed → upsert to Qdrant.
 
-Reads parsed JSON from ingestion/parsed/ (produced by unstructured_runner.py),
-or can parse+embed in one pass from raw documents.
+Document layout:
+  ingestion/raw/shared/vas/{standards,circulars,decisions,adoption}/
+  ingestion/raw/shared/ifrs/{standards,ias,ifric,sic,framework,taxonomy}/
+  ingestion/raw/tenant/<id>/{fs,audit,contracts,internal}/
+
+Intermediate output:
+  ingestion/processed/chunks/    ← chunked JSON (optional two-pass)
+  ingestion/processed/embeddings/ ← cached embeddings (optional)
 
 Collections:
-  shared/vas   → kb_shared_vas
-  shared/ifrs  → kb_shared_ifrs
-  tenant/<id>  → tenant_<id>
+  raw/shared/vas   → kb_shared_vas
+  raw/shared/ifrs  → kb_shared_ifrs
+  raw/tenant/<id>  → tenant_<id>
 
-Usage:
-  # Parse first, then embed
-  python ingestion/unstructured_runner.py --input ingestion/documents/shared/vas --output ingestion/parsed/shared/vas
-  python ingestion/batch_embed.py --parsed ingestion/parsed/shared/vas --collection kb_shared_vas --scope shared
+Usage (run from repo root with PYTHONPATH set):
+  # One-shot (parse + embed)
+  python ingestion/pipelines/embedders/batch_embed.py --docs ingestion/raw/shared/vas --collection kb_shared_vas --scope shared
+  python ingestion/pipelines/embedders/batch_embed.py --docs ingestion/raw/shared/ifrs --collection kb_shared_ifrs --scope shared
+  python ingestion/pipelines/embedders/batch_embed.py --docs ingestion/raw/tenant/dev-tenant --collection tenant_dev-tenant --scope tenant --tenant-id dev-tenant
 
-  # Or one-shot (parse + embed)
-  python ingestion/batch_embed.py --docs ingestion/documents/shared/vas --collection kb_shared_vas --scope shared
+  # From pre-parsed JSON
+  python ingestion/pipelines/embedders/batch_embed.py --parsed ingestion/processed/chunks/vas --collection kb_shared_vas --scope shared
 
-  # Tenant ingestion
-  python ingestion/batch_embed.py --docs ingestion/documents/tenant/dev-tenant --collection tenant_dev-tenant --scope tenant --tenant-id dev-tenant
+  # Clean slate
+  python ingestion/pipelines/embedders/batch_embed.py --docs ingestion/raw/shared/vas --collection kb_shared_vas --scope shared --recreate
 
-  # Delete collection and re-ingest (clean slate)
-  python ingestion/batch_embed.py --docs ingestion/documents/shared/vas --collection kb_shared_vas --scope shared --recreate
+  # Or just use: .\\ingest.ps1  (from repo root)
 """
 from __future__ import annotations
 
@@ -70,17 +76,21 @@ async def _embed_tei(texts: list[str]) -> list[list[float]]:
         return data.get("embeddings", data.get("data", []))
 
 
+GEMINI_EMBED_MODEL = "models/gemini-embedding-001"
+GEMINI_EMBED_DIM = 3072
+
+
 async def _embed_gemini(texts: list[str]) -> list[list[float]]:
-    """
-    Gemini text-embedding-004 (dim=768).
-    NOTE: dim differs from bge-m3 (1024). If mixing, use consistent model.
-    Qdrant collection must be created with matching dim.
-    """
+    """Gemini gemini-embedding-001 (dim=3072). Used when TEI unavailable."""
+    import asyncio as _aio
     from google import genai
+    from google.genai.errors import ClientError
+
     api_key = GEMINI_API_KEY
     if not api_key:
         try:
-            sys.path.insert(0, str(Path(__file__).parent.parent / "apps" / "backend"))
+            repo_root = Path(__file__).parent.parent.parent.parent
+            sys.path.insert(0, str(repo_root / "apps" / "backend"))
             from app.settings import settings
             api_key = settings.gemini_api_key
         except Exception:
@@ -88,13 +98,26 @@ async def _embed_gemini(texts: list[str]) -> list[list[float]]:
 
     client = genai.Client(api_key=api_key)
     results: list[list[float]] = []
-    # Gemini embedding API: one call per text (no batching in SDK yet)
-    for text in texts:
-        resp = await client.aio.models.embed_content(
-            model="models/text-embedding-004",
-            contents=text,
-        )
-        results.append(resp.embeddings[0].values)
+    for i, text in enumerate(texts):
+        for attempt in range(5):
+            try:
+                resp = await client.aio.models.embed_content(
+                    model=GEMINI_EMBED_MODEL,
+                    contents=text,
+                )
+                results.append(list(resp.embeddings[0].values))
+                # Small delay to stay under rate limit (1500 RPM free tier)
+                await _aio.sleep(0.05)
+                break
+            except ClientError as exc:
+                if exc.status_code == 429:
+                    wait = 2 ** attempt  # 1, 2, 4, 8, 16s
+                    logger.warning("rate limit hit chunk %d/%d, waiting %ds...", i + 1, len(texts), wait)
+                    await _aio.sleep(wait)
+                else:
+                    raise
+        else:
+            raise RuntimeError(f"Gemini embedding failed after 5 retries for chunk {i}")
     return results
 
 
@@ -104,6 +127,8 @@ async def _embed_gemini(texts: list[str]) -> list[list[float]]:
 
 def _get_qdrant():
     from qdrant_client import QdrantClient
+    if QDRANT_URL == ":memory:":
+        return QdrantClient(":memory:")
     kwargs = {"url": QDRANT_URL}
     if QDRANT_API_KEY:
         kwargs["api_key"] = QDRANT_API_KEY
@@ -158,7 +183,8 @@ def load_parsed_docs(parsed_dir: Path) -> list[dict]:
 
 def load_raw_docs(docs_dir: Path) -> list[dict]:
     """Parse raw documents inline (no intermediate JSON)."""
-    sys.path.insert(0, str(Path(__file__).parent))
+    # parsers/ is a sibling of embedders/ under pipelines/
+    sys.path.insert(0, str(Path(__file__).parent.parent / "parsers"))
     from unstructured_runner import parse_document, _PARSERS
     docs = []
     for fp in sorted(docs_dir.rglob("*")):
@@ -187,8 +213,10 @@ async def ingest(
     dry_run: bool = False,
 ) -> int:
     """Chunk, embed, and upsert all docs. Returns total chunks upserted."""
-    # Import chunker from backend
-    sys.path.insert(0, str(Path(__file__).parent.parent / "apps" / "backend"))
+    # Import chunker from backend (repo_root/apps/backend)
+    # File lives at ingestion/pipelines/embedders/batch_embed.py → 3 levels up = repo root
+    repo_root = Path(__file__).parent.parent.parent.parent
+    sys.path.insert(0, str(repo_root / "apps" / "backend"))
     from app.rag.chunker import chunk_document
 
     # First pass: collect all chunks to determine embedding dim
@@ -201,7 +229,7 @@ async def ingest(
             heading="",
             lang=doc.get("lang", "bi"),
         )
-        logger.info("%s → %d chunks", doc["filename"], len(chunks))
+        logger.info("%s -> %d chunks", doc["filename"], len(chunks))
         for chunk in chunks:
             chunk_id = str(uuid.uuid4())
             all_chunks_meta.append({
@@ -241,7 +269,12 @@ async def ingest(
 
     # Detect actual dim from first vector
     actual_dim = len(vectors[0]) if vectors else EMBED_DIM
-    embed_model = "bge-m3" if actual_dim == 1024 else "text-embedding-004"
+    if actual_dim == 1024:
+        embed_model = "bge-m3"
+    elif actual_dim == 3072:
+        embed_model = "gemini-embedding-001"
+    else:
+        embed_model = f"unknown-dim{actual_dim}"
     logger.info("embedding dim: %d (%s)", actual_dim, embed_model)
     for m in all_chunks_meta:
         m["embedding_model"] = embed_model
@@ -264,7 +297,7 @@ async def ingest(
         total += len(points)
         logger.info("upserted %d/%d chunks", total, len(all_chunks_meta))
 
-    print(f"\nIngestion complete: {total} chunks → collection '{collection}'")
+    print(f"\nIngestion complete: {total} chunks -> collection '{collection}'")
     return total
 
 
@@ -289,6 +322,7 @@ def main() -> None:
     parser.add_argument("--recreate", action="store_true", help="Delete and recreate collection")
     parser.add_argument("--dry-run", action="store_true", help="Parse+chunk only, skip embed+upsert")
     parser.add_argument("--qdrant-url", default=None)
+    parser.add_argument("--qdrant-memory", action="store_true", help="Use in-memory Qdrant (testing)")
     parser.add_argument("--tei-url", default=None)
 
     args = parser.parse_args()
@@ -296,6 +330,8 @@ def main() -> None:
     global QDRANT_URL, TEI_URL
     if args.qdrant_url:
         QDRANT_URL = args.qdrant_url
+    if args.qdrant_memory:
+        QDRANT_URL = ":memory:"
     if args.tei_url:
         TEI_URL = args.tei_url
 

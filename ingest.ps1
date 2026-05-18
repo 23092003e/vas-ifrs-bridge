@@ -1,6 +1,11 @@
 # VAS-IFRS Document Ingestion Script
 # Run from repo root: .\ingest.ps1
 # Prereq: Qdrant running (docker-compose or standalone)
+#
+# Document layout:
+#   ingestion/raw/shared/vas/{standards,circulars,decisions,adoption}/
+#   ingestion/raw/shared/ifrs/{standards,ias,ifric,sic,framework,taxonomy}/
+#   ingestion/raw/tenant/<tenant-id>/{fs,audit,contracts,internal}/
 
 param(
     [string]$Scope = "all",          # all | vas | ifrs | tenant
@@ -11,8 +16,9 @@ param(
 
 $ErrorActionPreference = "Stop"
 $Root = $PSScriptRoot
-$Backend = Join-Path $Root "apps\backend"
-$Ingestion = Join-Path $Root "ingestion"
+$Backend    = Join-Path $Root "apps\backend"
+$Ingestion  = Join-Path $Root "ingestion"
+$BatchEmbed = Join-Path $Ingestion "pipelines\embedders\batch_embed.py"
 
 # Load .env for API keys
 $EnvFile = Join-Path $Backend ".env"
@@ -22,10 +28,10 @@ if (Test-Path $EnvFile) {
             [System.Environment]::SetEnvironmentVariable($Matches[1].Trim(), $Matches[2].Trim(), "Process")
         }
     }
-    Write-Host "[OK] Loaded .env from $EnvFile"
+    Write-Host "[OK] Loaded .env"
 }
 
-# Set PYTHONPATH so ingestion scripts can import app.*
+# PYTHONPATH: backend app.* + ingestion pipelines.*
 $env:PYTHONPATH = "$Backend;$Ingestion"
 
 $RecreateFlag = if ($Recreate) { "--recreate" } else { "" }
@@ -45,17 +51,12 @@ function Ingest-Collection {
         return
     }
 
-    Write-Host "`n==> Ingesting $($files.Count) documents from $DocsDir → $Collection"
+    Write-Host "`n==> $($files.Count) docs  $DocsDir  →  $Collection"
 
-    $cmd = @(
-        "python", (Join-Path $Ingestion "batch_embed.py"),
-        "--docs", $DocsDir,
-        "--collection", $Collection,
-        "--scope", $CollScope
-    )
-    if ($TId) { $cmd += @("--tenant-id", $TId) }
-    if ($RecreateFlag) { $cmd += $RecreateFlag }
-    if ($DryRunFlag)   { $cmd += $DryRunFlag }
+    $cmd = @("python", $BatchEmbed, "--docs", $DocsDir, "--collection", $Collection, "--scope", $CollScope)
+    if ($TId)           { $cmd += @("--tenant-id", $TId) }
+    if ($RecreateFlag)  { $cmd += $RecreateFlag }
+    if ($DryRunFlag)    { $cmd += $DryRunFlag }
 
     & $cmd[0] $cmd[1..($cmd.Length-1)]
     if ($LASTEXITCODE -ne 0) {
@@ -63,22 +64,22 @@ function Ingest-Collection {
     }
 }
 
-# Run ingestion based on scope
+$Raw = Join-Path $Ingestion "raw"
+
 switch ($Scope) {
     "vas" {
-        Ingest-Collection "$Root\ingestion\documents\shared\vas" "kb_shared_vas" "shared"
+        Ingest-Collection "$Raw\shared\vas" "kb_shared_vas" "shared"
     }
     "ifrs" {
-        Ingest-Collection "$Root\ingestion\documents\shared\ifrs" "kb_shared_ifrs" "shared"
+        Ingest-Collection "$Raw\shared\ifrs" "kb_shared_ifrs" "shared"
     }
     "tenant" {
-        Ingest-Collection "$Root\ingestion\documents\tenant\$TenantId" "tenant_$TenantId" "tenant" $TenantId
+        Ingest-Collection "$Raw\tenant\$TenantId" "tenant_$TenantId" "tenant" $TenantId
     }
     default {
-        # all
-        Ingest-Collection "$Root\ingestion\documents\shared\vas"  "kb_shared_vas"  "shared"
-        Ingest-Collection "$Root\ingestion\documents\shared\ifrs" "kb_shared_ifrs" "shared"
-        Ingest-Collection "$Root\ingestion\documents\tenant\$TenantId" "tenant_$TenantId" "tenant" $TenantId
+        Ingest-Collection "$Raw\shared\vas"        "kb_shared_vas"    "shared"
+        Ingest-Collection "$Raw\shared\ifrs"       "kb_shared_ifrs"   "shared"
+        Ingest-Collection "$Raw\tenant\$TenantId"  "tenant_$TenantId" "tenant" $TenantId
     }
 }
 

@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 # TEI endpoint is co-located with Ollama node; override via env
 TEI_URL = getattr(settings, "tei_url", "http://localhost:8080")
 EMBED_DIM = 1024
-EMBED_DIM_GEMINI = 768  # text-embedding-004 dimension
+EMBED_DIM_GEMINI = 3072  # gemini-embedding-001 dimension
 BATCH_SIZE = 64
 TIMEOUT_S = 30.0
 
@@ -84,13 +84,13 @@ async def _call_tei(texts: list[str], model: str) -> list[list[float]]:
 
 
 async def _call_gemini(texts: list[str]) -> list[list[float]]:
-    """Fallback: Gemini text-embedding-004 (dim=768)."""
+    """Fallback: Gemini gemini-embedding-001 (dim=3072)."""
     from google import genai
     client = genai.Client(api_key=settings.gemini_api_key)
     results: list[list[float]] = []
     for text in texts:
         resp = await client.aio.models.embed_content(
-            model="models/text-embedding-004",
+            model="models/gemini-embedding-001",
             contents=text,
         )
         results.append(list(resp.embeddings[0].values))
