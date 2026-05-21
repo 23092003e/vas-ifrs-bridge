@@ -35,7 +35,7 @@ async def _fetch_jwks() -> dict[str, Any]:
 
 async def verify_jwt(token: str) -> dict[str, Any]:
     """Verify Supabase JWT, return claims dict."""
-    jwks = await _fetch_jwks()
+    await _fetch_jwks()
     # Supabase signs with HS256 using the service role secret
     payload: dict[str, Any] = jwt.decode(
         token,

@@ -11,8 +11,8 @@ VAS-IFRS Bridge — hybrid RAG knowledge engine for Vietnamese Accounting Standa
 ### Backend (`apps/backend/`)
 
 ```bash
-# Install (uv)
-pip install -e ".[dev]"
+# Install (uv recommended, pip also works)
+uv pip install -e ".[dev]"
 
 # Run dev server
 uvicorn app.main:app --reload --port 8000
@@ -26,7 +26,7 @@ pytest tests/unit/                          # unit only
 pytest tests/integration/                   # integration (needs DB + Qdrant)
 pytest -k "test_name"                       # single test
 
-# Migrations
+# Migrations (run from apps/backend/)
 alembic upgrade head
 alembic revision --autogenerate -m "msg"
 
@@ -50,11 +50,11 @@ pnpm vitest        # watch
 
 ```bash
 make dev           # docker compose -f infra/docker/docker-compose.dev.yml up
-make dev-backend   # backend only
+make dev-backend   # backend only (cd apps/backend && uvicorn ...)
 make dev-frontend  # frontend only
 make lint          # both
 make test          # both
-make embed-shared  # ingest VAS + IFRS docs into Qdrant
+make embed-shared  # python ingestion/batch_embed.py --scope shared
 ```
 
 ### Ingestion (PowerShell)
@@ -74,15 +74,27 @@ make embed-shared  # ingest VAS + IFRS docs into Qdrant
 
 ```
 Browser → Next.js (App Router)
-  → /api/chat/stream  ← SSE proxy
+  → /api/chat/stream  ← SSE proxy (src/app/api/chat/stream/route.ts)
   → FastAPI /v1/...
-      Middleware stack: Auth → TenantResolver → RBAC → Audit → UsageLimiter → Tracing
-      → Orchestrator (classifies intent)
-      → Agent (RetrievalAgent | IFRSCompareAgent | GLMappingAgent | ReportAgent)
-          → RAG: Qdrant dense + BM25 sparse → reranker → citation validator
-          → LLM Router → provider (fast=Ollama, balanced=GPT-4o, deep=Claude Sonnet)
+      Middleware stack (applied bottom-up in main.py):
+        TracingMiddleware → AuthMiddleware → TenantResolverMiddleware
+        → RBACMiddleware → UsageLimiterMiddleware → AuditMiddleware
+      → Orchestrator (keyword-based intent classifier, Phase 1)
+      → Agent (RetrievalAgent | IFRSCompareAgent)  ← only these two wired in Phase 1
+          → RAG: Qdrant dense + BM25 sparse → reranker (top-8) → citation validator
+          → LLM Router → provider (fast=Ollama, balanced=OpenAI, deep=Anthropic)
           → stream JSON events via SSE
 ```
+
+### Intent classification (Phase 1 → Phase 2)
+
+`Orchestrator._classify_intent()` uses keyword matching for `compare`, `mapping`, `report`, `qa`. **Only `compare` and `qa` delegate to their own agents**; `mapping` and `report` currently fall back to `RetrievalAgent`. Phase 2 will replace keyword matching with a Qwen14B classifier.
+
+`ChatRequest` fields that drive routing:
+- `intent_hint` — override classification (`qa` | `compare` | `mapping` | `report`)
+- `reasoning` — LLM tier (`fast` | `balanced` | `deep`)
+- `scope` — Qdrant search scope (`shared` | `tenant` | `both`)
+- `lang` — `vi` | `en` | `auto`
 
 ### Backend structure (`apps/backend/app/`)
 
@@ -91,16 +103,18 @@ Browser → Next.js (App Router)
 | `api/v1/` | REST routers: chat, kb, gl, mappings, adjustments, reports, documents, admin |
 | `agents/` | Orchestrator + specialized agents (retrieval, ifrs_compare, gl_mapping, adjustment, report, citation_validator) |
 | `core/` | Middleware: auth, tenant resolver, rbac, audit, usage_limiter, tracing |
-| `rag/` | Retriever (hybrid), embedder, chunker, reranker, citation, pipelines |
-| `llm/` | Provider abstraction + router, streaming, token meter |
+| `rag/` | Retriever (hybrid dense+BM25), embedder, chunker, reranker, citation, pipelines |
+| `llm/` | Provider abstraction + router (tier→provider), streaming, token meter |
 | `prompts/` | Jinja2 templates, composer, registry |
+| `schemas/` | Pydantic request/response models (chat, gl, kb, mapping, report) |
 | `db/` | SQLAlchemy async ORM, repos, session factory |
 | `tools/` | Agent tool registry (search_kb, parse_gl_file, map_account, generate_adjustment, export_report) |
+| `observability/` | Structured logging, OpenTelemetry tracing, Prometheus metrics, LLM trace |
 | `eval/` | JSONL datasets + retrieval/hallucination eval runners |
 | `gl/` | GL analysis modules |
-| `workers/` | Background tasks |
+| `workers/` | Background tasks (Celery + Redis) |
 
-Key files: `main.py` (app init), `settings.py` (Pydantic env config), `deps.py` (DI: DB session, tenant ctx, auth).
+Key files: `main.py` (app init, middleware order), `settings.py` (Pydantic env config), `deps.py` (DI: DB session, tenant ctx, auth).
 
 ### Qdrant collections
 
@@ -110,6 +124,8 @@ Key files: `main.py` (app init), `settings.py` (Pydantic env config), `deps.py` 
 | `kb_shared_ifrs` | IFRS 1–17, IAS, IFRIC, SIC, conceptual framework |
 | `tenant_{tenant_id}` | Per-tenant docs (financial statements, audit, contracts) |
 
+Retriever constants: `DENSE_K=40`, `SPARSE_K=40`, `RERANK_K=8` (top-8 after fusion).
+
 ### Ingestion pipeline (`ingestion/`)
 
 Raw docs (`ingestion/raw/`) → Parser → Chunker (800 tokens, 120 overlap, markdown headings) → Embedder (bge-m3 via TEI or Gemini) → Qdrant upsert. Output artifacts land in `ingestion/processed/`. Metadata (VAS↔IFRS mapping tables, citation index, taxonomy) in `ingestion/metadata/`.
@@ -117,21 +133,19 @@ Raw docs (`ingestion/raw/`) → Parser → Chunker (800 tokens, 120 overlap, mar
 ### Frontend structure (`apps/frontend/src/`)
 
 - `app/(auth)/` — login, signup, OAuth callback
-- `app/(app)/` — protected: chat, compare, gl/upload+mappings+adjustments, documents, reports, settings
-- `app/api/` — SSE proxy routes to FastAPI
+- `app/(app)/` — protected routes: chat, compare, gl (upload/mappings/adjustments), documents, reports, settings
+- `app/api/` — SSE proxy routes to FastAPI (stub in route.ts, returns 501 until implemented)
 - `components/` — ChatStream, MappingTable, UploadDropzone, StandardDiff, shadcn UI
-- `lib/` — `supabase/client.ts`, `supabase/server.ts`, `api/client.ts` (typed FastAPI SDK), `i18n/{vi,en}.ts`, hooks
 - `types/` — shared TypeScript types
-
-Key hooks: `useChat` (chat state + SSE), `useTenant` (tenant context), `useStream` (SSE event handling).
+- `middleware.ts` — Supabase auth gate (Next.js middleware, runs on all non-static routes)
 
 ### Auth & multi-tenancy
 
-Supabase JWT in cookies → `AuthMiddleware` validates → `TenantResolverMiddleware` extracts `tenant_id` → RBAC enforced per route via `rbac_table.py`. All mutations logged by `AuditMiddleware`.
+Supabase JWT in cookies → `AuthMiddleware` validates via Supabase JWKS (`/auth/v1/jwks`) → `TenantResolverMiddleware` extracts `tenant_id` → RBAC enforced per route via `rbac_table.py`. Roles (ascending): `viewer` → `auditor` → `accountant` → `admin` → `owner`. All mutations logged by `AuditMiddleware`.
 
 ### LLM routing
 
-`llm/router.py` selects provider based on reasoning tier: `fast` → Ollama, `balanced` → OpenAI GPT-4o, `deep` → Anthropic Claude 3.5 Sonnet. Providers implement a common async streaming interface.
+`llm/router.py` maps reasoning tier to provider: `fast` → Ollama, `balanced` → OpenAI, `deep` → Anthropic. Providers implement a common async streaming interface. Langfuse tracing optional (configure `LANGFUSE_*` env vars).
 
 ## Environment
 
@@ -139,7 +153,7 @@ Backend `.env` (see `.env.example`): `DATABASE_URL`, `SUPABASE_URL`, `SUPABASE_S
 
 Frontend `.env.local`: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `BACKEND_URL`.
 
-Set `DEV_AUTH_BYPASS=true` locally to skip JWT validation during development.
+Set `DEV_AUTH_BYPASS=true` locally to skip JWT validation. `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` are optional for Phase 1 (Ollama/Gemini-only dev setup).
 
 ## Key docs
 

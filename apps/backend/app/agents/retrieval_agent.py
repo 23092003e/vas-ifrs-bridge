@@ -7,9 +7,8 @@ from typing import Any, AsyncIterator
 
 from app.agents.base import AgentBase
 from app.agents.citation_validator import CitationValidator
-from app.rag.citation import Citation, build_citation_list, wrap_chunks_for_prompt
-from app.rag.retriever import RetrievedChunk, retrieve, retrieve_multi
-from app.settings import settings
+from app.rag.citation import build_citation_list, wrap_chunks_for_prompt
+from app.rag.retriever import RetrievedChunk, retrieve
 
 logger = logging.getLogger(__name__)
 
@@ -57,9 +56,9 @@ class RetrievalAgent(AgentBase):
             tasks.append(retrieve(query, collection=tenant_collection, tenant_id=tenant_id, scope="tenant", lang=lang, k=40, skip_rerank=True))
 
         all_results = await _asyncio.gather(*tasks, return_exceptions=True)
-        merged_raw: list[dict] = []
+        merged_raw: list[dict[str, Any]] = []
         for res in all_results:
-            if isinstance(res, Exception):
+            if isinstance(res, BaseException):
                 logger.warning("retrieval partial failure: %s", res)
                 continue
             merged_raw.extend({

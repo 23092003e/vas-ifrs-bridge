@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Annotated
 
 from fastapi import Depends, Request
-from app.db.session import AsyncSession, get_session
+from app.db.session import AsyncSession
 from app.core.tenant import TenantCtx
 
 

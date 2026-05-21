@@ -6,7 +6,7 @@ import logging
 from dataclasses import dataclass
 
 from qdrant_client import AsyncQdrantClient
-from qdrant_client.models import Filter, FieldCondition, MatchValue, SearchRequest
+from qdrant_client.models import Filter, FieldCondition, MatchValue
 
 from app.core.errors import QdrantUnavailable
 from app.rag.embedder import embed_query

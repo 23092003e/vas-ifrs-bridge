@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 from typing import AsyncIterator
 
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Request
 from fastapi.responses import StreamingResponse
 
 from app.agents.orchestrator import Orchestrator

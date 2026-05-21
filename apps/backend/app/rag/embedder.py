@@ -2,8 +2,6 @@
 from __future__ import annotations
 
 import logging
-from functools import lru_cache
-
 import httpx
 
 from app.settings import settings
@@ -19,12 +17,8 @@ TIMEOUT_S = 30.0
 
 # Track which backend is active so retriever can use correct dim
 _active_backend: str = "tei"  # "tei" | "gemini"
-
-
-@lru_cache(maxsize=512)
-def _cached_embed_sync(text: str) -> tuple[float, ...]:
-    """LRU cache for repeated identical queries (e.g. common KB lookups)."""
-    raise KeyError("cache miss")
+_query_cache: dict[str, list[float]] = {}
+_QUERY_CACHE_MAX = 512
 
 
 async def embed(texts: list[str], model: str = "bge-m3") -> list[list[float]]:
@@ -50,17 +44,14 @@ async def embed(texts: list[str], model: str = "bge-m3") -> list[list[float]]:
 
 
 async def embed_query(query: str) -> list[float]:
-    """Single-query embed with LRU cache."""
-    try:
-        return list(_cached_embed_sync(query))
-    except KeyError:
-        pass
+    """Single-query embed with in-process dict cache (max 512 entries)."""
+    if query in _query_cache:
+        return _query_cache[query]
     vecs = await embed([query])
     vec = vecs[0]
-    try:
-        _cached_embed_sync.__wrapped__(query)  # type: ignore[attr-defined]
-    except Exception:
-        pass
+    if len(_query_cache) >= _QUERY_CACHE_MAX:
+        _query_cache.pop(next(iter(_query_cache)))
+    _query_cache[query] = vec
     return vec
 
 

@@ -12,8 +12,6 @@ from starlette.responses import Response
 try:
     from opentelemetry import trace
     from opentelemetry.sdk.trace import TracerProvider
-    from opentelemetry.sdk.trace.export import BatchSpanProcessor
-    from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 
     _provider = TracerProvider()
     trace.set_tracer_provider(_provider)

@@ -1,3 +1,5 @@
-export default function ConversationPage({ params }: { params: { conversationId: string } }) {
-  return <div>Conversation {params.conversationId}</div>
+import ChatStream from '@/components/chat/ChatStream'
+
+export default function ConversationPage() {
+  return <ChatStream />
 }

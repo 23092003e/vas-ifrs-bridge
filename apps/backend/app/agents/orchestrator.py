@@ -20,6 +20,9 @@ _MAPPING_KEYWORDS = {
 _REPORT_KEYWORDS = {
     "report", "báo cáo", "tổng hợp", "summary", "export"
 }
+_ADJUSTMENT_KEYWORDS = {
+    "adjustment", "điều chỉnh", "bút toán", "journal entry", "debit", "credit"
+}
 
 
 def _classify_intent(text: str, hint: str | None) -> str:
@@ -32,6 +35,8 @@ def _classify_intent(text: str, hint: str | None) -> str:
         return "mapping"
     if any(k in lower for k in _REPORT_KEYWORDS):
         return "report"
+    if any(k in lower for k in _ADJUSTMENT_KEYWORDS):
+        return "adjustment"
     return "qa"
 
 
@@ -62,9 +67,34 @@ class Orchestrator:
 
         yield f"data: {json.dumps({'type': 'intent', 'intent': intent, 'model': model})}\n\n"
 
+        from app.agents.base import AgentBase
+        agent: AgentBase
+
         if intent == "compare":
             from app.agents.ifrs_compare_agent import IFRSCompareAgent
             agent = IFRSCompareAgent()
+            async for token in agent.arun(
+                query=request.content,
+                lang=request.lang if request.lang != "auto" else "vi",
+                tenant_id=tenant_id,
+                tenant_collection=tenant_collection,
+                model_hint=model,
+            ):
+                yield token
+        elif intent == "mapping":
+            from app.agents.gl_mapping_agent import GLMappingAgent
+            agent = GLMappingAgent()
+            async for token in agent.arun(
+                query=request.content,
+                lang=request.lang if request.lang != "auto" else "vi",
+                tenant_id=tenant_id,
+                tenant_collection=tenant_collection,
+                model_hint=model,
+            ):
+                yield token
+        elif intent == "adjustment":
+            from app.agents.adjustment_agent import AdjustmentAgent
+            agent = AdjustmentAgent()
             async for token in agent.arun(
                 query=request.content,
                 lang=request.lang if request.lang != "auto" else "vi",

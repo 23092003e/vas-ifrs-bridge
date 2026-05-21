@@ -32,7 +32,6 @@ def wrap_chunks_for_prompt(chunks: list) -> tuple[str, dict[str, Citation]]:
 
     for chunk in chunks:
         key = chunk.citation_key if hasattr(chunk, "citation_key") else f"C{len(citation_map) + 1}"
-        n = key[1:]  # strip "C"
         doc_id = getattr(chunk, "doc_id", "") or chunk.get("doc_id", "") if isinstance(chunk, dict) else ""
         chunk_id = getattr(chunk, "id", "") or (chunk.get("id", "") if isinstance(chunk, dict) else "")
         text = getattr(chunk, "text", "") or (chunk.get("text", "") if isinstance(chunk, dict) else "")
