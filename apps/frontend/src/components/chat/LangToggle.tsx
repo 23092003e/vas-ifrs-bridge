@@ -1,1 +1,3 @@
-export default function LangToggle() { return null }
+export default function LangToggle() {
+	return null;
+}

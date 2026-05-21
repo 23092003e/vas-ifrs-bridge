@@ -1,30 +1,37 @@
 export interface ChatRequest {
-  conversation_id?: string
-  content: string
-  lang: 'vi' | 'en' | 'auto'
-  scope: 'shared' | 'tenant' | 'both'
-  reasoning?: 'fast' | 'balanced' | 'deep'
+	conversation_id?: string;
+	content: string;
+	lang: "vi" | "en" | "auto";
+	scope: "shared" | "tenant" | "both";
+	reasoning?: "fast" | "balanced" | "deep";
 }
 
 export type SSEEvent =
-  | { type: 'intent'; intent: string; model: string }
-  | { type: 'token'; delta: string }
-  | { type: 'citation'; key: string; doc_id: string; chunk_id: string; snippet: string; standard_code: string | null }
-  | { type: 'final'; content: string }
-  | { type: 'error'; message: string }
+	| { type: "intent"; intent: string; model: string }
+	| { type: "token"; delta: string }
+	| {
+			type: "citation";
+			key: string;
+			doc_id: string;
+			chunk_id: string;
+			snippet: string;
+			standard_code: string | null;
+	  }
+	| { type: "final"; content: string }
+	| { type: "error"; message: string };
 
 export interface Citation {
-  key: string
-  doc_id: string
-  chunk_id: string
-  snippet: string
-  standard_code: string | null
+	key: string;
+	doc_id: string;
+	chunk_id: string;
+	snippet: string;
+	standard_code: string | null;
 }
 
 export interface Message {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  citations: Citation[]
-  loading?: boolean
+	id: string;
+	role: "user" | "assistant";
+	content: string;
+	citations: Citation[];
+	loading?: boolean;
 }

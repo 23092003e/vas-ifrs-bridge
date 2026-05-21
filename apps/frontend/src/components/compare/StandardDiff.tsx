@@ -1,1 +1,3 @@
-export default function StandardDiff() { return null }
+export default function StandardDiff() {
+	return null;
+}

@@ -1,1 +1,3 @@
-export default function ParallelView() { return null }
+export default function ParallelView() {
+	return null;
+}

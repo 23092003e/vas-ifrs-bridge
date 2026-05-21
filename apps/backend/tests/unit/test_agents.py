@@ -1,10 +1,8 @@
 """Unit tests for agents in the VAS-IFRS Bridge."""
 from __future__ import annotations
 
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import patch
 import pytest
-
-from app.agents.base import AgentBase
 from app.agents.retrieval_agent import RetrievalAgent
 from app.agents.ifrs_compare_agent import IFRSCompareAgent
 from app.agents.gl_mapping_agent import GLMappingAgent

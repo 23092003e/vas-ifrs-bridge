@@ -1,1 +1,3 @@
-export default function UploadDropzone() { return null }
+export default function UploadDropzone() {
+	return null;
+}

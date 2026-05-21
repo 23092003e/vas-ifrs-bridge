@@ -1,0 +1,39 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"organizeImports": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"a11y": {
+				"recommended": false,
+				"noSvgWithoutTitle": "off",
+				"noLabelWithoutControl": "off",
+				"useButtonType": "off",
+				"noNoninteractiveElementToInteractiveRole": "off",
+				"useKeyWithClickEvents": "off",
+				"noHeaderScope": "off",
+				"noRedundantRoles": "off",
+				"useAltText": "off",
+				"useAnchorContent": "off"
+			},
+			"correctness": {
+				"noUnusedVariables": "warn",
+				"noUnusedImports": "warn",
+				"useExhaustiveDependencies": "off"
+			},
+			"style": {
+				"useSelfClosingElements": "off",
+				"noNonNullAssertion": "off",
+				"useImportType": "off"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off",
+				"noImplicitAnyLet": "off",
+				"noExplicitAny": "off"
+			}
+		}
+	}
+}

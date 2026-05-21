@@ -1,1 +1,3 @@
-export default function AdjustmentReview() { return null }
+export default function AdjustmentReview() {
+	return null;
+}

@@ -1,1 +1,3 @@
-export default function MappingTable() { return null }
+export default function MappingTable() {
+	return null;
+}

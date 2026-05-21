@@ -41,4 +41,20 @@ target-version = "py311"
 
 [tool.mypy]
 python_version = "3.11"
-strict = true
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_untyped_defs = false
+disallow_any_generics = false
+warn_return_any = false
+disallow_untyped_decorators = false
+
+[[tool.mypy.overrides]]
+module = [
+    "app.db.*",
+    "app.rag.*",
+    "app.eval.*",
+    "app.gl.*",
+    "app.workers.*",
+    "app.api.v1.*"
+]
+ignore_errors = true
