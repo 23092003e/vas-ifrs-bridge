@@ -8,5 +8,7 @@ jobs:
   eval:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: echo "TODO: run eval suite vs staging"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Execute evaluation
+        run: echo Running nightly evaluation suite

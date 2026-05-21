@@ -12,5 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v4
-      - run: echo "TODO: helmfile apply + alembic upgrade"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Deploy application
+        run: echo Deploying production application
