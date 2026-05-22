@@ -21,4 +21,4 @@ migrate:
 	cd apps/backend && alembic upgrade head
 
 embed-shared:
-	python ingestion/batch_embed.py --scope shared
+	PYTHONPATH=apps/backend:ingestion apps/backend/.venv/bin/python ingestion/pipelines/embedders/batch_embed.py --scope shared
