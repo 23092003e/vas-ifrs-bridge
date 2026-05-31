@@ -53,45 +53,19 @@ function FieldInput({
 	placeholder?: string;
 	autoFocus?: boolean;
 }) {
-	const [focused, setFocused] = useState(false);
 	return (
-		<div>
-			<label
-				style={{
-					display: "block",
-					fontSize: "0.68rem",
-					fontWeight: 700,
-					fontFamily: "var(--font-mono)",
-					color: "var(--ink-60)",
-					letterSpacing: "0.07em",
-					marginBottom: 6,
-				}}
-			>
-				{label.toUpperCase()}
-			</label>
-			<input
-				type={type}
-				value={value}
-				placeholder={placeholder}
-				autoFocus={autoFocus}
-				onChange={(e) => onChange(e.target.value)}
-				onFocus={() => setFocused(true)}
-				onBlur={() => setFocused(false)}
-				style={{
-					width: "100%",
-					padding: "10px 12px",
-					fontSize: "0.875rem",
-					fontFamily: "var(--font-lora, Georgia, serif)",
-					border: `1.5px solid ${focused ? "var(--accent)" : "var(--rule-strong)"}`,
-					borderRadius: 3,
-					background: "var(--surface)",
-					color: "var(--ink)",
-					outline: "none",
-					boxShadow: focused ? "var(--input-focus-shadow)" : "none",
-					transition: "border-color 150ms, box-shadow 150ms",
-					boxSizing: "border-box",
-				}}
-			/>
+		<div className="auth-field">
+			<label className="auth-label">{label.toUpperCase()}</label>
+			<div className="auth-input-wrap">
+				<input
+					type={type}
+					value={value}
+					placeholder={placeholder}
+					autoFocus={autoFocus}
+					onChange={(e) => onChange(e.target.value)}
+					className="auth-input"
+				/>
+			</div>
 		</div>
 	);
 }
@@ -107,7 +81,6 @@ export default function LoginPage() {
 	const [remember, setRemember] = useState(true);
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
-	const [pwFocused, setPwFocused] = useState(false);
 
 	function validate(): string {
 		if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email))
@@ -138,11 +111,17 @@ export default function LoginPage() {
 					return;
 				}
 			} else {
+				const tenantId = crypto.randomUUID();
 				const { error: err } = await supabase.auth.signUp({
 					email,
 					password,
 					options: {
-						data: { full_name: name, workspace: workspace || "Default" },
+						data: {
+							full_name: name,
+							workspace: workspace || "Default Workspace",
+							tenant_id: tenantId,
+							role: "admin",
+						},
 					},
 				});
 				if (err) {
@@ -176,10 +155,17 @@ export default function LoginPage() {
 	}
 
 	return (
-		<main className="auth-page">
+		<main className="auth">
 			{/* Left brand panel */}
-			<div className="auth-brand-panel">
-				<div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+			<div className="auth-brand">
+				<div
+					style={{
+						display: "flex",
+						alignItems: "center",
+						gap: 12,
+						marginBottom: "auto",
+					}}
+				>
 					<div
 						style={{
 							width: 32,
@@ -234,88 +220,35 @@ export default function LoginPage() {
 					</div>
 				</div>
 
-				<div>
-					<div
-						style={{
-							width: 40,
-							height: 2,
-							background: "var(--accent)",
-							marginBottom: 24,
-						}}
-					/>
-					<h1
-						style={{
-							margin: "0 0 16px",
-							fontFamily: "var(--font-lora, Georgia, serif)",
-							fontSize: "1.875rem",
-							fontWeight: 700,
-							color: "#f5f5f4",
-							lineHeight: 1.25,
-							letterSpacing: "-0.02em",
-						}}
-					>
-						Tra cứu chuẩn mực kế toán —{" "}
-						<em style={{ fontStyle: "italic", color: "#d6d3d1" }}>
-							dẫn về điều khoản gốc.
-						</em>
+				<div style={{ margin: "auto 0" }}>
+					<h1 className="auth-headline">
+						Tra cứu chuẩn mực kế toán — <em>dẫn về điều khoản gốc.</em>
 					</h1>
-					<p
-						style={{
-							margin: "0 0 28px",
-							fontFamily: "var(--font-lora, Georgia, serif)",
-							fontSize: "0.9375rem",
-							fontStyle: "italic",
-							color: "#a8a29e",
-							lineHeight: 1.7,
-						}}
-					>
+					<p className="auth-sub">
 						Trợ lý AI hiểu VAS và IFRS, trả lời có trích dẫn nguồn, đối chiếu
 						chéo giữa hai khung chuẩn mực.
 					</p>
-					<div
-						style={{ borderLeft: "3px solid var(--accent)", paddingLeft: 16 }}
-					>
-						<p
-							style={{
-								margin: "0 0 8px",
-								fontFamily: "var(--font-lora, Georgia, serif)",
-								fontStyle: "italic",
-								fontSize: "0.875rem",
-								color: "#d6d3d1",
-								lineHeight: 1.7,
-							}}
-						>
+					<div className="auth-quote">
+						<p className="auth-quote-text">
 							"An entity shall recognise revenue when it satisfies a performance
 							obligation by transferring a promised good or service to a
 							customer."
 						</p>
-						<p
-							style={{
-								margin: 0,
-								fontSize: "0.6rem",
-								fontFamily: "var(--font-mono)",
-								color: "#78716c",
-								letterSpacing: "0.06em",
-							}}
-						>
-							IFRS 15 · §31 · IASB
-						</p>
+						<p className="auth-quote-meta">IFRS 15 · §31 · IASB</p>
 					</div>
 				</div>
 
-				<div className="auth-foot-pills">
+				<div className="auth-brand-foot">
 					{["SOC 2 · Type II", "Data residency · VN", "v2.4.1"].map((p) => (
-						<span key={p} className="auth-foot-pill">
-							{p}
-						</span>
+						<span key={p}>{p}</span>
 					))}
 				</div>
 			</div>
 
 			{/* Right form panel */}
-			<div className="auth-form-panel">
-				<div className="auth-form-panel-top">
-					<span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem" }}>
+			<div className="auth-form-side">
+				<div className="auth-form-side-top">
+					<span>
 						{mode === "signin" ? "Chưa có tài khoản?" : "Đã có tài khoản?"}
 					</span>
 					<button
@@ -339,39 +272,14 @@ export default function LoginPage() {
 					</button>
 				</div>
 
-				<div style={{ width: "100%", maxWidth: 400 }}>
+				<div className="auth-form">
 					<div style={{ marginBottom: 28 }}>
-						<div
-							style={{
-								width: 32,
-								height: 2,
-								background: "var(--accent)",
-								marginBottom: 16,
-							}}
-						/>
-						<h2
-							style={{
-								margin: "0 0 6px",
-								fontFamily: "var(--font-lora, Georgia, serif)",
-								fontSize: "1.5rem",
-								fontWeight: 700,
-								color: "var(--ink)",
-								letterSpacing: "-0.01em",
-							}}
-						>
+						<h2 className="auth-title">
 							{mode === "signin"
 								? "Đăng nhập vào workspace"
 								: "Tạo tài khoản mới"}
 						</h2>
-						<p
-							style={{
-								margin: 0,
-								fontSize: "0.82rem",
-								color: "var(--ink-40)",
-								fontStyle: "italic",
-								fontFamily: "var(--font-lora, Georgia, serif)",
-							}}
-						>
+						<p className="auth-desc">
 							{mode === "signin"
 								? "Sử dụng email công ty để truy cập cơ sở tri thức."
 								: "Một tài khoản cho cả nhóm — admin mời thành viên sau."}
@@ -379,7 +287,7 @@ export default function LoginPage() {
 					</div>
 
 					{/* SSO */}
-					<div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+					<div className="auth-sso">
 						<button
 							type="button"
 							className="auth-sso-btn"
@@ -409,7 +317,7 @@ export default function LoginPage() {
 								/>
 							</svg>
 							<span style={{ flex: 1 }}>Tiếp tục với Google</span>
-							<span className="auth-sso-tag">SSO</span>
+							<small>SSO</small>
 						</button>
 						<button
 							type="button"
@@ -428,7 +336,7 @@ export default function LoginPage() {
 								<path fill="#FFB900" d="M12.5 12.5H22V22h-9.5z" />
 							</svg>
 							<span style={{ flex: 1 }}>Tiếp tục với Microsoft</span>
-							<span className="auth-sso-tag">SSO</span>
+							<small>SSO</small>
 						</button>
 					</div>
 
@@ -436,11 +344,7 @@ export default function LoginPage() {
 						<span>hoặc dùng email</span>
 					</div>
 
-					<form
-						onSubmit={handleSubmit}
-						noValidate
-						style={{ display: "flex", flexDirection: "column", gap: 14 }}
-					>
+					<form onSubmit={handleSubmit} noValidate className="auth-fields">
 						{mode === "signup" && (
 							<>
 								<FieldInput
@@ -470,81 +374,30 @@ export default function LoginPage() {
 						/>
 
 						{/* Password field */}
-						<div>
-							<div
-								style={{
-									display: "flex",
-									justifyContent: "space-between",
-									alignItems: "baseline",
-									marginBottom: 6,
-								}}
-							>
-								<label
-									style={{
-										fontSize: "0.68rem",
-										fontWeight: 700,
-										fontFamily: "var(--font-mono)",
-										color: "var(--ink-60)",
-										letterSpacing: "0.07em",
-									}}
-								>
-									MẬT KHẨU
-								</label>
+						<div className="auth-field">
+							<label className="auth-label">
+								<span>MẬT KHẨU</span>
 								{mode === "signin" && (
-									<a
-										href="#"
-										style={{
-											fontSize: "0.7rem",
-											color: "var(--accent)",
-											textDecoration: "none",
-										}}
-									>
+									<a href="#" onClick={(e) => e.preventDefault()}>
 										Quên mật khẩu?
 									</a>
 								)}
-							</div>
-							<div style={{ position: "relative" }}>
+							</label>
+							<div className="auth-input-wrap">
 								<input
 									type={showPw ? "text" : "password"}
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 									placeholder="••••••••"
+									className="auth-input"
 									autoComplete={
 										mode === "signin" ? "current-password" : "new-password"
 									}
-									onFocus={() => setPwFocused(true)}
-									onBlur={() => setPwFocused(false)}
-									style={{
-										width: "100%",
-										padding: "10px 40px 10px 12px",
-										fontSize: "0.875rem",
-										fontFamily: "var(--font-lora, Georgia, serif)",
-										border: `1.5px solid ${pwFocused ? "var(--accent)" : "var(--rule-strong)"}`,
-										borderRadius: 3,
-										background: "var(--surface)",
-										color: "var(--ink)",
-										outline: "none",
-										boxShadow: pwFocused ? "var(--input-focus-shadow)" : "none",
-										transition: "border-color 150ms, box-shadow 150ms",
-										boxSizing: "border-box",
-									}}
 								/>
 								<button
 									type="button"
 									onClick={() => setShowPw((s) => !s)}
-									style={{
-										position: "absolute",
-										right: 10,
-										top: "50%",
-										transform: "translateY(-50%)",
-										background: "none",
-										border: "none",
-										cursor: "pointer",
-										color: "var(--ink-40)",
-										display: "flex",
-										alignItems: "center",
-										padding: 2,
-									}}
+									className="auth-input-toggle"
 									title={showPw ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
 								>
 									<EyeIcon open={showPw} />
@@ -597,35 +450,7 @@ export default function LoginPage() {
 
 						{error && <div className="auth-err">{error}</div>}
 
-						<button
-							type="submit"
-							disabled={loading}
-							style={{
-								width: "100%",
-								padding: "11px",
-								borderRadius: 3,
-								marginTop: 2,
-								background: loading ? "var(--rule-strong)" : "var(--accent)",
-								color: "#fff",
-								border: "none",
-								cursor: loading ? "wait" : "pointer",
-								fontSize: "0.78rem",
-								fontWeight: 700,
-								fontFamily: "var(--font-mono)",
-								letterSpacing: "0.06em",
-								transition: "background 150ms",
-							}}
-							onMouseEnter={(e) => {
-								if (!loading)
-									(e.currentTarget as HTMLElement).style.background =
-										"var(--accent-hover)";
-							}}
-							onMouseLeave={(e) => {
-								if (!loading)
-									(e.currentTarget as HTMLElement).style.background =
-										"var(--accent)";
-							}}
-						>
+						<button type="submit" disabled={loading} className="auth-submit">
 							{loading
 								? mode === "signin"
 									? "ĐANG ĐĂNG NHẬP…"
@@ -636,15 +461,7 @@ export default function LoginPage() {
 						</button>
 					</form>
 
-					<p
-						style={{
-							textAlign: "center",
-							marginTop: 20,
-							fontSize: "0.65rem",
-							fontFamily: "var(--font-mono)",
-							color: "var(--ink-40)",
-						}}
-					>
+					<p className="auth-foot-note">
 						<Link
 							href="/chat"
 							style={{ color: "var(--ink-20)", textDecoration: "none" }}
@@ -652,26 +469,11 @@ export default function LoginPage() {
 							© 2026 VAS·IFRS
 						</Link>
 						{" · "}
-						<a
-							href="#"
-							style={{ color: "var(--ink-40)", textDecoration: "none" }}
-						>
-							Trạng thái
-						</a>
+						<a href="#">Trạng thái</a>
 						{" · "}
-						<a
-							href="#"
-							style={{ color: "var(--ink-40)", textDecoration: "none" }}
-						>
-							Tài liệu
-						</a>
+						<a href="#">Tài liệu</a>
 						{" · "}
-						<a
-							href="#"
-							style={{ color: "var(--ink-40)", textDecoration: "none" }}
-						>
-							Hỗ trợ
-						</a>
+						<a href="#">Hỗ trợ</a>
 					</p>
 				</div>
 			</div>

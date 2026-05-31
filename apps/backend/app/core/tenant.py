@@ -51,11 +51,34 @@ class TenantResolverMiddleware(BaseHTTPMiddleware):
             request.state.tenant = None
             return await call_next(request)
 
+        # Ensure tenant exists in database
+        try:
+            from app.db.models import Tenant
+            from sqlalchemy import select
+            
+            db = getattr(request.state, "db", None)
+            if db:
+                result = await db.execute(select(Tenant).where(Tenant.id == tenant_id))
+                db_tenant = result.scalar_one_or_none()
+                if not db_tenant:
+                    workspace_name = (
+                        user.get("user_metadata", {}).get("workspace")
+                        or user.get("app_metadata", {}).get("tenant_name")
+                        or "Default Workspace"
+                    )
+                    plan_name = user.get("app_metadata", {}).get("plan", "free")
+                    db_tenant = Tenant(id=tenant_id, name=workspace_name, plan=plan_name)
+                    db.add(db_tenant)
+                    await db.commit()
+        except Exception as exc:
+            logger.warning("Failed to auto-register tenant: %s", exc)
+
         request.state.tenant = TenantCtx(
             id=tenant_id,
-            name=user.get("app_metadata", {}).get("tenant_name", ""),
+            name=user.get("app_metadata", {}).get("tenant_name", "") or user.get("user_metadata", {}).get("workspace", "Default Workspace"),
             plan=user.get("app_metadata", {}).get("plan", "free"),
             qdrant_collection=f"tenant_{tenant_id}",
             storage_prefix=f"tenants/{tenant_id}",
         )
         return await call_next(request)
+

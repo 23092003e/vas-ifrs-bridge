@@ -26,9 +26,10 @@ _DEV_BYPASS = getattr(settings, "dev_auth_bypass", False)
 async def _fetch_jwks() -> dict[str, Any]:
     if _JWKS_CACHE:
         return _JWKS_CACHE
-    url = f"{settings.supabase_url}/auth/v1/jwks"
+    url = f"{settings.supabase_url}/auth/v1/.well-known/jwks.json"
+    headers = {"apikey": settings.supabase_service_role_key}
     async with httpx.AsyncClient(timeout=5) as client:
-        resp = await client.get(url)
+        resp = await client.get(url, headers=headers)
         resp.raise_for_status()
     _JWKS_CACHE.update(resp.json())
     return _JWKS_CACHE
@@ -36,8 +37,31 @@ async def _fetch_jwks() -> dict[str, Any]:
 
 async def verify_jwt(token: str) -> dict[str, Any]:
     """Verify Supabase JWT, return claims dict."""
-    await _fetch_jwks()
-    # Supabase signs with HS256 using the service role secret
+    try:
+        jwks = await _fetch_jwks()
+        headers = jwt.get_unverified_header(token)
+        kid = headers.get("kid")
+        
+        # Find matching key from JWKS
+        key = None
+        for k in jwks.get("keys", []):
+            if k.get("kid") == kid:
+                key = k
+                break
+                
+        if key:
+            alg = key.get("alg", "RS256")
+            payload: dict[str, Any] = jwt.decode(
+                token,
+                key,
+                algorithms=[alg, "RS256", "ES256"],
+                options={"verify_aud": False},
+            )
+            return payload
+    except Exception as exc:
+        logger.warning("JWKS verification failed, trying HS256 fallback: %s", exc)
+
+    # Supabase signs with HS256 using the service role secret / JWT secret
     payload: dict[str, Any] = jwt.decode(
         token,
         settings.supabase_service_role_key,
@@ -45,6 +69,7 @@ async def verify_jwt(token: str) -> dict[str, Any]:
         options={"verify_aud": False},
     )
     return payload
+
 
 
 class AuthMiddleware(BaseHTTPMiddleware):

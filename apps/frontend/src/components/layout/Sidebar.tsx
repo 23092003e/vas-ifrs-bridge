@@ -1,8 +1,9 @@
 "use client";
 
+import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 /* ── Icons ── */
 function MessagesIcon() {
@@ -198,6 +199,24 @@ function SignOutIcon() {
 	);
 }
 
+function TrashIcon() {
+	return (
+		<svg
+			width="12"
+			height="12"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		>
+			<polyline points="3 6 5 6 21 6" />
+			<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+		</svg>
+	);
+}
+
 interface SidebarProps {
 	onNewChat?: () => void;
 	theme: "light" | "dark";
@@ -228,47 +247,143 @@ const NAV_ITEMS: NavItemDef[] = [
 	{ icon: <ChartIcon />, label: "Reports", href: "/reports" },
 ];
 
-const RECENT_SESSIONS = [
-	{
-		group: "Hôm nay",
-		items: [
-			{
-				id: "1",
-				title: "IFRS 1 — First-time Adoption",
-				preview: "So sánh yêu cầu trình bày lần đầu",
-			},
-			{
-				id: "2",
-				title: "So sánh VAS 15 và IFRS 15",
-				preview: "Doanh thu từ hợp đồng với khách hàng",
-			},
-		],
-	},
-	{
-		group: "Hôm qua",
-		items: [
-			{
-				id: "3",
-				title: "Leases — IAS 17 vs IFRS 16",
-				preview: "Phân loại và ghi nhận thuê tài sản",
-			},
-		],
-	},
-	{
-		group: "Tuần này",
-		items: [
-			{
-				id: "4",
-				title: "Công cụ tài chính phái sinh",
-				preview: "Hạch toán theo IAS 39 / IFRS 9",
-			},
-		],
-	},
-];
+interface ConversationItem {
+	id: string;
+	title: string;
+	updated_at: string;
+}
+
+interface GroupedConversations {
+	group: string;
+	items: ConversationItem[];
+}
 
 export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 	const pathname = usePathname();
+	const router = useRouter();
 	const [expandedGL, setExpandedGL] = useState(pathname.startsWith("/gl"));
+	const [recentSessions, setRecentSessions] = useState<GroupedConversations[]>(
+		[],
+	);
+	const [userProfile, setUserProfile] = useState<{
+		name: string;
+		email: string;
+		role: string;
+		workspace: string;
+	} | null>(null);
+
+	// Load user profile & workspace metadata
+	useEffect(() => {
+		const supabase = createClient();
+		supabase.auth.getSession().then(({ data: { session } }) => {
+			if (session?.user) {
+				const meta = session.user.user_metadata;
+				setUserProfile({
+					name:
+						meta?.full_name ||
+						session.user.email?.split("@")[0] ||
+						"Kế toán viên",
+					email: session.user.email || "",
+					role: meta?.role || "Owner",
+					workspace: meta?.workspace || "Default",
+				});
+			}
+		});
+	}, []);
+
+	// Fetch recent conversations
+	const fetchConversations = () => {
+		fetch("/api/chat/conversations")
+			.then((res) => {
+				if (!res.ok) throw new Error("Failed to load");
+				return res.json();
+			})
+			.then((data) => {
+				if (data.conversations) {
+					setRecentSessions(groupConversations(data.conversations));
+				}
+			})
+			.catch((err) => console.error(err));
+	};
+
+	// Fetch conversations on mount or pathname change (when chat starts)
+	useEffect(() => {
+		fetchConversations();
+
+		// Event listener for refresh
+		const handleRefresh = () => fetchConversations();
+		window.addEventListener("vas-refresh-conversations", handleRefresh);
+		return () =>
+			window.removeEventListener("vas-refresh-conversations", handleRefresh);
+	}, [pathname]);
+
+	const handleDelete = async (e: React.MouseEvent, id: string) => {
+		e.preventDefault();
+		e.stopPropagation();
+
+		if (!confirm("Bạn có chắc chắn muốn xóa cuộc hội thoại này?")) return;
+
+		try {
+			const res = await fetch(`/api/chat/conversations/${id}`, {
+				method: "DELETE",
+			});
+			if (res.ok) {
+				fetchConversations();
+				if (pathname === `/chat/${id}`) {
+					router.push("/chat");
+				}
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleSignOut = async () => {
+		const supabase = createClient();
+		await supabase.auth.signOut();
+		router.push("/login");
+		router.refresh();
+	};
+
+	function groupConversations(
+		conversations: ConversationItem[],
+	): GroupedConversations[] {
+		const today: ConversationItem[] = [];
+		const yesterday: ConversationItem[] = [];
+		const thisWeek: ConversationItem[] = [];
+		const older: ConversationItem[] = [];
+
+		const now = new Date();
+		const startOfToday = new Date(
+			now.getFullYear(),
+			now.getMonth(),
+			now.getDate(),
+		).getTime();
+		const startOfYesterday = startOfToday - 24 * 60 * 60 * 1000;
+		const startOfThisWeek = startOfToday - 7 * 24 * 60 * 60 * 1000;
+
+		for (const item of conversations) {
+			const time = new Date(item.updated_at).getTime();
+			if (time >= startOfToday) {
+				today.push(item);
+			} else if (time >= startOfYesterday) {
+				yesterday.push(item);
+			} else if (time >= startOfThisWeek) {
+				thisWeek.push(item);
+			} else {
+				older.push(item);
+			}
+		}
+
+		const groups = [];
+		if (today.length > 0) groups.push({ group: "Hôm nay", items: today });
+		if (yesterday.length > 0)
+			groups.push({ group: "Hôm qua", items: yesterday });
+		if (thisWeek.length > 0)
+			groups.push({ group: "Tuần này", items: thisWeek });
+		if (older.length > 0) groups.push({ group: "Cũ hơn", items: older });
+		return groups;
+	}
 
 	return (
 		<aside className="sidebar">
@@ -349,23 +464,66 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 				</nav>
 
 				{/* Recent sessions */}
-				{pathname.startsWith("/chat") && (
+				{pathname.startsWith("/chat") && recentSessions.length > 0 && (
 					<div className="sb-recent">
-						{RECENT_SESSIONS.map((group) => (
+						{recentSessions.map((group) => (
 							<div key={group.group} className="sb-recent-group">
 								<div className="sb-recent-label">{group.group}</div>
 								{group.items.map((item) => (
-									<Link
+									<div
 										key={item.id}
-										href={`/chat/${item.id}`}
-										className="sb-recent-item"
-										data-active={
-											pathname === `/chat/${item.id}` ? "true" : undefined
-										}
+										style={{ position: "relative" }}
+										className="sb-recent-item-container"
 									>
-										<span>{item.title}</span>
-										<small>{item.preview}</small>
-									</Link>
+										<Link
+											href={`/chat/${item.id}`}
+											className="sb-recent-item"
+											data-active={
+												pathname === `/chat/${item.id}` ? "true" : undefined
+											}
+											style={{ paddingRight: "30px", display: "block" }}
+										>
+											<span
+												style={{
+													display: "block",
+													overflow: "hidden",
+													textOverflow: "ellipsis",
+													whiteSpace: "nowrap",
+												}}
+											>
+												{item.title}
+											</span>
+										</Link>
+										<button
+											type="button"
+											onClick={(e) => handleDelete(e, item.id)}
+											style={{
+												position: "absolute",
+												right: "8px",
+												top: "50%",
+												transform: "translateY(-50%)",
+												background: "none",
+												border: "none",
+												color: "var(--ink-40)",
+												cursor: "pointer",
+												display: "flex",
+												alignItems: "center",
+												justifyContent: "center",
+												padding: "4px",
+												borderRadius: "3px",
+												zIndex: 10,
+											}}
+											title="Xóa cuộc trò chuyện"
+											onMouseEnter={(e) => {
+												e.currentTarget.style.color = "var(--danger)";
+											}}
+											onMouseLeave={(e) => {
+												e.currentTarget.style.color = "var(--ink-40)";
+											}}
+										>
+											<TrashIcon />
+										</button>
+									</div>
 								))}
 							</div>
 						))}
@@ -375,10 +533,19 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 
 			{/* Footer */}
 			<div className="sb-footer">
-				<div className="sb-avatar">AD</div>
+				<div className="sb-avatar">
+					{userProfile?.name
+						? userProfile.name.slice(0, 2).toUpperCase()
+						: "KT"}
+				</div>
 				<div className="sb-who">
-					<div className="sb-who-name">Admin</div>
-					<div className="sb-who-role">Owner · Default</div>
+					<div className="sb-who-name">
+						{userProfile?.name || "Kế toán viên"}
+					</div>
+					<div className="sb-who-role">
+						{userProfile?.role || "Auditor"} ·{" "}
+						{userProfile?.workspace || "Default"}
+					</div>
 				</div>
 				<button
 					type="button"
@@ -388,10 +555,15 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 				>
 					{theme === "dark" ? <SunIcon /> : <MoonIcon />}
 				</button>
-				<Link href="/settings/tenant" className="sb-icon-btn" title="Settings">
+				<Link href="/settings" className="sb-icon-btn" title="Settings">
 					<GearIcon />
 				</Link>
-				<button type="button" className="sb-icon-btn" title="Sign out">
+				<button
+					type="button"
+					className="sb-icon-btn"
+					title="Đăng xuất"
+					onClick={handleSignOut}
+				>
 					<SignOutIcon />
 				</button>
 			</div>

@@ -1,8 +1,119 @@
-"""Ingestion job definitions — called by Celery workers."""
+"""Ingestion job definitions — called by Celery workers or inline async tasks."""
 
 from __future__ import annotations
 
+import logging
+import uuid
+from app.db.session import AsyncSessionLocal
+from app.db.models import Document
+from app.rag.chunker import chunk_document
+from app.rag.embedder import embed, get_active_dim
+from app.rag.retriever import _qdrant_client
+from qdrant_client.models import Distance, VectorParams, PointStruct
 
-async def ingest_document(document_id: str, gcs_path: str, collection: str) -> None:
-    """Full ingestion pipeline: parse -> normalise -> chunk -> embed -> upsert."""
-    # TODO: orchestrate parsers, chunker, embedder, Qdrant upsert
+from app.ingestion.parsers.pdf import parse_pdf
+from app.ingestion.parsers.docx import parse_docx
+from app.ingestion.parsers.xlsx import parse_xlsx
+
+logger = logging.getLogger(__name__)
+
+
+async def ingest_document(document_id: str, local_path: str, collection: str) -> None:
+    """Full ingestion pipeline: parse -> chunk -> embed -> Qdrant upsert."""
+    async with AsyncSessionLocal() as db:
+        from sqlalchemy import select
+        
+        # 1. Fetch document metadata
+        stmt = select(Document).where(Document.id == document_id)
+        res = await db.execute(stmt)
+        doc = res.scalar_one_or_none()
+        if not doc:
+            logger.error("Document not found in DB: %s", document_id)
+            return
+
+        doc.status = "processing"
+        await db.commit()
+
+        try:
+            # 2. Extract text from document
+            filename = doc.filename.lower()
+            text = ""
+            if filename.endswith(".pdf"):
+                text = parse_pdf(local_path)
+            elif filename.endswith(".docx"):
+                text = parse_docx(local_path)
+            elif filename.endswith(".xlsx") or filename.endswith(".xls"):
+                text = parse_xlsx(local_path)
+            else:
+                # Text fallback
+                with open(local_path, "r", encoding="utf-8", errors="ignore") as f:
+                    text = f.read()
+
+            if not text.strip():
+                raise ValueError("Parsed document text is empty")
+
+            # 3. Chunk text into segments
+            lang = "vi" if any(x in text.lower() for x in ["chuẩn mực", "kế toán", "báo cáo", "thông tư"]) else "en"
+            chunks = chunk_document(text, lang=lang)
+            if not chunks:
+                raise ValueError("Document did not yield any text chunks")
+
+            # 4. Embed chunks using TEI (fallback Gemini)
+            chunk_texts = [c.text for c in chunks]
+            embeddings = await embed(chunk_texts)
+
+            # 5. Connect and upload points to Qdrant
+            client = _qdrant_client()
+            try:
+                dim = get_active_dim()
+                
+                # Check and create collection if missing
+                collections = await client.get_collections()
+                exists = any(c.name == collection for c in collections.collections)
+                if not exists:
+                    await client.create_collection(
+                        collection_name=collection,
+                        vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
+                    )
+
+                # Assemble Qdrant points
+                points = []
+                for idx, (chunk, vector) in enumerate(zip(chunks, embeddings)):
+                    points.append(
+                        PointStruct(
+                            id=str(uuid.uuid4()),
+                            vector=vector,
+                            payload={
+                                "doc_id": document_id,
+                                "chunk_index": idx,
+                                "text": chunk.text,
+                                "text_preview": chunk.text[:300],
+                                "heading": chunk.heading,
+                                "section_path": chunk.section_path,
+                                "lang": lang,
+                                "scope": "tenant",
+                                "tenant_id": doc.tenant_id,
+                            }
+                        )
+                    )
+
+                # Bulk upload
+                await client.upsert(
+                    collection_name=collection,
+                    points=points,
+                )
+            finally:
+                await client.close()
+
+            # 6. Update DB record to ready
+            doc.status = "ready"
+            doc.chunk_count = len(chunks)
+            doc.qdrant_collection = collection
+            await db.commit()
+            logger.info("Ingestion completed for document %s (%d chunks)", document_id, len(chunks))
+
+        except Exception as exc:
+            logger.error("Ingestion failed for document %s: %s", document_id, exc)
+            doc.status = "failed"
+            doc.error_message = str(exc)
+            await db.commit()
