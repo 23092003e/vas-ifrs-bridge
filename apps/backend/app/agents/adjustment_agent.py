@@ -1,4 +1,5 @@
 """Agent that generates IFRS adjustment journal entries from mapping results."""
+
 from __future__ import annotations
 
 import json
@@ -59,7 +60,7 @@ class AdjustmentAgent(AgentBase):
             user_prompt += "--- MAPPING RESULTS ---\n"
             user_prompt += json.dumps(mapping_results, ensure_ascii=False, indent=2)
             user_prompt += "\n-----------------------\n"
-        
+
         if upload_id:
             user_prompt += f"Generate adjustments for Upload ID: {upload_id}\n"
 
@@ -80,6 +81,7 @@ class AdjustmentAgent(AgentBase):
 
 async def _call_llm(user: str, system: str, model_hint: str) -> AsyncIterator[str]:
     from app.llm.providers.gemini import stream_chat
+
     try:
         async for tok in stream_chat(system=system, user=user, model_hint=model_hint):
             yield tok

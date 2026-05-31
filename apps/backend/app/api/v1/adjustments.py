@@ -1,4 +1,5 @@
 """IFRS adjustment journal entry endpoints."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -15,7 +16,7 @@ _MOCK_ADJUSTMENT_ENTRIES = [
         "amount": 150000.0,
         "status": "draft",
         "rationale": "Operating lease capitalized under IFRS 16 rules.",
-        "standard": "IFRS 16"
+        "standard": "IFRS 16",
     },
     {
         "entry_id": "ADJ-002",
@@ -24,8 +25,8 @@ _MOCK_ADJUSTMENT_ENTRIES = [
         "amount": 25000.0,
         "status": "draft",
         "rationale": "Expected Credit Loss (ECL) adjustment under IFRS 9 rules.",
-        "standard": "IFRS 9"
-    }
+        "standard": "IFRS 9",
+    },
 ]
 
 
@@ -44,7 +45,7 @@ async def approve_adjustment(entry_id: str) -> dict[str, Any]:
             return {
                 "entry_id": entry_id,
                 "status": "approved",
-                "audit_log": f"Entry {entry_id} approved by authorized auditor."
+                "audit_log": f"Entry {entry_id} approved by authorized auditor.",
             }
-            
+
     raise HTTPException(status_code=404, detail=f"Adjustment entry {entry_id} not found.")

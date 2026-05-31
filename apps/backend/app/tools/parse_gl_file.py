@@ -1,4 +1,5 @@
 """Tool: parse an uploaded GL file into a normalised account list."""
+
 from __future__ import annotations
 
 

@@ -1,4 +1,5 @@
 """SSE streaming helpers for LLM token events."""
+
 from __future__ import annotations
 
 from typing import AsyncIterator

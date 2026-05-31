@@ -1,4 +1,5 @@
 """Text normalizer — cleans and standardises extracted document text."""
+
 from __future__ import annotations
 
 

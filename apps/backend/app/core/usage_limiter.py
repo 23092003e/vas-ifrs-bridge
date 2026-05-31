@@ -1,4 +1,5 @@
 """Per-tenant token and request rate limiting via Redis token-bucket."""
+
 from __future__ import annotations
 
 import logging
@@ -28,6 +29,7 @@ def _get_redis() -> Any:
     if _redis is None:
         try:
             import redis.asyncio as aioredis
+
             _redis = aioredis.from_url(settings.redis_url, decode_responses=True)
         except Exception as exc:
             logger.warning("Redis unavailable, rate limiting disabled: %s", exc)

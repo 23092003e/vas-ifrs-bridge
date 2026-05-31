@@ -1,4 +1,5 @@
 """Post-generation citation grounding validator."""
+
 from __future__ import annotations
 
 import logging

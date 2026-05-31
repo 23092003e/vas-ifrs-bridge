@@ -1,4 +1,5 @@
 """Prompt composer — renders Jinja2 templates with context variables."""
+
 from __future__ import annotations
 
 from jinja2 import Environment, FileSystemLoader

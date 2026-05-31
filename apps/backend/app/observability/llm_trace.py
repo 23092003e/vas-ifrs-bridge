@@ -1,4 +1,5 @@
 """Langfuse LLM trace integration."""
+
 from __future__ import annotations
 
 

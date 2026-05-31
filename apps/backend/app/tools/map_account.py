@@ -1,4 +1,5 @@
 """Tool: map a single VAS account code to its IFRS equivalent."""
+
 from __future__ import annotations
 
 

@@ -1,4 +1,5 @@
 """Ollama local LLM provider — Qwen14B primary for VI Q&A."""
+
 from __future__ import annotations
 
 import json

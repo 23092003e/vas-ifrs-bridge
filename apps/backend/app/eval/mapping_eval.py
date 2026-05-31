@@ -1,4 +1,5 @@
 """Mapping accuracy evaluation — compares predicted IFRS codes to ground truth."""
+
 from __future__ import annotations
 
 

@@ -1,4 +1,5 @@
 """Tool: search a tenant-specific knowledge base."""
+
 from __future__ import annotations
 
 

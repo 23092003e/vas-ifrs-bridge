@@ -1,4 +1,5 @@
 """Integration tests verifying tenant data isolation across all endpoints."""
+
 from __future__ import annotations
 
 import pytest

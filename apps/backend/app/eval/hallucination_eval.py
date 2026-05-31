@@ -18,6 +18,7 @@ Dataset format (JSONL):
 Run:
   python -m app.eval.hallucination_eval --dataset app/eval/datasets/vas_qa_vi.jsonl
 """
+
 from __future__ import annotations
 
 import argparse
@@ -105,6 +106,7 @@ Respond ONLY with a JSON object: {{"score": <float 0-1>, "reason": "<one sentenc
 # Gemini judge caller
 # ---------------------------------------------------------------------------
 
+
 async def _judge(prompt: str) -> tuple[float, str]:
     """Call Gemini with a judge prompt, parse JSON score."""
     try:
@@ -114,6 +116,7 @@ async def _judge(prompt: str) -> tuple[float, str]:
         api_key = os.environ.get("GEMINI_API_KEY", "")
         if not api_key:
             from app.settings import settings
+
             api_key = settings.gemini_api_key
 
         client = genai.Client(api_key=api_key)
@@ -142,38 +145,38 @@ async def _judge(prompt: str) -> tuple[float, str]:
 # Per-metric evaluators
 # ---------------------------------------------------------------------------
 
+
 async def score_faithfulness(question: str, answer: str, contexts: list[str]) -> tuple[float, str]:
     context = "\n---\n".join(contexts)
-    return await _judge(_FAITHFULNESS_PROMPT.format(
-        question=question, answer=answer, context=context
-    ))
+    return await _judge(
+        _FAITHFULNESS_PROMPT.format(question=question, answer=answer, context=context)
+    )
 
 
 async def score_answer_relevancy(question: str, answer: str) -> tuple[float, str]:
-    return await _judge(_ANSWER_RELEVANCY_PROMPT.format(
-        question=question, answer=answer
-    ))
+    return await _judge(_ANSWER_RELEVANCY_PROMPT.format(question=question, answer=answer))
 
 
 async def score_context_recall(
     question: str, contexts: list[str], ground_truth: str
 ) -> tuple[float, str]:
     context = "\n---\n".join(contexts)
-    return await _judge(_CONTEXT_RECALL_PROMPT.format(
-        question=question, context=context, ground_truth=ground_truth
-    ))
+    return await _judge(
+        _CONTEXT_RECALL_PROMPT.format(question=question, context=context, ground_truth=ground_truth)
+    )
 
 
 async def score_context_precision(question: str, contexts: list[str]) -> tuple[float, str]:
-    numbered = "\n".join(f"[{i+1}] {c[:400]}" for i, c in enumerate(contexts))
-    return await _judge(_CONTEXT_PRECISION_PROMPT.format(
-        question=question, context_numbered=numbered
-    ))
+    numbered = "\n".join(f"[{i + 1}] {c[:400]}" for i, c in enumerate(contexts))
+    return await _judge(
+        _CONTEXT_PRECISION_PROMPT.format(question=question, context_numbered=numbered)
+    )
 
 
 # ---------------------------------------------------------------------------
 # Full record evaluator
 # ---------------------------------------------------------------------------
+
 
 async def _eval_record(record: dict, semaphore: asyncio.Semaphore) -> dict:
     question = record["question"]
@@ -193,23 +196,36 @@ async def _eval_record(record: dict, semaphore: asyncio.Semaphore) -> dict:
 
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
-    faith_score, faith_reason = results[0] if not isinstance(results[0], Exception) else (0.0, str(results[0]))
-    rel_score, rel_reason = results[1] if not isinstance(results[1], Exception) else (0.0, str(results[1]))
-    recall_score, recall_reason = results[2] if len(results) > 2 and not isinstance(results[2], Exception) else (None, "")
-    prec_score, prec_reason = results[3] if len(results) > 3 and not isinstance(results[3], Exception) else (None, "")
+    faith_score, faith_reason = (
+        results[0] if not isinstance(results[0], Exception) else (0.0, str(results[0]))
+    )
+    rel_score, rel_reason = (
+        results[1] if not isinstance(results[1], Exception) else (0.0, str(results[1]))
+    )
+    recall_score, recall_reason = (
+        results[2] if len(results) > 2 and not isinstance(results[2], Exception) else (None, "")
+    )
+    prec_score, prec_reason = (
+        results[3] if len(results) > 3 and not isinstance(results[3], Exception) else (None, "")
+    )
 
     return {
         "question": question,
         "faithfulness": {"score": faith_score, "reason": faith_reason},
         "answer_relevancy": {"score": rel_score, "reason": rel_reason},
-        "context_recall": {"score": recall_score, "reason": recall_reason} if recall_score is not None else None,
-        "context_precision": {"score": prec_score, "reason": prec_reason} if prec_score is not None else None,
+        "context_recall": {"score": recall_score, "reason": recall_reason}
+        if recall_score is not None
+        else None,
+        "context_precision": {"score": prec_score, "reason": prec_reason}
+        if prec_score is not None
+        else None,
     }
 
 
 # ---------------------------------------------------------------------------
 # Main eval runner
 # ---------------------------------------------------------------------------
+
 
 async def evaluate_hallucination(
     dataset_path: str,
@@ -250,7 +266,7 @@ async def evaluate_hallucination(
     passed = avg_faith >= 0.85 and avg_rel >= 0.85 and halluc_rate <= 0.03
     status = "PASS" if passed else "FAIL"
 
-    print(f"\n{'='*55}")
+    print(f"\n{'=' * 55}")
     print(f"RAG Evaluation (RAGAS-equivalent) — {status}")
     print(f"  Dataset          : {dataset_path}")
     print(f"  N                : {n}")
@@ -261,7 +277,7 @@ async def evaluate_hallucination(
         print(f"  Context Recall   : {avg_recall:.4f}")
     if avg_prec is not None:
         print(f"  Context Precision: {avg_prec:.4f}")
-    print(f"{'='*55}\n")
+    print(f"{'=' * 55}\n")
 
     return {
         "dataset": dataset_path,
@@ -280,6 +296,7 @@ async def evaluate_hallucination(
 # CLI
 # ---------------------------------------------------------------------------
 
+
 def main() -> None:
     logging.basicConfig(level=logging.INFO)
     parser = argparse.ArgumentParser(description="VAS-IFRS RAG hallucination eval")
@@ -288,9 +305,7 @@ def main() -> None:
     parser.add_argument("--out", default=None, help="Write JSON results to file")
     args = parser.parse_args()
 
-    results = asyncio.run(
-        evaluate_hallucination(args.dataset, concurrency=args.concurrency)
-    )
+    results = asyncio.run(evaluate_hallucination(args.dataset, concurrency=args.concurrency))
 
     if args.out:
         Path(args.out).write_text(json.dumps(results, indent=2, ensure_ascii=False))

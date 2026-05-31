@@ -1,4 +1,5 @@
 """Ingestion job definitions — called by Celery workers."""
+
 from __future__ import annotations
 
 

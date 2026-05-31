@@ -1,4 +1,5 @@
 """RAG pipeline targeting a tenant-specific document collection."""
+
 from __future__ import annotations
 
 from app.rag.retriever import retrieve

@@ -1,4 +1,5 @@
 """Application settings loaded from environment variables."""
+
 from __future__ import annotations
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -13,7 +14,7 @@ class Settings(BaseSettings):
     qdrant_url: str = "http://localhost:6333"
     qdrant_api_key: str = ""
     gemini_api_key: str = "placeholder"
-    openai_api_key: str = "sk-placeholder"        # optional, not required for Phase 1
+    openai_api_key: str = "sk-placeholder"  # optional, not required for Phase 1
     anthropic_api_key: str = "sk-ant-placeholder"  # optional, not required for Phase 1
     ollama_base_url: str = "http://localhost:11434"
     tei_url: str = "http://localhost:8080"

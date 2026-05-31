@@ -1,4 +1,5 @@
 """Citation key injection, wrapping, and resolution for LLM responses."""
+
 from __future__ import annotations
 
 import re
@@ -8,12 +9,12 @@ from dataclasses import dataclass
 _CITATION_RE = re.compile(r"\[C(\d+)\]")
 
 # Wrapping template injected into system prompt context block
-CHUNK_WRAP_TEMPLATE = "<<C{n} src=\"{doc_id}#{chunk_id}\">>\\n{text}\\n<</C{n}>>"
+CHUNK_WRAP_TEMPLATE = '<<C{n} src="{doc_id}#{chunk_id}">>\\n{text}\\n<</C{n}>>'
 
 
 @dataclass
 class Citation:
-    key: str          # "C1"
+    key: str  # "C1"
     doc_id: str
     chunk_id: str
     snippet: str
@@ -32,16 +33,22 @@ def wrap_chunks_for_prompt(chunks: list) -> tuple[str, dict[str, Citation]]:
 
     for chunk in chunks:
         key = chunk.citation_key if hasattr(chunk, "citation_key") else f"C{len(citation_map) + 1}"
-        doc_id = getattr(chunk, "doc_id", "") or chunk.get("doc_id", "") if isinstance(chunk, dict) else ""
-        chunk_id = getattr(chunk, "id", "") or (chunk.get("id", "") if isinstance(chunk, dict) else "")
-        text = getattr(chunk, "text", "") or (chunk.get("text", "") if isinstance(chunk, dict) else "")
-        metadata = getattr(chunk, "metadata", {}) or (chunk.get("metadata", {}) if isinstance(chunk, dict) else {})
-
-        wrapped = (
-            f"<<{key} src=\"{doc_id}#{chunk_id}\">>\n"
-            f"{text}\n"
-            f"<</{key}>>"
+        doc_id = (
+            getattr(chunk, "doc_id", "") or chunk.get("doc_id", "")
+            if isinstance(chunk, dict)
+            else ""
         )
+        chunk_id = getattr(chunk, "id", "") or (
+            chunk.get("id", "") if isinstance(chunk, dict) else ""
+        )
+        text = getattr(chunk, "text", "") or (
+            chunk.get("text", "") if isinstance(chunk, dict) else ""
+        )
+        metadata = getattr(chunk, "metadata", {}) or (
+            chunk.get("metadata", {}) if isinstance(chunk, dict) else {}
+        )
+
+        wrapped = f'<<{key} src="{doc_id}#{chunk_id}">>\n{text}\n<</{key}>>'
         parts.append(wrapped)
         citation_map[key] = Citation(
             key=key,
@@ -60,9 +67,7 @@ def extract_used_keys(text: str) -> set[str]:
     return {f"C{m.group(1)}" for m in _CITATION_RE.finditer(text)}
 
 
-def validate_citations(
-    answer: str, citation_map: dict[str, Citation]
-) -> tuple[bool, list[str]]:
+def validate_citations(answer: str, citation_map: dict[str, Citation]) -> tuple[bool, list[str]]:
     """
     Check all [Cn] in answer exist in citation_map.
     Returns (is_valid, list_of_unresolved_keys).

@@ -1,4 +1,5 @@
 """Tenant context resolution from JWT claims."""
+
 from __future__ import annotations
 
 import logging
@@ -41,9 +42,7 @@ class TenantResolverMiddleware(BaseHTTPMiddleware):
 
         header_tenant_id = request.headers.get("X-Tenant-Id", "")
         if header_tenant_id and header_tenant_id != jwt_tenant_id:
-            logger.warning(
-                "Tenant mismatch: header=%s jwt=%s", header_tenant_id, jwt_tenant_id
-            )
+            logger.warning("Tenant mismatch: header=%s jwt=%s", header_tenant_id, jwt_tenant_id)
             return JSONResponse({"detail": "Tenant mismatch"}, status_code=403)
 
         tenant_id = jwt_tenant_id or header_tenant_id

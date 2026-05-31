@@ -1,4 +1,5 @@
 """Agent that maps VAS chart-of-accounts codes to IFRS equivalents."""
+
 from __future__ import annotations
 
 import json
@@ -57,6 +58,7 @@ class GLMappingAgent(AgentBase):
 
         # Retrieve IFRS context as well
         from app.rag.retriever import retrieve
+
         ifrs_chunks = await retrieve(
             query,
             collection="kb_shared_ifrs",
@@ -101,5 +103,6 @@ class GLMappingAgent(AgentBase):
 
 async def _call_llm(user: str, system: str, model_hint: str) -> AsyncIterator[str]:
     from app.llm.providers.gemini import stream_chat
+
     async for tok in stream_chat(system=system, user=user, model_hint=model_hint):
         yield tok

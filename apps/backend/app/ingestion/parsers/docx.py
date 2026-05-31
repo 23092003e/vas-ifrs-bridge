@@ -1,4 +1,5 @@
 """DOCX parser using python-docx."""
+
 from __future__ import annotations
 
 

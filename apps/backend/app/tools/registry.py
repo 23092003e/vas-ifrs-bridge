@@ -1,4 +1,5 @@
 """Tool registry — maps tool names to callable implementations."""
+
 from __future__ import annotations
 
 from app.tools.search_shared_kb import search_shared_kb

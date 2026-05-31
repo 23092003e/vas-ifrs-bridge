@@ -1,4 +1,5 @@
 """Google Gemini provider — primary LLM for Phase 1."""
+
 from __future__ import annotations
 
 import logging
@@ -11,9 +12,9 @@ from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
-MODEL_FAST     = "gemini-2.5-flash"    # Q&A, citation validation
-MODEL_BALANCED = "gemini-2.5-flash"    # IFRS compare, GL mapping
-MODEL_DEEP     = "gemini-2.5-flash"    # Report synthesis (pro if budget allows)
+MODEL_FAST = "gemini-2.5-flash"  # Q&A, citation validation
+MODEL_BALANCED = "gemini-2.5-flash"  # IFRS compare, GL mapping
+MODEL_DEEP = "gemini-2.5-flash"  # Report synthesis (pro if budget allows)
 
 _client: genai.Client | None = None
 
@@ -27,12 +28,12 @@ def _get_client() -> genai.Client:
 
 def _pick_model(hint: str) -> str:
     return {
-        "fast":     MODEL_FAST,
+        "fast": MODEL_FAST,
         "balanced": MODEL_BALANCED,
-        "deep":     MODEL_DEEP,
-        "qwen":     MODEL_FAST,
-        "openai":   MODEL_BALANCED,
-        "claude":   MODEL_DEEP,
+        "deep": MODEL_DEEP,
+        "qwen": MODEL_FAST,
+        "openai": MODEL_BALANCED,
+        "claude": MODEL_DEEP,
     }.get(hint, MODEL_BALANCED)
 
 

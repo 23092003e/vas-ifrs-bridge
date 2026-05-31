@@ -1,4 +1,5 @@
 """OpenAI provider — GPT-4.5 for IFRS reasoning and mapping."""
+
 from __future__ import annotations
 
 import logging

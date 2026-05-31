@@ -1,4 +1,5 @@
 """PDF parser using PyMuPDF."""
+
 from __future__ import annotations
 
 

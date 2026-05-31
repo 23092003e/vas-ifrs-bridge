@@ -1,4 +1,5 @@
 """Unit tests for agents in the VAS-IFRS Bridge."""
+
 from __future__ import annotations
 
 from unittest.mock import patch
@@ -32,6 +33,7 @@ async def test_retrieval_agent_run(mock_stream_llm, mock_rerank, mock_retrieve):
     """Test RetrievalAgent.arun runs and formats streaming response correctly."""
     # Mock retrieve to return a simple RetrievedChunk
     from app.rag.retriever import RetrievedChunk
+
     mock_chunk = RetrievedChunk(
         id="123",
         doc_id="doc_1",
@@ -39,32 +41,35 @@ async def test_retrieval_agent_run(mock_stream_llm, mock_rerank, mock_retrieve):
         score=0.9,
         rerank_score=0.95,
         metadata={"lang": "vi", "standard_code": "VAS01"},
-        citation_key="C1"
+        citation_key="C1",
     )
     mock_retrieve.return_value = [mock_chunk]
-    
+
     # Mock rerank to return same format
-    mock_rerank.return_value = [{
-        "id": "123",
-        "doc_id": "doc_1",
-        "text": "VAS 01 standard text content",
-        "score": 0.9,
-        "rerank_score": 0.95,
-        "metadata": {"lang": "vi", "standard_code": "VAS01"}
-    }]
-    
+    mock_rerank.return_value = [
+        {
+            "id": "123",
+            "doc_id": "doc_1",
+            "text": "VAS 01 standard text content",
+            "score": 0.9,
+            "rerank_score": 0.95,
+            "metadata": {"lang": "vi", "standard_code": "VAS01"},
+        }
+    ]
+
     # Mock LLM stream generator
     async def mock_tokens(*args, **kwargs):
         yield "Mẫu"
         yield " phản"
         yield " hồi"
+
     mock_stream_llm.return_value = mock_tokens()
 
     agent = RetrievalAgent()
     tokens = []
     async for event in agent.arun(query="Tìm hiểu VAS 01", lang="vi"):
         tokens.append(event)
-        
+
     assert len(tokens) > 0
     # The output should contain token events, citation events, and a final event
     assert any("token" in t for t in tokens)
@@ -78,14 +83,25 @@ async def test_retrieval_agent_run(mock_stream_llm, mock_rerank, mock_retrieve):
 async def test_gl_mapping_agent_run(mock_call_llm, mock_retrieve, mock_retrieve_multi):
     """Test GLMappingAgent.arun runs and streams correctly."""
     from app.rag.retriever import RetrievedChunk
+
     mock_retrieve_multi.return_value = [
         RetrievedChunk(
-            id="1", doc_id="doc_1", text="VAS account 1111 is cash", score=0.9, rerank_score=0.9, metadata={"lang": "vi"}
+            id="1",
+            doc_id="doc_1",
+            text="VAS account 1111 is cash",
+            score=0.9,
+            rerank_score=0.9,
+            metadata={"lang": "vi"},
         )
     ]
     mock_retrieve.return_value = [
         RetrievedChunk(
-            id="2", doc_id="doc_2", text="IFRS cash equivalents line", score=0.8, rerank_score=0.8, metadata={"lang": "vi"}
+            id="2",
+            doc_id="doc_2",
+            text="IFRS cash equivalents line",
+            score=0.8,
+            rerank_score=0.8,
+            metadata={"lang": "vi"},
         )
     ]
 
@@ -93,6 +109,7 @@ async def test_gl_mapping_agent_run(mock_call_llm, mock_retrieve, mock_retrieve_
         yield "Bảng"
         yield " ánh"
         yield " xạ"
+
     mock_call_llm.return_value = mock_tokens()
 
     agent = GLMappingAgent()
@@ -120,6 +137,7 @@ def test_validate_balance():
 @patch("app.agents.adjustment_agent._call_llm")
 async def test_adjustment_agent_run(mock_call_llm):
     """Test AdjustmentAgent.arun streams response successfully."""
+
     async def mock_tokens(*args, **kwargs):
         yield "Overview paragraph\n"
         yield "```json\n"
@@ -142,6 +160,7 @@ async def test_adjustment_agent_run(mock_call_llm):
 @patch("app.agents.adjustment_agent._call_llm")
 async def test_generate_entries_balanced(mock_call_llm):
     """Verify generate_entries returns successfully parsed balanced entries."""
+
     async def mock_tokens(*args, **kwargs):
         yield "Overview: Adjustments\n"
         yield "```json\n"
@@ -160,6 +179,7 @@ async def test_generate_entries_balanced(mock_call_llm):
 @patch("app.agents.adjustment_agent._call_llm")
 async def test_generate_entries_unbalanced(mock_call_llm):
     """Verify generate_entries raises UnbalancedJE if debit and credit are not equal."""
+
     async def mock_tokens(*args, **kwargs):
         yield "```json\n"
         yield '[\n  {\n    "entry_id": "ADJ-02",\n    "debit_account": "ROU",\n    "credit_account": "Lease Liab",\n    "debit_amount": 500.0,\n    "credit_amount": 600.0\n  }\n]'

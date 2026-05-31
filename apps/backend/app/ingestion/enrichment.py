@@ -1,4 +1,5 @@
 """Metadata enrichment — extracts standard codes, article numbers, dates."""
+
 from __future__ import annotations
 
 

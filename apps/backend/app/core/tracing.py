@@ -1,4 +1,5 @@
 """OpenTelemetry tracing middleware and span helpers."""
+
 from __future__ import annotations
 
 import time

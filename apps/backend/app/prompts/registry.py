@@ -1,4 +1,5 @@
 """Prompt registry — loads prompt metadata from prompts/registry.yaml."""
+
 from __future__ import annotations
 
 import yaml

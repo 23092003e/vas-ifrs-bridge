@@ -1,4 +1,5 @@
 """Token usage metering — increments Redis counters per tenant."""
+
 from __future__ import annotations
 
 

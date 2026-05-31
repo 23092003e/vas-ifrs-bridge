@@ -1,4 +1,5 @@
 """Abstract base class for all VAS-IFRS agents."""
+
 from __future__ import annotations
 
 import logging
@@ -30,4 +31,4 @@ class AgentBase(ABC):
                 yield token
         except Exception as exc:
             self.logger.error("agent %s failed: %s", self.__class__.__name__, exc, exc_info=True)
-            yield f"data: {{\"type\":\"error\",\"message\":\"{exc}\"}}\n\n"
+            yield f'data: {{"type":"error","message":"{exc}"}}\n\n'

@@ -1,4 +1,5 @@
 """Text embedding via bge-m3 (TEI) with Gemini text-embedding-004 fallback."""
+
 from __future__ import annotations
 
 import logging
@@ -68,6 +69,7 @@ async def _call_tei(texts: list[str], model: str) -> list[list[float]]:
             return data.get("embeddings", data.get("data", []))
         except httpx.TimeoutException as exc:
             from app.core.errors import EmbedderTimeout
+
             raise EmbedderTimeout(f"TEI timeout after {TIMEOUT_S}s") from exc
         except httpx.HTTPStatusError as exc:
             logger.error("TEI HTTP error %s: %s", exc.response.status_code, exc.response.text)
@@ -77,6 +79,7 @@ async def _call_tei(texts: list[str], model: str) -> list[list[float]]:
 async def _call_gemini(texts: list[str]) -> list[list[float]]:
     """Fallback: Gemini gemini-embedding-001 (dim=3072)."""
     from google import genai
+
     client = genai.Client(api_key=settings.gemini_api_key)
     results: list[list[float]] = []
     for text in texts:

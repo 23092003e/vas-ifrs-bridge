@@ -1,4 +1,5 @@
 """Document chunking: section-aware recursive splitter targeting 800 tokens."""
+
 from __future__ import annotations
 
 import re

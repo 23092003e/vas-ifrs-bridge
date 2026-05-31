@@ -1,0 +1,1755 @@
+{
+  "directed": true,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "id": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "type": "document",
+      "filename": "IFRS_01_First_time_Adoption_of_IFRS.pdf",
+      "standard_code": "IFRS-1",
+      "lang": "en"
+    },
+    {
+      "id": "70c866ce-57e7-40f0-a43b-68500d82464b",
+      "type": "section",
+      "text_preview": "IFRS 1\nFirst-time Adoption of International\nFinancial Reporting Standards\nIn April 2001 the International Accounting Standards Board (Board) adopted SIC-8 First-\ntime Application of IASs as the Primar",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "bc2b0117-d6d0-472c-8383-adf183140944",
+      "type": "section",
+      "text_preview": "s (issued May 2014), IFRS 9 Financial Instruments (issued July\n2014), Equity Method in Separate Financial Statements (Amendments to IAS 27) (issued August\n2014), IFRS 16 Leases (issued January 2016), ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "0b00ae83-9bee-4e0f-9d3b-3c22eef70d06",
+      "type": "section",
+      "text_preview": "d be read in the context of its objective and the Basis\nfor Conclusions, the Preface to IFRS Standards and the Conceptual Framework for Financial\nReporting. IAS 8 Accounting Policies, Changes in Accou",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "b5b7b15a-a5a0-454f-b064-4e28519cb035",
+      "type": "section",
+      "text_preview": " IAS 1 Presentation of Financial Statements (as\nrevised in 2007); or\n(d)\ndid not present financial statements for previous periods.\nThis IFRS applies when an entity first adopts IFRSs. It does not app",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "ea1563bb-0128-4a9e-a4cc-3c8dda3fa01a",
+      "type": "section",
+      "text_preview": "IFRS that is not yet mandatory if that\nIFRS permits early application.\nExample: Consistent application of latest version of IFRSs\nBackground\nThe end of entity A’s first IFRS reporting period is 31 Dec",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "50cc776f-9f27-4c22-9843-6f055edfdead",
+      "type": "section",
+      "text_preview": "RSs.\nThis IFRS establishes two categories of exceptions to the principle that an\nentity’s opening IFRS statement of financial position shall comply with each\nIFRS: \n(a)\nparagraphs 14–17 and Appendix B",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "5b5f4d8a-56b5-46c8-91b0-c9457e81dd6c",
+      "type": "section",
+      "text_preview": "r IFRSs\nAn entity may elect to use one or more of the exemptions contained\nin Appendices C–E. An entity shall not apply these exemptions by analogy to\nother items.\n[Deleted]\nPresentation and disclosur",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "6b2a1e57-e8ff-445b-9f61-a325dbb84c15",
+      "type": "section",
+      "text_preview": "nsive income in accordance with\nIFRSs for the latest period in the entity’s most recent annual financial\nstatements. The starting point for that reconciliation shall be total\ncomprehensive income in a",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "c6943ce9-988b-4318-b9f0-3db6c4daaa14",
+      "type": "section",
+      "text_preview": "accordance with paragraph D19. The entity shall disclose the fair value of\nfinancial liabilities so designated at the date of designation and their\nclassification and carrying amount in the previous f",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "21d1656e-22e8-4154-a83c-4bb383d6358b",
+      "type": "section",
+      "text_preview": " presents an interim financial report\nin accordance with IAS 34 for part of the period covered by its first IFRS\nfinancial statements, the entity shall satisfy the following requirements in\naddition t",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "284d7398-c3cc-4a1d-a2fb-18e9d0719695",
+      "type": "section",
+      "text_preview": "s (as revised in 2007) for an earlier period, those amendments shall be\napplied for that earlier period.\nIFRS 3 Business Combinations (as revised in 2008) amended paragraphs 19, C1\nand C4(f) and (g). ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "e73eb4ca-5873-49f0-bc8d-1e8aa9f0cac0",
+      "type": "section",
+      "text_preview": "nd added paragraphs 31C and D26–D30. An\nentity shall apply those amendments for annual periods beginning on or after\n1 July 2011. Earlier application is permitted.\nIFRS 10 Consolidated Financial State",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "b8696d10-c5ff-463e-8680-9e7d55178713",
+      "type": "section",
+      "text_preview": "ly in\naccordance with IAS 8 Accounting Policies, Changes in Accounting Estimates and\nErrors for annual periods beginning on or after 1 January 2013. Earlier\napplication is permitted. If an entity appl",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "25177b84-5189-4df0-9c88-7f4c38fa89d1",
+      "type": "section",
+      "text_preview": "isclose that fact.\n[Deleted]\nIFRS 16 Leases, issued in January 2016, amended paragraphs 30, C4, D1, D7,\nD8B and D9, deleted paragraph D9A and added paragraphs D9B–D9E. An\nentity shall apply those amen",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "3860d04f-3579-4353-85c7-cbc8333f0e7d",
+      "type": "section",
+      "text_preview": "date. (See IFRS 13.)\nfirst IFRS financial\nstatements\nThe first annual financial statements in which an entity adopts\nInternational Financial Reporting Standards (IFRSs), by an\nexplicit and unreserved ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "fe3ba10d-9503-416b-b392-ac038704838a",
+      "type": "section",
+      "text_preview": "inancial liabilities\nderecognised as a result of past transactions was obtained at the time of\ninitially accounting for those transactions.\nHedge accounting\nAs required by IFRS 9, at the date of trans",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "6b7c45c4-2362-481d-9287-7c13da61abf2",
+      "type": "section",
+      "text_preview": "paragraph 4.1.2 of IFRS 9 or the conditions in paragraph 4.1.2A of IFRS 9 on\nthe basis of the facts and circumstances that exist at the date of transition to\nIFRSs.\nIf it is impracticable to assess a ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "9f853947-4743-4293-8a2a-5e8a5c0e26ba",
+      "type": "section",
+      "text_preview": "ity became a party to the irrevocable commitment in\naccordance with paragraph 5.5.6 of IFRS 9) and compare that to the credit risk\nat the date of transition to IFRSs (also see paragraphs B7.2.2–B7.2.3",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "699d7223-067d-4859-8d9a-54c39e77d4f3",
+      "type": "section",
+      "text_preview": "such loans after the date of transition to IFRSs.\nDespite paragraph B10, an entity may apply the requirements in IFRS 9 and\nIAS 20 retrospectively to any government loan originated before the date of\n",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "ce25e990-55b2-4b5e-91fe-daad722b0cb8",
+      "type": "section",
+      "text_preview": " shall also\napply IFRS 10 from 30 June 20X6.\nAn entity need not apply IAS 21 The Effects of Changes in Foreign Exchange\nRates retrospectively to fair value adjustments and goodwill arising in business",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "f5620cbf-d752-4e2f-9d14-90826572a0d9",
+      "type": "section",
+      "text_preview": "ast business\ncombination as an acquisition and recognised as an intangible\nasset an item that does not qualify for recognition as an asset in\naccordance with IAS 38 Intangible Assets. It shall reclass",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "5f6cce41-5be0-4e58-a31b-fdce3358fcd6",
+      "type": "section",
+      "text_preview": "vious GAAP, recognised a contingent liability that still\nexists at the date of transition to IFRSs, the acquirer shall recognise\nthat contingent liability at that date unless IAS 37 Provisions, Contin",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "1bf255b1-968b-4719-930e-d31cbb1125f2",
+      "type": "section",
+      "text_preview": "of financial position. Furthermore, it shall not\nreclassify that goodwill to profit or loss if it disposes of the\nsubsidiary or if the investment in the subsidiary becomes\nimpaired.\n(ii)\nadjustments r",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "f5061e50-9a2e-4735-be65-c4c1250af4bb",
+      "type": "section",
+      "text_preview": "ccounted for in accordance\nwith IFRIC 12 Service Concession Arrangements (paragraph D22);\n(n)\nborrowing costs (paragraph D23);\n(o)\n[deleted]\n(p)\nextinguishing \nfinancial \nliabilities \nwith \nequity \nin",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "baa102aa-36d1-41ff-a86b-28845a4254ed",
+      "type": "section",
+      "text_preview": "and equipment at, or before, the date of transition to\nIFRSs as deemed cost at the date of the revaluation, if the revaluation was, at\nthe date of the revaluation, broadly comparable to:\n(a)\nfair valu",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "28a5fab6-d856-4076-add5-6505ce705539",
+      "type": "section",
+      "text_preview": "olumes or reserve values as of that date.\nThe entity shall test exploration and evaluation assets and assets in the\ndevelopment and production phases for impairment at the date of transition\nto IFRSs ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "d15a909a-3b4a-4b1e-bb94-4e309b94ca12",
+      "type": "section",
+      "text_preview": "se (see paragraph D9E), but\ndiscounted using the lessee’s incremental borrowing rate at the\ndate of transition to IFRSs; or\n(ii)\nan amount equal to the lease liability, adjusted by the amount\nof any p",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "2b005b43-8c76-4598-ae80-57c5e9045f29",
+      "type": "section",
+      "text_preview": "ed hedges) from equity to profit or\nloss as part of the gain or loss on disposal.\nHowever, a first-time adopter need not comply with these requirements for\ncumulative translation differences that exis",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "aa7e952c-d14c-409e-a00a-c9f5e304ae28",
+      "type": "section",
+      "text_preview": "IFRS 1\nA128\n© IFRS Foundation\n\n(i)\nlater than its parent, the entity shall apply paragraph D16 in its\nseparate financial statements.\n(ii)\nlater than its subsidiary, the entity shall apply paragraph D1",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "f9172635-4264-4e49-b5ed-d18f9d274b19",
+      "type": "section",
+      "text_preview": "\nD17\nIFRS 1\n© IFRS Foundation\nA129\n\nCompound financial instruments\nIAS 32 Financial Instruments: Presentation requires an entity to split a compound\nfinancial instrument at inception into separate lia",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "12056239-aa34-4059-b0a0-3fe855cae8ad",
+      "type": "section",
+      "text_preview": "\nprospectively over its remaining useful life. A first-time adopter need not\ncomply with these requirements for changes in such liabilities that occurred\nD18\nD19\nD19A\nD19B\nD19C\nD20\nD21\nIFRS 1\nA130\n© I",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "dcdb83c3-4663-4e71-9641-0fc82bdc6046",
+      "type": "section",
+      "text_preview": "yperinflation\nIf an entity has a functional currency that was, or is, the currency of a\nhyperinflationary economy, it shall determine whether it was subject to\nsevere hyperinflation before the date of",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "7cd8366d-41f2-4f47-a320-10051a4c738a",
+      "type": "section",
+      "text_preview": "uction Phase of a\nSurface Mine. In that paragraph, reference to the effective date shall be\ninterpreted as 1 January 2013 or the beginning of the first IFRS reporting\nperiod, whichever is later.\nDesig",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "23718ac9-afb4-4670-b623-3e708ca25ae5",
+      "type": "section",
+      "text_preview": "vious GAAP in place of the\nrequirements of IFRS 9 to comparative information about items within\nthe scope of IFRS 9.\n(b)\ndisclose this fact together with the basis used to prepare this\ninformation.\n(c",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "a539d1a2-ee25-4b2a-a1f3-ca484f1a4f85",
+      "type": "section",
+      "text_preview": "ments to IFRS 1) issued in July 2009\nAdditional Exemptions for First-time Adopters (Amendments to IFRS 1) was approved for issue\nby the fourteen members of the International Accounting Standards Board",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-1",
+      "doc_id": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "id": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "type": "document",
+      "filename": "IFRS_02_Share_based_Payment.pdf",
+      "standard_code": "IFRS-2",
+      "lang": "en"
+    },
+    {
+      "id": "dede12a7-084b-436a-8804-12b61c02e5d6",
+      "type": "section",
+      "text_preview": "IFRS 2\nShare-based Payment\nIn February 2004 the International Accounting Standards Board (Board) issued IFRS 2\nShare-based Payment. The Board amended IFRS 2 to clarify its scope in January 2008 and to",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "32d158b4-4db1-4c09-b508-96db78d37b4e",
+      "type": "section",
+      "text_preview": " IN FEBRUARY 2004\nAPPROVAL BY THE BOARD OF AMENDMENTS TO IFRS 2:\nVesting Conditions and Cancellations issued in January 2008\nGroup Cash-settled Share-based Payment Transactions issued in June 2009\nCla",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "25e784bc-d152-4e24-b312-ce20aac971a0",
+      "type": "section",
+      "text_preview": "er group entity (or\na shareholder of any group entity) on behalf of the entity receiving or\nacquiring the goods or services. Paragraph 2 also applies to an entity that\n(a)\nreceives goods or services w",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "e0ede40b-e528-40e6-9ce0-d5bfc34796cb",
+      "type": "section",
+      "text_preview": "quiree (and therefore within the scope of IFRS 3)\nor are in return for continued service to be recognised in the post-combination\nperiod (and therefore within the scope of this IFRS).\nThis IFRS does n",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "24dac498-cf5d-41d1-bb36-4336e35b1c55",
+      "type": "section",
+      "text_preview": "ty, indirectly,\nby reference to2 the fair value of the equity instruments granted.\nTo apply the requirements of paragraph 10 to transactions with employees and\nothers providing similar services,3 the ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "c41027a6-ef17-46ef-a7f1-ab86ba072592",
+      "type": "section",
+      "text_preview": "reliably the fair value of the goods or services received, the\nentity shall measure the goods or services received, and the corresponding\nincrease in equity, indirectly, by reference to the fair value",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "3c456532-6ef0-4426-9aca-474516bf9d4f",
+      "type": "section",
+      "text_preview": "til that performance condition is satisfied, and the length of\nthe vesting period varies depending on when that performance\ncondition is satisfied, the entity shall presume that the services to be\nren",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "91c87f0e-338f-46d7-bcf1-2fbef6e02a8d",
+      "type": "section",
+      "text_preview": "\nconditions that must be satisfied, such as the entity achieving a specified\ngrowth in profit or a specified increase in the entity’s share price. Vesting\n16\n17\n18\n19\nIFRS 2\n© IFRS Foundation\nA149\n\nco",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "1c741902-b07e-4fce-99d6-8b9a156968f7",
+      "type": "section",
+      "text_preview": "the specified period of service),\nirrespective of whether those non-vesting conditions are satisfied.\nTreatment of a reload feature\nFor options with a reload feature, the reload feature shall not be t",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "3794a48a-efc2-4137-a8fb-808005cc5fb2",
+      "type": "section",
+      "text_preview": "The entity shall revise that estimate, if necessary, if\nsubsequent information indicates that the number of share options\nexpected to vest differs from previous estimates. On vesting date, the\nentity ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "0c4199a4-5398-4f89-8067-c6a53fccb3de",
+      "type": "section",
+      "text_preview": "tion) that was specified at grant date. This applies\nirrespective of any modifications to the terms and conditions on which the\nequity instruments were granted, or a cancellation or settlement of that",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "ffc9fa8a-8448-4e54-8ccf-3650548c913f",
+      "type": "section",
+      "text_preview": "struments, the entity shall account for those new\nequity instruments as a new grant of equity instruments.\nIf an entity or counterparty can choose whether to meet a non-vesting\ncondition, the entity s",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "43a22cc5-d5e4-4493-ab13-1b9badaacb8e",
+      "type": "section",
+      "text_preview": "y for them. If the share\nappreciation rights do not vest until the employees have completed a specified\nperiod of service, the entity shall recognise the services received, and a\nliability to pay for ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "f58e1abc-57c9-4c1e-a016-f6f002fbf8f0",
+      "type": "section",
+      "text_preview": "ion for the cash-settled\nshare-based payment is equal to the cash that is paid.\nShare-based payment transactions with a net settlement feature\nfor withholding tax obligations\nTax laws or regulations m",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "7d5235af-21c4-4530-a813-8b98881a37fa",
+      "type": "section",
+      "text_preview": " transaction, as a cash-settled share-based payment\ntransaction if, and to the extent that, the entity has incurred a liability to\nsettle in cash or other assets, or as an equity-settled share-based p",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "ef61a2fa-e193-40de-af86-d21e19b30976",
+      "type": "section",
+      "text_preview": "s 35–43, all references to cash also include other assets of the entity.\nIFRS 2\nA156\n© IFRS Foundation\n\nThe entity shall account separately for the goods or services received or\nacquired in respect of",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "2b358748-a222-4d97-89d9-8e72a3fea813",
+      "type": "section",
+      "text_preview": " applying to equity-settled share-based\npayment transactions, in paragraphs 10–29. Upon settlement:\n(a)\nif the entity elects to settle in cash, the cash payment shall be\naccounted for as the repurchas",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "f39d32dd-c286-4f46-bb96-0a6c1baa2814",
+      "type": "section",
+      "text_preview": "ements that require one\ngroup entity to pay another group entity for the provision of the share-based\npayments to the suppliers of goods or services. In such cases, the entity that\nreceives the goods ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "9c5be54d-4ae9-4520-a6f8-c90a4f529426",
+      "type": "section",
+      "text_preview": "quity instruments granted, to give effect to the principle\nin paragraph 46, the entity shall disclose at least the following: \n44\n45\n46\n47\nIFRS 2\n© IFRS Foundation\nA159\n\n(a)\nfor share options granted ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "3f64d67f-95a1-4f64-86d3-f1480ed8a7e4",
+      "type": "section",
+      "text_preview": "\nthe following: \n(a)\nthe total expense recognised for the period arising from share-based\npayment transactions in which the goods or services received did not\nqualify for recognition as assets and hen",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "ec5667e6-4843-416a-b723-aa5aa77c97f6",
+      "type": "section",
+      "text_preview": "at the\neffective date of this IFRS, the entity shall apply the IFRS retrospectively. For\nthese liabilities, the entity shall restate comparative information, including\nadjusting the opening balance of",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "e8309b75-6331-4dc9-8e09-161381a2e01b",
+      "type": "section",
+      "text_preview": " with IAS 8\nAccounting Policies, Changes in Accounting Estimates and Errors if and only if it is\npossible without hindsight. If an entity elects retrospective application, it\nmust do so for all of the",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "416717e7-5b81-4c45-a6f7-b3ef0019f51a",
+      "type": "section",
+      "text_preview": ",\namended paragraph 5 and Appendix A. An entity shall apply those\namendments when it applies IFRS 10 and IFRS 11.\nAnnual Improvements to IFRSs 2010–2012 Cycle, issued in December 2013,\namended paragra",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "fd824aaa-38f5-4e0a-8146-8e7995dd1449",
+      "type": "section",
+      "text_preview": "nual periods beginning on or after\n1 May 2006.\n(b)\nadded paragraphs B46, B48, B49, B51–B53, B55, B59 and B61 in\nAppendix B in respect of the accounting for transactions among group\nentities. Those req",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "a8991ed7-ccde-42b1-a0a0-c0761f494697",
+      "type": "section",
+      "text_preview": "her assets, or equity instruments of the entity,\n5\nThe Conceptual Framework for Financial Reporting issued in 2018 defines a liability as a present\nobligation of the entity to transfer an economic res",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "2317913c-22fa-476f-ad54-b8b8c41519a8",
+      "type": "section",
+      "text_preview": "ommencement date of the performance target is\nnot substantially before the commencement of the\nservice period.\nA performance target is defined by reference to:\n(a)\nthe entity’s own operations (or acti",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "b47c5991-0db8-4ebf-ad2d-bfde97d176f0",
+      "type": "section",
+      "text_preview": "at a fixed or\ndeterminable price for a specified period of time.\nvest\nTo become an entitlement. Under a share-based payment\narrangement, a counterparty’s right to receive cash, other\nassets or equity ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "f605d3d3-bffa-44a8-b92e-8a3a244b9de4",
+      "type": "section",
+      "text_preview": "sting transfer restrictions may have little, if any, effect on the price\nthat a knowledgeable, willing market participant would pay for those shares.\nRestrictions on transfer or other restrictions tha",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "7ccc9d3d-66cc-4f97-a843-200ff826cb01",
+      "type": "section",
+      "text_preview": "cannot be\nexercised during specified periods (eg during the vesting period or during\nperiods specified by securities regulators). This factor shall be taken into\naccount if the option pricing model ap",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "67172162-acc3-4bdf-85e9-7fea6447249e",
+      "type": "section",
+      "text_preview": "ty with two distinctly different lines of business disposes of the one\nthat was significantly less risky than the other, historical volatility may not be\nthe best information on which to base reasonab",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "da07d333-83e3-4ff2-91e1-833b9060b3b3",
+      "type": "section",
+      "text_preview": " exercise price.\n(d)\nthe employee’s level within the organisation. For example, experience\nmight indicate that higher-level employees tend to exercise options\nlater than lower-level employees (discuss",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "f5c6be6f-d3d3-41fc-a5e0-760e316e8ec4",
+      "type": "section",
+      "text_preview": "xpected to\nfluctuate during a period. The measure of volatility used in option pricing\nmodels is the annualised standard deviation of the continuously compounded\nrates of return on the share over a pe",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "6cd1d352-1b47-4b21-a53b-c8f964203a36",
+      "type": "section",
+      "text_preview": "\nan entity might use the closing price for each week or the highest price\nfor the week, but it should not use the closing price for some weeks\nand the highest price for other weeks. Also, the price ob",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "eafdf4a7-eeba-4d96-8825-673d5f9f273f",
+      "type": "section",
+      "text_preview": "valents (which might be paid in cash\nor applied to reduce the exercise price) between grant date and exercise date,\nthe options granted should be valued as if no dividends will be paid on the\nunderlyi",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "d9e6cfca-34f0-4918-917a-79262199f9c2",
+      "type": "section",
+      "text_preview": "n zero-coupon government\nissues is not representative of the risk-free interest rate (for example, in high\ninflation economies). Also, an appropriate substitute should be used if market\nB31\nB32\nB33\nB3",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "8185b9cd-9a48-44e7-a0eb-aafee2ae248f",
+      "type": "section",
+      "text_preview": " of modifications that increase the total fair value of the\nshare-based payment arrangement or are otherwise beneficial to the\nemployee.\nTo apply the requirements of paragraph 27:\n(a)\nif the modificat",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "7667f94b-e793-459b-a752-a45ecfcfa643",
+      "type": "section",
+      "text_preview": "tity shall take the modified vesting conditions\ninto account when applying the requirements of paragraphs 19–21.\nFurthermore, if the entity modifies the terms or conditions of the equity\ninstruments g",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "d618d01b-a8a5-4db1-9d89-346e787b8707",
+      "type": "section",
+      "text_preview": "tion\ndate is recognised immediately in profit or loss.\nIf, as a result of the modification, the vesting period is extended or shortened,\nthe application of the requirements in paragraph B44A reflect t",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "e87cc3c3-8915-4dad-a8fb-9d3b48ccd7b6",
+      "type": "section",
+      "text_preview": "hts to equity instruments of the\nentity (eg share options), either by the entity itself or by its\nshareholders, and the shareholders of the entity provide the equity\ninstruments needed.\nThe entity sha",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "4591a236-0d89-4786-b2bd-55776fa5eb6d",
+      "type": "section",
+      "text_preview": "equirements applicable to equity-settled\nshare-based payment transactions, and recognise a corresponding increase in\nequity as a contribution from the parent.\nThe parent has an obligation to settle th",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "219039a9-f641-48d0-9e9d-794e37aeda9a",
+      "type": "section",
+      "text_preview": "yees of more than one group entity. For example, a parent\nmight grant rights to its equity instruments to the employees of its\nsubsidiaries, conditional upon the completion of continuing service with ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "b412b870-a05b-4a83-ba55-b3e23f0b3889",
+      "type": "section",
+      "text_preview": "rd was issued in 2004 have been\nincorporated into the relevant Standards published in this volume.\nIFRS 2\nA184\n© IFRS Foundation\n\nApproval by the Board of IFRS 2 issued in February 2004\nInternational ",
+      "heading": "",
+      "lang": "en",
+      "standard_code": "IFRS-2",
+      "doc_id": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "id": "acc_111",
+      "type": "account",
+      "account_code": "111",
+      "name_vi": "Tiền mặt",
+      "name_en": "Cash",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_112",
+      "type": "account",
+      "account_code": "112",
+      "name_vi": "Tiền gửi Ngân hàng",
+      "name_en": "Cash in Bank",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_121",
+      "type": "account",
+      "account_code": "121",
+      "name_vi": "Chứng khoán kinh doanh",
+      "name_en": "Trading Securities",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_128",
+      "type": "account",
+      "account_code": "128",
+      "name_vi": "Đầu tư nắm giữ đến ngày đáo hạn",
+      "name_en": "Held-to-maturity Investments",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_131",
+      "type": "account",
+      "account_code": "131",
+      "name_vi": "Phải thu của khách hàng",
+      "name_en": "Trade Receivables",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_138",
+      "type": "account",
+      "account_code": "138",
+      "name_vi": "Phải thu khác",
+      "name_en": "Other Receivables",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_141",
+      "type": "account",
+      "account_code": "141",
+      "name_vi": "Tạm ứng",
+      "name_en": "Advances",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_152",
+      "type": "account",
+      "account_code": "152",
+      "name_vi": "Nguyên liệu, vật liệu",
+      "name_en": "Raw Materials",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_153",
+      "type": "account",
+      "account_code": "153",
+      "name_vi": "Công cụ, dụng cụ",
+      "name_en": "Tools and Supplies",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_156",
+      "type": "account",
+      "account_code": "156",
+      "name_vi": "Hàng hóa",
+      "name_en": "Merchandise",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_211",
+      "type": "account",
+      "account_code": "211",
+      "name_vi": "Tài sản cố định hữu hình",
+      "name_en": "Tangible Fixed Assets",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_213",
+      "type": "account",
+      "account_code": "213",
+      "name_vi": "Tài sản cố định vô hình",
+      "name_en": "Intangible Fixed Assets",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_214",
+      "type": "account",
+      "account_code": "214",
+      "name_vi": "Hao mòn tài sản cố định",
+      "name_en": "Accumulated Depreciation",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_229",
+      "type": "account",
+      "account_code": "229",
+      "name_vi": "Dự phòng tổn thất tài sản",
+      "name_en": "Provisions for Asset Impairment",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_241",
+      "type": "account",
+      "account_code": "241",
+      "name_vi": "Chi phí xây dựng cơ bản dở dang",
+      "name_en": "Construction in Progress",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_242",
+      "type": "account",
+      "account_code": "242",
+      "name_vi": "Chi phí trả trước",
+      "name_en": "Prepaid Expenses",
+      "category": "Asset"
+    },
+    {
+      "id": "acc_331",
+      "type": "account",
+      "account_code": "331",
+      "name_vi": "Phải trả cho người bán",
+      "name_en": "Trade Payables",
+      "category": "Liability"
+    },
+    {
+      "id": "acc_333",
+      "type": "account",
+      "account_code": "333",
+      "name_vi": "Thuế và các khoản phải nộp Nhà nước",
+      "name_en": "Taxes and Other Payables to State",
+      "category": "Liability"
+    },
+    {
+      "id": "acc_334",
+      "type": "account",
+      "account_code": "334",
+      "name_vi": "Phải trả người lao động",
+      "name_en": "Payables to Employees",
+      "category": "Liability"
+    },
+    {
+      "id": "acc_338",
+      "type": "account",
+      "account_code": "338",
+      "name_vi": "Phải trả, phải nộp khác",
+      "name_en": "Other Payables",
+      "category": "Liability"
+    },
+    {
+      "id": "acc_341",
+      "type": "account",
+      "account_code": "341",
+      "name_vi": "Vay và nợ thuê tài chính",
+      "name_en": "Borrowings and Finance Lease Liabilities",
+      "category": "Liability"
+    },
+    {
+      "id": "acc_352",
+      "type": "account",
+      "account_code": "352",
+      "name_vi": "Dự phòng phải trả",
+      "name_en": "Provisions for Payables",
+      "category": "Liability"
+    },
+    {
+      "id": "acc_411",
+      "type": "account",
+      "account_code": "411",
+      "name_vi": "Vốn góp của chủ sở hữu",
+      "name_en": "Share Capital",
+      "category": "Equity"
+    },
+    {
+      "id": "acc_421",
+      "type": "account",
+      "account_code": "421",
+      "name_vi": "Lợi nhuận sau thuế chưa phân phối",
+      "name_en": "Retained Earnings",
+      "category": "Equity"
+    },
+    {
+      "id": "acc_511",
+      "type": "account",
+      "account_code": "511",
+      "name_vi": "Doanh thu bán hàng và cung cấp dịch vụ",
+      "name_en": "Revenue from Sales and Services",
+      "category": "Revenue"
+    },
+    {
+      "id": "acc_515",
+      "type": "account",
+      "account_code": "515",
+      "name_vi": "Doanh thu hoạt động tài chính",
+      "name_en": "Financial Revenue",
+      "category": "Revenue"
+    },
+    {
+      "id": "acc_632",
+      "type": "account",
+      "account_code": "632",
+      "name_vi": "Giá vốn hàng bán",
+      "name_en": "Cost of Goods Sold",
+      "category": "Expense"
+    },
+    {
+      "id": "acc_635",
+      "type": "account",
+      "account_code": "635",
+      "name_vi": "Chi phí tài chính",
+      "name_en": "Financial Expenses",
+      "category": "Expense"
+    },
+    {
+      "id": "acc_641",
+      "type": "account",
+      "account_code": "641",
+      "name_vi": "Chi phí bán hàng",
+      "name_en": "Selling Expenses",
+      "category": "Expense"
+    },
+    {
+      "id": "acc_642",
+      "type": "account",
+      "account_code": "642",
+      "name_vi": "Chi phí quản lý doanh nghiệp",
+      "name_en": "General and Administrative Expenses",
+      "category": "Expense"
+    },
+    {
+      "id": "acc_711",
+      "type": "account",
+      "account_code": "711",
+      "name_vi": "Thu nhập khác",
+      "name_en": "Other Income",
+      "category": "Revenue"
+    },
+    {
+      "id": "acc_811",
+      "type": "account",
+      "account_code": "811",
+      "name_vi": "Chi phí khác",
+      "name_en": "Other Expenses",
+      "category": "Expense"
+    },
+    {
+      "id": "acc_911",
+      "type": "account",
+      "account_code": "911",
+      "name_vi": "Xác định kết quả kinh doanh",
+      "name_en": "Net Income Determination",
+      "category": "Equity"
+    }
+  ],
+  "edges": [
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "70c866ce-57e7-40f0-a43b-68500d82464b"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "bc2b0117-d6d0-472c-8383-adf183140944"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "0b00ae83-9bee-4e0f-9d3b-3c22eef70d06"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "b5b7b15a-a5a0-454f-b064-4e28519cb035"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "ea1563bb-0128-4a9e-a4cc-3c8dda3fa01a"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "50cc776f-9f27-4c22-9843-6f055edfdead"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "5b5f4d8a-56b5-46c8-91b0-c9457e81dd6c"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "6b2a1e57-e8ff-445b-9f61-a325dbb84c15"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "c6943ce9-988b-4318-b9f0-3db6c4daaa14"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "21d1656e-22e8-4154-a83c-4bb383d6358b"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "284d7398-c3cc-4a1d-a2fb-18e9d0719695"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "e73eb4ca-5873-49f0-bc8d-1e8aa9f0cac0"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "b8696d10-c5ff-463e-8680-9e7d55178713"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "25177b84-5189-4df0-9c88-7f4c38fa89d1"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "3860d04f-3579-4353-85c7-cbc8333f0e7d"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "fe3ba10d-9503-416b-b392-ac038704838a"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "6b7c45c4-2362-481d-9287-7c13da61abf2"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "9f853947-4743-4293-8a2a-5e8a5c0e26ba"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "699d7223-067d-4859-8d9a-54c39e77d4f3"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "ce25e990-55b2-4b5e-91fe-daad722b0cb8"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "f5620cbf-d752-4e2f-9d14-90826572a0d9"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "5f6cce41-5be0-4e58-a31b-fdce3358fcd6"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "1bf255b1-968b-4719-930e-d31cbb1125f2"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "f5061e50-9a2e-4735-be65-c4c1250af4bb"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "baa102aa-36d1-41ff-a86b-28845a4254ed"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "28a5fab6-d856-4076-add5-6505ce705539"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "d15a909a-3b4a-4b1e-bb94-4e309b94ca12"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "2b005b43-8c76-4598-ae80-57c5e9045f29"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "aa7e952c-d14c-409e-a00a-c9f5e304ae28"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "f9172635-4264-4e49-b5ed-d18f9d274b19"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "12056239-aa34-4059-b0a0-3fe855cae8ad"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "dcdb83c3-4663-4e71-9641-0fc82bdc6046"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "7cd8366d-41f2-4f47-a320-10051a4c738a"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "23718ac9-afb4-4670-b623-3e708ca25ae5"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "cc51c20c-f178-5f29-8d36-c1649dee42ad",
+      "target": "a539d1a2-ee25-4b2a-a1f3-ca484f1a4f85"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "70c866ce-57e7-40f0-a43b-68500d82464b",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "bc2b0117-d6d0-472c-8383-adf183140944",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "0b00ae83-9bee-4e0f-9d3b-3c22eef70d06",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "b5b7b15a-a5a0-454f-b064-4e28519cb035",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "ea1563bb-0128-4a9e-a4cc-3c8dda3fa01a",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "50cc776f-9f27-4c22-9843-6f055edfdead",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "5b5f4d8a-56b5-46c8-91b0-c9457e81dd6c",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "6b2a1e57-e8ff-445b-9f61-a325dbb84c15",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "c6943ce9-988b-4318-b9f0-3db6c4daaa14",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "21d1656e-22e8-4154-a83c-4bb383d6358b",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "284d7398-c3cc-4a1d-a2fb-18e9d0719695",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "e73eb4ca-5873-49f0-bc8d-1e8aa9f0cac0",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "b8696d10-c5ff-463e-8680-9e7d55178713",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "25177b84-5189-4df0-9c88-7f4c38fa89d1",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "3860d04f-3579-4353-85c7-cbc8333f0e7d",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "fe3ba10d-9503-416b-b392-ac038704838a",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "6b7c45c4-2362-481d-9287-7c13da61abf2",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "9f853947-4743-4293-8a2a-5e8a5c0e26ba",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "699d7223-067d-4859-8d9a-54c39e77d4f3",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "ce25e990-55b2-4b5e-91fe-daad722b0cb8",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "f5620cbf-d752-4e2f-9d14-90826572a0d9",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "5f6cce41-5be0-4e58-a31b-fdce3358fcd6",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "1bf255b1-968b-4719-930e-d31cbb1125f2",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "f5061e50-9a2e-4735-be65-c4c1250af4bb",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "f5061e50-9a2e-4735-be65-c4c1250af4bb",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "baa102aa-36d1-41ff-a86b-28845a4254ed",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "28a5fab6-d856-4076-add5-6505ce705539",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "d15a909a-3b4a-4b1e-bb94-4e309b94ca12",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "2b005b43-8c76-4598-ae80-57c5e9045f29",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "aa7e952c-d14c-409e-a00a-c9f5e304ae28",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "f9172635-4264-4e49-b5ed-d18f9d274b19",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "12056239-aa34-4059-b0a0-3fe855cae8ad",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "dcdb83c3-4663-4e71-9641-0fc82bdc6046",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "7cd8366d-41f2-4f47-a320-10051a4c738a",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "23718ac9-afb4-4670-b623-3e708ca25ae5",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "a539d1a2-ee25-4b2a-a1f3-ca484f1a4f85",
+      "target": "cc51c20c-f178-5f29-8d36-c1649dee42ad"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "dede12a7-084b-436a-8804-12b61c02e5d6"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "32d158b4-4db1-4c09-b508-96db78d37b4e"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "25e784bc-d152-4e24-b312-ce20aac971a0"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "e0ede40b-e528-40e6-9ce0-d5bfc34796cb"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "24dac498-cf5d-41d1-bb36-4336e35b1c55"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "c41027a6-ef17-46ef-a7f1-ab86ba072592"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "3c456532-6ef0-4426-9aca-474516bf9d4f"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "91c87f0e-338f-46d7-bcf1-2fbef6e02a8d"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "1c741902-b07e-4fce-99d6-8b9a156968f7"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "3794a48a-efc2-4137-a8fb-808005cc5fb2"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "0c4199a4-5398-4f89-8067-c6a53fccb3de"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "ffc9fa8a-8448-4e54-8ccf-3650548c913f"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "43a22cc5-d5e4-4493-ab13-1b9badaacb8e"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "f58e1abc-57c9-4c1e-a016-f6f002fbf8f0"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "7d5235af-21c4-4530-a813-8b98881a37fa"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "ef61a2fa-e193-40de-af86-d21e19b30976"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "2b358748-a222-4d97-89d9-8e72a3fea813"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "f39d32dd-c286-4f46-bb96-0a6c1baa2814"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "9c5be54d-4ae9-4520-a6f8-c90a4f529426"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "3f64d67f-95a1-4f64-86d3-f1480ed8a7e4"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "ec5667e6-4843-416a-b723-aa5aa77c97f6"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "e8309b75-6331-4dc9-8e09-161381a2e01b"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "416717e7-5b81-4c45-a6f7-b3ef0019f51a"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "fd824aaa-38f5-4e0a-8146-8e7995dd1449"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "a8991ed7-ccde-42b1-a0a0-c0761f494697"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "2317913c-22fa-476f-ad54-b8b8c41519a8"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "b47c5991-0db8-4ebf-ad2d-bfde97d176f0"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "f605d3d3-bffa-44a8-b92e-8a3a244b9de4"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "7ccc9d3d-66cc-4f97-a843-200ff826cb01"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "67172162-acc3-4bdf-85e9-7fea6447249e"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "da07d333-83e3-4ff2-91e1-833b9060b3b3"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "f5c6be6f-d3d3-41fc-a5e0-760e316e8ec4"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "6cd1d352-1b47-4b21-a53b-c8f964203a36"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "eafdf4a7-eeba-4d96-8825-673d5f9f273f"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "d9e6cfca-34f0-4918-917a-79262199f9c2"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "8185b9cd-9a48-44e7-a0eb-aafee2ae248f"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "7667f94b-e793-459b-a752-a45ecfcfa643"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "d618d01b-a8a5-4db1-9d89-346e787b8707"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "e87cc3c3-8915-4dad-a8fb-9d3b48ccd7b6"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "4591a236-0d89-4786-b2bd-55776fa5eb6d"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "219039a9-f641-48d0-9e9d-794e37aeda9a"
+    },
+    {
+      "relation": "HAS_SECTION",
+      "source": "88671f92-0804-5c95-9ae5-a0b2797a20fc",
+      "target": "b412b870-a05b-4a83-ba55-b3e23f0b3889"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "dede12a7-084b-436a-8804-12b61c02e5d6",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "32d158b4-4db1-4c09-b508-96db78d37b4e",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "25e784bc-d152-4e24-b312-ce20aac971a0",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "e0ede40b-e528-40e6-9ce0-d5bfc34796cb",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "24dac498-cf5d-41d1-bb36-4336e35b1c55",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "c41027a6-ef17-46ef-a7f1-ab86ba072592",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "3c456532-6ef0-4426-9aca-474516bf9d4f",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "91c87f0e-338f-46d7-bcf1-2fbef6e02a8d",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "1c741902-b07e-4fce-99d6-8b9a156968f7",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "3794a48a-efc2-4137-a8fb-808005cc5fb2",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "0c4199a4-5398-4f89-8067-c6a53fccb3de",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "ffc9fa8a-8448-4e54-8ccf-3650548c913f",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "43a22cc5-d5e4-4493-ab13-1b9badaacb8e",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "f58e1abc-57c9-4c1e-a016-f6f002fbf8f0",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "7d5235af-21c4-4530-a813-8b98881a37fa",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "ef61a2fa-e193-40de-af86-d21e19b30976",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "2b358748-a222-4d97-89d9-8e72a3fea813",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "f39d32dd-c286-4f46-bb96-0a6c1baa2814",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "9c5be54d-4ae9-4520-a6f8-c90a4f529426",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "3f64d67f-95a1-4f64-86d3-f1480ed8a7e4",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "ec5667e6-4843-416a-b723-aa5aa77c97f6",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "e8309b75-6331-4dc9-8e09-161381a2e01b",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "416717e7-5b81-4c45-a6f7-b3ef0019f51a",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "fd824aaa-38f5-4e0a-8146-8e7995dd1449",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "a8991ed7-ccde-42b1-a0a0-c0761f494697",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "2317913c-22fa-476f-ad54-b8b8c41519a8",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "b47c5991-0db8-4ebf-ad2d-bfde97d176f0",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "f605d3d3-bffa-44a8-b92e-8a3a244b9de4",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "7ccc9d3d-66cc-4f97-a843-200ff826cb01",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "67172162-acc3-4bdf-85e9-7fea6447249e",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "da07d333-83e3-4ff2-91e1-833b9060b3b3",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "f5c6be6f-d3d3-41fc-a5e0-760e316e8ec4",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "6cd1d352-1b47-4b21-a53b-c8f964203a36",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "eafdf4a7-eeba-4d96-8825-673d5f9f273f",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "d9e6cfca-34f0-4918-917a-79262199f9c2",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "8185b9cd-9a48-44e7-a0eb-aafee2ae248f",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "7667f94b-e793-459b-a752-a45ecfcfa643",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "d618d01b-a8a5-4db1-9d89-346e787b8707",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "e87cc3c3-8915-4dad-a8fb-9d3b48ccd7b6",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "4591a236-0d89-4786-b2bd-55776fa5eb6d",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "219039a9-f641-48d0-9e9d-794e37aeda9a",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    },
+    {
+      "relation": "REFERS_TO",
+      "source": "b412b870-a05b-4a83-ba55-b3e23f0b3889",
+      "target": "88671f92-0804-5c95-9ae5-a0b2797a20fc"
+    }
+  ]
+}

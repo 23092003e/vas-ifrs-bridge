@@ -1,4 +1,5 @@
 """Report generation request and status schemas."""
+
 from __future__ import annotations
 
 from pydantic import BaseModel, UUID4

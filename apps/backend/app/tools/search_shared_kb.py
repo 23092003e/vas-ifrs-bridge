@@ -1,4 +1,5 @@
 """Tool: search the shared VAS/IFRS knowledge base."""
+
 from __future__ import annotations
 
 

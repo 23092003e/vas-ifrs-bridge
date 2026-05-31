@@ -1,4 +1,5 @@
-﻿"""Hybrid retriever: dense Qdrant + sparse BM25 fusion â†’ reranker."""
+"""Hybrid retriever: dense Qdrant + sparse BM25 fusion â†’ reranker."""
+
 from __future__ import annotations
 
 import asyncio
@@ -48,18 +49,12 @@ def _build_filter(
     conditions = []
 
     if lang and lang != "auto":
-        conditions.append(
-            FieldCondition(key="lang", match=MatchValue(value=lang))
-        )
+        conditions.append(FieldCondition(key="lang", match=MatchValue(value=lang)))
 
     if scope == "shared":
-        conditions.append(
-            FieldCondition(key="scope", match=MatchValue(value="shared"))
-        )
+        conditions.append(FieldCondition(key="scope", match=MatchValue(value="shared")))
     elif scope == "tenant" and tenant_id:
-        conditions.append(
-            FieldCondition(key="tenant_id", match=MatchValue(value=tenant_id))
-        )
+        conditions.append(FieldCondition(key="tenant_id", match=MatchValue(value=tenant_id)))
     # scope == "both" â†’ no filter; both shared + tenant returned
 
     return Filter(must=conditions) if conditions else None
@@ -198,4 +193,3 @@ async def retrieve_multi(
         )
         for i, c in enumerate(reranked)
     ]
-

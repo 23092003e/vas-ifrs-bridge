@@ -1,4 +1,5 @@
 """Cross-encoder reranker via bge-reranker-v2-m3 on TEI."""
+
 from __future__ import annotations
 
 import logging
@@ -36,16 +37,16 @@ async def rerank(
         ranked = sorted(chunks, key=lambda c: c.get("score", 0.0), reverse=True)
         return ranked[:top_k]
 
-    scored = sorted(
-        zip(scores, chunks), key=lambda x: x[0], reverse=True
-    )
+    scored = sorted(zip(scores, chunks), key=lambda x: x[0], reverse=True)
 
     above = [(s, c) for s, c in scored if s >= min_score]
     if len(above) < 3:
         # Relax threshold — log degraded retrieval
         above = [(s, c) for s, c in scored if s >= LOW_RECALL_SCORE]
         if len(above) < len(scored):
-            logger.warning("low_recall: only %d chunks above relaxed %.2f", len(above), LOW_RECALL_SCORE)
+            logger.warning(
+                "low_recall: only %d chunks above relaxed %.2f", len(above), LOW_RECALL_SCORE
+            )
 
     result = [{**c, "rerank_score": float(s)} for s, c in above[:top_k]]
     return result

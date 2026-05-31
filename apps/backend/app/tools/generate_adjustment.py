@@ -1,4 +1,5 @@
 """Tool: generate a double-entry IFRS adjustment journal entry."""
+
 from __future__ import annotations
 
 from typing import Any
@@ -15,7 +16,7 @@ async def generate_adjustment(mapping_id: str) -> dict[str, Any]:
         "vas_name": "Chi phí trả trước ngắn hạn (Prepaid expenses)",
         "ifrs_equivalent": "Prepaid Expenses / Right-of-Use Assets",
         "amount": 150000.0,
-        "rationale": "Lease rental prepaid for office space under IFRS 16 capitalization requirements."
+        "rationale": "Lease rental prepaid for office space under IFRS 16 capitalization requirements.",
     }
 
     # 2. Call the adjustment generator engine
@@ -31,5 +32,5 @@ async def generate_adjustment(mapping_id: str) -> dict[str, Any]:
         "credit": first.get("credit_account"),
         "amount": first.get("amount"),
         "balanced": True,
-        "entries": entries
+        "entries": entries,
     }

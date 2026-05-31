@@ -1,12 +1,11 @@
 """SQLAlchemy ORM model definitions."""
+
 from __future__ import annotations
 
 import uuid
 from datetime import datetime
 
-from sqlalchemy import (
-    DateTime, ForeignKey, Integer, Numeric, String, Text, func
-)
+from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -36,21 +35,29 @@ class Conversation(Base):
     __tablename__ = "conversations"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
-    tenant_id: Mapped[str | None] = mapped_column(UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=True)
+    tenant_id: Mapped[str | None] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=True
+    )
     user_id: Mapped[str] = mapped_column(String(255), nullable=False)
     title: Mapped[str | None] = mapped_column(String(500))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
 
     tenant: Mapped[Tenant | None] = relationship(back_populates="conversations")
-    messages: Mapped[list[Message]] = relationship(back_populates="conversation", order_by="Message.created_at")
+    messages: Mapped[list[Message]] = relationship(
+        back_populates="conversation", order_by="Message.created_at"
+    )
 
 
 class Message(Base):
     __tablename__ = "messages"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
-    conversation_id: Mapped[str] = mapped_column(UUID(as_uuid=False), ForeignKey("conversations.id"), nullable=False)
+    conversation_id: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("conversations.id"), nullable=False
+    )
     role: Mapped[str] = mapped_column(String(20), nullable=False)  # user | assistant
     content: Mapped[str] = mapped_column(Text, nullable=False)
     citations: Mapped[list] = mapped_column(JSONB, default=list)
@@ -66,17 +73,23 @@ class Document(Base):
     __tablename__ = "documents"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
-    tenant_id: Mapped[str] = mapped_column(UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False)
+    tenant_id: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False
+    )
     filename: Mapped[str] = mapped_column(String(500), nullable=False)
     gcs_path: Mapped[str] = mapped_column(String(1000), nullable=False)
     mime_type: Mapped[str | None] = mapped_column(String(100))
     size_bytes: Mapped[int] = mapped_column(Integer, default=0)
-    status: Mapped[str] = mapped_column(String(50), default="pending")  # pending | processing | ready | failed
+    status: Mapped[str] = mapped_column(
+        String(50), default="pending"
+    )  # pending | processing | ready | failed
     chunk_count: Mapped[int] = mapped_column(Integer, default=0)
     qdrant_collection: Mapped[str | None] = mapped_column(String(255))
     error_message: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
 
     tenant: Mapped[Tenant] = relationship(back_populates="documents")
 
@@ -85,16 +98,22 @@ class GLUpload(Base):
     __tablename__ = "gl_uploads"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
-    tenant_id: Mapped[str] = mapped_column(UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False)
+    tenant_id: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False
+    )
     user_id: Mapped[str] = mapped_column(String(255), nullable=False)
     filename: Mapped[str] = mapped_column(String(500), nullable=False)
     gcs_path: Mapped[str] = mapped_column(String(1000), nullable=False)
-    status: Mapped[str] = mapped_column(String(50), default="pending")  # pending | processing | mapped | failed
+    status: Mapped[str] = mapped_column(
+        String(50), default="pending"
+    )  # pending | processing | mapped | failed
     row_count: Mapped[int] = mapped_column(Integer, default=0)
     mapped_count: Mapped[int] = mapped_column(Integer, default=0)
     error_message: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
 
     tenant: Mapped[Tenant] = relationship(back_populates="gl_uploads")
     adjustments: Mapped[list[AdjustmentEntry]] = relationship(back_populates="gl_upload")
@@ -104,8 +123,12 @@ class AdjustmentEntry(Base):
     __tablename__ = "adjustment_entries"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
-    gl_upload_id: Mapped[str] = mapped_column(UUID(as_uuid=False), ForeignKey("gl_uploads.id"), nullable=False)
-    tenant_id: Mapped[str] = mapped_column(UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False)
+    gl_upload_id: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("gl_uploads.id"), nullable=False
+    )
+    tenant_id: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False
+    )
     account_code: Mapped[str] = mapped_column(String(50), nullable=False)
     account_name: Mapped[str | None] = mapped_column(String(255))
     ifrs_account: Mapped[str | None] = mapped_column(String(50))

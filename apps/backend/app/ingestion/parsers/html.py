@@ -1,4 +1,5 @@
 """HTML parser using BeautifulSoup."""
+
 from __future__ import annotations
 
 

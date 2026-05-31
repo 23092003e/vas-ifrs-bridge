@@ -1,4 +1,5 @@
 """General ledger upload and processing endpoints."""
+
 from __future__ import annotations
 
 from fastapi import APIRouter, UploadFile

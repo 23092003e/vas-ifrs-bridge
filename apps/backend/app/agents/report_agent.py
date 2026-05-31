@@ -1,4 +1,5 @@
 """Agent that synthesises IFRS-compliant financial report narratives."""
+
 from __future__ import annotations
 
 from typing import Any, AsyncIterator

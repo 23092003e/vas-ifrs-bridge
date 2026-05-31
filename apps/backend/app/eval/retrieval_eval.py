@@ -7,6 +7,7 @@ Dataset format (JSONL, one record per line):
 Run:
   python -m app.eval.retrieval_eval --dataset app/eval/datasets/vas_qa_vi.jsonl --k 10
 """
+
 from __future__ import annotations
 
 import argparse
@@ -22,6 +23,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # Core metrics
 # ---------------------------------------------------------------------------
+
 
 def recall_at_k(retrieved_ids: list[str], gold_ids: list[str], k: int) -> float:
     """Fraction of gold docs found in top-k retrieved."""
@@ -53,6 +55,7 @@ def precision_at_k(retrieved_ids: list[str], gold_ids: list[str], k: int) -> flo
 # Dataset loader
 # ---------------------------------------------------------------------------
 
+
 def load_dataset(path: str) -> list[dict]:
     records = []
     with open(path, encoding="utf-8") as f:
@@ -66,6 +69,7 @@ def load_dataset(path: str) -> list[dict]:
 # ---------------------------------------------------------------------------
 # Eval runner
 # ---------------------------------------------------------------------------
+
 
 async def _run_single(
     record: dict,
@@ -154,14 +158,14 @@ async def evaluate_retrieval(
     }
 
     status = "PASS" if passed else "FAIL"
-    print(f"\n{'='*50}")
+    print(f"\n{'=' * 50}")
     print(f"Retrieval Eval — {status}")
     print(f"  Dataset    : {dataset_path}")
     print(f"  N          : {n}")
     print(f"  Recall@{k}  : {avg_recall:.4f}  (threshold >= {threshold})")
     print(f"  MRR        : {avg_mrr:.4f}")
     print(f"  Precision@{k}: {avg_precision:.4f}")
-    print(f"{'='*50}\n")
+    print(f"{'=' * 50}\n")
 
     return summary
 
@@ -169,6 +173,7 @@ async def evaluate_retrieval(
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def main() -> None:
     logging.basicConfig(level=logging.INFO)

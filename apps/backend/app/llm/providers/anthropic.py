@@ -1,4 +1,5 @@
 """Anthropic Claude provider — Sonnet/Opus for long-context synthesis."""
+
 from __future__ import annotations
 
 import logging

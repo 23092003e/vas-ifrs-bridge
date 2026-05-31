@@ -1,4 +1,5 @@
 """Top-level orchestrator — classifies intent and delegates to the correct agent."""
+
 from __future__ import annotations
 
 import json
@@ -11,18 +12,10 @@ logger = logging.getLogger(__name__)
 
 # Simple keyword-based intent classification (Phase 1).
 # Replace with Qwen14B classifier in Phase 2.
-_COMPARE_KEYWORDS = {
-    "so sánh", "compare", "difference", "khác nhau", "vs", "versus", "đối chiếu"
-}
-_MAPPING_KEYWORDS = {
-    "mapping", "ánh xạ", "map account", "tài khoản", "chart of accounts"
-}
-_REPORT_KEYWORDS = {
-    "report", "báo cáo", "tổng hợp", "summary", "export"
-}
-_ADJUSTMENT_KEYWORDS = {
-    "adjustment", "điều chỉnh", "bút toán", "journal entry", "debit", "credit"
-}
+_COMPARE_KEYWORDS = {"so sánh", "compare", "difference", "khác nhau", "vs", "versus", "đối chiếu"}
+_MAPPING_KEYWORDS = {"mapping", "ánh xạ", "map account", "tài khoản", "chart of accounts"}
+_REPORT_KEYWORDS = {"report", "báo cáo", "tổng hợp", "summary", "export"}
+_ADJUSTMENT_KEYWORDS = {"adjustment", "điều chỉnh", "bút toán", "journal entry", "debit", "credit"}
 
 
 def _classify_intent(text: str, hint: str | None) -> str:
@@ -61,17 +54,17 @@ class Orchestrator:
         intent = _classify_intent(request.content, request.intent_hint)
         model = _select_model(intent, request.reasoning)
 
-        logger.info(
-            "orchestrator: intent=%s model=%s scope=%s", intent, model, request.scope
-        )
+        logger.info("orchestrator: intent=%s model=%s scope=%s", intent, model, request.scope)
 
         yield f"data: {json.dumps({'type': 'intent', 'intent': intent, 'model': model})}\n\n"
 
         from app.agents.base import AgentBase
+
         agent: AgentBase
 
         if intent == "compare":
             from app.agents.ifrs_compare_agent import IFRSCompareAgent
+
             agent = IFRSCompareAgent()
             async for token in agent.arun(
                 query=request.content,
@@ -83,6 +76,7 @@ class Orchestrator:
                 yield token
         elif intent == "mapping":
             from app.agents.gl_mapping_agent import GLMappingAgent
+
             agent = GLMappingAgent()
             async for token in agent.arun(
                 query=request.content,
@@ -94,6 +88,7 @@ class Orchestrator:
                 yield token
         elif intent == "adjustment":
             from app.agents.adjustment_agent import AdjustmentAgent
+
             agent = AdjustmentAgent()
             async for token in agent.arun(
                 query=request.content,
@@ -106,6 +101,7 @@ class Orchestrator:
         else:
             # qa / fallback
             from app.agents.retrieval_agent import RetrievalAgent
+
             agent = RetrievalAgent()
             async for token in agent.arun(
                 query=request.content,

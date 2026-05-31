@@ -1,4 +1,5 @@
 """Agent that produces a structured VAS ↔ IFRS standard comparison."""
+
 from __future__ import annotations
 
 import json
@@ -55,6 +56,7 @@ class IFRSCompareAgent(AgentBase):
 
         # Also retrieve IFRS-specific
         from app.rag.retriever import retrieve
+
         ifrs_chunks = await retrieve(
             query,
             collection="kb_shared_ifrs",
@@ -81,9 +83,14 @@ class IFRSCompareAgent(AgentBase):
             logger.warning("compare agent unresolved citations: %s", unresolved)
 
         for cite in build_citation_list(cleaned, citation_map):
-            payload = {"type": "citation", "key": cite.key, "doc_id": cite.doc_id,
-                       "chunk_id": cite.chunk_id, "snippet": cite.snippet,
-                       "standard_code": cite.standard_code}
+            payload = {
+                "type": "citation",
+                "key": cite.key,
+                "doc_id": cite.doc_id,
+                "chunk_id": cite.chunk_id,
+                "snippet": cite.snippet,
+                "standard_code": cite.standard_code,
+            }
             yield f"data: {json.dumps(payload)}\n\n"
 
         yield f"data: {json.dumps({'type': 'final', 'content': cleaned})}\n\n"
@@ -91,5 +98,6 @@ class IFRSCompareAgent(AgentBase):
 
 async def _call_llm(user: str, system: str, model_hint: str) -> AsyncIterator[str]:
     from app.llm.providers.gemini import stream_chat
+
     async for tok in stream_chat(system=system, user=user, model_hint=model_hint):
         yield tok

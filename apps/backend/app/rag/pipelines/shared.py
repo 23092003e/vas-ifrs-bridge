@@ -1,4 +1,5 @@
 """RAG pipeline targeting the shared VAS/IFRS standards collection."""
+
 from __future__ import annotations
 
 from app.rag.retriever import retrieve

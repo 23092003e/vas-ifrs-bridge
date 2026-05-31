@@ -1,4 +1,5 @@
 """Role-based access control definitions and middleware."""
+
 from __future__ import annotations
 
 from enum import Enum
@@ -49,6 +50,7 @@ class RBACMiddleware(BaseHTTPMiddleware):
         )
         if ROLE_RANK.get(user_role, 0) < ROLE_RANK.get(required, 0):
             from starlette.responses import JSONResponse
+
             return JSONResponse({"detail": "Insufficient role"}, status_code=403)
 
         return await call_next(request)

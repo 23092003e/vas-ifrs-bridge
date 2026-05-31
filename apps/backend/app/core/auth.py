@@ -1,4 +1,5 @@
 """JWT / Supabase auth middleware and token validation."""
+
 from __future__ import annotations
 
 import logging
@@ -54,7 +55,15 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
 
         if _DEV_BYPASS:
-            request.state.user = {"sub": "dev-user", "app_metadata": {"role": "admin", "tenant_id": "dev-tenant", "tenant_name": "Dev Tenant", "plan": "free"}}
+            request.state.user = {
+                "sub": "dev-user",
+                "app_metadata": {
+                    "role": "admin",
+                    "tenant_id": "dev-tenant",
+                    "tenant_name": "Dev Tenant",
+                    "plan": "free",
+                },
+            }
             request.state.user_id = "dev-user"
             return await call_next(request)
 
