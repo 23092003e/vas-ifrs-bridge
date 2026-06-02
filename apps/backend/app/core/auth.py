@@ -51,24 +51,22 @@ async def verify_jwt(token: str) -> dict[str, Any]:
                 
         if key:
             alg = key.get("alg", "RS256")
-            payload: dict[str, Any] = jwt.decode(
+            return jwt.decode(
                 token,
                 key,
                 algorithms=[alg, "RS256", "ES256"],
                 options={"verify_aud": False},
             )
-            return payload
     except Exception as exc:
         logger.warning("JWKS verification failed, trying HS256 fallback: %s", exc)
 
     # Supabase signs with HS256 using the service role secret / JWT secret
-    payload: dict[str, Any] = jwt.decode(
+    return jwt.decode(
         token,
         settings.supabase_service_role_key,
         algorithms=["HS256"],
         options={"verify_aud": False},
     )
-    return payload
 
 
 
