@@ -2,5 +2,14 @@
   "name": "n8n-mcp",
   "version": "0.1.0",
   "main": "dist/index.js",
-  "scripts": { "build": "tsc" }
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
 }

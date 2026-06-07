@@ -18,9 +18,7 @@ _REPORT_KEYWORDS = {"report", "báo cáo", "tổng hợp", "summary", "export"}
 _ADJUSTMENT_KEYWORDS = {"adjustment", "điều chỉnh", "bút toán", "journal entry", "debit", "credit"}
 
 
-def _classify_intent(text: str, hint: str | None) -> str:
-    if hint:
-        return hint
+def _classify_intent_keywords(text: str) -> str:
     lower = text.lower()
     if any(k in lower for k in _COMPARE_KEYWORDS):
         return "compare"
@@ -31,6 +29,58 @@ def _classify_intent(text: str, hint: str | None) -> str:
     if any(k in lower for k in _ADJUSTMENT_KEYWORDS):
         return "adjustment"
     return "qa"
+
+
+INTENT_SYSTEM_PROMPT = """\
+You are a routing assistant for a financial accounting platform bridging Vietnamese Accounting Standards (VAS) and IFRS.
+Your task is to classify the user's intent into one of the following categories:
+- "compare": If the user wants to compare, find differences, or contrast VAS and IFRS standards (e.g., "so sánh VAS 15 và IFRS 15", "khác biệt về ghi nhận doanh thu").
+- "mapping": If the user wants to map general ledger accounts, configure charts of accounts, or establish relationships between accounts (e.g., "mapping tài khoản 242", "ánh xạ hệ thống tài khoản").
+- "adjustment": If the user asks to generate, calculate, or propose adjusting journal entries, or discuss debit/credit adjustments (e.g., "tạo bút toán điều chỉnh thuê tài sản", "adjustment cho IFRS 16").
+- "report": If the user wants to summarize, generate, export reports or financial statements (e.g., "báo cáo tài chính tổng hợp", "xuất báo cáo VAS-IFRS").
+- "qa": For general questions, explanations of concepts, definitions, or queries that do not fit into the other categories.
+
+Respond ONLY with a JSON object containing the classified intent, for example:
+{"intent": "compare"}
+Do NOT include any markdown formatting, code block markers (like ```json), or extra text.
+"""
+
+
+async def _classify_intent(text: str, hint: str | None) -> str:
+    if hint:
+        return hint
+
+    try:
+        from app.llm.providers.gemini import stream_chat
+        import re
+
+        # Call Gemini in a non-streaming fashion by joining stream tokens
+        tokens = []
+        async for token in stream_chat(
+            system=INTENT_SYSTEM_PROMPT,
+            user=text,
+            model_hint="fast",
+            temperature=0.0,
+            max_tokens=50
+        ):
+            tokens.append(token)
+        
+        response_text = "".join(tokens).strip()
+        
+        # Clean markdown formatting if LLM included it
+        if response_text.startswith("```"):
+            response_text = re.sub(r"^```[a-zA-Z]*\n|```$", "", response_text, flags=re.MULTILINE).strip()
+            
+        data = json.loads(response_text)
+        intent = data.get("intent")
+        if intent in {"compare", "mapping", "report", "adjustment", "qa"}:
+            return intent
+        else:
+            logger.warning("orchestrator: invalid intent returned by LLM classifier: %s", intent)
+    except Exception as exc:
+        logger.warning("orchestrator: LLM intent classification failed: %s. Falling back to keywords.", exc)
+
+    return _classify_intent_keywords(text)
 
 
 def _select_model(intent: str, reasoning: str) -> str:
@@ -51,7 +101,7 @@ class Orchestrator:
         tenant_id: str | None = None,
         tenant_collection: str | None = None,
     ) -> AsyncIterator[str]:
-        intent = _classify_intent(request.content, request.intent_hint)
+        intent = await _classify_intent(request.content, request.intent_hint)
         model = _select_model(intent, request.reasoning)
 
         logger.info("orchestrator: intent=%s model=%s scope=%s", intent, model, request.scope)
