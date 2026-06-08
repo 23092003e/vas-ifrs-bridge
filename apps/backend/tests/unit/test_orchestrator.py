@@ -2,9 +2,8 @@
 from __future__ import annotations
 
 import pytest
-from unittest.mock import patch, AsyncMock
-from app.agents.orchestrator import _classify_intent_keywords, _classify_intent, Orchestrator
-from app.schemas.chat import ChatRequest
+from unittest.mock import patch
+from app.agents.orchestrator import _classify_intent_keywords, _classify_intent
 
 
 def test_classify_intent_keywords():

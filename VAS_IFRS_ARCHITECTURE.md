@@ -51,6 +51,7 @@ vas-ifrs-bridge/
 │   │   ├── next.config.mjs
 │   │   ├── tsconfig.json
 │   │   ├── package.json
+│   │   ├── biome.json
 │   │   ├── Dockerfile
 │   │   └── .env.local.example
 │   │
@@ -105,6 +106,7 @@ vas-ifrs-bridge/
 │       │   │   ├── chunker.py
 │       │   │   ├── retriever.py                  # hybrid
 │       │   │   ├── citation.py
+│       │   │   ├── graph_service.py              # cross-reference graph logic
 │       │   │   └── pipelines/{shared,tenant}.py
 │       │   ├── ingestion/
 │       │   │   ├── parsers/{pdf,docx,xlsx,html}.py
@@ -151,18 +153,45 @@ vas-ifrs-bridge/
 │       ├── alembic/
 │       │   ├── versions/
 │       │   └── env.py
+│       ├── scripts/
+│       │   └── create_user.py
 │       ├── tests/
 │       │   ├── unit/
 │       │   ├── integration/
 │       │   └── e2e/
+│       ├── alembic.ini
 │       ├── pyproject.toml
 │       ├── Dockerfile
 │       └── .env.example
 │
-├── ingestion/                              # standalone heavy parsers
-│   ├── pipelines/{vas_circulars,ifrs_standards,tenant_docs}.py
-│   ├── unstructured_runner.py
-│   ├── batch_embed.py
+├── ingestion/                              # standalone heavy parsers & ingestion pipeline
+│   ├── pipelines/
+│   │   ├── parsers/
+│   │   │   ├── vas_circulars.py
+│   │   │   ├── ifrs_standards.py
+│   │   │   ├── tenant_docs.py
+│   │   │   └── unstructured_runner.py
+│   │   ├── embedders/
+│   │   │   └── batch_embed.py
+│   │   ├── chunkers/
+│   │   ├── retrievers/
+│   │   └── graph_builder.py
+│   ├── raw/                                # raw PDF and text documents
+│   │   ├── shared/
+│   │   │   ├── vas/
+│   │   │   └── ifrs/
+│   │   └── tenant/
+│   ├── processed/                          # intermediate parsed and chunked assets
+│   │   ├── cleaned/
+│   │   ├── chunks/
+│   │   ├── markdown/
+│   │   └── embeddings/
+│   ├── metadata/                           # cross-reference graphs, taxonomy mappings
+│   │   ├── paragraph_graph/
+│   │   │   └── cross_reference_graph.json
+│   │   ├── taxonomy/
+│   │   ├── citations/
+│   │   └── standards_map/
 │   └── Dockerfile
 │
 ├── orchestration/
@@ -242,7 +271,8 @@ vas-ifrs-bridge/
 │   ├── ARCHITECTURE.md
 │   ├── RAG_DESIGN.md
 │   ├── PROMPTS.md
-│   └── RUNBOOK.md
+│   ├── RUNBOOK.md
+│   └── vifb_architecture.png
 │
 ├── .github/workflows/
 │   ├── ci-backend.yml
@@ -251,7 +281,12 @@ vas-ifrs-bridge/
 │   └── deploy-prod.yml
 ├── Makefile
 ├── README.md
-└── pnpm-workspace.yaml
+├── LICENSE
+├── CLAUDE.md
+├── INGEST_GUIDE.md
+├── ingest.ps1
+├── pnpm-workspace.yaml
+└── pnpm-lock.yaml
 ```
 
 ---

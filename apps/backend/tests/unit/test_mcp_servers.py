@@ -1,7 +1,6 @@
 """Unit tests for the Qdrant and n8n MCP servers."""
 from __future__ import annotations
 
-import os
 import sys
 import importlib.util
 from pathlib import Path
