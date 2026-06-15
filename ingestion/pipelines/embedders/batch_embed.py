@@ -69,6 +69,7 @@ async def embed_texts(texts: list[str]) -> list[list[float]]:
 
 
 async def _embed_tei(texts: list[str]) -> list[list[float]]:
+    # pyrefly: ignore [missing-import]
     import httpx
     payload = {"inputs": texts, "normalize": True}
     async with httpx.AsyncClient(timeout=30.0) as client:
@@ -90,7 +91,9 @@ _GEMINI_RATE_DELAY = 1.5  # seconds between calls → ~40 RPM, safely under free
 async def _embed_gemini(texts: list[str]) -> list[list[float]]:
     """Gemini gemini-embedding-001 (dim=3072). Used when TEI unavailable."""
     import asyncio as _aio
+    # pyrefly: ignore [missing-import]
     from google import genai
+    # pyrefly: ignore [missing-import]
     from google.genai.errors import ClientError
 
     api_key = GEMINI_API_KEY
@@ -98,6 +101,7 @@ async def _embed_gemini(texts: list[str]) -> list[list[float]]:
         try:
             repo_root = Path(__file__).parent.parent.parent.parent
             sys.path.insert(0, str(repo_root / "apps" / "backend"))
+            # pyrefly: ignore [missing-import]
             from app.settings import settings
             api_key = settings.gemini_api_key
         except Exception:
@@ -141,6 +145,7 @@ async def _embed_gemini(texts: list[str]) -> list[list[float]]:
 # ---------------------------------------------------------------------------
 
 def _get_qdrant():
+    # pyrefly: ignore [missing-import]
     from qdrant_client import QdrantClient
     if QDRANT_URL == ":memory:":
         return QdrantClient(":memory:")
@@ -151,6 +156,7 @@ def _get_qdrant():
 
 
 def ensure_collection(client, collection: str, dim: int, recreate: bool = False) -> None:
+    # pyrefly: ignore [missing-import]
     from qdrant_client.models import Distance, VectorParams
 
     exists = client.collection_exists(collection)
@@ -170,6 +176,7 @@ def ensure_collection(client, collection: str, dim: int, recreate: bool = False)
 
 
 def upsert_batch(client, collection: str, points: list[dict]) -> None:
+    # pyrefly: ignore [missing-import]
     from qdrant_client.models import PointStruct
     structs = [
         PointStruct(
@@ -200,6 +207,7 @@ def load_raw_docs(docs_dir: Path) -> list[dict]:
     """Parse raw documents inline (no intermediate JSON)."""
     # parsers/ is a sibling of embedders/ under pipelines/
     sys.path.insert(0, str(Path(__file__).parent.parent / "parsers"))
+    # pyrefly: ignore [missing-import]
     from unstructured_runner import parse_document, _PARSERS
     docs = []
     for fp in sorted(docs_dir.rglob("*")):
@@ -232,7 +240,10 @@ async def ingest(
     # File lives at ingestion/pipelines/embedders/batch_embed.py → 3 levels up = repo root
     repo_root = Path(__file__).parent.parent.parent.parent
     sys.path.insert(0, str(repo_root / "apps" / "backend"))
+    # pyrefly: ignore [missing-import]
     from app.rag.chunker import chunk_document
+    # pyrefly: ignore [missing-import]
+    from app.ingestion.enrichment import enrich
 
     # First pass: collect all chunks to determine embedding dim
     all_chunks_meta: list[dict] = []  # holds doc metadata + chunk
@@ -247,7 +258,7 @@ async def ingest(
         logger.info("%s -> %d chunks", doc["filename"], len(chunks))
         for chunk in chunks:
             chunk_id = str(uuid.uuid4())
-            all_chunks_meta.append({
+            chunk_payload = {
                 "doc_id": doc_id,
                 "chunk_id": chunk_id,
                 "chunk_index": chunk.chunk_index,
@@ -263,7 +274,9 @@ async def ingest(
                 "embedding_model": "unknown",
                 "token_count": chunk.token_count,
                 "ingested_at": "2026-05-18T00:00:00Z",
-            })
+            }
+            chunk_payload = enrich(chunk_payload)
+            all_chunks_meta.append(chunk_payload)
 
     logger.info("total chunks to embed: %d", len(all_chunks_meta))
 
@@ -290,7 +303,7 @@ async def ingest(
         batch = texts[i : i + batch_size]
         batch_num += 1
         total_batches = (len(texts) + batch_size - 1) // batch_size
-        logger.info("embedding batch %d (~%d remaining) ...", batch_num, len(texts) - i)
+        logger.info("embedding batch %d/%d (~%d remaining) ...", batch_num, total_batches, len(texts) - i)
         try:
             batch_vecs = await _embed_tei(batch)
         except Exception as exc:

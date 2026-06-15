@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 
-from app.rag.citation import Citation, validate_citations, strip_unresolved_citations
+from app.rag.citation import Citation, strip_unresolved_citations, validate_citations
 
 logger = logging.getLogger(__name__)
 

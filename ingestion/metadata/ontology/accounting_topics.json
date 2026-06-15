@@ -1,0 +1,74 @@
+[
+  {
+    "topic_id": "revenue_recognition",
+    "topic_name": "Revenue Recognition",
+    "aliases": ["Revenue Recognition", "Ghi nhận doanh thu", "Doanh thu", "Revenue"],
+    "related_topics": ["financial_instruments", "business_combinations"]
+  },
+  {
+    "topic_id": "leases",
+    "topic_name": "Leases",
+    "aliases": ["Leases", "Thuê tài sản", "Thuê tài chính", "Thuê hoạt động"],
+    "related_topics": ["property_plant_equipment", "impairment"]
+  },
+  {
+    "topic_id": "inventory",
+    "topic_name": "Inventory",
+    "aliases": ["Inventory", "Hàng tồn kho"],
+    "related_topics": ["property_plant_equipment", "impairment"]
+  },
+  {
+    "topic_id": "property_plant_equipment",
+    "topic_name": "Property Plant Equipment",
+    "aliases": ["Property Plant Equipment", "Property, Plant and Equipment", "Tài sản cố định hữu hình", "PPE"],
+    "related_topics": ["leases", "intangible_assets", "impairment"]
+  },
+  {
+    "topic_id": "intangible_assets",
+    "topic_name": "Intangible Assets",
+    "aliases": ["Intangible Assets", "Tài sản cố định vô hình"],
+    "related_topics": ["property_plant_equipment", "impairment", "business_combinations"]
+  },
+  {
+    "topic_id": "financial_instruments",
+    "topic_name": "Financial Instruments",
+    "aliases": ["Financial Instruments", "Công cụ tài chính"],
+    "related_topics": ["revenue_recognition", "impairment"]
+  },
+  {
+    "topic_id": "impairment",
+    "topic_name": "Impairment",
+    "aliases": ["Impairment", "Impairment of Assets", "Tổn thất tài sản", "Dự phòng tổn thất"],
+    "related_topics": ["property_plant_equipment", "intangible_assets", "inventory"]
+  },
+  {
+    "topic_id": "consolidation",
+    "topic_name": "Consolidation",
+    "aliases": ["Consolidation", "Consolidated Financial Statements", "Báo cáo tài chính hợp nhất", "Hợp nhất"],
+    "related_topics": ["business_combinations"]
+  },
+  {
+    "topic_id": "cash_flow_statements",
+    "topic_name": "Cash Flow Statements",
+    "aliases": ["Cash Flow Statement", "Báo cáo lưu chuyển tiền tệ", "Lưu chuyển tiền tệ"],
+    "related_topics": []
+  },
+  {
+    "topic_id": "business_combinations",
+    "topic_name": "Business Combinations",
+    "aliases": ["Business Combinations", "Hợp nhất kinh doanh"],
+    "related_topics": ["consolidation", "intangible_assets"]
+  },
+  {
+    "topic_id": "employee_benefits",
+    "topic_name": "Employee Benefits",
+    "aliases": ["Employee Benefits", "Lợi ích nhân viên"],
+    "related_topics": []
+  },
+  {
+    "topic_id": "insurance_contracts",
+    "topic_name": "Insurance Contracts",
+    "aliases": ["Insurance Contracts", "Hợp đồng bảo hiểm"],
+    "related_topics": []
+  }
+]

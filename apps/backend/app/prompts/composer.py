@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
+
+from jinja2 import Environment, FileSystemLoader
 
 _TEMPLATES_DIR = Path(__file__).parents[5] / "prompts"
 

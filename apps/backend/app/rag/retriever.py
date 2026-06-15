@@ -7,9 +7,9 @@ import logging
 from dataclasses import dataclass
 
 from qdrant_client import AsyncQdrantClient
-from qdrant_client.models import Filter, FieldCondition, MatchValue
+from qdrant_client.models import FieldCondition, Filter, MatchValue
 
-from app.core.errors import QdrantUnavailable
+from app.core.errors import QdrantUnavailableError
 from app.rag.embedder import embed_query
 from app.rag.reranker import rerank
 from app.settings import settings
@@ -55,7 +55,23 @@ def _build_filter(
         conditions.append(FieldCondition(key="scope", match=MatchValue(value="shared")))
     elif scope == "tenant" and tenant_id:
         conditions.append(FieldCondition(key="tenant_id", match=MatchValue(value=tenant_id)))
-    # scope == "both" â†’ no filter; both shared + tenant returned
+    elif scope == "both" and tenant_id:
+        # Include shared data OR data belonging to the current tenant.
+        # Use should (OR) with min_should to prevent cross-tenant leakage.
+        from qdrant_client.models import Filter as QFilter
+        tenant_filter = QFilter(
+            should=[
+                FieldCondition(key="scope", match=MatchValue(value="shared")),
+                FieldCondition(key="tenant_id", match=MatchValue(value=tenant_id)),
+            ]
+        )
+        if conditions:
+            # Combine lang filter (must) with scope filter (should)
+            return Filter(must=conditions + [tenant_filter])
+        return tenant_filter
+    # scope == "both" without tenant_id → only shared data for safety
+    elif scope == "both" and not tenant_id:
+        conditions.append(FieldCondition(key="scope", match=MatchValue(value="shared")))
 
     return Filter(must=conditions) if conditions else None
 
@@ -91,7 +107,7 @@ async def retrieve(
         )
         hits = result.points
     except Exception as exc:
-        raise QdrantUnavailable(f"Qdrant search failed: {exc}") from exc
+        raise QdrantUnavailableError(f"Qdrant search failed: {exc}") from exc
     finally:
         await client.close()
 
@@ -132,22 +148,45 @@ async def retrieve(
 async def retrieve_multi(
     query: str,
     *,
-    shared_collection: str = "kb_shared_vas",
     tenant_collection: str | None = None,
     tenant_id: str | None = None,
     lang: str = "auto",
     k: int = RERANK_K,
 ) -> list[RetrievedChunk]:
-    """Retrieve from shared + tenant KB concurrently, merge, rerank final."""
+    """Retrieve from mappings, standards (vas, ifrs), guidance and tenant KB concurrently, merge, rerank final."""
     tasks = [
         retrieve(
             query,
-            collection=shared_collection,
+            collection="kb_shared_mapping",
             scope="shared",
             lang=lang,
             k=DENSE_K,
             skip_rerank=True,
-        )
+        ),
+        retrieve(
+            query,
+            collection="kb_shared_vas",
+            scope="shared",
+            lang=lang,
+            k=DENSE_K,
+            skip_rerank=True,
+        ),
+        retrieve(
+            query,
+            collection="kb_shared_ifrs",
+            scope="shared",
+            lang=lang,
+            k=DENSE_K,
+            skip_rerank=True,
+        ),
+        retrieve(
+            query,
+            collection="kb_shared_guidance",
+            scope="shared",
+            lang=lang,
+            k=DENSE_K,
+            skip_rerank=True,
+        ),
     ]
     if tenant_collection and tenant_id:
         tasks.append(

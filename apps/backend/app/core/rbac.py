@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from fastapi import HTTPException, status
@@ -23,7 +23,7 @@ ROLE_RANK = {
 }
 
 
-class Role(str, Enum):
+class Role(StrEnum):
     OWNER = "owner"
     ADMIN = "admin"
     ACCOUNTANT = "accountant"
@@ -38,7 +38,14 @@ class RBACMiddleware(BaseHTTPMiddleware):
         if request.url.path in BYPASS_PATHS:
             return await call_next(request)
 
-        required = ROUTE_ROLE_MAP.get(request.url.path)
+        # Prefix matching: find the most specific (longest) matching route prefix.
+        required = None
+        best_prefix_len = 0
+        for prefix, role in ROUTE_ROLE_MAP.items():
+            if request.url.path.startswith(prefix) and len(prefix) > best_prefix_len:
+                required = role
+                best_prefix_len = len(prefix)
+
         if required is None:
             return await call_next(request)
 

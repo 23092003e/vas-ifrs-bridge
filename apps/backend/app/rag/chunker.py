@@ -26,6 +26,13 @@ class Chunk:
     section_path: str = ""
     heading: str = ""
     lang: str = "bi"
+    standard_code: str | None = None
+    topic: str | None = None
+    source_type: str | None = None
+    paragraph: str | None = None
+    section: str | None = None
+    jurisdiction: str | None = None
+    effective_date: str | None = None
     token_count: int = field(init=False)
 
     def __post_init__(self) -> None:
@@ -105,6 +112,9 @@ def _extract_tables(text: str) -> tuple[list[str], str]:
 def _split_chars(text: str, target: int, overlap: int) -> list[str]:
     if len(text) <= target:
         return [text] if text else []
+    # Guard against infinite loop: overlap must be strictly less than target
+    if overlap >= target:
+        overlap = target // 2
     pieces: list[str] = []
     start = 0
     while start < len(text):
@@ -120,6 +130,8 @@ def _split_chars(text: str, target: int, overlap: int) -> list[str]:
 
 def _find_sentence_boundary(text: str, pos: int) -> int:
     """Search backwards from pos for . ! ? \n boundary."""
+    # Clamp pos to valid index range to prevent IndexError
+    pos = min(pos, len(text) - 1)
     for i in range(pos, max(pos - 200, 0), -1):
         if text[i] in ".!?\n":
             return i + 1

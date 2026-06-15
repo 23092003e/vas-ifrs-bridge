@@ -15,7 +15,6 @@ import asyncio
 import json
 import logging
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -74,8 +73,8 @@ def load_dataset(path: str) -> list[dict]:
 async def _run_single(
     record: dict,
     k: int,
-    tenant_id: Optional[str],
-    tenant_collection: Optional[str],
+    tenant_id: str | None,
+    tenant_collection: str | None,
     lang: str,
 ) -> dict:
     from app.rag.retriever import retrieve_multi
@@ -86,7 +85,6 @@ async def _run_single(
     try:
         chunks = await retrieve_multi(
             question,
-            shared_collection="kb_shared_vas",
             tenant_collection=tenant_collection,
             tenant_id=tenant_id,
             lang=lang,
@@ -111,8 +109,8 @@ async def evaluate_retrieval(
     dataset_path: str,
     *,
     k: int = 10,
-    tenant_id: Optional[str] = None,
-    tenant_collection: Optional[str] = None,
+    tenant_id: str | None = None,
+    tenant_collection: str | None = None,
     lang: str = "vi",
     concurrency: int = 4,
 ) -> dict:

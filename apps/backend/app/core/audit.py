@@ -47,9 +47,11 @@ async def log_audit(
     tenant_id: str | None,
     user_id: str | None,
     action: str,
-    resource: str,
+    resource_type: str | None = None,
     payload: dict | None = None,
     request_id: str | None = None,
+    ip: str | None = None,
+    ua: str | None = None,
 ) -> None:
     """Persist a structured audit record. Swallows errors — never block request path."""
     try:
@@ -57,9 +59,11 @@ async def log_audit(
             "tenant_id": tenant_id,
             "user_id": user_id,
             "action": action,
-            "resource_type": resource,
+            "resource_type": resource_type,
             "diff": payload,
             "request_id": request_id,
+            "ip": ip,
+            "ua": ua,
         }
         # In production, write to DB via asyncpg.  For now, structured log.
         logger.info("AUDIT %s", json.dumps(record, default=str))
@@ -69,7 +73,7 @@ async def log_audit(
 
 async def _fire_and_forget(**kwargs: Any) -> None:
     try:
-        await log_audit(**kwargs)  # type: ignore[arg-type]
+        await log_audit(**kwargs)
     except Exception as exc:
         logger.warning("audit middleware error: %s", exc)
 

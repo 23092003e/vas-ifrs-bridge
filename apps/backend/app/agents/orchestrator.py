@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import AsyncIterator
+from collections.abc import AsyncIterator
 
 from app.schemas.chat import ChatRequest
 
@@ -51,8 +51,9 @@ async def _classify_intent(text: str, hint: str | None) -> str:
         return hint
 
     try:
-        from app.llm.providers.gemini import stream_chat
         import re
+
+        from app.llm.providers.gemini import stream_chat
 
         # Call Gemini in a non-streaming fashion by joining stream tokens
         tokens = []
@@ -64,13 +65,13 @@ async def _classify_intent(text: str, hint: str | None) -> str:
             max_tokens=50
         ):
             tokens.append(token)
-        
+
         response_text = "".join(tokens).strip()
-        
+
         # Clean markdown formatting if LLM included it
         if response_text.startswith("```"):
             response_text = re.sub(r"^```[a-zA-Z]*\n|```$", "", response_text, flags=re.MULTILINE).strip()
-            
+
         data = json.loads(response_text)
         intent = data.get("intent")
         if intent in {"compare", "mapping", "report", "adjustment", "qa"}:

@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-import yaml
 from pathlib import Path
+
+import yaml
 
 _REGISTRY_PATH = Path(__file__).parents[5] / "prompts" / "registry.yaml"
 

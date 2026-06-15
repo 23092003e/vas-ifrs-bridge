@@ -6,6 +6,7 @@ import csv
 import logging
 from pathlib import Path
 from typing import Any
+
 import openpyxl
 
 logger = logging.getLogger(__name__)
@@ -76,7 +77,7 @@ def _find_header_and_mapping(rows: list[list[Any]]) -> tuple[int, dict[str, int]
 
 def _parse_csv(path: Path) -> list[dict[str, Any]]:
     rows: list[list[str]] = []
-    with open(path, mode="r", encoding="utf-8-sig", errors="replace") as f:
+    with open(path, encoding="utf-8-sig", errors="replace") as f:
         reader = csv.reader(f)
         for row in reader:
             rows.append(row)

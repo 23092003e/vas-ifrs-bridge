@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any, AsyncIterator
+from collections.abc import AsyncIterator
+from typing import Any
 
 from app.agents.base import AgentBase
 from app.agents.citation_validator import CitationValidator
@@ -47,7 +48,6 @@ class IFRSCompareAgent(AgentBase):
         # Retrieve from both VAS and IFRS shared collections
         chunks = await retrieve_multi(
             query,
-            shared_collection="kb_shared_vas",
             tenant_collection=tenant_collection,
             tenant_id=tenant_id,
             lang=lang,

@@ -41,14 +41,14 @@ async def verify_jwt(token: str) -> dict[str, Any]:
         jwks = await _fetch_jwks()
         headers = jwt.get_unverified_header(token)
         kid = headers.get("kid")
-        
+
         # Find matching key from JWKS
         key = None
         for k in jwks.get("keys", []):
             if k.get("kid") == kid:
                 key = k
                 break
-                
+
         if key:
             alg = key.get("alg", "RS256")
             return jwt.decode(

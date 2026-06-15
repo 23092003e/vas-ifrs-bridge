@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-import os
-import shutil
 import asyncio
 import logging
-from fastapi import APIRouter, UploadFile, Request, HTTPException
+import os
+import shutil
 
-from app.deps import DB
+from fastapi import APIRouter, HTTPException, Request, UploadFile
+
 from app.db.models import Document
+from app.deps import DB
 from app.ingestion.jobs import ingest_document
 
 logger = logging.getLogger(__name__)
@@ -38,7 +39,7 @@ async def upload_document(
             shutil.copyfileobj(file.file, buffer)
     except Exception as exc:
         logger.error("Failed to save uploaded file locally: %s", exc)
-        raise HTTPException(status_code=500, detail="Failed to save uploaded file")
+        raise HTTPException(status_code=500, detail="Failed to save uploaded file") from exc
 
     # Insert document record in DB
     doc = Document(

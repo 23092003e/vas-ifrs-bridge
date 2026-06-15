@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import AsyncIterator
+from collections.abc import AsyncIterator
 
 import anthropic
 
@@ -36,13 +36,13 @@ async def stream_chat(
     """Stream tokens from Anthropic Messages API."""
     client = _get_client()
 
-    kwargs: dict = dict(
-        model=model,
-        max_tokens=max_tokens,
-        temperature=temperature if not extended_thinking else 1,
-        system=system,
-        messages=[{"role": "user", "content": user}],
-    )
+    kwargs: dict = {
+        "model": model,
+        "max_tokens": max_tokens,
+        "temperature": temperature if not extended_thinking else 1,
+        "system": system,
+        "messages": [{"role": "user", "content": user}],
+    }
 
     if extended_thinking:
         kwargs["thinking"] = {"type": "enabled", "budget_tokens": thinking_budget}

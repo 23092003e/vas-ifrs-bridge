@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from pydantic import BaseModel, UUID4
 from typing import Literal
+
+from pydantic import UUID4, BaseModel
 
 
 class ReportRequest(BaseModel):

@@ -10,7 +10,6 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
-
 logger = logging.getLogger(__name__)
 
 BYPASS_PATHS = {"/healthz", "/readyz", "/metrics", "/openapi.json", "/docs", "/redoc"}
@@ -53,9 +52,10 @@ class TenantResolverMiddleware(BaseHTTPMiddleware):
 
         # Ensure tenant exists in database
         try:
-            from app.db.models import Tenant
             from sqlalchemy import select
-            
+
+            from app.db.models import Tenant
+
             db = getattr(request.state, "db", None)
             if db:
                 result = await db.execute(select(Tenant).where(Tenant.id == tenant_id))

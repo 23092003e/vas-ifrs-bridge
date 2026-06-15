@@ -7,7 +7,6 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-import os
 import re
 import sys
 import uuid
@@ -40,6 +39,15 @@ def _extract_references(text: str) -> list[str]:
     return list(set(refs))
 
 
+def _extract_paragraph_number(text: str) -> str | None:
+    """Match starting pattern of paragraph numbers like '31.', 'B34.', 'IE47.'"""
+    text_strip = text.strip()
+    m = re.match(r"^(?:Paragraph|para\.|section|Khoản|Điều)?\s*\b(B\d+|IE\d+|\d+)\b", text_strip, re.IGNORECASE)
+    if m:
+        return m.group(1)
+    return None
+
+
 def build_graph(docs_dir: Path) -> nx.DiGraph:
     # 1. Setup paths to import unstructured_runner and backend modules
     parsers_dir = Path(__file__).parent / "parsers"
@@ -56,6 +64,37 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
 
     G = nx.DiGraph()
 
+    # Load topic ontology from json files
+    metadata_dir = Path(__file__).parent.parent / "metadata" / "ontology"
+    topics_path = metadata_dir / "accounting_topics.json"
+    relations_path = metadata_dir / "vas_ifrs_relations.json"
+
+    topics = []
+    if topics_path.exists():
+        try:
+            with open(topics_path, "r", encoding="utf-8") as f:
+                topics = json.load(f)
+        except Exception as e:
+            logger.error("Failed to load topics for graph building: %s", e)
+
+    # Add Topic Nodes to Graph
+    for topic in topics:
+        topic_node_id = f"topic_{topic['topic_id']}"
+        G.add_node(
+            topic_node_id,
+            id=topic_node_id,
+            type="topic",
+            topic_name=topic["topic_name"],
+            aliases=topic.get("aliases", []),
+        )
+
+    # Link topic nodes with related_topic relations
+    for topic in topics:
+        topic_node_id = f"topic_{topic['topic_id']}"
+        for rel_topic_id in topic.get("related_topics", []):
+            rel_node_id = f"topic_{rel_topic_id}"
+            G.add_edge(topic_node_id, rel_node_id, relation="related_topic")
+
     # 2. Parse all documents in the directories
     parsed_docs: list[dict] = []
     for fp in sorted(docs_dir.rglob("*")):
@@ -71,6 +110,7 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
     # 3. Add nodes and edges
     standard_nodes: dict[str, str] = {}  # standard_code -> doc_node_id
     chunk_nodes: list[dict] = []         # temp storage to build links later
+    paragraph_to_chunk_id: dict[str, str] = {} # standard_code.paragraph -> chunk_id
 
     for doc in parsed_docs:
         doc_id = str(uuid.uuid5(uuid.NAMESPACE_URL, doc["source_path"]))
@@ -100,6 +140,12 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
         for chunk in chunks:
             chunk_id = str(uuid.uuid4())
             
+            para_num = _extract_paragraph_number(chunk.text)
+            para_code = None
+            if para_num and std_code:
+                para_code = f"{std_code.upper()}.{para_num.upper()}"
+                paragraph_to_chunk_id[para_code] = chunk_id
+
             # Section Node
             G.add_node(
                 chunk_id,
@@ -110,6 +156,8 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
                 lang=chunk.lang,
                 standard_code=std_code,
                 doc_id=doc_id,
+                paragraph=para_num,
+                paragraph_code=para_code,
             )
 
             # HAS_SECTION edge
@@ -123,9 +171,58 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
 
     logger.info("Added %d document nodes and %d section nodes", len(parsed_docs), len(chunk_nodes))
 
-    # 4. Add REFERS_TO and MAPS_TO edges
+    # Add standard-level equivalent_standard relations from ontology relations
+    relations = []
+    if relations_path.exists():
+        try:
+            with open(relations_path, "r", encoding="utf-8") as f:
+                relations = json.load(f)
+        except Exception as e:
+            logger.error("Failed to load relations for graph building: %s", e)
+
+    for rel in relations:
+        vas_std = rel.get("vas")
+        ifrs_std = rel.get("ifrs")
+        ias_std = rel.get("ias")
+        stds = [std for std in [vas_std, ifrs_std, ias_std] if std and std != "None"]
+        for i in range(len(stds)):
+            for j in range(i + 1, len(stds)):
+                node_a = stds[i].upper()
+                node_b = stds[j].upper()
+                if node_a in standard_nodes and node_b in standard_nodes:
+                    G.add_edge(standard_nodes[node_a], standard_nodes[node_b], relation="equivalent_standard")
+                    G.add_edge(standard_nodes[node_b], standard_nodes[node_a], relation="equivalent_standard")
+
+        # Link document to matched topic node
+        matched_topic_id = None
+        topic_name_lower = rel["topic"].lower()
+        for topic in topics:
+            if topic["topic_name"].lower() == topic_name_lower:
+                matched_topic_id = f"topic_{topic['topic_id']}"
+                break
+        if matched_topic_id:
+            for std in stds:
+                std_upper = std.upper()
+                if std_upper in standard_nodes:
+                    G.add_edge(standard_nodes[std_upper], matched_topic_id, relation="related_topic")
+
+    # Add standard-level supersedes relations
+    SUPERSEDES_MAPPING = {
+        "IFRS-15": ["IAS-18", "IAS-11"],
+        "IFRS-16": ["IAS-17"],
+        "IFRS-10": ["IAS-27", "SIC-12"],
+    }
+    for new_std, old_stds in SUPERSEDES_MAPPING.items():
+        if new_std in standard_nodes:
+            new_doc_id = standard_nodes[new_std]
+            for old_std in old_stds:
+                if old_std in standard_nodes:
+                    old_doc_id = standard_nodes[old_std]
+                    G.add_edge(new_doc_id, old_doc_id, relation="supersedes")
+
+    # 4. Add REFERS_TO, MAPS_TO, references, and example_of edges
     for c_node in chunk_nodes:
-        # Cross references inside text
+        # Cross references inside text (document-level)
         refs = _extract_references(c_node["text"])
         for ref in refs:
             ref_upper = ref.upper()
@@ -134,7 +231,7 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
                 # Add REFERS_TO relation to the target document
                 G.add_edge(c_node["id"], target_doc_id, relation="REFERS_TO")
 
-        # Explicit VAS -> IFRS Mapping alignment
+        # Explicit VAS -> IFRS Mapping alignment (document-level)
         curr_std = c_node["standard_code"]
         if curr_std:
             curr_std_upper = curr_std.upper()
@@ -143,6 +240,35 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
                 if target_std in standard_nodes:
                     target_doc_id = standard_nodes[target_std]
                     G.add_edge(c_node["id"], target_doc_id, relation="MAPS_TO")
+                    
+                    # Also link standard documents with equivalent_standard
+                    curr_doc_id = standard_nodes[curr_std_upper]
+                    G.add_edge(curr_doc_id, target_doc_id, relation="equivalent_standard")
+                    G.add_edge(target_doc_id, curr_doc_id, relation="equivalent_standard")
+
+            # Section-level paragraph cross-references
+            # Matches paragraph numbers in text e.g., "...paragraph B34..."
+            ref_pattern = r"\b(?:paragraph|para\.|section|Khoản|Điều|Ví dụ|IE|B)\s*(B\d+|IE\d+|\d+)\b"
+            found_paras = re.findall(ref_pattern, c_node["text"], re.IGNORECASE)
+            for para_ref in found_paras:
+                ref_para_code = f"{curr_std_upper}.{para_ref.upper()}"
+                if ref_para_code in paragraph_to_chunk_id:
+                    target_chunk_id = paragraph_to_chunk_id[ref_para_code]
+                    if target_chunk_id != c_node["id"]:
+                        relation = "example_of" if para_ref.upper().startswith("IE") else "references"
+                        G.add_edge(c_node["id"], target_chunk_id, relation=relation)
+
+            # Cross-standard paragraph references e.g. "IFRS 15.31"
+            cross_pattern = r"\b(VAS|IAS|IFRS|VFRS)[\s\-]?(\d+[A-Z]?)\b\.((?:IE|B)?\d+)\b"
+            for m in re.finditer(cross_pattern, c_node["text"], re.IGNORECASE):
+                prefix = m.group(1).upper()
+                num = m.group(2)
+                para = m.group(3).upper()
+                cross_para_code = f"{prefix}-{num}.{para}"
+                if cross_para_code in paragraph_to_chunk_id:
+                    target_chunk_id = paragraph_to_chunk_id[cross_para_code]
+                    if target_chunk_id != c_node["id"]:
+                        G.add_edge(c_node["id"], target_chunk_id, relation="references")
 
     # 5. Add Account Nodes & GOVERNED_BY edges from COA loader
     try:

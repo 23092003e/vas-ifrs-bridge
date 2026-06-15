@@ -1,0 +1,18 @@
+[
+  {
+    "example_id": "telecom_revenue",
+    "topic_id": "revenue_recognition",
+    "industry": "Telecommunications",
+    "scenario": "A telecom operator sells a bundle containing a handset and a 12-month network subscription for a single monthly fee.",
+    "vas_treatment": "Doanh thu được ghi nhận theo hóa đơn xuất ra hàng tháng (tiền thu được). Handset thường không được tách biệt doanh thu ngay lập tức khi bàn giao.",
+    "ifrs_treatment": "Allocate transaction price to the handset and the service obligation based on their standalone selling prices. Handset revenue is recognized upfront at delivery; service revenue is recognized monthly."
+  },
+  {
+    "example_id": "retail_lease",
+    "topic_id": "leases",
+    "industry": "Retail",
+    "scenario": "A retailer leases a store outlet for 5 years with fixed lease payments.",
+    "vas_treatment": "Operating lease. Rentals are expensed on a straight-line basis over the lease term.",
+    "ifrs_treatment": "Recognize a Right-of-Use asset and a Lease Liability at commencement. Monthly depreciation of ROU asset and interest expense on Lease Liability are recorded."
+  }
+]

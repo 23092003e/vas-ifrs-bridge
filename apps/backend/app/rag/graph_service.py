@@ -36,7 +36,7 @@ def get_graph() -> nx.DiGraph:
         return _GRAPH
 
     try:
-        with open(graph_path, "r", encoding="utf-8") as f:
+        with open(graph_path, encoding="utf-8") as f:
             data = json.load(f)
         _GRAPH = json_graph.node_link_graph(data)
         logger.info(
@@ -54,10 +54,10 @@ def get_graph() -> nx.DiGraph:
 def get_related_sections(section_id: str, depth: int = 1) -> list[str]:
     """
     Find section node IDs (UUIDs) connected to the given section_id.
-    Follows REFERS_TO and MAPS_TO relations.
+    Follows references, supersedes, related_topic, equivalent_standard, example_of, REFERS_TO, MAPS_TO, and HAS_SECTION.
     """
-    G = get_graph()
-    if section_id not in G:
+    graph = get_graph()
+    if section_id not in graph:
         return []
 
     related = set()
@@ -71,15 +71,24 @@ def get_related_sections(section_id: str, depth: int = 1) -> list[str]:
             continue
 
         # Look at outgoing edges
-        for neighbor in G.successors(curr):
+        for neighbor in graph.successors(curr):
             if neighbor in visited:
                 continue
-            edge_data = G.get_edge_data(curr, neighbor) or {}
+            edge_data = graph.get_edge_data(curr, neighbor) or {}
             rel = edge_data.get("relation")
 
-            if rel in ("REFERS_TO", "MAPS_TO", "HAS_SECTION"):
+            if rel in (
+                "references",
+                "supersedes",
+                "related_topic",
+                "equivalent_standard",
+                "example_of",
+                "REFERS_TO",
+                "MAPS_TO",
+                "HAS_SECTION",
+            ):
                 visited.add(neighbor)
-                node_data = G.nodes[neighbor]
+                node_data = graph.nodes[neighbor]
                 if node_data.get("type") == "section":
                     related.add(neighbor)
                 queue.append((neighbor, curr_depth + 1))
@@ -91,21 +100,22 @@ def get_ifrs_equivalents(vas_section_id: str) -> list[str]:
     """
     Find IFRS sections mapped to a given VAS section.
     """
-    G = get_graph()
-    if vas_section_id not in G:
+    graph = get_graph()
+    if vas_section_id not in graph:
         return []
 
     equivalents = []
-    for neighbor in G.successors(vas_section_id):
-        edge_data = G.get_edge_data(vas_section_id, neighbor) or {}
-        if edge_data.get("relation") == "MAPS_TO":
-            node_data = G.nodes[neighbor]
+    for neighbor in graph.successors(vas_section_id):
+        edge_data = graph.get_edge_data(vas_section_id, neighbor) or {}
+        rel = edge_data.get("relation")
+        if rel in ("MAPS_TO", "equivalent_standard"):
+            node_data = graph.nodes[neighbor]
             if node_data.get("type") == "section":
                 equivalents.append(neighbor)
             elif node_data.get("type") == "document":
                 # If mapped to a document, fetch all sections of that document
-                for child in G.successors(neighbor):
-                    child_edge = G.get_edge_data(neighbor, child) or {}
+                for child in graph.successors(neighbor):
+                    child_edge = graph.get_edge_data(neighbor, child) or {}
                     if child_edge.get("relation") == "HAS_SECTION":
                         equivalents.append(child)
 
@@ -116,22 +126,22 @@ def get_governed_sections_for_account(account_code: str) -> list[str]:
     """
     Find section IDs governing a given account code.
     """
-    G = get_graph()
+    graph = get_graph()
     acc_node_id = f"acc_{account_code}"
-    if acc_node_id not in G:
+    if acc_node_id not in graph:
         return []
 
     sections = []
-    for neighbor in G.successors(acc_node_id):
-        edge_data = G.get_edge_data(acc_node_id, neighbor) or {}
-        if edge_data.get("relation") == "GOVERNED_BY":
-            node_data = G.nodes[neighbor]
+    for neighbor in graph.successors(acc_node_id):
+        edge_data = graph.get_edge_data(acc_node_id, neighbor) or {}
+        if edge_data.get("relation") in ("GOVERNED_BY", "references"):
+            node_data = graph.nodes[neighbor]
             if node_data.get("type") == "section":
                 sections.append(neighbor)
             elif node_data.get("type") == "document":
                 # If governed by document, fetch all its sections
-                for child in G.successors(neighbor):
-                    child_edge = G.get_edge_data(neighbor, child) or {}
+                for child in graph.successors(neighbor):
+                    child_edge = graph.get_edge_data(neighbor, child) or {}
                     if child_edge.get("relation") == "HAS_SECTION":
                         sections.append(child)
 

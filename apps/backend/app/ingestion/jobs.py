@@ -4,16 +4,17 @@ from __future__ import annotations
 
 import logging
 import uuid
-from app.db.session import AsyncSessionLocal
+
+from qdrant_client.models import Distance, PointStruct, VectorParams
+
 from app.db.models import Document
+from app.db.session import AsyncSessionLocal
+from app.ingestion.parsers.docx import parse_docx
+from app.ingestion.parsers.pdf import parse_pdf
+from app.ingestion.parsers.xlsx import parse_xlsx
 from app.rag.chunker import chunk_document
 from app.rag.embedder import embed, get_active_dim
 from app.rag.retriever import _qdrant_client
-from qdrant_client.models import Distance, VectorParams, PointStruct
-
-from app.ingestion.parsers.pdf import parse_pdf
-from app.ingestion.parsers.docx import parse_docx
-from app.ingestion.parsers.xlsx import parse_xlsx
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +23,7 @@ async def ingest_document(document_id: str, local_path: str, collection: str) ->
     """Full ingestion pipeline: parse -> chunk -> embed -> Qdrant upsert."""
     async with AsyncSessionLocal() as db:
         from sqlalchemy import select
-        
+
         # 1. Fetch document metadata
         stmt = select(Document).where(Document.id == document_id)
         res = await db.execute(stmt)
@@ -46,7 +47,7 @@ async def ingest_document(document_id: str, local_path: str, collection: str) ->
                 text = parse_xlsx(local_path)
             else:
                 # Text fallback
-                with open(local_path, "r", encoding="utf-8", errors="ignore") as f:
+                with open(local_path, encoding="utf-8", errors="ignore") as f:
                     text = f.read()
 
             if not text.strip():
@@ -66,7 +67,7 @@ async def ingest_document(document_id: str, local_path: str, collection: str) ->
             client = _qdrant_client()
             try:
                 dim = get_active_dim()
-                
+
                 # Check and create collection if missing
                 collections = await client.get_collections()
                 exists = any(c.name == collection for c in collections.collections)
@@ -77,23 +78,28 @@ async def ingest_document(document_id: str, local_path: str, collection: str) ->
                     )
 
                 # Assemble Qdrant points
+                from app.ingestion.enrichment import enrich
                 points = []
-                for idx, (chunk, vector) in enumerate(zip(chunks, embeddings)):
+                for idx, (chunk, vector) in enumerate(zip(chunks, embeddings, strict=True)):
+                    chunk_payload = {
+                        "doc_id": document_id,
+                        "chunk_index": idx,
+                        "text": chunk.text,
+                        "text_preview": chunk.text[:300],
+                        "heading": chunk.heading,
+                        "section_path": chunk.section_path,
+                        "lang": lang,
+                        "scope": "tenant",
+                        "tenant_id": doc.tenant_id,
+                        "standard_code": doc.doc_metadata.get("standard_code") if (doc.doc_metadata and isinstance(doc.doc_metadata, dict)) else None,
+                        "source_uri": doc.filename,
+                    }
+                    chunk_payload = enrich(chunk_payload)
                     points.append(
                         PointStruct(
                             id=str(uuid.uuid4()),
                             vector=vector,
-                            payload={
-                                "doc_id": document_id,
-                                "chunk_index": idx,
-                                "text": chunk.text,
-                                "text_preview": chunk.text[:300],
-                                "heading": chunk.heading,
-                                "section_path": chunk.section_path,
-                                "lang": lang,
-                                "scope": "tenant",
-                                "tenant_id": doc.tenant_id,
-                            }
+                            payload=chunk_payload
                         )
                     )
 

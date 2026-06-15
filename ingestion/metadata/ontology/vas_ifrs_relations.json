@@ -1,0 +1,66 @@
+[
+  {
+    "topic": "Revenue Recognition",
+    "vas": "VAS-14",
+    "ifrs": "IFRS-15",
+    "ias": "IAS-18",
+    "relationship": "equivalent_standard",
+    "major_differences": "VAS 14 uses a 5-criterion model for goods and 4-criterion model for services. IFRS 15 introduces a unified 5-step model based on transfer of control rather than transfer of risks and rewards. VAS 14 does not explicitly define performance obligations or handle variable consideration in detail."
+  },
+  {
+    "topic": "Leases",
+    "vas": "VAS-06",
+    "ifrs": "IFRS-16",
+    "ias": "IAS-17",
+    "relationship": "equivalent_standard",
+    "major_differences": "VAS 06 distinguishes between operating and finance leases for both lessees and lessors. IFRS 16 eliminates the operating lease classification for lessees, requiring almost all leases to be recognized on the balance sheet as Right-of-Use (ROU) assets and lease liabilities."
+  },
+  {
+    "topic": "Consolidation",
+    "vas": "VAS-25",
+    "ifrs": "IFRS-10",
+    "ias": "IAS-27",
+    "relationship": "equivalent_standard",
+    "major_differences": "VAS 25 bases control primarily on ownership of more than 50% of voting rights. IFRS 10 defines a de facto control model based on power, exposure/rights to variable returns, and ability to use power to affect returns."
+  },
+  {
+    "topic": "Inventory",
+    "vas": "VAS-02",
+    "ifrs": "IAS-2",
+    "ias": "IAS-2",
+    "relationship": "equivalent_standard",
+    "major_differences": "VAS 02 permits LIFO method (though restricted under local tax rules) and allows reversal of inventory write-downs. IAS 2 prohibits LIFO and focuses strictly on FIFO or weighted average cost."
+  },
+  {
+    "topic": "Property Plant Equipment",
+    "vas": "VAS-03",
+    "ifrs": "IAS-16",
+    "ias": "IAS-16",
+    "relationship": "equivalent_standard",
+    "major_differences": "VAS 03 only allows the Cost Model for PPE. IAS 16 allows both the Cost Model and the Revaluation Model (fair value revaluations)."
+  },
+  {
+    "topic": "Intangible Assets",
+    "vas": "VAS-04",
+    "ifrs": "IAS-38",
+    "ias": "IAS-38",
+    "relationship": "equivalent_standard",
+    "major_differences": "VAS 04 does not allow revaluation model. Under VAS, land use rights are treated as intangible assets, whereas under IFRS they are often leasehold assets (IFRS 16) or investment property (IAS 40)."
+  },
+  {
+    "topic": "Impairment",
+    "vas": "None",
+    "ifrs": "IAS-36",
+    "ias": "IAS-36",
+    "relationship": "missing_standard",
+    "major_differences": "VAS has no equivalent standard for asset impairment. Assets are kept at historical cost less depreciation. Provisions are only made for inventory, investments, and bad debts. IFRS requires annual impairment testing for goodwill/intangibles and trigger-based testing for other assets."
+  },
+  {
+    "topic": "Financial Instruments",
+    "vas": "None",
+    "ifrs": "IFRS-9",
+    "ias": "IAS-32",
+    "relationship": "missing_standard",
+    "major_differences": "VAS has no comprehensive standard on financial instruments. Accounting is done at cost. IFRS 9 requires classification based on business model and cash flow characteristics, measuring at amortized cost, FVOCI, or FVTPL, and utilizes the Expected Credit Loss (ECL) model for impairment."
+  }
+]

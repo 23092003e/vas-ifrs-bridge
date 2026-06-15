@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 from fastapi import APIRouter
-from . import chat, kb, gl, mapping, adjustments, reports, documents, admin
+
+from . import adjustments, admin, chat, documents, gl, kb, mapping, reports
 
 router = APIRouter()
 router.include_router(chat.router, prefix="/chat", tags=["chat"])

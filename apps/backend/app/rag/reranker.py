@@ -37,7 +37,7 @@ async def rerank(
         ranked = sorted(chunks, key=lambda c: c.get("score", 0.0), reverse=True)
         return ranked[:top_k]
 
-    scored = sorted(zip(scores, chunks), key=lambda x: x[0], reverse=True)
+    scored = sorted(zip(scores, chunks, strict=True), key=lambda x: x[0], reverse=True)
 
     above = [(s, c) for s, c in scored if s >= min_score]
     if len(above) < 3:

@@ -4,18 +4,19 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import AsyncIterator
+from collections.abc import AsyncIterator
 
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
-from sqlalchemy import select, delete, update, func
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.orm import selectinload
 
 from app.agents.orchestrator import Orchestrator
 from app.core.tenant import TenantCtx
-from app.schemas.chat import ChatRequest
+from app.db.models import Conversation
+from app.db.models import Message as DbMessage
 from app.deps import DB
-from app.db.models import Conversation, Message as DbMessage
+from app.schemas.chat import ChatRequest
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -76,7 +77,7 @@ async def chat_stream(
 
     async def _generate() -> AsyncIterator[bytes]:
         from app.db.session import AsyncSessionLocal
-        
+
         accumulated_tokens = []
         accumulated_citations = []
         model_used = None
@@ -102,9 +103,13 @@ async def chat_stream(
                             })
                         elif data.get("type") == "intent":
                             model_used = data.get("model")
+                        elif data.get("type") == "final":
+                            # Skip the agent's final event; we emit our own
+                            # enriched version below with conversation_id.
+                            continue
                     except Exception as e:
                         logger.error("Error parsing event during streaming: %s", e)
-                
+
                 yield event.encode()
 
             # Save assistant message on successful stream completion
@@ -117,7 +122,7 @@ async def chat_stream(
                         .where(Conversation.id == conversation_id)
                         .values(updated_at=func.now())
                     )
-                    
+
                     assistant_msg = DbMessage(
                         conversation_id=conversation_id,
                         role="assistant",
@@ -128,13 +133,13 @@ async def chat_stream(
                     db_session.add(assistant_msg)
                     await db_session.commit()
 
-                    # Yield final event updated with conversation_id
-                    final_payload = {
-                        "type": "final",
-                        "content": full_response,
-                        "conversation_id": conversation_id,
-                    }
-                    yield f"data: {json.dumps(final_payload)}\n\n".encode()
+            # Always emit a final event with conversation_id
+            final_payload = {
+                "type": "final",
+                "content": full_response if accumulated_tokens else "",
+                "conversation_id": conversation_id,
+            }
+            yield f"data: {json.dumps(final_payload)}\n\n".encode()
 
         except Exception as exc:
             err = json.dumps({"type": "error", "message": str(exc)})

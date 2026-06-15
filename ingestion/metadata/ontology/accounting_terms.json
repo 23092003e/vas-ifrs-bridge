@@ -1,0 +1,170 @@
+[
+  {
+    "term": "Revenue Recognition",
+    "aliases": ["revenue", "recognize revenue", "revenue recognition", "revenue from contracts"],
+    "language": "en",
+    "topic_id": "revenue_recognition"
+  },
+  {
+    "term": "Doanh thu",
+    "aliases": ["ghi nhận doanh thu", "doanh thu bán hàng", "cung cấp dịch vụ", "doanh thu"],
+    "language": "vi",
+    "topic_id": "revenue_recognition"
+  },
+  {
+    "term": "Performance Obligation",
+    "aliases": ["performance obligation", "promise in contract"],
+    "language": "en",
+    "topic_id": "revenue_recognition"
+  },
+  {
+    "term": "Nghĩa vụ thực hiện",
+    "aliases": ["nghĩa vụ thực hiện", "nghĩa vụ hiệu năng", "cam kết trong hợp đồng"],
+    "language": "vi",
+    "topic_id": "revenue_recognition"
+  },
+  {
+    "term": "Variable Consideration",
+    "aliases": ["variable consideration", "discounts", "rebates", "refunds"],
+    "language": "en",
+    "topic_id": "revenue_recognition"
+  },
+  {
+    "term": "Giá trị có thể thay đổi",
+    "aliases": ["khoản thanh toán biến đổi", "chiết khấu", "giảm giá", "khoản phạt"],
+    "language": "vi",
+    "topic_id": "revenue_recognition"
+  },
+  {
+    "term": "Leases",
+    "aliases": ["lease", "leasing", "lessee", "lessor", "right-of-use asset", "lease liability"],
+    "language": "en",
+    "topic_id": "leases"
+  },
+  {
+    "term": "Thuê tài sản",
+    "aliases": ["thuê tài sản", "bên thuê", "bên cho thuê", "tài sản quyền sử dụng", "nợ thuê tài chính"],
+    "language": "vi",
+    "topic_id": "leases"
+  },
+  {
+    "term": "Inventory",
+    "aliases": ["inventory", "inventories", "cost of sales", "net realizable value", "nrv", "fifo"],
+    "language": "en",
+    "topic_id": "inventory"
+  },
+  {
+    "term": "Hàng tồn kho",
+    "aliases": ["hàng tồn kho", "giá trị thuần có thể thực hiện được", "nhập trước xuất trước", "giá vốn hàng bán"],
+    "language": "vi",
+    "topic_id": "inventory"
+  },
+  {
+    "term": "Property Plant Equipment",
+    "aliases": ["property plant equipment", "property, plant and equipment", "tangible assets", "depreciation", "cost model", "revaluation model"],
+    "language": "en",
+    "topic_id": "property_plant_equipment"
+  },
+  {
+    "term": "Tài sản cố định hữu hình",
+    "aliases": ["tài sản cố định hữu hình", "tscđ hữu hình", "khấu hao", "mô hình giá gốc", "mô hình đánh giá lại"],
+    "language": "vi",
+    "topic_id": "property_plant_equipment"
+  },
+  {
+    "term": "Intangible Assets",
+    "aliases": ["intangible asset", "intangible assets", "goodwill", "amortization", "research and development", "r&d"],
+    "language": "en",
+    "topic_id": "intangible_assets"
+  },
+  {
+    "term": "Tài sản cố định vô hình",
+    "aliases": ["tài sản cố định vô hình", "tscđ vô hình", "hao mòn", "lợi thế thương mại", "nghiên cứu và phát triển"],
+    "language": "vi",
+    "topic_id": "intangible_assets"
+  },
+  {
+    "term": "Financial Instruments",
+    "aliases": ["financial instruments", "financial assets", "financial liabilities", "derivative", "amortized cost", "fair value"],
+    "language": "en",
+    "topic_id": "financial_instruments"
+  },
+  {
+    "term": "Công cụ tài chính",
+    "aliases": ["công cụ tài chính", "tài sản tài chính", "nợ phải trả tài chính", "công cụ phái sinh", "giá trị hợp lý"],
+    "language": "vi",
+    "topic_id": "financial_instruments"
+  },
+  {
+    "term": "Impairment",
+    "aliases": ["impairment", "impairment loss", "recoverable amount", "cash-generating unit", "cgu"],
+    "language": "en",
+    "topic_id": "impairment"
+  },
+  {
+    "term": "Tổn thất tài sản",
+    "aliases": ["tổn thất tài sản", "giá trị có thể thu hồi", "đơn vị tạo tiền", "dự phòng giảm giá"],
+    "language": "vi",
+    "topic_id": "impairment"
+  },
+  {
+    "term": "Consolidation",
+    "aliases": ["consolidation", "consolidated", "subsidiary", "parent", "control", "non-controlling interest", "nci"],
+    "language": "en",
+    "topic_id": "consolidation"
+  },
+  {
+    "term": "Hợp nhất",
+    "aliases": ["hợp nhất báo cáo tài chính", "báo cáo tài chính hợp nhất", "công ty con", "công ty mẹ", "quyền kiểm soát", "lợi ích cổ đông không kiểm soát"],
+    "language": "vi",
+    "topic_id": "consolidation"
+  },
+  {
+    "term": "Cash Flow Statements",
+    "aliases": ["cash flow", "cash flows", "statement of cash flows", "operating activities", "investing activities", "financing activities"],
+    "language": "en",
+    "topic_id": "cash_flow_statements"
+  },
+  {
+    "term": "Lưu chuyển tiền tệ",
+    "aliases": ["lưu chuyển tiền tệ", "báo cáo lưu chuyển tiền tệ", "hoạt động kinh doanh", "hoạt động đầu tư", "hoạt động tài chính"],
+    "language": "vi",
+    "topic_id": "cash_flow_statements"
+  },
+  {
+    "term": "Business Combinations",
+    "aliases": ["business combination", "business combinations", "acquisition", "acquirer", "goodwill", "purchase price allocation"],
+    "language": "en",
+    "topic_id": "business_combinations"
+  },
+  {
+    "term": "Hợp nhất kinh doanh",
+    "aliases": ["hợp nhất kinh doanh", "bên mua", "lợi thế thương mại", "phân bổ giá mua"],
+    "language": "vi",
+    "topic_id": "business_combinations"
+  },
+  {
+    "term": "Employee Benefits",
+    "aliases": ["employee benefits", "pensions", "defined benefit", "defined contribution", "post-employment"],
+    "language": "en",
+    "topic_id": "employee_benefits"
+  },
+  {
+    "term": "Lợi ích nhân viên",
+    "aliases": ["lợi ích nhân viên", "lợi ích sau khi nghỉ việc", "hưu trí"],
+    "language": "vi",
+    "topic_id": "employee_benefits"
+  },
+  {
+    "term": "Insurance Contracts",
+    "aliases": ["insurance contracts", "insurance contract", "premium", "underwriting"],
+    "language": "en",
+    "topic_id": "insurance_contracts"
+  },
+  {
+    "term": "Hợp đồng bảo hiểm",
+    "aliases": ["hợp đồng bảo hiểm", "phí bảo hiểm"],
+    "language": "vi",
+    "topic_id": "insurance_contracts"
+  }
+]

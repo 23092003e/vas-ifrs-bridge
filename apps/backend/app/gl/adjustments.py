@@ -7,15 +7,15 @@ import logging
 import re
 from typing import Any
 
-from app.core.errors import UnbalancedJE
+from app.core.errors import UnbalancedJEError
 
 logger = logging.getLogger(__name__)
 
 
 def validate_balance(debit: float, credit: float) -> None:
-    """Raise UnbalancedJE if debit != credit."""
+    """Raise UnbalancedJEError if debit != credit."""
     if round(debit, 2) != round(credit, 2):
-        raise UnbalancedJE(f"Debit {debit} != Credit {credit}")
+        raise UnbalancedJEError(f"Debit {debit} != Credit {credit}")
 
 
 async def generate_entries(mapping_results: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -73,6 +73,6 @@ async def generate_entries(mapping_results: list[dict[str, Any]]) -> list[dict[s
         try:
             validate_balance(float(debit), float(credit))
         except (ValueError, TypeError) as e:
-            raise UnbalancedJE(f"Invalid entry amounts: {debit} or {credit}. Error: {e}")
+            raise UnbalancedJEError(f"Invalid entry amounts: {debit} or {credit}. Error: {e}") from e
 
     return entries

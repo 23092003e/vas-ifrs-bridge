@@ -11,8 +11,8 @@ def parse_docx(path: str) -> str:
         return "\n\n".join(p.text for p in doc.paragraphs)
     except ImportError:
         # Simple zipfile parsing fallback for .docx files (which are zip archives of xml files)
-        import zipfile
         import xml.etree.ElementTree as ET
+        import zipfile
         try:
             with zipfile.ZipFile(path) as docx_zip:
                 xml_content = docx_zip.read('word/document.xml')
@@ -25,4 +25,4 @@ def parse_docx(path: str) -> str:
                         texts.append(p_text)
                 return "\n\n".join(texts)
         except Exception as exc:
-            raise ImportError(f"docx module is required for .docx files (fallback zip parser failed: {exc})")
+            raise ImportError(f"docx module is required for .docx files (fallback zip parser failed: {exc})") from exc

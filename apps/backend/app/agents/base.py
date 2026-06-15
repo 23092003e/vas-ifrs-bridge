@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from typing import Any, AsyncIterator
+from collections.abc import AsyncGenerator, AsyncIterator
+from typing import Any
 
 
 class AgentBase(ABC):
@@ -20,14 +21,16 @@ class AgentBase(ABC):
         cls.logger = logging.getLogger(f"agent.{cls.__name__}")
 
     @abstractmethod
-    async def arun(self, **kwargs: Any) -> AsyncIterator[str]:
+    async def arun(self, **kwargs: Any) -> AsyncGenerator[str, None]:
         """Execute agent and stream token events as JSON strings."""
-        ...
+        # This is an abstract async generator; subclasses must use `yield`.
+        raise NotImplementedError
+        yield  # make this an async generator at the type level
 
     async def _safe_run(self, **kwargs: Any) -> AsyncIterator[str]:
         """Wrap arun() with top-level error handling."""
         try:
-            async for token in await self.arun(**kwargs):
+            async for token in self.arun(**kwargs):
                 yield token
         except Exception as exc:
             self.logger.error("agent %s failed: %s", self.__class__.__name__, exc, exc_info=True)

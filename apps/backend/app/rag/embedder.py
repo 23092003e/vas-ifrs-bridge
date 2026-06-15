@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+
 import httpx
 
 from app.settings import settings
@@ -68,16 +69,16 @@ async def _call_tei(texts: list[str], model: str) -> list[list[float]]:
                 return data
             return data.get("embeddings", data.get("data", []))
         except httpx.TimeoutException as exc:
-            from app.core.errors import EmbedderTimeout
+            from app.core.errors import EmbedderTimeoutError
 
-            raise EmbedderTimeout(f"TEI timeout after {TIMEOUT_S}s") from exc
+            raise EmbedderTimeoutError(f"TEI timeout after {TIMEOUT_S}s") from exc
         except httpx.HTTPStatusError as exc:
             logger.error("TEI HTTP error %s: %s", exc.response.status_code, exc.response.text)
             raise
 
 
 async def _call_gemini(texts: list[str]) -> list[list[float]]:
-    """Fallback: Gemini gemini-embedding-001 (dim=3072)."""
+    """Fallback: Gemini gemini-embedding-001 (dim=3072), truncated to EMBED_DIM."""
     from google import genai
 
     client = genai.Client(api_key=settings.gemini_api_key)
@@ -87,10 +88,15 @@ async def _call_gemini(texts: list[str]) -> list[list[float]]:
             model="models/gemini-embedding-001",
             contents=text,
         )
-        results.append(list(resp.embeddings[0].values))
+        if not resp.embeddings:
+            raise ValueError(f"Gemini returned no embeddings for text: {text[:80]!r}")
+        vec = list(resp.embeddings[0].values)
+        # Truncate to match Qdrant collection dimension (1024) to prevent
+        # dimension mismatch errors when TEI is unavailable.
+        results.append(vec[:EMBED_DIM])
     return results
 
 
 def get_active_dim() -> int:
-    """Return embedding dimension of currently active backend."""
-    return EMBED_DIM_GEMINI if _active_backend == "gemini" else EMBED_DIM
+    """Return embedding dimension — always EMBED_DIM since Gemini is truncated."""
+    return EMBED_DIM
