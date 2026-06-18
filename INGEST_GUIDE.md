@@ -96,9 +96,27 @@ Supported: `.pdf` `.docx` `.doc` `.xlsx` `.xls` `.txt` `.md`
 
 ### Python directly (from repo root)
 
+When running the ingestion pipeline, the generated chunks for each document are automatically cached under `ingestion/processed/chunks/<collection_name>/<doc_name>_chunks.json`. This provides an audit trail for chunk verification and debugging.
+
+You can also run the ingestion directly using these pre-saved chunks (skipping the heavy PDF parsing/chunking phases):
+
 ```powershell
 $env:PYTHONPATH = "apps\backend;ingestion"
 
+# Ingest from raw docs (parses PDFs, chunks, caches JSONs, embeds, and upserts)
+python ingestion/pipelines/embedders/batch_embed.py `
+  --docs ingestion/raw/shared/vas `
+  --collection kb_shared_vas --scope shared
+
+# Ingest from pre-parsed JSON chunks (skips parsing/chunking, directly embeds & upserts)
+python ingestion/pipelines/embedders/batch_embed.py `
+  --parsed ingestion/processed/chunks/kb_shared_vas `
+  --collection kb_shared_vas --scope shared
+```
+
+#### Detailed command examples:
+
+```powershell
 # VAS
 python ingestion/pipelines/embedders/batch_embed.py `
   --docs ingestion/raw/shared/vas `

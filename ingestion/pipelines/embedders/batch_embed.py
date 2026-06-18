@@ -249,6 +249,11 @@ async def ingest(
     # First pass: collect all chunks to determine embedding dim
     all_chunks_meta: list[dict] = []  # holds doc metadata + chunk
     for doc in docs:
+        # If the doc is a list, it's already pre-chunked
+        if isinstance(doc, list):
+            all_chunks_meta.extend(doc)
+            continue
+
         doc_id = str(uuid.uuid5(uuid.NAMESPACE_URL, doc["source_path"]))
         
         # If the document has structured sections (from parser), chunk them individually
@@ -276,6 +281,7 @@ async def ingest(
             )
             
         logger.info("%s -> %d chunks", doc["filename"], len(chunks))
+        doc_chunks_meta = []
         for chunk in chunks:
             chunk_id = str(uuid.uuid4())
             chunk_payload = {
@@ -296,7 +302,20 @@ async def ingest(
                 "ingested_at": "2026-05-18T00:00:00Z",
             }
             chunk_payload = enrich(chunk_payload)
+            doc_chunks_meta.append(chunk_payload)
             all_chunks_meta.append(chunk_payload)
+
+        # Cache the chunks as a JSON file if not running a dry run
+        if not dry_run and doc_chunks_meta:
+            doc_stem = Path(doc["filename"]).stem
+            processed_dir = repo_root / "ingestion" / "processed" / "chunks" / collection
+            processed_dir.mkdir(parents=True, exist_ok=True)
+            output_file = processed_dir / f"{doc_stem}_chunks.json"
+            try:
+                output_file.write_text(json.dumps(doc_chunks_meta, ensure_ascii=False, indent=2), encoding="utf-8")
+                logger.info("Saved %d chunks to %s", len(doc_chunks_meta), output_file.relative_to(repo_root))
+            except Exception as exc:
+                logger.error("Failed to save chunks to %s: %s", output_file, exc)
 
     logger.info("total chunks to embed: %d", len(all_chunks_meta))
 
