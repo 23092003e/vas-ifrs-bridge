@@ -1,4 +1,4 @@
-"""Text embedding via bge-m3 (TEI) with Gemini text-embedding-004 fallback."""
+"""Text embedding via bge-m3 on local Ollama."""
 
 from __future__ import annotations
 
@@ -10,38 +10,29 @@ from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
-# TEI endpoint is co-located with Ollama node; override via env
-TEI_URL = getattr(settings, "tei_url", "http://localhost:8080")
+# Ollama endpoint for embeddings
+OLLAMA_BASE_URL = getattr(settings, "ollama_base_url", "http://localhost:11434")
 EMBED_DIM = 1024
-EMBED_DIM_GEMINI = 3072  # gemini-embedding-001 dimension
-BATCH_SIZE = 64
-TIMEOUT_S = 30.0
+BATCH_SIZE = 32
+TIMEOUT_S = 60.0
 
-# Track which backend is active so retriever can use correct dim
-_active_backend: str = "tei"  # "tei" | "gemini"
+# Track active backend (always ollama now)
+_active_backend: str = "ollama"
 _query_cache: dict[str, list[float]] = {}
 _QUERY_CACHE_MAX = 512
 
 
 async def embed(texts: list[str], model: str = "bge-m3") -> list[list[float]]:
     """
-    Return dense embeddings. TEI (bge-m3) first, Gemini text-embedding-004 fallback.
-    Falls back to chunked serial requests if batch > BATCH_SIZE.
+    Return dense embeddings using local Ollama (bge-m3).
     """
-    global _active_backend
     if not texts:
         return []
 
     results: list[list[float]] = []
     for i in range(0, len(texts), BATCH_SIZE):
         batch = texts[i : i + BATCH_SIZE]
-        try:
-            results.extend(await _call_tei(batch, model))
-            _active_backend = "tei"
-        except Exception as exc:
-            logger.warning("TEI unavailable, using Gemini embedding fallback: %s", exc)
-            results.extend(await _call_gemini(batch))
-            _active_backend = "gemini"
+        results.extend(await _call_ollama(batch, model))
     return results
 
 
@@ -57,46 +48,26 @@ async def embed_query(query: str) -> list[float]:
     return vec
 
 
-async def _call_tei(texts: list[str], model: str) -> list[list[float]]:
-    payload = {"inputs": texts, "model": model, "normalize": True}
+async def _call_ollama(texts: list[str], model: str) -> list[list[float]]:
+    url = f"{OLLAMA_BASE_URL}/api/embed"
+    payload = {
+        "model": model,
+        "input": texts
+    }
     async with httpx.AsyncClient(timeout=TIMEOUT_S) as client:
         try:
-            resp = await client.post(f"{TEI_URL}/embed", json=payload)
+            resp = await client.post(url, json=payload)
             resp.raise_for_status()
             data = resp.json()
-            # TEI returns {"embeddings": [[...]]} or list directly
-            if isinstance(data, list):
-                return data
-            return data.get("embeddings", data.get("data", []))
+            return data["embeddings"]
         except httpx.TimeoutException as exc:
             from app.core.errors import EmbedderTimeoutError
-
-            raise EmbedderTimeoutError(f"TEI timeout after {TIMEOUT_S}s") from exc
+            raise EmbedderTimeoutError(f"Ollama timeout after {TIMEOUT_S}s") from exc
         except httpx.HTTPStatusError as exc:
-            logger.error("TEI HTTP error %s: %s", exc.response.status_code, exc.response.text)
+            logger.error("Ollama HTTP error %s: %s", exc.response.status_code, exc.response.text)
             raise
 
 
-async def _call_gemini(texts: list[str]) -> list[list[float]]:
-    """Fallback: Gemini gemini-embedding-001 (dim=3072), truncated to EMBED_DIM."""
-    from google import genai
-
-    client = genai.Client(api_key=settings.gemini_api_key)
-    results: list[list[float]] = []
-    for text in texts:
-        resp = await client.aio.models.embed_content(
-            model="models/gemini-embedding-001",
-            contents=text,
-        )
-        if not resp.embeddings:
-            raise ValueError(f"Gemini returned no embeddings for text: {text[:80]!r}")
-        vec = list(resp.embeddings[0].values)
-        # Truncate to match Qdrant collection dimension (1024) to prevent
-        # dimension mismatch errors when TEI is unavailable.
-        results.append(vec[:EMBED_DIM])
-    return results
-
-
 def get_active_dim() -> int:
-    """Return embedding dimension — always EMBED_DIM since Gemini is truncated."""
+    """Return embedding dimension — always EMBED_DIM (1024)."""
     return EMBED_DIM

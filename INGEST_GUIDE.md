@@ -54,8 +54,7 @@ ingestion/
 ## Prerequisites
 
 1. **Qdrant** — vector DB (required)
-2. **GEMINI_API_KEY** — in `apps/backend/.env`
-3. **TEI** (optional) — bge-m3 server. Auto-fallback to Gemini `text-embedding-004` if absent
+2. **Ollama** — running locally (required) with `bge-m3` model downloaded (`ollama pull bge-m3`)
 
 ---
 
@@ -139,15 +138,13 @@ python ingestion/pipelines/embedders/batch_embed.py `
 
 | Backend | When used | Dim |
 |---|---|---|
-| **bge-m3 (TEI)** | TEI at `TEI_URL` (localhost:8080) | 1024 |
-| **Gemini text-embedding-004** | TEI unavailable (auto-fallback) | 768 |
+| **bge-m3 (Ollama)** | Ollama at `OLLAMA_BASE_URL` (localhost:11434) | 1024 |
 
-**Ingest and query must use same backend.** Dim mismatch → Qdrant search fails.
+All text embedding tasks now strictly use Ollama with `bge-m3`. Gemini and TEI embedding fallbacks have been removed.
 
-Run TEI locally (Docker, ~4GB RAM):
+Run Ollama and pull the `bge-m3` model:
 ```powershell
-docker run -p 8080:80 ghcr.io/huggingface/text-embeddings-inference:cpu-latest `
-  --model-id BAAI/bge-m3 --port 80
+ollama pull bge-m3
 ```
 
 ---

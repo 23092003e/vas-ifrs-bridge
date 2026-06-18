@@ -53,102 +53,35 @@ BATCH_SIZE = 32   # upsert batch size (Qdrant)
 try:
     _repo_root = Path(__file__).parent.parent.parent.parent
     sys.path.insert(0, str(_repo_root / "apps" / "backend"))
+    # pyrefly: ignore [missing-import]
     from app.settings import settings
-    TEI_URL = os.environ.get("TEI_URL", settings.tei_url)
     QDRANT_URL = os.environ.get("QDRANT_URL", settings.qdrant_url)
     QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY", settings.qdrant_api_key)
-    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", settings.gemini_api_key)
+    OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", settings.ollama_base_url)
 except Exception:
-    TEI_URL = os.environ.get("TEI_URL", "http://localhost:8080")
     QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
     QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY", "")
-    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+    OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
 
 
 # ---------------------------------------------------------------------------
-# Embedding — TEI first, Gemini fallback
+# Embedding — Ollama (bge-m3)
 # ---------------------------------------------------------------------------
 
 async def embed_texts(texts: list[str]) -> list[list[float]]:
-    """Try TEI (bge-m3), fall back to Gemini text-embedding-004."""
-    try:
-        return await _embed_tei(texts)
-    except Exception as exc:
-        logger.warning("TEI unavailable (%s), falling back to Gemini embedding", exc)
-        return await _embed_gemini(texts)
-
-
-async def _embed_tei(texts: list[str]) -> list[list[float]]:
+    """Embed texts using local Ollama bge-m3 model."""
     # pyrefly: ignore [missing-import]
     import httpx
-    payload = {"inputs": texts, "normalize": True}
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        resp = await client.post(f"{TEI_URL}/embed", json=payload)
+    url = f"{OLLAMA_BASE_URL}/api/embed"
+    payload = {
+        "model": "bge-m3",
+        "input": texts
+    }
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        resp = await client.post(url, json=payload)
         resp.raise_for_status()
         data = resp.json()
-        if isinstance(data, list):
-            return data
-        return data.get("embeddings", data.get("data", []))
-
-
-GEMINI_EMBED_MODEL = "models/gemini-embedding-001"
-GEMINI_EMBED_DIM = 3072
-
-
-_GEMINI_RATE_DELAY = 1.5  # seconds between calls → ~40 RPM, safely under free-tier limit
-
-
-async def _embed_gemini(texts: list[str]) -> list[list[float]]:
-    """Gemini gemini-embedding-001 (dim=3072). Used when TEI unavailable."""
-    import asyncio as _aio
-    # pyrefly: ignore [missing-import]
-    from google import genai
-    # pyrefly: ignore [missing-import]
-    from google.genai.errors import ClientError
-
-    api_key = GEMINI_API_KEY
-    if not api_key:
-        try:
-            repo_root = Path(__file__).parent.parent.parent.parent
-            sys.path.insert(0, str(repo_root / "apps" / "backend"))
-            # pyrefly: ignore [missing-import]
-            from app.settings import settings
-            api_key = settings.gemini_api_key
-        except Exception:
-            pass
-
-    client = genai.Client(api_key=api_key)
-    results: list[list[float]] = []
-    total = len(texts)
-    for i, text in enumerate(texts):
-        for attempt in range(8):
-            try:
-                resp = await client.aio.models.embed_content(
-                    model=GEMINI_EMBED_MODEL,
-                    contents=text,
-                )
-                vec = list(resp.embeddings[0].values)
-                results.append(vec[:EMBED_DIM])
-                if i < total - 1:
-                    await _aio.sleep(_GEMINI_RATE_DELAY)
-                if (i + 1) % 10 == 0:
-                    logger.info("  gemini embed: %d/%d chunks", i + 1, total)
-                break
-            except (ClientError, Exception) as exc:
-                is_rate_limit = (
-                    (isinstance(exc, ClientError) and exc.code == 429)
-                    or "429" in str(exc)
-                    or "RESOURCE_EXHAUSTED" in str(exc)
-                )
-                if is_rate_limit:
-                    wait = min(30 * (attempt + 1), 120)  # 30, 60, 90, 120s
-                    logger.warning("rate limit chunk %d/%d, retry %d/%d, waiting %ds...", i + 1, total, attempt + 1, 8, wait)
-                    await _aio.sleep(wait)
-                else:
-                    raise
-        else:
-            raise RuntimeError(f"Gemini embedding failed after 8 retries for chunk {i}")
-    return results
+        return data["embeddings"]
 
 
 # ---------------------------------------------------------------------------
@@ -338,41 +271,21 @@ async def ingest(
     # Embed in batches
     texts = [m["text"] for m in all_chunks_meta]
     vectors: list[list[float]] = []
-    # TEI: large batches OK. Gemini: small batches to avoid front-loading RPM.
-    # We don't know backend yet — start with batch=10; TEI will handle any size, Gemini stays safe.
-    gemini_batch = 10
-    tei_batch = 64
-    batch_size = tei_batch  # will shrink to gemini_batch after first TEI failure detected
-    _tei_failed = False
+    batch_size = 32
     i = 0
     batch_num = 0
+    total_batches = (len(texts) + batch_size - 1) // batch_size
     while i < len(texts):
-        if _tei_failed:
-            batch_size = gemini_batch
         batch = texts[i : i + batch_size]
         batch_num += 1
-        total_batches = (len(texts) + batch_size - 1) // batch_size
         logger.info("embedding batch %d/%d (~%d remaining) ...", batch_num, total_batches, len(texts) - i)
-        try:
-            batch_vecs = await _embed_tei(batch)
-        except Exception as exc:
-            if not _tei_failed:
-                logger.warning("TEI unavailable (%s), switching to Gemini (slower)", exc)
-                _tei_failed = True
-                batch_size = gemini_batch
-                batch = texts[i : i + batch_size]
-            batch_vecs = await _embed_gemini(batch)
+        batch_vecs = await embed_texts(batch)
         vectors.extend(batch_vecs)
         i += len(batch)
 
     # Detect actual dim from first vector
     actual_dim = len(vectors[0]) if vectors else EMBED_DIM
-    if actual_dim == 1024:
-        embed_model = "bge-m3"
-    elif actual_dim == 3072:
-        embed_model = "gemini-embedding-001"
-    else:
-        embed_model = f"unknown-dim{actual_dim}"
+    embed_model = "bge-m3"
     logger.info("embedding dim: %d (%s)", actual_dim, embed_model)
     for m in all_chunks_meta:
         m["embedding_model"] = embed_model
@@ -421,17 +334,17 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true", help="Parse+chunk only, skip embed+upsert")
     parser.add_argument("--qdrant-url", default=None)
     parser.add_argument("--qdrant-memory", action="store_true", help="Use in-memory Qdrant (testing)")
-    parser.add_argument("--tei-url", default=None)
+    parser.add_argument("--ollama-url", default=None)
 
     args = parser.parse_args()
 
-    global QDRANT_URL, TEI_URL
+    global QDRANT_URL, OLLAMA_BASE_URL
     if args.qdrant_url:
         QDRANT_URL = args.qdrant_url
     if args.qdrant_memory:
         QDRANT_URL = ":memory:"
-    if args.tei_url:
-        TEI_URL = args.tei_url
+    if args.ollama_url:
+        OLLAMA_BASE_URL = args.ollama_url
 
     # Load docs
     if args.docs:

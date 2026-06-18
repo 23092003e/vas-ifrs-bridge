@@ -128,7 +128,7 @@ Retriever constants: `DENSE_K=40`, `SPARSE_K=40`, `RERANK_K=8` (top-8 after fusi
 
 ### Ingestion pipeline (`ingestion/`)
 
-Raw docs (`ingestion/raw/`) → Parser → Chunker (800 tokens, 120 overlap, markdown headings) → Embedder (bge-m3 via TEI or Gemini) → Qdrant upsert. Output artifacts land in `ingestion/processed/`. Metadata (VAS↔IFRS mapping tables, citation index, taxonomy) in `ingestion/metadata/`.
+Raw docs (`ingestion/raw/`) → Parser → Chunker (800 tokens, 120 overlap, markdown headings) → Embedder (bge-m3 via Ollama) → Qdrant upsert. Output artifacts land in `ingestion/processed/`. Metadata (VAS↔IFRS mapping tables, citation index, taxonomy) in `ingestion/metadata/`.
 
 ### Frontend structure (`apps/frontend/src/`)
 
