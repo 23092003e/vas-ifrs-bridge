@@ -209,3 +209,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Ingestion outputs
+ingestion/processed/
+!ingestion/processed/.gitkeep
+!ingestion/processed/*/.gitkeep
+
