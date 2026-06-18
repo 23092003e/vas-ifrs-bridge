@@ -71,7 +71,7 @@ except Exception:
 # pyrefly: ignore [missing-import]
 import httpx
 
-OLLAMA_SEMAPHORE = asyncio.Semaphore(3)
+OLLAMA_SEMAPHORE = asyncio.Semaphore(1)
 
 async def embed_batch_with_retry(
     client: httpx.AsyncClient, 
@@ -89,7 +89,7 @@ async def embed_batch_with_retry(
     async with OLLAMA_SEMAPHORE:
         for attempt in range(1, retries + 1):
             try:
-                resp = await client.post(url, json=payload, timeout=60.0)
+                resp = await client.post(url, json=payload, timeout=180.0)
                 resp.raise_for_status()
                 data = resp.json()
                 return data["embeddings"]
