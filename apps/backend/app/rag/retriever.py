@@ -7,7 +7,7 @@ import logging
 from dataclasses import dataclass
 
 from qdrant_client import AsyncQdrantClient
-from qdrant_client.models import FieldCondition, Filter, MatchValue
+from qdrant_client.models import Condition, FieldCondition, Filter, MatchValue
 
 from app.core.errors import QdrantUnavailableError
 from app.rag.embedder import embed_query
@@ -46,10 +46,11 @@ def _build_filter(
     scope: str,
     tenant_id: str | None,
 ) -> Filter | None:
-    conditions = []
+    conditions: list[Condition] = []
 
-    if lang and lang != "auto":
-        conditions.append(FieldCondition(key="lang", match=MatchValue(value=lang)))
+    # Disable language filtering to allow cross-lingual retrieval (e.g., retrieving
+    # English IFRS documents for Vietnamese user queries). Semantic matching is handled
+    # by the multilingual embedding model, and language output is managed by the LLM.
 
     if scope == "shared":
         conditions.append(FieldCondition(key="scope", match=MatchValue(value="shared")))
@@ -98,14 +99,17 @@ async def retrieve(
 
     client = _qdrant_client()
     try:
-        result = await client.query_points(
+        from qdrant_client.http import models as http_models
+        result = await client.http.search_api.search_points(
             collection_name=collection,
-            query=vec,
-            query_filter=flt,
-            limit=DENSE_K,
-            with_payload=True,
+            search_request=http_models.SearchRequest(
+                vector=vec,
+                filter=flt,
+                limit=DENSE_K,
+                with_payload=True,
+            ),
         )
-        hits = result.points
+        hits = result.result
     except Exception as exc:
         raise QdrantUnavailableError(f"Qdrant search failed: {exc}") from exc
     finally:
@@ -118,8 +122,8 @@ async def retrieve(
     raw_chunks = [
         {
             "id": str(hit.id),
-            "doc_id": hit.payload.get("doc_id", ""),
-            "text": hit.payload.get("text_preview", "") or hit.payload.get("text", ""),
+            "doc_id": (hit.payload or {}).get("doc_id", ""),
+            "text": (hit.payload or {}).get("text_preview", "") or (hit.payload or {}).get("text", ""),
             "score": hit.score,
             "metadata": hit.payload or {},
         }
@@ -137,7 +141,7 @@ async def retrieve(
             doc_id=c["doc_id"],
             text=c["text"],
             score=c["score"],
-            rerank_score=c.get("rerank_score", c["score"]),
+            rerank_score=c["rerank_score"] if c.get("rerank_score") is not None else c["score"],
             metadata=c["metadata"],
             citation_key=f"C{i + 1}",
         )
@@ -204,7 +208,7 @@ async def retrieve_multi(
     results = await asyncio.gather(*tasks, return_exceptions=True)
     merged: list[dict] = []
     for res in results:
-        if isinstance(res, Exception):
+        if isinstance(res, BaseException):
             logger.warning("retrieval partial failure: %s", res)
             continue
         merged.extend(
@@ -226,7 +230,7 @@ async def retrieve_multi(
             doc_id=c["doc_id"],
             text=c["text"],
             score=c["score"],
-            rerank_score=c.get("rerank_score", c["score"]),
+            rerank_score=c["rerank_score"] if c.get("rerank_score") is not None else c["score"],
             metadata=c["metadata"],
             citation_key=f"C{i + 1}",
         )
