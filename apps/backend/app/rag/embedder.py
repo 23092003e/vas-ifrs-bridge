@@ -82,6 +82,9 @@ async def _call_ollama(client: httpx.AsyncClient, texts: list[str], model: str, 
             logger.warning("Ollama connection attempt %d failed. Retrying in 2s...", attempt)
             await asyncio.sleep(2.0)
 
+    # Fallback to satisfy type checker in case loop exits without returning
+    raise RuntimeError("Ollama embedding failed unexpectedly.")
+
 
 def get_active_dim() -> int:
     """Return embedding dimension — always EMBED_DIM (1024)."""
