@@ -157,7 +157,7 @@ def _parse_pdf(path: Path) -> tuple[str, list[dict]]:
                     font = s.get("font", "").lower()
                     size = s.get("size", 10.0)
                     is_bold = "bold" in font or "heavy" in font or "black" in font or "semibold" in font or s.get("flags", 0) & 16
-                    is_large = size >= body_size + 1.5
+                    is_large = size >= body_size + 1.5 or (body_size >= 11.5 and size >= body_size)
                     
                     if is_large and is_bold and len(line_text) < 150:
                         block_is_heading = True
