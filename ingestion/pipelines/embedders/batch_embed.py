@@ -68,20 +68,37 @@ except Exception:
 # Embedding — Ollama (bge-m3)
 # ---------------------------------------------------------------------------
 
-async def embed_texts(texts: list[str]) -> list[list[float]]:
-    """Embed texts using local Ollama bge-m3 model."""
-    # pyrefly: ignore [missing-import]
-    import httpx
+# pyrefly: ignore [missing-import]
+import httpx
+
+OLLAMA_SEMAPHORE = asyncio.Semaphore(3)
+
+async def embed_batch_with_retry(
+    client: httpx.AsyncClient, 
+    texts: list[str], 
+    model: str = "bge-m3", 
+    retries: int = 3
+) -> list[list[float]]:
+    """Embed texts using local Ollama bge-m3 model with retry logic and semaphore."""
     url = f"{OLLAMA_BASE_URL}/api/embed"
     payload = {
-        "model": "bge-m3",
+        "model": model,
         "input": texts
     }
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        resp = await client.post(url, json=payload)
-        resp.raise_for_status()
-        data = resp.json()
-        return data["embeddings"]
+    
+    async with OLLAMA_SEMAPHORE:
+        for attempt in range(1, retries + 1):
+            try:
+                resp = await client.post(url, json=payload, timeout=60.0)
+                resp.raise_for_status()
+                data = resp.json()
+                return data["embeddings"]
+            except (httpx.HTTPError, httpx.TimeoutException) as exc:
+                if attempt == retries:
+                    logger.error("Failed to embed batch after %d attempts", retries)
+                    raise exc
+                logger.warning("Embedding attempt %d failed: %s. Retrying in 2s...", attempt, exc)
+                await asyncio.sleep(2.0)
 
 
 # ---------------------------------------------------------------------------
@@ -268,20 +285,20 @@ async def ingest(
             print(f"  {m['doc_id'][:8]}.. chunk[{m['chunk_index']}] {m['token_count']} tokens: {m['text_preview'][:80]}")
         return 0
 
-    # Embed in batches
+    # Embed in batches concurrently
     texts = [m["text"] for m in all_chunks_meta]
     vectors: list[list[float]] = []
-    batch_size = 32
-    i = 0
-    batch_num = 0
-    total_batches = (len(texts) + batch_size - 1) // batch_size
-    while i < len(texts):
-        batch = texts[i : i + batch_size]
-        batch_num += 1
-        logger.info("embedding batch %d/%d (~%d remaining) ...", batch_num, total_batches, len(texts) - i)
-        batch_vecs = await embed_texts(batch)
-        vectors.extend(batch_vecs)
-        i += len(batch)
+    
+    async with httpx.AsyncClient() as client:
+        tasks = []
+        for i in range(0, len(texts), BATCH_SIZE):
+            batch = texts[i : i + BATCH_SIZE]
+            tasks.append(embed_batch_with_retry(client, batch))
+        
+        logger.info("embedding %d chunks in %d batches concurrently...", len(texts), len(tasks))
+        results = await asyncio.gather(*tasks)
+        for batch_vecs in results:
+            vectors.extend(batch_vecs)
 
     # Detect actual dim from first vector
     actual_dim = len(vectors[0]) if vectors else EMBED_DIM

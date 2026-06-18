@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 
 import httpx
@@ -30,9 +31,10 @@ async def embed(texts: list[str], model: str = "bge-m3") -> list[list[float]]:
         return []
 
     results: list[list[float]] = []
-    for i in range(0, len(texts), BATCH_SIZE):
-        batch = texts[i : i + BATCH_SIZE]
-        results.extend(await _call_ollama(batch, model))
+    async with httpx.AsyncClient(timeout=TIMEOUT_S) as client:
+        for i in range(0, len(texts), BATCH_SIZE):
+            batch = texts[i : i + BATCH_SIZE]
+            results.extend(await _call_ollama(client, batch, model))
     return results
 
 
@@ -48,24 +50,37 @@ async def embed_query(query: str) -> list[float]:
     return vec
 
 
-async def _call_ollama(texts: list[str], model: str) -> list[list[float]]:
+async def _call_ollama(client: httpx.AsyncClient, texts: list[str], model: str, retries: int = 3) -> list[list[float]]:
     url = f"{OLLAMA_BASE_URL}/api/embed"
     payload = {
         "model": model,
         "input": texts
     }
-    async with httpx.AsyncClient(timeout=TIMEOUT_S) as client:
+    
+    for attempt in range(1, retries + 1):
         try:
             resp = await client.post(url, json=payload)
             resp.raise_for_status()
             data = resp.json()
             return data["embeddings"]
         except httpx.TimeoutException as exc:
-            from app.core.errors import EmbedderTimeoutError
-            raise EmbedderTimeoutError(f"Ollama timeout after {TIMEOUT_S}s") from exc
+            if attempt == retries:
+                from app.core.errors import EmbedderTimeoutError
+                raise EmbedderTimeoutError(f"Ollama timeout after {TIMEOUT_S}s") from exc
+            logger.warning("Ollama timeout attempt %d failed. Retrying in 2s...", attempt)
+            await asyncio.sleep(2.0)
         except httpx.HTTPStatusError as exc:
-            logger.error("Ollama HTTP error %s: %s", exc.response.status_code, exc.response.text)
-            raise
+            if attempt == retries:
+                logger.error("Ollama HTTP error %s: %s", exc.response.status_code, exc.response.text)
+                raise exc
+            logger.warning("Ollama HTTP error attempt %d failed. Retrying in 2s...", attempt)
+            await asyncio.sleep(2.0)
+        except httpx.RequestError as exc:
+            if attempt == retries:
+                logger.error("Ollama connection error: %s", exc)
+                raise exc
+            logger.warning("Ollama connection attempt %d failed. Retrying in 2s...", attempt)
+            await asyncio.sleep(2.0)
 
 
 def get_active_dim() -> int:
