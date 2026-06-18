@@ -117,7 +117,8 @@ async def _embed_gemini(texts: list[str]) -> list[list[float]]:
                     model=GEMINI_EMBED_MODEL,
                     contents=text,
                 )
-                results.append(list(resp.embeddings[0].values))
+                vec = list(resp.embeddings[0].values)
+                results.append(vec[:EMBED_DIM])
                 if i < total - 1:
                     await _aio.sleep(_GEMINI_RATE_DELAY)
                 if (i + 1) % 10 == 0:
@@ -249,12 +250,31 @@ async def ingest(
     all_chunks_meta: list[dict] = []  # holds doc metadata + chunk
     for doc in docs:
         doc_id = str(uuid.uuid5(uuid.NAMESPACE_URL, doc["source_path"]))
-        chunks = chunk_document(
-            doc["text"],
-            section_path="",
-            heading="",
-            lang=doc.get("lang", "bi"),
-        )
+        
+        # If the document has structured sections (from parser), chunk them individually
+        # to preserve section boundaries and correctly map headings/paths.
+        if doc.get("sections"):
+            chunks = []
+            chunk_idx = 0
+            for sec in doc["sections"]:
+                sec_chunks = chunk_document(
+                    sec["text"],
+                    section_path=sec["heading"],
+                    heading=sec["heading"],
+                    lang=doc.get("lang", "bi"),
+                )
+                for c in sec_chunks:
+                    c.chunk_index = chunk_idx
+                    chunks.append(c)
+                    chunk_idx += 1
+        else:
+            chunks = chunk_document(
+                doc["text"],
+                section_path="",
+                heading="",
+                lang=doc.get("lang", "bi"),
+            )
+            
         logger.info("%s -> %d chunks", doc["filename"], len(chunks))
         for chunk in chunks:
             chunk_id = str(uuid.uuid4())
