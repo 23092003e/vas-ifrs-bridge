@@ -49,10 +49,20 @@ logger = logging.getLogger(__name__)
 
 EMBED_DIM = 1024
 BATCH_SIZE = 32   # upsert batch size (Qdrant)
-TEI_URL = os.environ.get("TEI_URL", "http://localhost:8080")
-QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
-QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY", "")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+# Load settings from app.settings (loads .env automatically)
+try:
+    _repo_root = Path(__file__).parent.parent.parent.parent
+    sys.path.insert(0, str(_repo_root / "apps" / "backend"))
+    from app.settings import settings
+    TEI_URL = os.environ.get("TEI_URL", settings.tei_url)
+    QDRANT_URL = os.environ.get("QDRANT_URL", settings.qdrant_url)
+    QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY", settings.qdrant_api_key)
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", settings.gemini_api_key)
+except Exception:
+    TEI_URL = os.environ.get("TEI_URL", "http://localhost:8080")
+    QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
+    QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY", "")
+    GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 
 
 # ---------------------------------------------------------------------------
