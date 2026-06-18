@@ -27,7 +27,9 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 _STANDARD_CODE_RE = re.compile(
-    r"\b(VAS|IAS|IFRS|VFRS)[\s\-]?(\d+[A-Z]?)\b", re.IGNORECASE
+    r"\b(VAS|IAS|IFRS|VFRS)[\s\-]?(\d+[A-Z]?)\b"
+    r"|(\b\d+/\d+/(?:TT-BTC|NĐ-CP|ND-CP|QĐ-BTC)\b)",
+    re.IGNORECASE
 )
 
 
@@ -41,22 +43,158 @@ def _detect_lang(text: str) -> str:
 def _extract_standard_code(filename: str, text: str) -> str | None:
     m = _STANDARD_CODE_RE.search(filename) or _STANDARD_CODE_RE.search(text[:2000])
     if m:
-        prefix = m.group(1).upper()
-        num = m.group(2)
-        return f"{prefix}-{num}"
+        if m.group(1) and m.group(2):
+            prefix = m.group(1).upper()
+            num = m.group(2)
+            return f"{prefix}-{num}"
+        return m.group(3).upper()
     return None
+
+
+_PDF_FOOTER_RE = re.compile(
+    r"^\s*(?:©\s*IFRS\s*Foundation"
+    r"|IFRS\s*\d+"
+    r"|IAS\s*\d+"
+    r"|[A-C]\d+"
+    r"|\d+"
+    r")\s*$",
+    re.IGNORECASE
+)
 
 
 def _parse_pdf(path: Path) -> tuple[str, list[dict]]:
     # pyrefly: ignore [missing-import]
     import fitz  # pymupdf
+    from collections import Counter
+
     doc = fitz.open(str(path))
-    pages: list[str] = []
+    
+    # 1. Determine dominant font size across the document
+    sizes = []
     for page in doc:
-        pages.append(page.get_text("text"))
+        blocks = page.get_text("dict").get("blocks", [])
+        for b in blocks:
+            if "lines" in b:
+                for l in b["lines"]:
+                    for s in l["spans"]:
+                        sizes.append(round(s["size"], 1))
+    
+    body_size = 10.0
+    if sizes:
+        body_size = Counter(sizes).most_common(1)[0][0]
+    
+    sections: list[dict] = []
+    current_heading = ""
+    current_text_parts: list[str] = []
+    full_text_parts: list[str] = []
+
+    # 2. Iterate through pages to extract structured text & tables
+    for page in doc:
+        rect = page.rect
+        height = rect.height
+        top_margin = height * 0.08
+        bottom_margin = height * 0.92
+
+        # Extract tables
+        tables = page.find_tables()
+        table_bboxes = []
+        markdown_tables = []
+        for table in tables.tables:
+            table_bboxes.append(table.bbox)
+            try:
+                rows = table.extract()
+                if not rows or len(rows) == 0:
+                    continue
+                md_rows = []
+                md_rows.append("| " + " | ".join(str(c or '').replace('\n', ' ').strip() for c in rows[0]) + " |")
+                md_rows.append("| " + " | ".join("---" for _ in rows[0]) + " |")
+                for r in rows[1:]:
+                    md_rows.append("| " + " | ".join(str(c or '').replace('\n', ' ').strip() for c in r) + " |")
+                markdown_tables.append("\n".join(md_rows))
+            except Exception as e:
+                logger.error("Failed to parse table: %s", e)
+
+        # Extract text spans
+        page_dict = page.get_text("dict")
+        blocks = page_dict.get("blocks", [])
+        blocks = sorted(blocks, key=lambda x: (x.get("bbox", [0, 0, 0, 0])[1], x.get("bbox", [0, 0, 0, 0])[0]))
+
+        for b in blocks:
+            if "lines" not in b:
+                continue
+
+            bbox = b.get("bbox", [0, 0, 0, 0])
+            y0, y1 = bbox[1], bbox[3]
+
+            # Filter out running headers and footers
+            if y0 < top_margin or y1 > bottom_margin:
+                continue
+
+            # Check if this block falls inside any table bbox
+            in_table = False
+            for t_bbox in table_bboxes:
+                if (bbox[0] >= t_bbox[0] - 5 and bbox[1] >= t_bbox[1] - 5 and
+                    bbox[2] <= t_bbox[2] + 5 and bbox[3] <= t_bbox[3] + 5):
+                    in_table = True
+                    break
+            if in_table:
+                continue
+
+            block_text_lines = []
+            block_is_heading = False
+            
+            for l in b["lines"]:
+                line_spans = l.get("spans", [])
+                line_text = "".join(s.get("text", "") for s in line_spans).strip()
+                if not line_text:
+                    continue
+
+                # Skip header/footer residue matching the regex
+                if _PDF_FOOTER_RE.match(line_text):
+                    continue
+
+                for s in line_spans:
+                    font = s.get("font", "").lower()
+                    size = s.get("size", 10.0)
+                    is_bold = "bold" in font or "heavy" in font or "black" in font or "semibold" in font or s.get("flags", 0) & 16
+                    is_large = size >= body_size + 1.5
+                    
+                    if is_large and is_bold and len(line_text) < 150:
+                        block_is_heading = True
+                        break
+
+                block_text_lines.append(line_text)
+
+            block_text = " ".join(block_text_lines).strip()
+            if not block_text:
+                continue
+
+            if block_is_heading:
+                if current_text_parts:
+                    sections.append({
+                        "heading": current_heading,
+                        "text": "\n".join(current_text_parts)
+                    })
+                current_heading = block_text
+                current_text_parts = []
+            else:
+                current_text_parts.append(block_text)
+            
+            full_text_parts.append(block_text)
+
+        for md_table in markdown_tables:
+            current_text_parts.append("\n" + md_table + "\n")
+            full_text_parts.append("\n" + md_table + "\n")
+
+    if current_text_parts or current_heading:
+        sections.append({
+            "heading": current_heading,
+            "text": "\n".join(current_text_parts)
+        })
+
     doc.close()
-    full_text = "\n".join(pages)
-    return full_text, []
+    full_text = "\n".join(full_text_parts)
+    return full_text, sections
 
 
 def _parse_docx(path: Path) -> tuple[str, list[dict]]:

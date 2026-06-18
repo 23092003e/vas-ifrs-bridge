@@ -19,8 +19,8 @@ Use this skill when the user asks to add new legal documents (Vietnamese Account
     -   IFRS documents: `ingestion/raw/shared/ifrs/`
     -   Tenant-specific documents: `ingestion/raw/tenant/<tenant_id>/`
 2.  **Verify Environment:** Ensure that the Docker services (Qdrant, Redis) are running.
-3.  **Run Ingestion:** Use the provided script `scripts/run_ingest.sh` to trigger the Python offline embedding process. Provide the correct `--scope` parameter.
-    -   Example: `./scripts/run_ingest.sh --scope shared`
+3.  **Run Ingestion:** Use the provided script `skills/vas-ifrs-document-ingestion/scripts/run_ingest.sh` to trigger the Python offline embedding process. Provide the correct `--scope` parameter.
+    -   Example: `./skills/vas-ifrs-document-ingestion/scripts/run_ingest.sh --scope shared`
 4.  **Validate Completion:** Check the output logs for the number of chunks successfully embedded into `kb_shared_vas` or `kb_shared_ifrs`.
 5.  **Fallback Awareness:** If the BAAI/bge-m3 TEI embedding server is offline, the system will automatically fall back to Gemini `text-embedding-004`. Note this in your report if it happens.
 
