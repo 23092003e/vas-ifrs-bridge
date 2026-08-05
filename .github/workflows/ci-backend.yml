@@ -22,6 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.11' }
-      - run: pip install uv && uv pip install --system -e "apps/backend[dev]"
-      - run: cd apps/backend && ruff check . && mypy .
-      - run: cd apps/backend && pytest
+      - run: pip install uv==0.11.15
+      - run: cd apps/backend && uv sync --frozen --extra dev
+      - run: cd apps/backend && uv run ruff check . && uv run mypy .
+      - run: cd apps/backend && uv run pytest
