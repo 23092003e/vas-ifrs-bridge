@@ -10,7 +10,9 @@ from qdrant_client.models import Distance, PointStruct, VectorParams
 
 from app.db.models import Document
 from app.db.session import AsyncSessionLocal
+from app.ingestion.normalizer import normalize
 from app.ingestion.parsers.docx import parse_docx
+from app.ingestion.parsers.html import parse_html
 from app.ingestion.parsers.pdf import parse_pdf
 from app.ingestion.parsers.xlsx import parse_xlsx
 from app.rag.chunker import chunk_document
@@ -22,6 +24,21 @@ logger = logging.getLogger(__name__)
 
 def _point_id(document_id: str, chunk_index: int) -> str:
     return str(uuid.uuid5(uuid.NAMESPACE_URL, f"vas-ifrs:{document_id}:{chunk_index}"))
+
+
+async def _parse_document(filename: str, local_path: str) -> str:
+    lowered = filename.lower()
+    if lowered.endswith(".pdf"):
+        text = parse_pdf(local_path)
+    elif lowered.endswith(".docx"):
+        text = parse_docx(local_path)
+    elif lowered.endswith((".xlsx", ".xls")):
+        text = parse_xlsx(local_path)
+    else:
+        async with await anyio.open_file(local_path, encoding="utf-8", errors="ignore") as file:
+            content = await file.read()
+        text = parse_html(content) if lowered.endswith((".html", ".htm")) else content
+    return normalize(text)
 
 
 async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> None:
@@ -46,20 +63,7 @@ async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> 
 
         try:
             # 2. Extract text from document
-            filename = doc.filename.lower()
-            text = ""
-            if filename.endswith(".pdf"):
-                text = parse_pdf(local_path)
-            elif filename.endswith(".docx"):
-                text = parse_docx(local_path)
-            elif filename.endswith((".xlsx", ".xls")):
-                text = parse_xlsx(local_path)
-            else:
-                # Text fallback
-                async with await anyio.open_file(
-                    local_path, encoding="utf-8", errors="ignore"
-                ) as file:
-                    text = await file.read()
+            text = await _parse_document(doc.filename, local_path)
 
             if not text.strip():
                 raise ValueError("Parsed document text is empty")
@@ -70,7 +74,7 @@ async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> 
             if not chunks:
                 raise ValueError("Document did not yield any text chunks")
 
-            # 4. Embed chunks using TEI (fallback Gemini)
+            # 4. Embed chunks using local Ollama bge-m3
             chunk_texts = [c.text for c in chunks]
             embeddings = await embed(chunk_texts)
 

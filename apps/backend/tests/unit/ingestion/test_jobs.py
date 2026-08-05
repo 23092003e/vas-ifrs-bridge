@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import inspect
+from pathlib import Path
 from typing import Any, Self
 
 import pytest
@@ -54,3 +55,19 @@ def test_ingestion_point_ids_are_idempotent() -> None:
 
     assert first == retry
     assert first != other_chunk
+
+
+@pytest.mark.asyncio
+async def test_parse_document_normalizes_plain_text(tmp_path: Path) -> None:
+    source = tmp_path / "document.txt"
+    source.write_text("  Chuẩn   mực\n\n\nBáo cáo  ", encoding="utf-8")
+
+    assert await jobs._parse_document(source.name, str(source)) == "Chuẩn mực\n\nBáo cáo"
+
+
+@pytest.mark.asyncio
+async def test_parse_document_extracts_visible_html(tmp_path: Path) -> None:
+    source = tmp_path / "document.html"
+    source.write_text("<h1>VAS</h1><script>hidden</script><p>IFRS</p>", encoding="utf-8")
+
+    assert await jobs._parse_document(source.name, str(source)) == "VAS\n\nIFRS"
