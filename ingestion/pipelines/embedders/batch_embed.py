@@ -39,8 +39,8 @@ import os
 import sys
 import uuid
 import warnings
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Optional
 
 # Suppress Python 3.9 EOL warnings from google-auth (cosmetic only, no functional impact)
 warnings.filterwarnings("ignore", category=FutureWarning, module="google")
@@ -58,7 +58,7 @@ try:
     QDRANT_URL = os.environ.get("QDRANT_URL", settings.qdrant_url)
     QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY", settings.qdrant_api_key)
     OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", settings.ollama_base_url)
-except Exception:
+except ImportError:
     QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
     QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY", "")
     OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
@@ -96,7 +96,7 @@ async def embed_batch_with_retry(
             except (httpx.HTTPError, httpx.TimeoutException) as exc:
                 if attempt == retries:
                     logger.error("Failed to embed batch after %d attempts", retries)
-                    raise exc
+                    raise
                 logger.warning("Embedding attempt %d failed: %s. Retrying in 2s...", attempt, exc)
                 await asyncio.sleep(2.0)
 
@@ -159,7 +159,7 @@ def load_parsed_docs(parsed_dir: Path) -> list[dict]:
     for fp in sorted(parsed_dir.glob("*.json")):
         try:
             docs.append(json.loads(fp.read_text(encoding="utf-8")))
-        except Exception as exc:
+        except (OSError, json.JSONDecodeError) as exc:
             logger.error("failed to load %s: %s", fp.name, exc)
     return docs
 
@@ -169,7 +169,7 @@ def load_raw_docs(docs_dir: Path) -> list[dict]:
     # parsers/ is a sibling of embedders/ under pipelines/
     sys.path.insert(0, str(Path(__file__).parent.parent / "parsers"))
     # pyrefly: ignore [missing-import]
-    from unstructured_runner import parse_document, _PARSERS
+    from unstructured_runner import _PARSERS, parse_document
     docs = []
     for fp in sorted(docs_dir.rglob("*")):
         if fp.suffix.lower() not in _PARSERS:
@@ -178,7 +178,9 @@ def load_raw_docs(docs_dir: Path) -> list[dict]:
             doc = parse_document(fp)
             docs.append(doc)
             logger.info("parsed: %s (%d chars)", fp.name, len(doc["text"]))
-        except Exception as exc:
+        # Parser adapters surface heterogeneous third-party exceptions; one bad
+        # source must not prevent the remaining corpus from being inspected.
+        except Exception as exc:  # noqa: BLE001
             logger.error("parse failed %s: %s", fp.name, exc)
     return docs
 
@@ -192,22 +194,29 @@ async def ingest(
     *,
     collection: str,
     scope: str,
-    tenant_id: Optional[str] = None,
+    tenant_id: str | None = None,
     recreate: bool = False,
     dry_run: bool = False,
 ) -> int:
     """Chunk, embed, and upsert all docs. Returns total chunks upserted."""
+    if scope not in {"shared", "tenant"}:
+        raise ValueError("scope must be either 'shared' or 'tenant'")
+    if scope == "tenant" and not tenant_id:
+        raise ValueError("tenant_id is required for tenant-scoped ingestion")
+
     # Import chunker from backend (repo_root/apps/backend)
     # File lives at ingestion/pipelines/embedders/batch_embed.py → 3 levels up = repo root
     repo_root = Path(__file__).parent.parent.parent.parent
     sys.path.insert(0, str(repo_root / "apps" / "backend"))
     # pyrefly: ignore [missing-import]
-    from app.rag.chunker import chunk_document
-    # pyrefly: ignore [missing-import]
     from app.ingestion.enrichment import enrich
+
+    # pyrefly: ignore [missing-import]
+    from app.rag.chunker import chunk_document
 
     # First pass: collect all chunks to determine embedding dim
     all_chunks_meta: list[dict] = []  # holds doc metadata + chunk
+    ingested_at = datetime.now(UTC).isoformat()
     for doc in docs:
         # If the doc is a list, it's already pre-chunked
         if isinstance(doc, list):
@@ -243,7 +252,9 @@ async def ingest(
         logger.info("%s -> %d chunks", doc["filename"], len(chunks))
         doc_chunks_meta = []
         for chunk in chunks:
-            chunk_id = str(uuid.uuid4())
+            chunk_id = str(
+                uuid.uuid5(uuid.NAMESPACE_URL, f"{doc_id}:{chunk.chunk_index}")
+            )
             chunk_payload = {
                 "doc_id": doc_id,
                 "chunk_id": chunk_id,
@@ -259,7 +270,7 @@ async def ingest(
                 "source_uri": doc["source_path"],
                 "embedding_model": "unknown",
                 "token_count": chunk.token_count,
-                "ingested_at": "2026-05-18T00:00:00Z",
+                "ingested_at": ingested_at,
             }
             chunk_payload = enrich(chunk_payload)
             doc_chunks_meta.append(chunk_payload)
@@ -274,7 +285,7 @@ async def ingest(
             try:
                 output_file.write_text(json.dumps(doc_chunks_meta, ensure_ascii=False, indent=2), encoding="utf-8")
                 logger.info("Saved %d chunks to %s", len(doc_chunks_meta), output_file.relative_to(repo_root))
-            except Exception as exc:
+            except OSError as exc:
                 logger.error("Failed to save chunks to %s: %s", output_file, exc)
 
     logger.info("total chunks to embed: %d", len(all_chunks_meta))
@@ -299,6 +310,12 @@ async def ingest(
         results = await asyncio.gather(*tasks)
         for batch_vecs in results:
             vectors.extend(batch_vecs)
+
+    if len(vectors) != len(all_chunks_meta):
+        raise ValueError(
+            "embedding count does not match chunk count: "
+            f"received {len(vectors)} vectors for {len(all_chunks_meta)} chunks"
+        )
 
     # Detect actual dim from first vector
     actual_dim = len(vectors[0]) if vectors else EMBED_DIM
