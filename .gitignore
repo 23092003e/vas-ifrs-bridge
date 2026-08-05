@@ -226,3 +226,6 @@ ingestion/processed/
 
 # Local code intelligence index
 .codegraph/
+
+# Local runtime storage
+apps/backend/storage/
