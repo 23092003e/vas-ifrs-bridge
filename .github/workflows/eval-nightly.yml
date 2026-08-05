@@ -1,14 +1,64 @@
 name: Eval Nightly
 on:
   schedule:
-    - cron: '0 20 * * *'  # 03:00 SGT
+    - cron: '0 20 * * *'  # 03:00 Asia/Ho_Chi_Minh
   workflow_dispatch:
 
 jobs:
   eval:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      QDRANT_URL: ${{ secrets.EVAL_QDRANT_URL }}
+      QDRANT_API_KEY: ${{ secrets.EVAL_QDRANT_API_KEY }}
+      OLLAMA_BASE_URL: ${{ secrets.EVAL_OLLAMA_BASE_URL }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      RETRIEVAL_DATASET_URL: ${{ vars.RETRIEVAL_EVAL_DATASET_URL }}
+      HALLUCINATION_DATASET_URL: ${{ vars.HALLUCINATION_EVAL_DATASET_URL }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Execute evaluation
-        run: echo Running nightly evaluation suite
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install backend
+        run: pip install uv && uv pip install --system -e apps/backend
+      - name: Download versioned evaluation datasets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in QDRANT_URL OLLAMA_BASE_URL GEMINI_API_KEY RETRIEVAL_DATASET_URL HALLUCINATION_DATASET_URL; do
+            if [[ -z "${!name}" ]]; then
+              echo "Missing required evaluation value: $name" >&2
+              exit 1
+            fi
+          done
+          mkdir -p eval-results
+          curl --fail --show-error --silent --location \
+            "$RETRIEVAL_DATASET_URL" --output eval-results/retrieval.jsonl
+          curl --fail --show-error --silent --location \
+            "$HALLUCINATION_DATASET_URL" --output eval-results/hallucination.jsonl
+          test -s eval-results/retrieval.jsonl
+          test -s eval-results/hallucination.jsonl
+      - name: Run retrieval evaluation
+        working-directory: apps/backend
+        run: >-
+          python -m app.eval.retrieval_eval
+          --dataset ../../eval-results/retrieval.jsonl
+          --k 10
+          --out ../../eval-results/retrieval-results.json
+      - name: Run hallucination evaluation
+        working-directory: apps/backend
+        run: >-
+          python -m app.eval.hallucination_eval
+          --dataset ../../eval-results/hallucination.jsonl
+          --out ../../eval-results/hallucination-results.json
+      - name: Upload evaluation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rag-eval-${{ github.run_id }}-${{ github.run_attempt }}
+          path: eval-results/*-results.json
+          if-no-files-found: warn
+          retention-days: 30

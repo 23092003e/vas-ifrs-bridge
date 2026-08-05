@@ -7,12 +7,147 @@ on:
         type: string
         required: true
 
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: production
+    env:
+      PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      REGION: ${{ vars.GCP_REGION }}
+      GAR_REPOSITORY: ${{ vars.GAR_REPOSITORY }}
+      GKE_CLUSTER: ${{ vars.GKE_CLUSTER }}
+      PRODUCTION_HOST: ${{ vars.PRODUCTION_HOST }}
+      IMAGE_TAG: ${{ inputs.image_tag }}
+      NAMESPACE: vas-ifrs-prod
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Validate deployment configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in PROJECT_ID REGION GAR_REPOSITORY GKE_CLUSTER PRODUCTION_HOST IMAGE_TAG; do
+            if [[ -z "${!name}" ]]; then
+              echo "Missing required deployment value: $name" >&2
+              exit 1
+            fi
+          done
+          if [[ ! "$IMAGE_TAG" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$ ]]; then
+            echo "Invalid container image tag" >&2
+            exit 1
+          fi
+          if [[ ! "$PRODUCTION_HOST" =~ ^[A-Za-z0-9.-]+$ ]]; then
+            echo "Invalid production hostname" >&2
+            exit 1
+          fi
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
+      - name: Install verified Kustomize
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/kustomize.tar.gz"
+          bin_dir="$RUNNER_TEMP/kustomize-bin"
+          curl --fail --show-error --silent --location \
+            "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.8.1/kustomize_v5.8.1_linux_amd64.tar.gz" \
+            --output "$archive"
+          echo "029a7f0f4e1932c52a0476cf02a0fd855c0bb85694b82c338fc648dcb53a819d  $archive" \
+            | sha256sum --check --strict
+          mkdir -p "$bin_dir"
+          tar -xzf "$archive" -C "$bin_dir"
+          echo "$bin_dir" >> "$GITHUB_PATH"
+      - name: Configure Artifact Registry
+        run: gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+      - name: Build and push immutable images
+        shell: bash
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+          registry="${REGION}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPOSITORY}"
+          backend_image="${registry}/backend:${IMAGE_TAG}"
+          frontend_image="${registry}/frontend:${IMAGE_TAG}"
+          docker build --tag "$backend_image" apps/backend
+          docker build \
+            --build-arg NEXT_PUBLIC_SUPABASE_URL \
+            --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY \
+            --build-arg SERVER_ACTION_ALLOWED_ORIGINS="$PRODUCTION_HOST" \
+            --tag "$frontend_image" apps/frontend
+          docker push "$backend_image"
+          docker push "$frontend_image"
+      - name: Connect to GKE
+        run: >-
+          gcloud container clusters get-credentials "$GKE_CLUSTER"
+          --region "$REGION"
+          --project "$PROJECT_ID"
+      - name: Verify runtime secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          kubectl create namespace "$NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
+          kubectl create configmap vas-ifrs-config \
+            --namespace "$NAMESPACE" \
+            --from-literal=APP_ENV=production \
+            --from-literal=BACKEND_URL=http://backend:8000 \
+            --from-literal=OLLAMA_BASE_URL=http://ollama:11434 \
+            --from-literal=QDRANT_URL=http://qdrant:6333 \
+            --from-literal=REDIS_URL=redis://redis:6379/0 \
+            --dry-run=client -o yaml | kubectl apply -f -
+          kubectl --namespace "$NAMESPACE" get secret \
+            vas-ifrs-secrets vas-ifrs-frontend-secrets n8n-secrets vas-ifrs-tls
+      - name: Run database migrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          registry="${REGION}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPOSITORY}"
+          backend_image="${registry}/backend:${IMAGE_TAG}"
+          job="schema-migration-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          kubectl create job "$job" \
+            --namespace "$NAMESPACE" \
+            --image "$backend_image" \
+            --dry-run=client -o json \
+            -- alembic upgrade head \
+            | jq '.spec.ttlSecondsAfterFinished = 3600
+              | .spec.template.spec.containers[0].envFrom = [
+                {"configMapRef":{"name":"vas-ifrs-config"}},
+                {"secretRef":{"name":"vas-ifrs-secrets"}}
+              ]' \
+            | kubectl apply -f -
+          if ! kubectl wait --namespace "$NAMESPACE" \
+            --for=condition=complete "job/$job" --timeout=5m; then
+            kubectl logs --namespace "$NAMESPACE" "job/$job"
+            exit 1
+          fi
       - name: Deploy application
-        run: echo Deploying production application
+        shell: bash
+        run: |
+          set -euo pipefail
+          registry="${REGION}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPOSITORY}"
+          sed -i "s/vas-ifrs.example.com/${PRODUCTION_HOST}/" infra/k8s/base/ingress.yaml
+          cd infra/k8s/overlays/prod
+          kustomize edit set image \
+            "backend=${registry}/backend:${IMAGE_TAG}" \
+            "frontend=${registry}/frontend:${IMAGE_TAG}"
+          kubectl apply -k .
+          kubectl rollout status deployment/backend --namespace "$NAMESPACE" --timeout=5m
+          kubectl rollout status deployment/frontend --namespace "$NAMESPACE" --timeout=5m
+          kubectl rollout status deployment/celery-worker --namespace "$NAMESPACE" --timeout=5m
+          kubectl rollout status deployment/ollama --namespace "$NAMESPACE" --timeout=10m
+          kubectl rollout status deployment/n8n --namespace "$NAMESPACE" --timeout=5m
+          kubectl rollout status statefulset/qdrant --namespace "$NAMESPACE" --timeout=10m
+          kubectl rollout status statefulset/redis --namespace "$NAMESPACE" --timeout=5m

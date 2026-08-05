@@ -14,5 +14,26 @@ spec:
     spec:
       containers:
         - name: celery-worker
-          image: backend:latest
+          image: backend:dev
+          imagePullPolicy: IfNotPresent
           command: ["celery", "-A", "app.workers.celery_app", "worker", "--loglevel=info"]
+          envFrom:
+            - configMapRef:
+                name: vas-ifrs-config
+            - secretRef:
+                name: vas-ifrs-secrets
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            runAsNonRoot: true
+            runAsUser: 10001
+            seccompProfile:
+              type: RuntimeDefault

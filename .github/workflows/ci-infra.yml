@@ -1,0 +1,62 @@
+name: CI Infrastructure
+
+on:
+  push:
+    paths:
+      - 'infra/**'
+      - 'apps/backend/Dockerfile'
+      - 'apps/frontend/Dockerfile'
+      - 'apps/frontend/next.config.mjs'
+      - '.github/workflows/deploy-prod.yml'
+      - '.github/workflows/eval-nightly.yml'
+      - '.github/workflows/ci-infra.yml'
+  pull_request:
+    paths:
+      - 'infra/**'
+      - 'apps/backend/Dockerfile'
+      - 'apps/frontend/Dockerfile'
+      - 'apps/frontend/next.config.mjs'
+      - '.github/workflows/deploy-prod.yml'
+      - '.github/workflows/eval-nightly.yml'
+      - '.github/workflows/ci-infra.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Docker Compose
+        run: docker compose -f infra/docker/docker-compose.dev.yml config --quiet
+      - name: Install verified Kustomize
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/kustomize.tar.gz"
+          curl --fail --show-error --silent --location \
+            "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.8.1/kustomize_v5.8.1_linux_amd64.tar.gz" \
+            --output "$archive"
+          echo "029a7f0f4e1932c52a0476cf02a0fd855c0bb85694b82c338fc648dcb53a819d  $archive" \
+            | sha256sum --check --strict
+          tar -xzf "$archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+      - name: Render Kubernetes overlays
+        shell: bash
+        run: |
+          set -euo pipefail
+          kustomize build infra/k8s/overlays/staging > "$RUNNER_TEMP/staging.yaml"
+          kustomize build infra/k8s/overlays/prod > "$RUNNER_TEMP/prod.yaml"
+          if grep -nE 'image: .*:latest([[:space:]]|$)' "$RUNNER_TEMP/staging.yaml" "$RUNNER_TEMP/prod.yaml"; then
+            echo "Mutable latest image tag found" >&2
+            exit 1
+          fi
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3.1.2
+        with:
+          terraform_version: 1.9.8
+          terraform_wrapper: false
+      - name: Validate Terraform
+        working-directory: infra/terraform
+        run: |
+          terraform fmt -check -recursive
+          terraform init -backend=false
+          terraform validate
