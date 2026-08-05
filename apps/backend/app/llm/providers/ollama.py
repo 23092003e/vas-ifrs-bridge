@@ -36,18 +36,20 @@ async def stream_chat(
     }
     url = f"{settings.ollama_base_url}/api/chat"
 
-    async with httpx.AsyncClient(timeout=TIMEOUT_S) as client:
-        async with client.stream("POST", url, json=payload) as resp:
-            resp.raise_for_status()
-            async for line in resp.aiter_lines():
-                if not line.strip():
-                    continue
-                try:
-                    data = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-                delta = data.get("message", {}).get("content", "")
-                if delta:
-                    yield delta
-                if data.get("done"):
-                    break
+    async with (
+        httpx.AsyncClient(timeout=TIMEOUT_S) as client,
+        client.stream("POST", url, json=payload) as resp,
+    ):
+        resp.raise_for_status()
+        async for line in resp.aiter_lines():
+            if not line.strip():
+                continue
+            try:
+                data = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            delta = data.get("message", {}).get("content", "")
+            if delta:
+                yield delta
+            if data.get("done"):
+                break

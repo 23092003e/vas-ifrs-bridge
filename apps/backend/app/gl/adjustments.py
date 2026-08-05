@@ -32,7 +32,7 @@ async def generate_entries(mapping_results: list[dict[str, Any]]) -> list[dict[s
                 payload = json.loads(event[6:].strip())
                 if payload.get("type") == "token":
                     tokens.append(payload.get("delta", ""))
-            except Exception as e:
+            except (json.JSONDecodeError, TypeError) as e:
                 logger.warning("Failed to parse stream event: %s", e)
                 continue
 
@@ -49,29 +49,25 @@ async def generate_entries(mapping_results: list[dict[str, Any]]) -> list[dict[s
     if json_match:
         try:
             entries = json.loads(json_match.group(1).strip())
-        except Exception as e:
-            logger.error(
-                "Failed to parse extracted JSON block: %s. Raw content: %s", e, json_match.group(1)
-            )
+        except json.JSONDecodeError as exc:
+            raise ValueError("LLM returned an invalid adjustment JSON block") from exc
     else:
-        logger.warning("No JSON array block found in LLM response: %s", full_text)
+        raise ValueError("LLM response did not contain an adjustment JSON array")
+
+    if not isinstance(entries, list) or not all(isinstance(entry, dict) for entry in entries):
+        raise ValueError("LLM adjustment JSON must be a list of objects")
 
     # 3. Validate balance for each entry
     for entry in entries:
         # Accept amount-based balanced entries or explicit debit_amount/credit_amount
-        debit = (
-            entry.get("debit_amount")
-            if entry.get("debit_amount") is not None
-            else entry.get("amount", 0.0)
-        )
-        credit = (
-            entry.get("credit_amount")
-            if entry.get("credit_amount") is not None
-            else entry.get("amount", 0.0)
-        )
+        raw_debit = entry.get("debit_amount")
+        debit = float(raw_debit) if raw_debit is not None else float(entry.get("amount") or 0.0)
+
+        raw_credit = entry.get("credit_amount")
+        credit = float(raw_credit) if raw_credit is not None else float(entry.get("amount") or 0.0)
 
         try:
-            validate_balance(float(debit), float(credit))
+            validate_balance(debit, credit)
         except (ValueError, TypeError) as e:
             raise UnbalancedJEError(f"Invalid entry amounts: {debit} or {credit}. Error: {e}") from e
 

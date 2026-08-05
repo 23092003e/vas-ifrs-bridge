@@ -42,6 +42,7 @@ class IFRSCompareAgent(AgentBase):
         lang: str = "vi",
         tenant_id: str | None = None,
         tenant_collection: str | None = None,
+        scope: str = "both",
         model_hint: str = "openai",
         **kwargs: Any,
     ) -> AsyncIterator[str]:
@@ -50,26 +51,12 @@ class IFRSCompareAgent(AgentBase):
             query,
             tenant_collection=tenant_collection,
             tenant_id=tenant_id,
+            scope=scope,
             lang=lang,
             k=10,
         )
 
-        # Also retrieve IFRS-specific
-        from app.rag.retriever import retrieve
-
-        ifrs_chunks = await retrieve(
-            query,
-            collection="kb_shared_ifrs",
-            scope="shared",
-            lang=lang,
-            k=8,
-        )
-        # Re-key ifrs chunks to avoid collision
-        for i, c in enumerate(ifrs_chunks):
-            c.citation_key = f"C{len(chunks) + i + 1}"
-        all_chunks = chunks + ifrs_chunks
-
-        context_block, citation_map = wrap_chunks_for_prompt(all_chunks)
+        context_block, citation_map = wrap_chunks_for_prompt(chunks)
         system = COMPARE_SYSTEM.format(lang=lang, context=context_block)
 
         collected: list[str] = []
@@ -97,7 +84,7 @@ class IFRSCompareAgent(AgentBase):
 
 
 async def _call_llm(user: str, system: str, model_hint: str) -> AsyncIterator[str]:
-    from app.llm.providers.gemini import stream_chat
+    from app.llm.router import stream_chat
 
     async for tok in stream_chat(system=system, user=user, model_hint=model_hint):
         yield tok

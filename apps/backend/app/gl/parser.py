@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import logging
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
@@ -66,9 +67,12 @@ def _find_header_and_mapping(rows: list[list[Any]]) -> tuple[int, dict[str, int]
                     break
 
         # If we matched at least account_code and account_name (and either debit/credit or balance)
-        if "account_code" in matches and "account_name" in matches:
-            if "balance" in matches or ("debit" in matches and "credit" in matches):
-                return idx, matches
+        if (
+            "account_code" in matches
+            and "account_name" in matches
+            and ("balance" in matches or ("debit" in matches and "credit" in matches))
+        ):
+            return idx, matches
 
     # Default fallback: assume first row is header, search best-effort
     fallback_matches = {"account_code": 0, "account_name": 1, "debit": 2, "credit": 3, "balance": 4}
@@ -78,9 +82,7 @@ def _find_header_and_mapping(rows: list[list[Any]]) -> tuple[int, dict[str, int]
 def _parse_csv(path: Path) -> list[dict[str, Any]]:
     rows: list[list[str]] = []
     with open(path, encoding="utf-8-sig", errors="replace") as f:
-        reader = csv.reader(f)
-        for row in reader:
-            rows.append(row)
+        rows = list(csv.reader(f))
 
     if not rows:
         return []
@@ -109,17 +111,25 @@ def _parse_xlsx(path: Path) -> list[dict[str, Any]]:
     return _extract_data_rows(rows[header_idx + 1 :], mapping)
 
 
-def _to_float(val: Any) -> float:
+def _to_decimal(val: Any) -> Decimal:
     if val is None:
-        return 0.0
+        return Decimal(0)
     if isinstance(val, (int, float)):
-        return float(val)
+        return Decimal(str(val))
     # Clean string from commas, currency symbols, and spaces
     str_val = str(val).replace(",", "").replace("$", "").replace("đ", "").strip()
+    if not str_val:
+        return Decimal(0)
     try:
-        return float(str_val)
-    except ValueError:
-        return 0.0
+        return Decimal(str_val)
+    except InvalidOperation as exc:
+        raise ValueError(f"Invalid amount: {val}") from exc
+
+
+def _account_code(value: Any) -> str:
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value).strip()
 
 
 def _extract_data_rows(data_rows: list[list[Any]], mapping: dict[str, int]) -> list[dict[str, Any]]:
@@ -139,7 +149,7 @@ def _extract_data_rows(data_rows: list[list[Any]], mapping: dict[str, int]) -> l
         row_len = len(row)
 
         account_code = (
-            str(row[code_idx]).strip()
+            _account_code(row[code_idx])
             if code_idx is not None and code_idx < row_len and row[code_idx] is not None
             else ""
         )
@@ -153,18 +163,24 @@ def _extract_data_rows(data_rows: list[list[Any]], mapping: dict[str, int]) -> l
         if not account_code:
             continue
 
-        debit = _to_float(row[debit_idx]) if debit_idx is not None and debit_idx < row_len else 0.0
+        debit = (
+            _to_decimal(row[debit_idx])
+            if debit_idx is not None and debit_idx < row_len
+            else Decimal(0)
+        )
         credit = (
-            _to_float(row[credit_idx]) if credit_idx is not None and credit_idx < row_len else 0.0
+            _to_decimal(row[credit_idx])
+            if credit_idx is not None and credit_idx < row_len
+            else Decimal(0)
         )
         balance = (
-            _to_float(row[balance_idx])
+            _to_decimal(row[balance_idx])
             if balance_idx is not None and balance_idx < row_len
-            else 0.0
+            else Decimal(0)
         )
 
         # If debit/credit is zero but balance is given, use balance for amount normalization
-        if debit == 0.0 and credit == 0.0 and balance != 0.0:
+        if debit == 0 and credit == 0 and balance != 0:
             if balance > 0:
                 debit = balance
             else:

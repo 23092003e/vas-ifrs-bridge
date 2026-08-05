@@ -18,7 +18,7 @@ try:
     trace.set_tracer_provider(_provider)
     _tracer = trace.get_tracer("vas-ifrs")
     _otel_available = True
-except Exception:
+except Exception:  # noqa: BLE001 - tracing is optional and must not block app startup
     _otel_available = False
     _tracer = None  # type: ignore[assignment]
 

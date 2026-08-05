@@ -91,7 +91,7 @@ async def _run_single(
             k=k,
         )
         retrieved_ids = [c.doc_id for c in chunks]
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - record the failed query and continue the eval
         logger.warning("retrieval failed for %r: %s", question[:60], exc)
         retrieved_ids = []
 

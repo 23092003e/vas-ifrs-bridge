@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter()
 
@@ -10,12 +10,10 @@ router = APIRouter()
 @router.get("/tenants")
 async def list_tenants() -> dict:
     """List all tenants (super-admin only)."""
-    # TODO: query tenants table with admin guard
-    return {"tenants": []}
+    raise HTTPException(status_code=501, detail="Tenant listing is not implemented")
 
 
 @router.post("/tenants/{tenant_id}/provision")
 async def provision_tenant(tenant_id: str) -> dict:
     """Provision Qdrant collection and storage for a new tenant."""
-    # TODO: call tenant provisioner
-    return {"tenant_id": tenant_id, "status": "provisioning"}
+    raise HTTPException(status_code=501, detail="Tenant provisioning is not implemented")

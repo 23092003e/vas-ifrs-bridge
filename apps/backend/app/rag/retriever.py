@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+from collections.abc import Awaitable
 from dataclasses import dataclass
 
 from qdrant_client import AsyncQdrantClient
@@ -47,6 +48,11 @@ def _build_filter(
     tenant_id: str | None,
 ) -> Filter | None:
     conditions: list[Condition] = []
+
+    if scope not in {"shared", "tenant", "both"}:
+        raise ValueError(f"Invalid retrieval scope: {scope}")
+    if scope == "tenant" and not tenant_id:
+        raise ValueError("tenant_id is required for tenant retrieval scope")
 
     # Disable language filtering to allow cross-lingual retrieval (e.g., retrieving
     # English IFRS documents for Vietnamese user queries). Semantic matching is handled
@@ -154,45 +160,35 @@ async def retrieve_multi(
     *,
     tenant_collection: str | None = None,
     tenant_id: str | None = None,
+    scope: str = "both",
     lang: str = "auto",
     k: int = RERANK_K,
 ) -> list[RetrievedChunk]:
     """Retrieve from mappings, standards (vas, ifrs), guidance and tenant KB concurrently, merge, rerank final."""
-    tasks = [
-        retrieve(
-            query,
-            collection="kb_shared_mapping",
-            scope="shared",
-            lang=lang,
-            k=DENSE_K,
-            skip_rerank=True,
-        ),
-        retrieve(
-            query,
-            collection="kb_shared_vas",
-            scope="shared",
-            lang=lang,
-            k=DENSE_K,
-            skip_rerank=True,
-        ),
-        retrieve(
-            query,
-            collection="kb_shared_ifrs",
-            scope="shared",
-            lang=lang,
-            k=DENSE_K,
-            skip_rerank=True,
-        ),
-        retrieve(
-            query,
-            collection="kb_shared_guidance",
-            scope="shared",
-            lang=lang,
-            k=DENSE_K,
-            skip_rerank=True,
-        ),
-    ]
-    if tenant_collection and tenant_id:
+    if scope not in {"shared", "tenant", "both"}:
+        raise ValueError(f"Invalid retrieval scope: {scope}")
+    if scope == "tenant" and (not tenant_collection or not tenant_id):
+        raise ValueError("tenant_collection and tenant_id are required for tenant scope")
+
+    tasks: list[Awaitable[list[RetrievedChunk]]] = []
+    if scope in {"shared", "both"}:
+        tasks.extend(
+            retrieve(
+                query,
+                collection=collection,
+                scope="shared",
+                lang=lang,
+                k=DENSE_K,
+                skip_rerank=True,
+            )
+            for collection in (
+                "kb_shared_mapping",
+                "kb_shared_vas",
+                "kb_shared_ifrs",
+                "kb_shared_guidance",
+            )
+        )
+    if scope in {"tenant", "both"} and tenant_collection and tenant_id:
         tasks.append(
             retrieve(
                 query,

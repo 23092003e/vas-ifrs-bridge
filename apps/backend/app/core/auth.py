@@ -23,50 +23,71 @@ BYPASS_PATHS = {"/healthz", "/readyz", "/metrics", "/openapi.json", "/docs", "/r
 _DEV_BYPASS = getattr(settings, "dev_auth_bypass", False)
 
 
-async def _fetch_jwks() -> dict[str, Any]:
-    if _JWKS_CACHE:
+async def _fetch_jwks(*, force_refresh: bool = False) -> dict[str, Any]:
+    if _JWKS_CACHE and not force_refresh:
         return _JWKS_CACHE
     url = f"{settings.supabase_url}/auth/v1/.well-known/jwks.json"
     headers = {"apikey": settings.supabase_service_role_key}
     async with httpx.AsyncClient(timeout=5) as client:
         resp = await client.get(url, headers=headers)
         resp.raise_for_status()
+    _JWKS_CACHE.clear()
     _JWKS_CACHE.update(resp.json())
     return _JWKS_CACHE
 
 
+def _decode_token(token: str, key: Any, algorithm: str) -> dict[str, Any]:
+    issuer = f"{settings.supabase_url.rstrip('/')}/auth/v1"
+    claims = jwt.decode(
+        token,
+        key,
+        algorithms=[algorithm],
+        audience=settings.supabase_jwt_audience,
+        issuer=issuer,
+        options={
+            "require_aud": True,
+            "require_exp": True,
+            "require_iss": True,
+            "require_sub": True,
+        },
+    )
+    if not claims.get("sub"):
+        raise JWTError("Token subject is required")
+    return claims
+
+
+def _find_jwk(jwks: dict[str, Any], kid: str) -> dict[str, Any] | None:
+    return next((key for key in jwks.get("keys", []) if key.get("kid") == kid), None)
+
+
 async def verify_jwt(token: str) -> dict[str, Any]:
     """Verify Supabase JWT, return claims dict."""
-    try:
-        jwks = await _fetch_jwks()
-        headers = jwt.get_unverified_header(token)
-        kid = headers.get("kid")
+    headers = jwt.get_unverified_header(token)
+    algorithm = headers.get("alg", "")
 
-        # Find matching key from JWKS
-        key = None
-        for k in jwks.get("keys", []):
-            if k.get("kid") == kid:
-                key = k
-                break
+    if algorithm == "HS256":
+        if not settings.supabase_jwt_secret:
+            raise JWTError("HS256 token received but SUPABASE_JWT_SECRET is not configured")
+        return _decode_token(token, settings.supabase_jwt_secret, algorithm)
 
-        if key:
-            alg = key.get("alg", "RS256")
-            return jwt.decode(
-                token,
-                key,
-                algorithms=[alg, "RS256", "ES256"],
-                options={"verify_aud": False},
-            )
-    except Exception as exc:
-        logger.warning("JWKS verification failed, trying HS256 fallback: %s", exc)
+    if algorithm not in {"RS256", "ES256"}:
+        raise JWTError("Unsupported JWT algorithm")
 
-    # Supabase signs with HS256 using the service role secret / JWT secret
-    return jwt.decode(
-        token,
-        settings.supabase_service_role_key,
-        algorithms=["HS256"],
-        options={"verify_aud": False},
-    )
+    kid = headers.get("kid")
+    if not kid:
+        raise JWTError("JWT key ID is required")
+
+    jwks = await _fetch_jwks()
+    key = _find_jwk(jwks, kid)
+    if key is None:
+        jwks = await _fetch_jwks(force_refresh=True)
+        key = _find_jwk(jwks, kid)
+    if key is None:
+        raise JWTError("JWT signing key not found")
+    if key.get("alg") and key["alg"] != algorithm:
+        raise JWTError("JWT algorithm does not match signing key")
+
+    return _decode_token(token, key, algorithm)
 
 
 
@@ -78,11 +99,19 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
 
         if _DEV_BYPASS:
+            header_tenant = request.headers.get("X-Tenant-Id", "")
+            import uuid
+            try:
+                uuid.UUID(header_tenant)
+                tenant_id = header_tenant
+            except ValueError:
+                tenant_id = "d3b07384-d113-4ec5-a5ae-be8e3d67a6d8"
+
             request.state.user = {
                 "sub": "dev-user",
                 "app_metadata": {
                     "role": "admin",
-                    "tenant_id": "dev-tenant",
+                    "tenant_id": tenant_id,
                     "tenant_name": "Dev Tenant",
                     "plan": "free",
                 },

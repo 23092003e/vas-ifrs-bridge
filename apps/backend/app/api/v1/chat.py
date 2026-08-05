@@ -38,12 +38,13 @@ async def chat_stream(
     tenant_id = tenant.id if tenant else None
 
     # 1. Resolve or create conversation
-    conversation_id = body.conversation_id
+    conversation_id = str(body.conversation_id) if body.conversation_id else None
     if conversation_id:
         # Check if conversation exists for this user
         stmt = select(Conversation).where(
             Conversation.id == str(conversation_id),
-            Conversation.user_id == user_id
+            Conversation.user_id == user_id,
+            Conversation.tenant_id == tenant_id,
         )
         res = await db.execute(stmt)
         conv = res.scalar_one_or_none()
@@ -81,6 +82,7 @@ async def chat_stream(
         accumulated_tokens = []
         accumulated_citations = []
         model_used = None
+        final_content: str | None = None
 
         try:
             async for event in _orchestrator.run_stream(
@@ -104,16 +106,20 @@ async def chat_stream(
                         elif data.get("type") == "intent":
                             model_used = data.get("model")
                         elif data.get("type") == "final":
-                            # Skip the agent's final event; we emit our own
-                            # enriched version below with conversation_id.
+                            content = data.get("content")
+                            if isinstance(content, str):
+                                final_content = content
+                            # Emit one enriched final event below with conversation_id.
                             continue
-                    except Exception as e:
+                    except (AttributeError, json.JSONDecodeError, TypeError) as e:
                         logger.error("Error parsing event during streaming: %s", e)
 
                 yield event.encode()
 
             # Save assistant message on successful stream completion
-            full_response = "".join(accumulated_tokens)
+            full_response = (
+                final_content if final_content is not None else "".join(accumulated_tokens)
+            )
             if full_response:
                 async with AsyncSessionLocal() as db_session:
                     # Update conversation updated_at
@@ -142,7 +148,8 @@ async def chat_stream(
             yield f"data: {json.dumps(final_payload)}\n\n".encode()
 
         except Exception as exc:
-            err = json.dumps({"type": "error", "message": str(exc)})
+            logger.exception("Chat stream failed", exc_info=exc)
+            err = json.dumps({"type": "error", "message": "Unable to complete chat stream"})
             yield f"data: {err}\n\n".encode()
 
     return StreamingResponse(
@@ -162,9 +169,14 @@ async def list_conversations(request: Request, db: DB) -> dict:
     tenant = getattr(request.state, "tenant", None)
     tenant_id = tenant.id if tenant else None
 
-    stmt = select(Conversation).where(Conversation.user_id == user_id).order_by(Conversation.updated_at.desc())
-    if tenant_id:
-        stmt = stmt.where(Conversation.tenant_id == tenant_id)
+    stmt = (
+        select(Conversation)
+        .where(
+            Conversation.user_id == user_id,
+            Conversation.tenant_id == tenant_id,
+        )
+        .order_by(Conversation.updated_at.desc())
+    )
 
     result = await db.execute(stmt)
     conversations = result.scalars().all()
@@ -186,10 +198,16 @@ async def list_conversations(request: Request, db: DB) -> dict:
 async def get_conversation(conversation_id: str, request: Request, db: DB) -> dict:
     """Get conversation details with all messages."""
     user_id = getattr(request.state, "user_id", "dev-user")
+    tenant: TenantCtx | None = getattr(request.state, "tenant", None)
+    tenant_id = tenant.id if tenant else None
 
     stmt = (
         select(Conversation)
-        .where(Conversation.id == conversation_id, Conversation.user_id == user_id)
+        .where(
+            Conversation.id == conversation_id,
+            Conversation.user_id == user_id,
+            Conversation.tenant_id == tenant_id,
+        )
         .options(selectinload(Conversation.messages))
     )
     result = await db.execute(stmt)
@@ -218,8 +236,14 @@ async def get_conversation(conversation_id: str, request: Request, db: DB) -> di
 async def delete_conversation(conversation_id: str, request: Request, db: DB) -> dict:
     """Delete a conversation and its messages."""
     user_id = getattr(request.state, "user_id", "dev-user")
+    tenant: TenantCtx | None = getattr(request.state, "tenant", None)
+    tenant_id = tenant.id if tenant else None
 
-    stmt = select(Conversation).where(Conversation.id == conversation_id, Conversation.user_id == user_id)
+    stmt = select(Conversation).where(
+        Conversation.id == conversation_id,
+        Conversation.user_id == user_id,
+        Conversation.tenant_id == tenant_id,
+    )
     result = await db.execute(stmt)
     conversation = result.scalar_one_or_none()
 

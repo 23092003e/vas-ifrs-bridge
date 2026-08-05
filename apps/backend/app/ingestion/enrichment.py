@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 import json
+import logging
 import re
 from pathlib import Path
 
 # Load topic terms and relations for keyword-based matching
 _ONTOLOGY_TOPICS: list[dict] = []
 _ONTOLOGY_TERMS: list[dict] = []
+logger = logging.getLogger(__name__)
 
 def _load_ontology():
     global _ONTOLOGY_TOPICS, _ONTOLOGY_TERMS
@@ -27,15 +29,15 @@ def _load_ontology():
         try:
             with open(topics_path, encoding="utf-8") as f:
                 _ONTOLOGY_TOPICS = json.load(f)
-        except Exception:
-            pass
+        except (OSError, json.JSONDecodeError) as exc:
+            logger.warning("Unable to load ontology topics: %s", exc)
 
     if terms_path.exists():
         try:
             with open(terms_path, encoding="utf-8") as f:
                 _ONTOLOGY_TERMS = json.load(f)
-        except Exception:
-            pass
+        except (OSError, json.JSONDecodeError) as exc:
+            logger.warning("Unable to load ontology terms: %s", exc)
 
 # Predefined effective dates for standards
 EFFECTIVE_DATES = {
@@ -166,7 +168,7 @@ def enrich(chunk: dict) -> dict:
     # 6. jurisdiction
     if std_code and std_code.startswith("VAS"):
         jurisdiction = "VN"
-    elif std_code and (std_code.startswith("IFRS") or std_code.startswith("IAS") or std_code.startswith("IFRIC") or std_code.startswith("SIC")):
+    elif std_code and std_code.startswith(("IFRS", "IAS", "IFRIC", "SIC")):
         jurisdiction = "IFRS"
     elif "/vas/" in uri_lower:
         jurisdiction = "VN"

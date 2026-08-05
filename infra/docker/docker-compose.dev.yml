@@ -5,11 +5,15 @@ services:
     env_file: ../../apps/backend/.env
     environment:
       - DATABASE_URL=postgresql+asyncpg://user:pass@db:5432/vasifrs
-      - QDRANT_URL=https://qdrant.sorcerer-n8n.online:443
-      - QDRANT_API_KEY=hvmanh2309
+      - QDRANT_URL=${QDRANT_URL:-http://host.docker.internal:6333}
+      - QDRANT_API_KEY=${QDRANT_API_KEY:-}
       - REDIS_URL=redis://redis:6379/0
       - OLLAMA_BASE_URL=http://ollama:11434
-    depends_on: [db, redis]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   frontend:
     build: ../../apps/frontend
@@ -17,7 +21,9 @@ services:
     env_file: ../../apps/frontend/.env.local
     environment:
       - BACKEND_URL=http://backend:8000
-    depends_on: [backend]
+    depends_on:
+      backend:
+        condition: service_healthy
 
   db:
     image: postgres:15-alpine
@@ -27,6 +33,11 @@ services:
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=vasifrs
     volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d vasifrs"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   # qdrant:
   #   image: qdrant/qdrant:latest
@@ -36,6 +47,11 @@ services:
   redis:
     image: redis:7-alpine
     ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   ollama:
     image: ollama/ollama:latest
@@ -47,4 +63,3 @@ volumes:
   # qdrant_data:
   redis_data:
   ollama_data:
-

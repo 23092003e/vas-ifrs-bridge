@@ -52,6 +52,11 @@ def chunk_document(
     Split document into chunks.
     Tables kept whole if ≤ MAX_TABLE_TOKENS; headings preserved as section boundaries.
     """
+    if target_tokens <= 0:
+        raise ValueError("target_tokens must be greater than zero")
+    if overlap_tokens < 0:
+        raise ValueError("overlap_tokens must be non-negative")
+
     target_chars = target_tokens * CHARS_PER_TOKEN
     overlap_chars = overlap_tokens * CHARS_PER_TOKEN
 

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, UploadFile
+from fastapi import APIRouter, HTTPException, UploadFile
 
 router = APIRouter()
 
@@ -10,12 +10,10 @@ router = APIRouter()
 @router.post("/upload")
 async def upload_gl(file: UploadFile) -> dict:
     """Accept a GL file (xlsx/csv) and enqueue for processing."""
-    # TODO: validate, store to GCS, enqueue gl_tasks.process_gl
-    return {"upload_id": None}
+    raise HTTPException(status_code=501, detail="GL upload is not implemented")
 
 
 @router.get("/{upload_id}/status")
 async def get_upload_status(upload_id: str) -> dict:
     """Return processing status for a GL upload."""
-    # TODO: query gl_uploads table
-    return {"status": "pending"}
+    raise HTTPException(status_code=501, detail="GL upload status is not implemented")

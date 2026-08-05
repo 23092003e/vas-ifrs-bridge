@@ -37,7 +37,7 @@ def load_ontology() -> None:
         if relations_path.exists():
             with open(relations_path, encoding="utf-8") as f:
                 _RELATIONS = json.load(f)
-    except Exception as e:
+    except (OSError, json.JSONDecodeError, KeyError, TypeError) as e:
         logger.error("Failed to load ontology: %s", e)
 
 def detect_topics(query: str) -> list[dict]:

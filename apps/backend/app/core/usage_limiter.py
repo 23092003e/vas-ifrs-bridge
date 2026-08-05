@@ -31,7 +31,7 @@ def _get_redis() -> Any:
             import redis.asyncio as aioredis
 
             _redis = aioredis.from_url(settings.redis_url, decode_responses=True)
-        except Exception as exc:
+        except (ImportError, ValueError) as exc:
             logger.warning("Redis unavailable, rate limiting disabled: %s", exc)
     return _redis
 
@@ -63,7 +63,7 @@ class UsageLimiterMiddleware(BaseHTTPMiddleware):
                     status_code=429,
                     headers={"Retry-After": "60"},
                 )
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - limiter deliberately fails open
             logger.warning("Rate limit check failed: %s", exc)
 
         return await call_next(request)

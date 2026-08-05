@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import sys
 import uuid
+
 import httpx
+
 from app.settings import settings
+
 
 def main():
     if len(sys.argv) < 3:
@@ -45,7 +48,7 @@ def main():
             print(f"Tenant ID: {tenant_id}")
         else:
             print(f"Error {resp.status_code}: {resp.text}")
-    except Exception as e:
+    except httpx.HTTPError as e:
         print(f"Request failed: {e}")
 
 if __name__ == "__main__":

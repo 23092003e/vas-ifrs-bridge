@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Annotated, Literal
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, StringConstraints
 
 
 class ChatRequest(BaseModel):
     conversation_id: UUID | None = None
-    content: str
+    content: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
     lang: Literal["vi", "en", "auto"] = "auto"
     intent_hint: Literal["qa", "compare", "mapping", "report", "adjustment"] | None = None
     reasoning: Literal["fast", "balanced", "deep"] = "balanced"

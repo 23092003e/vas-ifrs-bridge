@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from pydantic import UUID4, BaseModel
+from pydantic import UUID4, BaseModel, Field
 
 
 class KBDocument(BaseModel):
@@ -18,4 +18,4 @@ class KBChunk(BaseModel):
     document_id: UUID4
     content: str
     embedding: list[float] | None = None
-    metadata: dict = {}
+    metadata: dict = Field(default_factory=dict)

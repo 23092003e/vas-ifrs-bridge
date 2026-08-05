@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Awaitable
 from typing import Any
 
 from app.agents.base import AgentBase
@@ -59,12 +59,9 @@ class RetrievalAgent(AgentBase):
         expanded_query = ontology_service.expand_query(query, matched_topics)
 
         # 2. Graph Expansion (before retrieval)
-        try:
-            from app.rag import graph_service
-            graph = graph_service.get_graph()
-        except Exception as e:
-            logger.error("Failed to load graph service: %s", e)
-            graph = None
+        from app.rag import graph_service
+
+        graph = graph_service.get_graph()
 
         expanded_node_ids = set()
         if graph is not None and graph.number_of_nodes() > 0:
@@ -101,25 +98,25 @@ class RetrievalAgent(AgentBase):
 
         from app.rag.reranker import rerank as _rerank
 
-        tasks = [
-            retrieve(
-                expanded_query, collection="kb_shared_mapping",
-                scope="shared", lang=lang, k=40, skip_rerank=True
-            ),
-            retrieve(
-                expanded_query, collection="kb_shared_vas",
-                scope="shared", lang=lang, k=40, skip_rerank=True
-            ),
-            retrieve(
-                expanded_query, collection="kb_shared_ifrs",
-                scope="shared", lang=lang, k=40, skip_rerank=True
-            ),
-            retrieve(
-                expanded_query, collection="kb_shared_guidance",
-                scope="shared", lang=lang, k=40, skip_rerank=True
-            ),
-        ]
-        if tenant_collection and tenant_id:
+        tasks: list[Awaitable[list[RetrievedChunk]]] = []
+        if scope in {"shared", "both"}:
+            tasks.extend(
+                retrieve(
+                    expanded_query,
+                    collection=collection,
+                    scope="shared",
+                    lang=lang,
+                    k=40,
+                    skip_rerank=True,
+                )
+                for collection in (
+                    "kb_shared_mapping",
+                    "kb_shared_vas",
+                    "kb_shared_ifrs",
+                    "kb_shared_guidance",
+                )
+            )
+        if scope in {"tenant", "both"} and tenant_collection and tenant_id:
             tasks.append(
                 retrieve(
                     expanded_query,
@@ -155,13 +152,17 @@ class RetrievalAgent(AgentBase):
         if graph is not None and graph.number_of_nodes() > 0 and expanded_node_ids:
             existing_doc_text_prefixes = {c.doc_id + c.text[:100] for c in original_chunks}
 
-            collections_to_nodes: dict[str, list[tuple[str, str, str]]] = {
-                "kb_shared_mapping": [],
-                "kb_shared_vas": [],
-                "kb_shared_ifrs": [],
-                "kb_shared_guidance": [],
-            }
-            if tenant_collection:
+            collections_to_nodes: dict[str, list[tuple[str, str, str]]] = {}
+            if scope in {"shared", "both"}:
+                collections_to_nodes.update(
+                    {
+                        "kb_shared_mapping": [],
+                        "kb_shared_vas": [],
+                        "kb_shared_ifrs": [],
+                        "kb_shared_guidance": [],
+                    }
+                )
+            if scope in {"tenant", "both"} and tenant_collection and tenant_id:
                 collections_to_nodes[tenant_collection] = []
 
             for n_id in expanded_node_ids:
@@ -210,7 +211,7 @@ class RetrievalAgent(AgentBase):
                                 records = await client.retrieve(
                                     collection_name=coll, ids=direct_ids, with_payload=True
                                 )
-                            except Exception as e:
+                            except Exception as e:  # noqa: BLE001 - optional graph expansion
                                 logger.warning("Qdrant direct retrieve failed: %s", e)
                                 records = []
 
@@ -253,7 +254,7 @@ class RetrievalAgent(AgentBase):
                                             with_payload=True,
                                         )
                                         points = search_res[0] if search_res else []
-                                    except Exception as e:
+                                    except Exception as e:  # noqa: BLE001 - optional graph expansion
                                         logger.warning("Qdrant scroll failed for doc %s: %s", doc_id, e)
                                         points = []
 
@@ -283,14 +284,14 @@ class RetrievalAgent(AgentBase):
                                             break
                 finally:
                     await client.close()
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - base retrieval remains usable
                 logger.error("Failed to connect or query Qdrant for graph expansion: %s", e)
 
         # Rerank merged chunks
         reranked: list[dict[str, Any]]
         try:
             reranked = await _rerank(query, merged_raw, top_k=k)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 - dense-score fallback is intentional
             logger.error("Reranking failed: %s. Using top chunks by score.", e)
             merged_raw.sort(key=lambda x: x.get("score", 0.0), reverse=True)
             reranked = merged_raw[:k]
@@ -350,12 +351,8 @@ class RetrievalAgent(AgentBase):
 
 
 async def _stream_llm(user_msg: str, system: str, model_hint: str) -> AsyncIterator[str]:
-    """Route to Gemini provider (primary). Falls back log on error."""
-    try:
-        from app.llm.providers.gemini import stream_chat
+    """Stream from the configured LLM provider."""
+    from app.llm.router import stream_chat
 
-        async for tok in stream_chat(system=system, user=user_msg, model_hint=model_hint):
-            yield tok
-    except Exception as exc:
-        logger.error("LLM stream error: %s", exc)
-        yield f"[LLM error: {exc}]"
+    async for tok in stream_chat(system=system, user=user_msg, model_hint=model_hint):
+        yield tok

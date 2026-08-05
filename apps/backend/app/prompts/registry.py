@@ -6,7 +6,7 @@ from pathlib import Path
 
 import yaml
 
-_REGISTRY_PATH = Path(__file__).parents[5] / "prompts" / "registry.yaml"
+_REGISTRY_PATH = Path(__file__).with_name("registry.yaml")
 
 
 def load_registry() -> dict:

@@ -1,0 +1,12 @@
+version: 1
+prompts:
+  retrieval_qa:
+    template: system/retrieval_qa.j2
+  ifrs_compare:
+    template: system/ifrs_compare.j2
+  gl_mapping:
+    template: system/gl_mapping.j2
+  adjustment_entry:
+    template: system/adjustment_entry.j2
+  report_synthesis:
+    template: system/report_synthesis.j2

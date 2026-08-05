@@ -68,6 +68,6 @@ async def _call_reranker(query: str, texts: list[str]) -> list[float]:
         except httpx.TimeoutException:
             logger.warning("reranker timeout — using dense scores")
             return []
-        except Exception as exc:
+        except (httpx.HTTPError, ValueError, KeyError, TypeError) as exc:
             logger.warning("reranker unavailable: %s", exc)
             return []

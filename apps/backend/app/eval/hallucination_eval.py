@@ -28,6 +28,8 @@ import logging
 import os
 from pathlib import Path
 
+import anyio
+
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
@@ -128,17 +130,16 @@ async def _judge(prompt: str) -> tuple[float, str]:
                 max_output_tokens=256,
             ),
         )
-        text = resp.text.strip()
+        text = (resp.text or "").strip()
         # Strip markdown code fences if present
         if text.startswith("```"):
             text = text.split("```")[1]
-            if text.startswith("json"):
-                text = text[4:]
+            text = text.removeprefix("json")
         data = json.loads(text)
         return float(data["score"]), str(data.get("reason", ""))
-    except Exception as exc:
-        logger.warning("judge call failed: %s", exc)
-        return 0.0, f"error: {exc}"
+    except Exception as exc:  # noqa: BLE001 - one failed judge must not abort the eval batch
+        logger.warning("judge call failed: %s", type(exc).__name__)
+        return 0.0, "judge unavailable"
 
 
 # ---------------------------------------------------------------------------
@@ -185,29 +186,30 @@ async def _eval_record(record: dict, semaphore: asyncio.Semaphore) -> dict:
     ground_truth = record.get("ground_truth", "")
 
     async with semaphore:
-        tasks = [
-            score_faithfulness(question, answer, contexts),
-            score_answer_relevancy(question, answer),
+        named_tasks = [
+            ("faithfulness", score_faithfulness(question, answer, contexts)),
+            ("answer_relevancy", score_answer_relevancy(question, answer)),
         ]
         if ground_truth:
-            tasks.append(score_context_recall(question, contexts, ground_truth))
+            named_tasks.append(
+                ("context_recall", score_context_recall(question, contexts, ground_truth))
+            )
         if contexts:
-            tasks.append(score_context_precision(question, contexts))
+            named_tasks.append(("context_precision", score_context_precision(question, contexts)))
 
-        results = await asyncio.gather(*tasks, return_exceptions=True)
+        raw_results = await asyncio.gather(
+            *(task for _, task in named_tasks),
+            return_exceptions=True,
+        )
 
-    faith_score, faith_reason = (
-        results[0] if not isinstance(results[0], Exception) else (0.0, str(results[0]))
-    )
-    rel_score, rel_reason = (
-        results[1] if not isinstance(results[1], Exception) else (0.0, str(results[1]))
-    )
-    recall_score, recall_reason = (
-        results[2] if len(results) > 2 and not isinstance(results[2], Exception) else (None, "")
-    )
-    prec_score, prec_reason = (
-        results[3] if len(results) > 3 and not isinstance(results[3], Exception) else (None, "")
-    )
+    results = {
+        name: result if not isinstance(result, BaseException) else (0.0, str(result))
+        for (name, _), result in zip(named_tasks, raw_results, strict=True)
+    }
+    faith_score, faith_reason = results["faithfulness"]
+    rel_score, rel_reason = results["answer_relevancy"]
+    recall_score, recall_reason = results.get("context_recall", (None, ""))
+    prec_score, prec_reason = results.get("context_precision", (None, ""))
 
     return {
         "question": question,
@@ -241,10 +243,9 @@ async def evaluate_hallucination(
       hallucination_rate <= 0.03  (faithfulness < 0.5 = hallucination)
     """
     records: list[dict] = []
-    with open(dataset_path, encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if line:
+    async with await anyio.open_file(dataset_path, encoding="utf-8") as file:
+        async for line in file:
+            if line := line.strip():
                 records.append(json.loads(line))
 
     logger.info("evaluating %d records (concurrency=%d)...", len(records), concurrency)

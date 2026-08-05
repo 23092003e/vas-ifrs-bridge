@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 import uuid
 
+import anyio
 from qdrant_client.models import Distance, PointStruct, VectorParams
 
 from app.db.models import Document
@@ -19,19 +20,27 @@ from app.rag.retriever import _qdrant_client
 logger = logging.getLogger(__name__)
 
 
-async def ingest_document(document_id: str, local_path: str, collection: str) -> None:
+def _point_id(document_id: str, chunk_index: int) -> str:
+    return str(uuid.uuid5(uuid.NAMESPACE_URL, f"vas-ifrs:{document_id}:{chunk_index}"))
+
+
+async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> None:
     """Full ingestion pipeline: parse -> chunk -> embed -> Qdrant upsert."""
     async with AsyncSessionLocal() as db:
         from sqlalchemy import select
 
         # 1. Fetch document metadata
-        stmt = select(Document).where(Document.id == document_id)
+        stmt = select(Document).where(
+            Document.id == document_id,
+            Document.tenant_id == tenant_id,
+        )
         res = await db.execute(stmt)
         doc = res.scalar_one_or_none()
         if not doc:
             logger.error("Document not found in DB: %s", document_id)
             return
 
+        collection = f"tenant_{tenant_id}"
         doc.status = "processing"
         await db.commit()
 
@@ -43,12 +52,14 @@ async def ingest_document(document_id: str, local_path: str, collection: str) ->
                 text = parse_pdf(local_path)
             elif filename.endswith(".docx"):
                 text = parse_docx(local_path)
-            elif filename.endswith(".xlsx") or filename.endswith(".xls"):
+            elif filename.endswith((".xlsx", ".xls")):
                 text = parse_xlsx(local_path)
             else:
                 # Text fallback
-                with open(local_path, encoding="utf-8", errors="ignore") as f:
-                    text = f.read()
+                async with await anyio.open_file(
+                    local_path, encoding="utf-8", errors="ignore"
+                ) as file:
+                    text = await file.read()
 
             if not text.strip():
                 raise ValueError("Parsed document text is empty")
@@ -97,7 +108,7 @@ async def ingest_document(document_id: str, local_path: str, collection: str) ->
                     chunk_payload = enrich(chunk_payload)
                     points.append(
                         PointStruct(
-                            id=str(uuid.uuid4()),
+                            id=_point_id(document_id, idx),
                             vector=vector,
                             payload=chunk_payload
                         )
@@ -123,3 +134,4 @@ async def ingest_document(document_id: str, local_path: str, collection: str) ->
             doc.status = "failed"
             doc.error_message = str(exc)
             await db.commit()
+            raise

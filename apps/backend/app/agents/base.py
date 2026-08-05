@@ -32,6 +32,6 @@ class AgentBase(ABC):
         try:
             async for token in self.arun(**kwargs):
                 yield token
-        except Exception as exc:
-            self.logger.error("agent %s failed: %s", self.__class__.__name__, exc, exc_info=True)
-            yield f'data: {{"type":"error","message":"{exc}"}}\n\n'
+        except Exception:
+            self.logger.exception("agent %s failed", self.__class__.__name__)
+            yield 'data: {"type":"error","message":"Agent execution failed"}\n\n'

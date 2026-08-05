@@ -74,18 +74,17 @@ class AdjustmentAgent(AgentBase):
         system = ADJUSTMENT_SYSTEM.format(lang=lang)
 
         # 2. Stream tokens from LLM
+        collected: list[str] = []
         async for token in _call_llm(user_prompt, system, model_hint):
+            collected.append(token)
             yield f"data: {json.dumps({'type': 'token', 'delta': token})}\n\n"
 
-        yield f"data: {json.dumps({'type': 'final', 'content': 'Adjustment generation complete.'})}\n\n"
+        content = "".join(collected)
+        yield f"data: {json.dumps({'type': 'final', 'content': content})}\n\n"
 
 
 async def _call_llm(user: str, system: str, model_hint: str) -> AsyncIterator[str]:
-    from app.llm.providers.gemini import stream_chat
+    from app.llm.router import stream_chat
 
-    try:
-        async for tok in stream_chat(system=system, user=user, model_hint=model_hint):
-            yield tok
-    except Exception as exc:
-        logger.error("Adjustment LLM stream error: %s", exc)
-        yield f"[LLM error: {exc}]"
+    async for tok in stream_chat(system=system, user=user, model_hint=model_hint):
+        yield tok

@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import anyio
+
 
 async def parse_gl_file(file_path: str) -> list[dict]:
     """Parse xlsx/csv GL export and return normalised account rows."""
-    # TODO: delegate to gl.parser
-    return []
+    from app.gl.parser import parse
+
+    return await anyio.to_thread.run_sync(parse, file_path)

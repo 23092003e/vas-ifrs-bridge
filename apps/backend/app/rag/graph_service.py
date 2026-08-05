@@ -44,7 +44,7 @@ def get_graph() -> nx.DiGraph:
             _GRAPH.number_of_nodes(),
             _GRAPH.number_of_edges(),
         )
-    except Exception as exc:
+    except (OSError, json.JSONDecodeError, nx.NetworkXError, KeyError, TypeError) as exc:
         logger.error("Failed to load graph: %s. Fallback to empty graph.", exc)
         _GRAPH = nx.DiGraph()
 

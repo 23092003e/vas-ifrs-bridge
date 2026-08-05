@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-import json
 import logging
 from typing import Any
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
+
+from app.db.models import AuditLog
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +32,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
             user_id = getattr(request.state, "user_id", None)
             request_id = getattr(request.state, "request_id", None)
             await _fire_and_forget(
+                db=getattr(request.state, "db", None),
                 tenant_id=tenant.id if tenant else None,
                 user_id=user_id,
                 action=f"{request.method} {request.url.path}",
@@ -44,6 +46,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
 
 
 async def log_audit(
+    db: Any,
     tenant_id: str | None,
     user_id: str | None,
     action: str,
@@ -53,28 +56,29 @@ async def log_audit(
     ip: str | None = None,
     ua: str | None = None,
 ) -> None:
-    """Persist a structured audit record. Swallows errors — never block request path."""
-    try:
-        record = {
-            "tenant_id": tenant_id,
-            "user_id": user_id,
-            "action": action,
-            "resource_type": resource_type,
-            "diff": payload,
-            "request_id": request_id,
-            "ip": ip,
-            "ua": ua,
-        }
-        # In production, write to DB via asyncpg.  For now, structured log.
-        logger.info("AUDIT %s", json.dumps(record, default=str))
-    except Exception as exc:
-        logger.warning("audit log failed: %s", exc)
+    """Persist one structured audit record in the request transaction session."""
+    if db is None:
+        raise RuntimeError("Database session unavailable for audit logging")
+
+    record = AuditLog(
+        tenant_id=tenant_id,
+        user_id=user_id,
+        action=action,
+        resource_type=resource_type,
+        diff=payload,
+        request_id=request_id,
+        ip=ip,
+        ua=ua,
+    )
+    db.add(record)
+    await db.commit()
+    logger.info("AUDIT persisted action=%s request_id=%s", action, request_id)
 
 
 async def _fire_and_forget(**kwargs: Any) -> None:
     try:
         await log_audit(**kwargs)
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - audit must never break business requests
         logger.warning("audit middleware error: %s", exc)
 
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime
+from decimal import Decimal
 
 from sqlalchemy import DateTime, ForeignKey, Integer, Numeric, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
@@ -36,9 +37,9 @@ class Conversation(Base):
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
     tenant_id: Mapped[str | None] = mapped_column(
-        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=True
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=True, index=True
     )
-    user_id: Mapped[str] = mapped_column(String(255), nullable=False)
+    user_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     title: Mapped[str | None] = mapped_column(String(500))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
@@ -56,7 +57,7 @@ class Message(Base):
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
     conversation_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False), ForeignKey("conversations.id"), nullable=False
+        UUID(as_uuid=False), ForeignKey("conversations.id"), nullable=False, index=True
     )
     role: Mapped[str] = mapped_column(String(20), nullable=False)  # user | assistant
     content: Mapped[str] = mapped_column(Text, nullable=False)
@@ -74,18 +75,19 @@ class Document(Base):
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
     tenant_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False, index=True
     )
     filename: Mapped[str] = mapped_column(String(500), nullable=False)
     gcs_path: Mapped[str] = mapped_column(String(1000), nullable=False)
     mime_type: Mapped[str | None] = mapped_column(String(100))
     size_bytes: Mapped[int] = mapped_column(Integer, default=0)
-    status: Mapped[str] = mapped_column(
-        String(50), default="pending"
-    )  # pending | processing | ready | failed
+    status: Mapped[str] = mapped_column(String(50), default="pending", index=True)
+    # pending | processing | ready | failed
     chunk_count: Mapped[int] = mapped_column(Integer, default=0)
     qdrant_collection: Mapped[str | None] = mapped_column(String(255))
-    doc_metadata: Mapped[dict | None] = mapped_column("metadata", JSONB, default=dict)
+    doc_metadata: Mapped[dict] = mapped_column(
+        "metadata", JSONB, default=dict, server_default="{}", nullable=False
+    )
     error_message: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
@@ -100,14 +102,13 @@ class GLUpload(Base):
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
     tenant_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False, index=True
     )
     user_id: Mapped[str] = mapped_column(String(255), nullable=False)
     filename: Mapped[str] = mapped_column(String(500), nullable=False)
     gcs_path: Mapped[str] = mapped_column(String(1000), nullable=False)
-    status: Mapped[str] = mapped_column(
-        String(50), default="pending"
-    )  # pending | processing | mapped | failed
+    status: Mapped[str] = mapped_column(String(50), default="pending", index=True)
+    # pending | processing | mapped | failed
     row_count: Mapped[int] = mapped_column(Integer, default=0)
     mapped_count: Mapped[int] = mapped_column(Integer, default=0)
     error_message: Mapped[str | None] = mapped_column(Text)
@@ -125,16 +126,16 @@ class AdjustmentEntry(Base):
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
     gl_upload_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False), ForeignKey("gl_uploads.id"), nullable=False
+        UUID(as_uuid=False), ForeignKey("gl_uploads.id"), nullable=False, index=True
     )
     tenant_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False, index=True
     )
     account_code: Mapped[str] = mapped_column(String(50), nullable=False)
     account_name: Mapped[str | None] = mapped_column(String(255))
     ifrs_account: Mapped[str | None] = mapped_column(String(50))
-    debit: Mapped[float] = mapped_column(Numeric(18, 2), default=0)
-    credit: Mapped[float] = mapped_column(Numeric(18, 2), default=0)
+    debit: Mapped[Decimal] = mapped_column(Numeric(18, 2), default=0)
+    credit: Mapped[Decimal] = mapped_column(Numeric(18, 2), default=0)
     note: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(50), default="draft")  # draft | approved | rejected
     approved_by: Mapped[str | None] = mapped_column(String(255))
@@ -148,7 +149,7 @@ class AuditLog(Base):
     __tablename__ = "audit_logs"
 
     id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
-    tenant_id: Mapped[str | None] = mapped_column(UUID(as_uuid=False), nullable=True)
+    tenant_id: Mapped[str | None] = mapped_column(UUID(as_uuid=False), nullable=True, index=True)
     user_id: Mapped[str | None] = mapped_column(String(255))
     action: Mapped[str] = mapped_column(String(255), nullable=False)
     resource_type: Mapped[str | None] = mapped_column(String(100))
@@ -156,4 +157,6 @@ class AuditLog(Base):
     request_id: Mapped[str | None] = mapped_column(String(100))
     ip: Mapped[str | None] = mapped_column(String(45))
     ua: Mapped[str | None] = mapped_column(String(500))
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), index=True
+    )

@@ -72,13 +72,13 @@ async def _call_ollama(client: httpx.AsyncClient, texts: list[str], model: str, 
         except httpx.HTTPStatusError as exc:
             if attempt == retries:
                 logger.error("Ollama HTTP error %s: %s", exc.response.status_code, exc.response.text)
-                raise exc
+                raise
             logger.warning("Ollama HTTP error attempt %d failed. Retrying in 2s...", attempt)
             await asyncio.sleep(2.0)
         except httpx.RequestError as exc:
             if attempt == retries:
                 logger.error("Ollama connection error: %s", exc)
-                raise exc
+                raise
             logger.warning("Ollama connection attempt %d failed. Retrying in 2s...", attempt)
             await asyncio.sleep(2.0)
 

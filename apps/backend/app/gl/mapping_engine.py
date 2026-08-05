@@ -91,7 +91,7 @@ async def _map_with_llm(unmatched_accounts: list[dict[str, Any]]) -> list[dict[s
                 payload = json.loads(event[6:].strip())
                 if payload.get("type") == "token":
                     tokens.append(payload.get("delta", ""))
-            except Exception as e:
+            except (json.JSONDecodeError, TypeError) as e:
                 logger.warning("Failed to parse stream event in mapping engine: %s", e)
                 continue
 
@@ -123,6 +123,10 @@ async def _map_with_llm(unmatched_accounts: list[dict[str, Any]]) -> list[dict[s
                 confidence = float(re.sub(r"[^\d\.]", "", confidence_str))
             except ValueError:
                 confidence = 0.70
+            if confidence > 1 and confidence <= 100:
+                confidence /= 100
+            elif confidence < 0 or confidence > 1:
+                confidence = 0.0
 
             # Find matching original account from the unmatched list
             orig = next((a for a in unmatched_accounts if str(a.get("account_code")) == code), None)

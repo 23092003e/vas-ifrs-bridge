@@ -41,8 +41,10 @@ class RBACMiddleware(BaseHTTPMiddleware):
         # Prefix matching: find the most specific (longest) matching route prefix.
         required = None
         best_prefix_len = 0
-        for prefix, role in ROUTE_ROLE_MAP.items():
-            if request.url.path.startswith(prefix) and len(prefix) > best_prefix_len:
+        for (method, prefix), role in ROUTE_ROLE_MAP.items():
+            method_matches = method == "*" or method == request.method
+            path_matches = request.url.path == prefix or request.url.path.startswith(f"{prefix}/")
+            if method_matches and path_matches and len(prefix) > best_prefix_len:
                 required = role
                 best_prefix_len = len(prefix)
 
@@ -50,11 +52,7 @@ class RBACMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
 
         user: dict = getattr(request.state, "user", {})
-        user_role = (
-            user.get("app_metadata", {}).get("role")
-            or user.get("user_metadata", {}).get("role")
-            or "viewer"
-        )
+        user_role = user.get("app_metadata", {}).get("role") or "viewer"
         if ROLE_RANK.get(user_role, 0) < ROLE_RANK.get(required, 0):
             from starlette.responses import JSONResponse
 
@@ -68,11 +66,7 @@ def require(role: Role):
 
     async def _check(request: Request) -> None:
         user: dict = getattr(request.state, "user", {})
-        user_role = (
-            user.get("app_metadata", {}).get("role")
-            or user.get("user_metadata", {}).get("role")
-            or "viewer"
-        )
+        user_role = user.get("app_metadata", {}).get("role") or "viewer"
         if ROLE_RANK.get(user_role, 0) < ROLE_RANK[role.value]:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,

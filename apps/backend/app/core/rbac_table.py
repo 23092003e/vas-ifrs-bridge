@@ -11,15 +11,17 @@ PERMISSIONS: dict[str, set[str]] = {
     "viewer": {"read"},
 }
 
-# route path prefix → minimum role string required (None = no role gate)
-ROUTE_ROLE_MAP: dict[str, str] = {
-    "/v1/admin": "admin",
-    "/v1/admin/users": "admin",
-    "/v1/admin/audit": "auditor",
-    "/v1/reports/generate": "accountant",
-    "/v1/adjustments/generate": "accountant",
-    "/v1/gl/uploads": "accountant",
-    "/v1/documents": "accountant",
+# (HTTP method, route path prefix) → minimum role string required.
+# "*" applies to every method.
+ROUTE_ROLE_MAP: dict[tuple[str, str], str] = {
+    ("*", "/v1/admin"): "admin",
+    ("*", "/v1/admin/users"): "admin",
+    ("*", "/v1/admin/audit"): "auditor",
+    ("POST", "/v1/reports/generate"): "accountant",
+    ("POST", "/v1/adjustments"): "accountant",
+    ("POST", "/v1/gl/upload"): "accountant",
+    ("PUT", "/v1/mappings"): "accountant",
+    ("POST", "/v1/documents/upload"): "accountant",
 }
 
 
