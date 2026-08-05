@@ -7,6 +7,33 @@ import {
 
 const N8N_BASE_URL = process.env.N8N_BASE_URL || "http://localhost:5678";
 const N8N_API_KEY = process.env.N8N_API_KEY || "";
+const REQUEST_TIMEOUT_MS = 15_000;
+
+function normalizeBaseUrl(baseUrl: string): string {
+  const url = new URL(baseUrl);
+  if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) {
+    throw new Error("N8N_BASE_URL must be an HTTP(S) URL without credentials");
+  }
+  url.search = "";
+  url.hash = "";
+  return url.toString().replace(/\/$/, "");
+}
+
+export function buildWorkflowUrl(baseUrl: string, workflowId: string): string {
+  const normalizedId = workflowId.trim();
+  if (!normalizedId) {
+    throw new Error("workflowId is required");
+  }
+  return `${normalizeBaseUrl(baseUrl)}/api/v1/workflows/${encodeURIComponent(normalizedId)}`;
+}
+
+export function buildWebhookUrl(baseUrl: string, webhookPath: string): string {
+  const normalizedPath = webhookPath.replace(/^\/+|\/+$/g, "");
+  if (!/^[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*$/.test(normalizedPath)) {
+    throw new Error("Invalid webhook path");
+  }
+  return `${normalizeBaseUrl(baseUrl)}/webhook/${normalizedPath}`;
+}
 
 const server = new Server(
   {
@@ -73,8 +100,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   try {
     switch (name) {
       case "n8n_list_workflows": {
-        const url = `${N8N_BASE_URL}/api/v1/workflows`;
-        const res = await fetch(url, { headers });
+        const url = `${normalizeBaseUrl(N8N_BASE_URL)}/api/v1/workflows`;
+        const res = await fetch(url, {
+          headers,
+          signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        });
         if (!res.ok) {
           throw new Error(`n8n responded with status ${res.status}: ${await res.text()}`);
         }
@@ -86,8 +116,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "n8n_get_workflow": {
         const { workflowId } = args as { workflowId: string };
-        const url = `${N8N_BASE_URL}/api/v1/workflows/${workflowId}`;
-        const res = await fetch(url, { headers });
+        const url = buildWorkflowUrl(N8N_BASE_URL, workflowId);
+        const res = await fetch(url, {
+          headers,
+          signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        });
         if (!res.ok) {
           throw new Error(`n8n responded with status ${res.status}: ${await res.text()}`);
         }
@@ -99,15 +132,17 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "n8n_trigger_webhook": {
         const { webhookPath, payload } = args as { webhookPath: string; payload: object };
-        // Clean webhook path to avoid double slashes
-        const cleanPath = webhookPath.startsWith("/") ? webhookPath.substring(1) : webhookPath;
-        const url = `${N8N_BASE_URL}/webhook/${cleanPath}`;
+        const url = buildWebhookUrl(N8N_BASE_URL, webhookPath);
         const res = await fetch(url, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
+          signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
         });
         const text = await res.text();
+        if (!res.ok) {
+          throw new Error(`n8n webhook responded with status ${res.status}: ${text}`);
+        }
         return {
           content: [
             {
@@ -121,10 +156,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       default:
         throw new Error(`Unknown tool: ${name}`);
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
     return {
       isError: true,
-      content: [{ type: "text", text: err.message || String(err) }],
+      content: [{ type: "text", text: message }],
     };
   }
 });
@@ -135,7 +171,9 @@ async function main() {
   console.error("n8n MCP server running on stdio");
 }
 
-main().catch((err) => {
-  console.error("Fatal error running n8n MCP server:", err);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((err) => {
+    console.error("Fatal error running n8n MCP server:", err);
+    process.exit(1);
+  });
+}

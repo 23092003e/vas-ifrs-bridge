@@ -1,12 +1,18 @@
 """Qdrant MCP server — collection inspect, payload sample, similarity probe."""
 from __future__ import annotations
 
-import os
 import logging
+import os
 from typing import Any
+
+import httpx
 from mcp.server.fastmcp import FastMCP
 from qdrant_client import AsyncQdrantClient
-from qdrant_client.http.exceptions import UnexpectedResponse
+
+if __package__:
+    from .embedding import embed_text
+else:
+    from embedding import embed_text
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("qdrant_mcp")
@@ -18,9 +24,7 @@ mcp = FastMCP("Qdrant MCP Server")
 QDRANT_URL = os.environ.get("QDRANT_URL", "http://localhost:6333")
 QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY")
 
-# TEI and Gemini API configurations
-TEI_URL = os.environ.get("TEI_URL", "http://localhost:8080")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
 
 def _get_qdrant_client() -> AsyncQdrantClient:
     return AsyncQdrantClient(
@@ -29,49 +33,15 @@ def _get_qdrant_client() -> AsyncQdrantClient:
         check_compatibility=False,
     )
 
-async def _embed_text(text: str, target_dim: int) -> list[float] | None:
-    """Generate embedding vector using TEI or Gemini based on target dimension."""
-    # 1. Try TEI (bge-m3 dim 1024)
-    if target_dim == 1024:
-        try:
-            import httpx
-            async with httpx.AsyncClient(timeout=10.0) as client:
-                payload = {"inputs": [text], "normalize": True}
-                resp = await client.post(f"{TEI_URL}/embed", json=payload)
-                if resp.status_code == 200:
-                    data = resp.json()
-                    if isinstance(data, list) and len(data) > 0:
-                        return data[0]
-                    elif isinstance(data, dict) and "embeddings" in data:
-                        return data["embeddings"][0]
-        except Exception as e:
-            logger.warning("TEI embedding failed: %s. Trying Gemini fallback.", e)
-
-    # 2. Try Gemini fallback (gemini-embedding-001 or text-embedding-004)
-    if GEMINI_API_KEY:
-        try:
-            from google import genai
-            client = genai.Client(api_key=GEMINI_API_KEY)
-            # Match model to target dimension if possible
-            model = "models/text-embedding-004"
-            resp = await client.aio.models.embed_content(
-                model=model,
-                contents=text,
-            )
-            if resp.embeddings and len(resp.embeddings) > 0:
-                vec = list(resp.embeddings[0].values)
-                # If dimension mismatch, print warning
-                if len(vec) != target_dim:
-                    logger.warning(
-                        "Gemini embedded dimension %d does not match target collection dimension %d",
-                        len(vec),
-                        target_dim
-                    )
-                return vec
-        except Exception as e:
-            logger.error("Gemini embedding failed: %s", e)
-
-    return None
+async def _embed_text(text: str, target_dim: int) -> list[float]:
+    """Generate a bge-m3 embedding using the same Ollama contract as the app."""
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        return await embed_text(
+            text,
+            target_dim=target_dim,
+            base_url=OLLAMA_BASE_URL,
+            client=client,
+        )
 
 @mcp.tool()
 async def qdrant_list_collections() -> list[str]:
@@ -80,9 +50,6 @@ async def qdrant_list_collections() -> list[str]:
     try:
         response = await client.get_collections()
         return [c.name for c in response.collections]
-    except Exception as e:
-        logger.error("Failed to list Qdrant collections: %s", e)
-        return [f"Error listing collections: {str(e)}"]
     finally:
         await client.close()
 
@@ -108,10 +75,6 @@ async def qdrant_get_collection_info(collection_name: str) -> dict[str, Any]:
             "segments_count": info.segments_count,
             "vector_config": vector_config,
         }
-    except UnexpectedResponse as e:
-        return {"error": f"Collection '{collection_name}' not found: {str(e)}"}
-    except Exception as e:
-        return {"error": f"Error getting collection info: {str(e)}"}
     finally:
         await client.close()
 
@@ -134,8 +97,6 @@ async def qdrant_retrieve_points(collection_name: str, ids: list[str]) -> list[d
             }
             for r in records
         ]
-    except Exception as e:
-        return [{"error": f"Error retrieving points: {str(e)}"}]
     finally:
         await client.close()
 
@@ -157,9 +118,6 @@ async def qdrant_search(collection_name: str, query_text: str, limit: int = 5) -
 
         # Generate embedding vector
         vector = await _embed_text(query_text, target_dim)
-        if not vector:
-            return [{"error": "Failed to generate query embedding. Check TEI_URL or GEMINI_API_KEY."}]
-
         # Perform query
         result = await client.query_points(
             collection_name=collection_name,
@@ -175,8 +133,6 @@ async def qdrant_search(collection_name: str, query_text: str, limit: int = 5) -
             }
             for hit in result.points
         ]
-    except Exception as e:
-        return [{"error": f"Search failed: {str(e)}"}]
     finally:
         await client.close()
 

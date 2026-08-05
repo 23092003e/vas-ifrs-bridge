@@ -13,11 +13,12 @@
       }
     },
     "qdrant": {
-      "command": "python",
-      "args": ["-m", "mcp.servers.qdrant_mcp"],
+      "command": "uv",
+      "args": ["run", "--project", "mcp/servers/qdrant_mcp", "python", "mcp/servers/qdrant_mcp/server.py"],
       "env": {
         "QDRANT_URL": "${QDRANT_URL}",
-        "QDRANT_API_KEY": "${QDRANT_API_KEY}"
+        "QDRANT_API_KEY": "${QDRANT_API_KEY}",
+        "OLLAMA_BASE_URL": "${OLLAMA_BASE_URL}"
       }
     },
     "n8n": {

@@ -1,0 +1,41 @@
+name: CI MCP Servers
+
+on:
+  push:
+    paths:
+      - 'mcp/**'
+      - '.github/workflows/ci-mcp.yml'
+  pull_request:
+    paths:
+      - 'mcp/**'
+      - '.github/workflows/ci-mcp.yml'
+
+jobs:
+  n8n-mcp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: mcp/servers/n8n_mcp/package-lock.json
+      - run: npm ci
+        working-directory: mcp/servers/n8n_mcp
+      - run: npm test
+        working-directory: mcp/servers/n8n_mcp
+
+  qdrant-mcp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen --group dev
+        working-directory: mcp/servers/qdrant_mcp
+      - run: uv run ruff check .
+        working-directory: mcp/servers/qdrant_mcp
+      - run: uv run pytest -q
+        working-directory: mcp/servers/qdrant_mcp
