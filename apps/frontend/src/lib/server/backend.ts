@@ -30,7 +30,7 @@ export async function authenticatedBackendFetch(
 	path: string,
 	init: RequestInit = {},
 ): Promise<Response> {
-	const supabase = createServerSupabaseClient();
+	const supabase = await createServerSupabaseClient();
 	const {
 		data: { user },
 		error: userError,

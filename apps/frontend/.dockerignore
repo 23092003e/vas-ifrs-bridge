@@ -3,3 +3,7 @@ node_modules
 out
 build
 *.log
+.env
+.env.*
+.git
+coverage
