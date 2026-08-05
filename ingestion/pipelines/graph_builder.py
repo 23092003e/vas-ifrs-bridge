@@ -19,7 +19,6 @@ logger = logging.getLogger(__name__)
 
 # Standard mappings VAS -> IFRS
 VAS_IFRS_MAPPING = {
-    "VAS-01": "IFRS-1",
     "VAS-14": "IFRS-15",
     "VAS-15": "IFRS-15",
     "VAS-17": "IAS-12",

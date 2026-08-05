@@ -51,6 +51,58 @@ def _get_qdrant():
         kwargs["api_key"] = QDRANT_API_KEY
     return QdrantClient(**kwargs)
 
+
+def sync_collection(
+    qdrant,
+    *,
+    collection_name: str,
+    points: list[PointStruct],
+    dim: int,
+) -> None:
+    """Upsert a complete snapshot, then remove stale points without downtime."""
+    exists = qdrant.collection_exists(collection_name)
+    if exists:
+        vectors_config = qdrant.get_collection(collection_name).config.params.vectors
+        existing_dim = getattr(vectors_config, "size", None)
+        if existing_dim != dim:
+            raise ValueError(
+                f"collection {collection_name} uses vector dimension {existing_dim}, "
+                f"but the active embedding model returned {dim}"
+            )
+    else:
+        qdrant.create_collection(
+            collection_name=collection_name,
+            vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
+        )
+
+    qdrant.upsert(collection_name=collection_name, points=points)
+
+    if not exists:
+        return
+
+    existing_ids: set[str] = set()
+    offset = None
+    while True:
+        records, offset = qdrant.scroll(
+            collection_name=collection_name,
+            limit=256,
+            offset=offset,
+            with_payload=False,
+            with_vectors=False,
+        )
+        existing_ids.update(str(record.id) for record in records)
+        if offset is None:
+            break
+
+    current_ids = {str(point.id) for point in points}
+    stale_ids = sorted(existing_ids - current_ids)
+    if stale_ids:
+        qdrant.delete(
+            collection_name=collection_name,
+            points_selector=stale_ids,
+        )
+
+
 async def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     
@@ -199,18 +251,6 @@ async def main() -> None:
     qdrant = _get_qdrant()
     collection_name = "kb_shared_mapping"
     
-    # Recreate collection
-    exists = qdrant.collection_exists(collection_name)
-    if exists:
-        logger.info("Recreating collection %s", collection_name)
-        qdrant.delete_collection(collection_name)
-    
-    qdrant.create_collection(
-        collection_name=collection_name,
-        vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
-    )
-
-    # Upsert points
     points = []
     for it, vec in zip(items, vectors):
         point_id = it["id"]
@@ -223,7 +263,12 @@ async def main() -> None:
             )
         )
 
-    qdrant.upsert(collection_name=collection_name, points=points)
+    sync_collection(
+        qdrant,
+        collection_name=collection_name,
+        points=points,
+        dim=dim,
+    )
     logger.info("Successfully populated kb_shared_mapping with %d points.", len(points))
 
 if __name__ == "__main__":

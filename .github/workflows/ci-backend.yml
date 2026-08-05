@@ -1,9 +1,19 @@
 name: CI Backend
 on:
   push:
-    paths: ['apps/backend/**']
+    paths:
+      - 'apps/backend/**'
+      - 'ingestion/**'
+      - 'ingest.ps1'
+      - 'skills/vas-ifrs-document-ingestion/**'
+      - '.github/workflows/ci-backend.yml'
   pull_request:
-    paths: ['apps/backend/**']
+    paths:
+      - 'apps/backend/**'
+      - 'ingestion/**'
+      - 'ingest.ps1'
+      - 'skills/vas-ifrs-document-ingestion/**'
+      - '.github/workflows/ci-backend.yml'
 
 jobs:
   lint-test:
