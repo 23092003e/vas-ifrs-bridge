@@ -19,7 +19,7 @@ ingestion/
 │   │       ├── decisions/        Quyết định ban hành VAS
 │   │       └── adoption/         Hướng dẫn áp dụng
 │   └── tenant/
-│       └── dev-tenant/
+│       └── <tenant-uuid>/
 │           ├── fs/               Financial statements
 │           ├── audit/            Audit reports, notes
 │           ├── contracts/        Contracts, agreements
@@ -73,9 +73,9 @@ Dashboard: http://localhost:6333/dashboard
 Examples:
 - `ingestion/raw/shared/vas/circulars/TT200-2014-BTC.pdf`
 - `ingestion/raw/shared/ifrs/standards/IFRS15-Revenue.pdf`
-- `ingestion/raw/tenant/dev-tenant/fs/BCTC-2024.xlsx`
+- `ingestion/raw/tenant/<tenant-uuid>/fs/BCTC-2024.xlsx`
 
-Supported: `.pdf` `.docx` `.doc` `.xlsx` `.xls` `.txt` `.md`
+Supported: `.pdf` `.docx` `.xlsx` `.txt` `.md`
 
 ---
 
@@ -84,14 +84,19 @@ Supported: `.pdf` `.docx` `.doc` `.xlsx` `.xls` `.txt` `.md`
 ### PowerShell (easiest, from repo root)
 
 ```powershell
-.\ingest.ps1                          # all collections
+.\ingest.ps1                          # shared VAS + IFRS collections
 .\ingest.ps1 -Scope vas               # VAS only
 .\ingest.ps1 -Scope ifrs              # IFRS only
-.\ingest.ps1 -Scope tenant            # dev-tenant only
+.\ingest.ps1 -Scope tenant -TenantId <tenant-uuid>
+.\ingest.ps1 -Scope all -TenantId <tenant-uuid>
 .\ingest.ps1 -DryRun                  # parse+chunk only, no embed/upsert
 .\ingest.ps1 -Recreate                # drop + recreate collections first
 .\ingest.ps1 -Scope vas -Recreate     # clean VAS re-ingest
 ```
+
+These host-side wrappers use `http://localhost:11434` for Ollama and
+`http://localhost:6333` for Qdrant. Override them with `-OllamaUrl` and
+`-QdrantUrl` when the services are remote.
 
 ### Python directly (from repo root)
 
@@ -128,8 +133,8 @@ python ingestion/pipelines/embedders/batch_embed.py `
 
 # Tenant
 python ingestion/pipelines/embedders/batch_embed.py `
-  --docs ingestion/raw/tenant/dev-tenant `
-  --collection tenant_dev-tenant --scope tenant --tenant-id dev-tenant
+  --docs ingestion/raw/tenant/<tenant-uuid> `
+  --collection tenant_<tenant-uuid> --scope tenant --tenant-id <tenant-uuid>
 ```
 
 ---

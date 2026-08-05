@@ -7,19 +7,22 @@ SCOPE="shared"
 TENANT_ID=""
 RECREATE=false
 DRY_RUN=false
+OLLAMA_URL="${INGEST_OLLAMA_URL:-http://localhost:11434}"
+QDRANT_URL="${INGEST_QDRANT_URL:-http://localhost:6333}"
 
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
-        --scope|--tenant-id)
+        --scope|--tenant-id|--ollama-url|--qdrant-url)
             if [[ "$#" -lt 2 || -z "$2" ]]; then
                 echo "Missing value for $1" >&2
                 exit 1
             fi
-            if [[ "$1" == "--scope" ]]; then
-                SCOPE="$2"
-            else
-                TENANT_ID="$2"
-            fi
+            case "$1" in
+                --scope) SCOPE="$2" ;;
+                --tenant-id) TENANT_ID="$2" ;;
+                --ollama-url) OLLAMA_URL="$2" ;;
+                --qdrant-url) QDRANT_URL="$2" ;;
+            esac
             shift 2
             ;;
         --recreate)
@@ -31,7 +34,7 @@ while [[ "$#" -gt 0 ]]; do
             shift
             ;;
         --help)
-            echo "Usage: $0 [--scope vas|ifrs|tenant|shared|all] [--tenant-id UUID] [--recreate] [--dry-run]"
+            echo "Usage: $0 [--scope vas|ifrs|tenant|shared|all] [--tenant-id UUID] [--ollama-url URL] [--qdrant-url URL] [--recreate] [--dry-run]"
             exit 0
             ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
@@ -111,6 +114,8 @@ ingest_collection() {
         --docs "$docs_dir"
         --collection "$collection"
         --scope "$scope"
+        --ollama-url "$OLLAMA_URL"
+        --qdrant-url "$QDRANT_URL"
     )
     if [[ -n "$tenant_id" ]]; then
         command+=(--tenant-id "$tenant_id")

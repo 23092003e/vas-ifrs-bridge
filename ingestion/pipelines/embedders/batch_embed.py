@@ -19,7 +19,7 @@ Usage (run from repo root with PYTHONPATH set):
   # One-shot (parse + embed)
   python ingestion/pipelines/embedders/batch_embed.py --docs ingestion/raw/shared/vas --collection kb_shared_vas --scope shared
   python ingestion/pipelines/embedders/batch_embed.py --docs ingestion/raw/shared/ifrs --collection kb_shared_ifrs --scope shared
-  python ingestion/pipelines/embedders/batch_embed.py --docs ingestion/raw/tenant/dev-tenant --collection tenant_dev-tenant --scope tenant --tenant-id dev-tenant
+  python ingestion/pipelines/embedders/batch_embed.py --docs ingestion/raw/tenant/00000000-0000-4000-8000-000000000001 --collection tenant_00000000-0000-4000-8000-000000000001 --scope tenant --tenant-id 00000000-0000-4000-8000-000000000001
 
   # From pre-parsed JSON
   python ingestion/pipelines/embedders/batch_embed.py --parsed ingestion/processed/chunks/vas --collection kb_shared_vas --scope shared

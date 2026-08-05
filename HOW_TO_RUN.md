@@ -152,8 +152,8 @@ ingestion/raw/tenant/<tenant-id>/      <- tenant docs
 Then run ingestion (PowerShell / Windows):
 
 ```powershell
-# All shared collections
-./ingest.ps1 -Scope all
+# All shared collections (also the default)
+./ingest.ps1 -Scope shared
 
 # VAS only
 ./ingest.ps1 -Scope vas
@@ -162,7 +162,10 @@ Then run ingestion (PowerShell / Windows):
 ./ingest.ps1 -Scope ifrs
 
 # Tenant
-./ingest.ps1 -Scope tenant -TenantId <id>
+./ingest.ps1 -Scope tenant -TenantId <tenant-uuid>
+
+# Shared and tenant collections
+./ingest.ps1 -Scope all -TenantId <tenant-uuid>
 
 # Preview without writing
 ./ingest.ps1 -DryRun
@@ -175,7 +178,9 @@ Or directly via Python (Linux/macOS):
 make embed-shared
 # or:
 PYTHONPATH=apps/backend:ingestion \
-  apps/backend/.venv/bin/python ingestion/pipelines/embedders/batch_embed.py --scope shared
+  apps/backend/.venv/bin/python ingestion/pipelines/embedders/batch_embed.py \
+  --docs ingestion/raw/shared/vas --collection kb_shared_vas --scope shared \
+  --ollama-url http://localhost:11434 --qdrant-url http://localhost:6333
 ```
 
 ---
@@ -183,9 +188,10 @@ PYTHONPATH=apps/backend:ingestion \
 ## Build Knowledge Graph
 
 ```bash
-cd ingestion/pipelines
-python graph_builder.py --docs-dir ../raw/shared
-# Output: ingestion/metadata/paragraph_graph/cross_reference_graph.json
+PYTHONPATH=apps/backend:. apps/backend/.venv/bin/python \
+  ingestion/pipelines/graph_builder.py \
+  --docs ingestion/raw/shared \
+  --output ingestion/metadata/paragraph_graph/cross_reference_graph.json
 ```
 
 ---
@@ -202,7 +208,6 @@ cd apps/backend
 ruff check .
 pytest                        # all tests
 pytest tests/unit/            # unit only
-pytest tests/integration/     # needs live DB + Qdrant
 
 # Frontend only
 cd apps/frontend

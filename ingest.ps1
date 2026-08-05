@@ -11,6 +11,8 @@ param(
     [ValidateSet("all", "shared", "vas", "ifrs", "tenant")]
     [string]$Scope = "shared",
     [string]$TenantId,
+    [string]$OllamaUrl = "http://localhost:11434",
+    [string]$QdrantUrl = "http://localhost:6333",
     [switch]$Recreate,               # drop and recreate collections
     [switch]$DryRun                  # chunk only, skip embed+upsert
 )
@@ -68,7 +70,14 @@ function Ingest-Collection {
 
     Write-Host "`n==> $($files.Count) docs  $DocsDir  →  $Collection"
 
-    $cmd = @($Python, $BatchEmbed, "--docs", $DocsDir, "--collection", $Collection, "--scope", $CollScope)
+    $cmd = @(
+        $Python, $BatchEmbed,
+        "--docs", $DocsDir,
+        "--collection", $Collection,
+        "--scope", $CollScope,
+        "--ollama-url", $OllamaUrl,
+        "--qdrant-url", $QdrantUrl
+    )
     if ($TId)           { $cmd += @("--tenant-id", $TId) }
     if ($Recreate)      { $cmd += "--recreate" }
     if ($DryRun)        { $cmd += "--dry-run" }

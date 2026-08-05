@@ -54,6 +54,10 @@ def test_run_ingest_is_portable_and_forwards_dry_run(tmp_path: Path) -> None:
     assert "--dry-run" in invocation
     assert "--scope" in invocation
     assert "shared" in invocation
+    ollama_option = invocation.index("--ollama-url")
+    qdrant_option = invocation.index("--qdrant-url")
+    assert invocation[ollama_option + 1] == "http://localhost:11434"
+    assert invocation[qdrant_option + 1] == "http://localhost:6333"
 
 
 def test_run_ingest_rejects_invalid_tenant_id(tmp_path: Path) -> None:
