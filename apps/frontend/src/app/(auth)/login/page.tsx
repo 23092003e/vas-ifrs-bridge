@@ -78,8 +78,8 @@ export default function LoginPage() {
 	const [name, setName] = useState("");
 	const [workspace, setWorkspace] = useState("");
 	const [showPw, setShowPw] = useState(false);
-	const [remember, setRemember] = useState(true);
 	const [error, setError] = useState("");
+	const [notice, setNotice] = useState("");
 	const [loading, setLoading] = useState(false);
 
 	function validate(): string {
@@ -93,6 +93,7 @@ export default function LoginPage() {
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		setError("");
+		setNotice("");
 		const msg = validate();
 		if (msg) {
 			setError(msg);
@@ -111,7 +112,7 @@ export default function LoginPage() {
 					return;
 				}
 			} else {
-				const { error: err } = await supabase.auth.signUp({
+				const { data, error: err } = await supabase.auth.signUp({
 					email,
 					password,
 					options: {
@@ -125,6 +126,12 @@ export default function LoginPage() {
 					setError(err.message);
 					return;
 				}
+				if (!data.session) {
+					setNotice(
+						"Kiểm tra email để xác nhận tài khoản trước khi đăng nhập.",
+					);
+					return;
+				}
 			}
 			router.push("/chat");
 			router.refresh();
@@ -136,20 +143,15 @@ export default function LoginPage() {
 		}
 	}
 
-	async function handleGoogleSSO() {
+	async function handleOAuth(provider: "google" | "azure") {
+		setError("");
+		setNotice("");
 		const supabase = createClient();
-		await supabase.auth.signInWithOAuth({
-			provider: "google",
+		const { error: oauthError } = await supabase.auth.signInWithOAuth({
+			provider,
 			options: { redirectTo: `${window.location.origin}/auth/callback` },
 		});
-	}
-
-	async function handleMicrosoftSSO() {
-		const supabase = createClient();
-		await supabase.auth.signInWithOAuth({
-			provider: "azure",
-			options: { redirectTo: `${window.location.origin}/auth/callback` },
-		});
+		if (oauthError) setError(oauthError.message);
 	}
 
 	return (
@@ -254,6 +256,7 @@ export default function LoginPage() {
 						onClick={() => {
 							setMode((m) => (m === "signin" ? "signup" : "signin"));
 							setError("");
+							setNotice("");
 						}}
 						style={{
 							background: "none",
@@ -289,7 +292,7 @@ export default function LoginPage() {
 						<button
 							type="button"
 							className="auth-sso-btn"
-							onClick={handleGoogleSSO}
+							onClick={() => void handleOAuth("google")}
 						>
 							<svg
 								viewBox="0 0 24 24"
@@ -320,7 +323,7 @@ export default function LoginPage() {
 						<button
 							type="button"
 							className="auth-sso-btn"
-							onClick={handleMicrosoftSSO}
+							onClick={() => void handleOAuth("azure")}
 						>
 							<svg
 								viewBox="0 0 24 24"
@@ -376,9 +379,7 @@ export default function LoginPage() {
 							<label className="auth-label">
 								<span>MẬT KHẨU</span>
 								{mode === "signin" && (
-									<a href="#" onClick={(e) => e.preventDefault()}>
-										Quên mật khẩu?
-									</a>
+									<span>Liên hệ quản trị viên nếu quên mật khẩu</span>
 								)}
 							</label>
 							<div className="auth-input-wrap">
@@ -403,50 +404,12 @@ export default function LoginPage() {
 							</div>
 						</div>
 
-						{mode === "signin" && (
-							<label
-								style={{
-									display: "flex",
-									alignItems: "center",
-									gap: 8,
-									cursor: "pointer",
-									userSelect: "none",
-								}}
-							>
-								<input
-									type="checkbox"
-									checked={remember}
-									onChange={(e) => setRemember(e.target.checked)}
-									style={{
-										accentColor: "var(--accent)",
-										width: 14,
-										height: 14,
-										cursor: "pointer",
-									}}
-								/>
-								<span
-									style={{
-										fontSize: "0.75rem",
-										color: "var(--ink-60)",
-										fontFamily: "var(--font-lora, Georgia, serif)",
-									}}
-								>
-									Ghi nhớ thiết bị này
-								</span>
-								<span
-									style={{
-										marginLeft: "auto",
-										fontSize: "0.62rem",
-										color: "var(--ink-20)",
-										fontFamily: "var(--font-mono)",
-									}}
-								>
-									SSO · SAML
-								</span>
-							</label>
-						)}
-
 						{error && <div className="auth-err">{error}</div>}
+						{notice && (
+							<div className="auth-err" style={{ color: "var(--score-high)" }}>
+								{notice}
+							</div>
+						)}
 
 						<button type="submit" disabled={loading} className="auth-submit">
 							{loading
@@ -466,12 +429,6 @@ export default function LoginPage() {
 						>
 							© 2026 VAS·IFRS
 						</Link>
-						{" · "}
-						<a href="#">Trạng thái</a>
-						{" · "}
-						<a href="#">Tài liệu</a>
-						{" · "}
-						<a href="#">Hỗ trợ</a>
 					</p>
 				</div>
 			</div>
