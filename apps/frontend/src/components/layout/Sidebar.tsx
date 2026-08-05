@@ -1,9 +1,14 @@
 "use client";
 
+import {
+	type GroupedConversations,
+	groupConversations,
+	parseConversationsResponse,
+} from "@/lib/chat/conversations";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 /* ── Icons ── */
 function MessagesIcon() {
@@ -247,17 +252,6 @@ const NAV_ITEMS: NavItemDef[] = [
 	{ icon: <ChartIcon />, label: "Reports", href: "/reports" },
 ];
 
-interface ConversationItem {
-	id: string;
-	title: string;
-	updated_at: string;
-}
-
-interface GroupedConversations {
-	group: string;
-	items: ConversationItem[];
-}
-
 export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 	const pathname = usePathname();
 	const router = useRouter();
@@ -274,61 +268,75 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 
 	// Load user profile & workspace metadata
 	useEffect(() => {
+		let active = true;
 		const supabase = createClient();
-		supabase.auth.getSession().then(({ data: { session } }) => {
-			if (session?.user) {
-				const meta = session.user.user_metadata;
+		void supabase.auth.getUser().then(({ data: { user } }) => {
+			if (active && user) {
+				const userMetadata = user.user_metadata;
+				const appMetadata = user.app_metadata;
 				setUserProfile({
 					name:
-						meta?.full_name ||
-						session.user.email?.split("@")[0] ||
+						userMetadata?.full_name ||
+						user.email?.split("@")[0] ||
 						"Kế toán viên",
-					email: session.user.email || "",
-					role: meta?.role || "Owner",
-					workspace: meta?.workspace || "Default",
+					email: user.email || "",
+					role:
+						typeof appMetadata?.role === "string" ? appMetadata.role : "Member",
+					workspace:
+						typeof appMetadata?.tenant_name === "string"
+							? appMetadata.tenant_name
+							: "Shared",
 				});
 			}
 		});
+		return () => {
+			active = false;
+		};
 	}, []);
 
 	// Fetch recent conversations
-	const fetchConversations = () => {
-		fetch("/api/chat/conversations")
-			.then((res) => {
-				if (!res.ok) throw new Error("Failed to load");
-				return res.json();
-			})
-			.then((data) => {
-				if (data.conversations) {
-					setRecentSessions(groupConversations(data.conversations));
-				}
-			})
-			.catch((err) => console.error(err));
-	};
+	const fetchConversations = useCallback(async (signal?: AbortSignal) => {
+		try {
+			const response = await fetch("/api/chat/conversations", { signal });
+			if (!response.ok) throw new Error("Failed to load conversations");
+			const conversations = parseConversationsResponse(await response.json());
+			setRecentSessions(groupConversations(conversations));
+		} catch (error) {
+			if (!signal?.aborted)
+				console.error("Failed to load conversations", error);
+		}
+	}, []);
 
 	// Fetch conversations on mount or pathname change (when chat starts)
 	useEffect(() => {
-		fetchConversations();
+		const controller = new AbortController();
+		void fetchConversations(controller.signal);
 
 		// Event listener for refresh
-		const handleRefresh = () => fetchConversations();
+		const handleRefresh = () => void fetchConversations(controller.signal);
 		window.addEventListener("vas-refresh-conversations", handleRefresh);
-		return () =>
+		return () => {
+			controller.abort();
 			window.removeEventListener("vas-refresh-conversations", handleRefresh);
-	}, [pathname]);
+		};
+	}, [pathname, fetchConversations]);
 
 	const handleDelete = async (e: React.MouseEvent, id: string) => {
 		e.preventDefault();
 		e.stopPropagation();
 
-		if (!confirm("Bạn có chắc chắn muốn xóa cuộc hội thoại này?")) return;
+		if (!window.confirm("Bạn có chắc chắn muốn xóa cuộc hội thoại này?"))
+			return;
 
 		try {
-			const res = await fetch(`/api/chat/conversations/${id}`, {
-				method: "DELETE",
-			});
+			const res = await fetch(
+				`/api/chat/conversations/${encodeURIComponent(id)}`,
+				{
+					method: "DELETE",
+				},
+			);
 			if (res.ok) {
-				fetchConversations();
+				await fetchConversations();
 				if (pathname === `/chat/${id}`) {
 					router.push("/chat");
 				}
@@ -344,46 +352,6 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 		router.push("/login");
 		router.refresh();
 	};
-
-	function groupConversations(
-		conversations: ConversationItem[],
-	): GroupedConversations[] {
-		const today: ConversationItem[] = [];
-		const yesterday: ConversationItem[] = [];
-		const thisWeek: ConversationItem[] = [];
-		const older: ConversationItem[] = [];
-
-		const now = new Date();
-		const startOfToday = new Date(
-			now.getFullYear(),
-			now.getMonth(),
-			now.getDate(),
-		).getTime();
-		const startOfYesterday = startOfToday - 24 * 60 * 60 * 1000;
-		const startOfThisWeek = startOfToday - 7 * 24 * 60 * 60 * 1000;
-
-		for (const item of conversations) {
-			const time = new Date(item.updated_at).getTime();
-			if (time >= startOfToday) {
-				today.push(item);
-			} else if (time >= startOfYesterday) {
-				yesterday.push(item);
-			} else if (time >= startOfThisWeek) {
-				thisWeek.push(item);
-			} else {
-				older.push(item);
-			}
-		}
-
-		const groups = [];
-		if (today.length > 0) groups.push({ group: "Hôm nay", items: today });
-		if (yesterday.length > 0)
-			groups.push({ group: "Hôm qua", items: yesterday });
-		if (thisWeek.length > 0)
-			groups.push({ group: "Tuần này", items: thisWeek });
-		if (older.length > 0) groups.push({ group: "Cũ hơn", items: older });
-		return groups;
-	}
 
 	return (
 		<aside className="sidebar">

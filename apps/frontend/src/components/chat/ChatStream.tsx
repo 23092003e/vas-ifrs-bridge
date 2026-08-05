@@ -1,16 +1,10 @@
 "use client";
 
 import { useChat } from "@/lib/hooks/useChat";
+import Link from "next/link";
 import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 import { MessageList } from "./MessageList";
 import { RetrievalPanel } from "./RetrievalPanel";
-
-const MODEL_TO_REASONING: Record<string, "fast" | "balanced" | "deep"> = {
-	"Gemini 2.5 Flash": "fast",
-	"Gemini 2.5 Pro": "balanced",
-	"Claude 3.7 Sonnet": "deep",
-	"GPT-4o": "balanced",
-};
 
 /* ── Icons ── */
 function SendIcon() {
@@ -205,11 +199,11 @@ function PillDropdown({ label, value, options, onChange }: PillDropdownProps) {
 export default function ChatStream() {
 	const { messages, loading, sendMessage, clearMessages, abort } = useChat();
 	const [input, setInput] = useState("");
-	const [lang, setLang] = useState<"vi" | "en" | "auto">("en");
+	const [lang, setLang] = useState<"vi" | "en" | "auto">("auto");
 	const [scope, setScope] = useState<"shared" | "tenant" | "both">("shared");
-	const [model, setModel] = useState("Gemini 2.5 Flash");
-	const [kb, setKb] = useState("IFRS Standards");
-	const [searchMode, setSearchMode] = useState("Hybrid");
+	const [reasoning, setReasoning] = useState<"fast" | "balanced" | "deep">(
+		"fast",
+	);
 	const [drawerOpen, setDrawerOpen] = useState(true);
 	const composingRef = useRef(false);
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -232,7 +226,7 @@ export default function ChatStream() {
 		sendMessage(q, {
 			lang,
 			scope,
-			reasoning: MODEL_TO_REASONING[model] ?? "balanced",
+			reasoning,
 		});
 	}
 
@@ -343,27 +337,14 @@ export default function ChatStream() {
 
 						<div className="composer-bar">
 							<PillDropdown
-								label="Model"
-								value={model}
-								options={[
-									"Gemini 2.5 Flash",
-									"Gemini 2.5 Pro",
-									"Claude 3.7 Sonnet",
-									"GPT-4o",
-								]}
-								onChange={setModel}
-							/>
-							<PillDropdown
-								label="KB"
-								value={kb}
-								options={["IFRS Standards", "VAS Standards", "All Standards"]}
-								onChange={setKb}
-							/>
-							<PillDropdown
-								label="Search"
-								value={searchMode}
-								options={["Hybrid", "Semantic", "Keyword"]}
-								onChange={setSearchMode}
+								label="Reasoning"
+								value={reasoning.toUpperCase()}
+								options={["FAST", "BALANCED", "DEEP"]}
+								onChange={(value) =>
+									setReasoning(
+										value.toLowerCase() as "fast" | "balanced" | "deep",
+									)
+								}
 							/>
 							<PillDropdown
 								label="Lang"
@@ -392,13 +373,13 @@ export default function ChatStream() {
 
 							<span className="composer-spacer" />
 
-							<button
-								type="button"
+							<Link
+								href="/documents"
 								className="composer-iconbtn"
-								title="Attach file"
+								title="Upload document"
 							>
 								<AttachIcon />
-							</button>
+							</Link>
 
 							<span className="composer-hint">↵ send · ⇧↵ newline</span>
 
