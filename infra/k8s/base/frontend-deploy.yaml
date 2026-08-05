@@ -21,8 +21,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: vas-ifrs-config
-            - secretRef:
-                name: vas-ifrs-frontend-secrets
           ports:
             - name: http
               containerPort: 3000

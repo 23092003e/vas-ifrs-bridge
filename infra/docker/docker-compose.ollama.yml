@@ -1,7 +1,6 @@
-version: '3.8'
 services:
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama:0.32.0
     ports: ["11434:11434"]
     volumes: [ollama_data:/root/.ollama]
     deploy:

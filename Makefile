@@ -4,21 +4,21 @@ dev:
 	docker compose -f infra/docker/docker-compose.dev.yml up
 
 dev-backend:
-	cd apps/backend && uvicorn app.main:app --reload --port 8000
+	cd apps/backend && uv run uvicorn app.main:app --reload --port 8000
 
 dev-frontend:
 	cd apps/frontend && pnpm dev
 
 lint:
-	cd apps/backend && ruff check . && mypy .
-	cd apps/frontend && pnpm biome check .
+	cd apps/backend && uv run ruff check . && uv run mypy app/
+	pnpm --dir apps/frontend lint
 
 test:
-	cd apps/backend && pytest
-	cd apps/frontend && pnpm vitest run
+	cd apps/backend && uv run pytest
+	pnpm --dir apps/frontend test
 
 migrate:
-	cd apps/backend && alembic upgrade head
+	cd apps/backend && uv run alembic upgrade head
 
 embed-shared:
 	./skills/vas-ifrs-document-ingestion/scripts/run_ingest.sh --scope shared
