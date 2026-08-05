@@ -8,17 +8,26 @@
 #   ingestion/raw/tenant/<tenant-id>/{fs,audit,contracts,internal}/
 
 param(
-    [string]$Scope = "all",          # all | vas | ifrs | tenant
-    [string]$TenantId = "dev-tenant",
+    [ValidateSet("all", "shared", "vas", "ifrs", "tenant")]
+    [string]$Scope = "shared",
+    [string]$TenantId,
     [switch]$Recreate,               # drop and recreate collections
     [switch]$DryRun                  # chunk only, skip embed+upsert
 )
 
 $ErrorActionPreference = "Stop"
 $Root = $PSScriptRoot
-$Backend    = Join-Path $Root "apps\backend"
+$Backend    = Join-Path $Root "apps/backend"
 $Ingestion  = Join-Path $Root "ingestion"
-$BatchEmbed = Join-Path $Ingestion "pipelines\embedders\batch_embed.py"
+$BatchEmbed = Join-Path $Ingestion "pipelines/embedders/batch_embed.py"
+
+if ($Scope -in @("tenant", "all")) {
+    $ParsedTenantId = [Guid]::Empty
+    if (-not [Guid]::TryParse($TenantId, [ref]$ParsedTenantId)) {
+        throw "-TenantId must be a valid UUID for scope '$Scope'"
+    }
+    $TenantId = $ParsedTenantId.ToString()
+}
 
 # Load .env for API keys
 $EnvFile = Join-Path $Backend ".env"
@@ -34,8 +43,14 @@ if (Test-Path $EnvFile) {
 # PYTHONPATH: backend app.* + ingestion pipelines.*
 $env:PYTHONPATH = "$Backend;$Ingestion"
 
-$RecreateFlag = if ($Recreate) { "--recreate" } else { "" }
-$DryRunFlag   = if ($DryRun)   { "--dry-run"  } else { "" }
+$PythonCandidates = @(
+    (Join-Path $Backend ".venv/Scripts/python.exe"),
+    (Join-Path $Backend ".venv/bin/python")
+)
+$Python = $PythonCandidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+if (-not $Python) {
+    $Python = "python"
+}
 
 function Ingest-Collection {
     param($DocsDir, $Collection, $CollScope, $TId = $null)
@@ -45,7 +60,7 @@ function Ingest-Collection {
         return
     }
 
-    $files = Get-ChildItem $DocsDir -Recurse -File -Include "*.pdf","*.docx","*.doc","*.xlsx","*.xls","*.txt","*.md"
+    $files = Get-ChildItem $DocsDir -Recurse -File -Include "*.pdf","*.docx","*.xlsx","*.txt","*.md"
     if ($files.Count -eq 0) {
         Write-Host "[SKIP] No documents in $DocsDir"
         return
@@ -53,14 +68,14 @@ function Ingest-Collection {
 
     Write-Host "`n==> $($files.Count) docs  $DocsDir  →  $Collection"
 
-    $cmd = @("python", $BatchEmbed, "--docs", $DocsDir, "--collection", $Collection, "--scope", $CollScope)
+    $cmd = @($Python, $BatchEmbed, "--docs", $DocsDir, "--collection", $Collection, "--scope", $CollScope)
     if ($TId)           { $cmd += @("--tenant-id", $TId) }
-    if ($RecreateFlag)  { $cmd += $RecreateFlag }
-    if ($DryRunFlag)    { $cmd += $DryRunFlag }
+    if ($Recreate)      { $cmd += "--recreate" }
+    if ($DryRun)        { $cmd += "--dry-run" }
 
     & $cmd[0] $cmd[1..($cmd.Length-1)]
     if ($LASTEXITCODE -ne 0) {
-        Write-Warning "Ingestion failed for $Collection (exit $LASTEXITCODE)"
+        throw "Ingestion failed for $Collection (exit $LASTEXITCODE)"
     }
 }
 
@@ -76,7 +91,11 @@ switch ($Scope) {
     "tenant" {
         Ingest-Collection "$Raw\tenant\$TenantId" "tenant_$TenantId" "tenant" $TenantId
     }
-    default {
+    "shared" {
+        Ingest-Collection "$Raw\shared\vas"        "kb_shared_vas"  "shared"
+        Ingest-Collection "$Raw\shared\ifrs"       "kb_shared_ifrs" "shared"
+    }
+    "all" {
         Ingest-Collection "$Raw\shared\vas"        "kb_shared_vas"    "shared"
         Ingest-Collection "$Raw\shared\ifrs"       "kb_shared_ifrs"   "shared"
         Ingest-Collection "$Raw\tenant\$TenantId"  "tenant_$TenantId" "tenant" $TenantId
