@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 import pytest
 from ingestion.pipelines.embedders import batch_embed
+from ingestion.pipelines.parsers import unstructured_runner
 
 
 def _isolate_processed_output(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
@@ -96,3 +98,51 @@ async def test_tenant_scope_requires_tenant_id() -> None:
             tenant_id=None,
             dry_run=True,
         )
+
+
+def test_load_parsed_docs_finds_nested_artifacts(tmp_path: Path) -> None:
+    nested = tmp_path / "standards" / "ifrs"
+    nested.mkdir(parents=True)
+    (nested / "ifrs-1.json").write_text(
+        '{"filename": "ifrs-1.pdf", "text": "requirements"}',
+        encoding="utf-8",
+    )
+
+    docs = batch_embed.load_parsed_docs(tmp_path)
+
+    assert [doc["filename"] for doc in docs] == ["ifrs-1.pdf"]
+
+
+def test_load_parsed_docs_rejects_corrupt_artifacts(tmp_path: Path) -> None:
+    (tmp_path / "broken.json").write_text("{not-json", encoding="utf-8")
+
+    with pytest.raises(RuntimeError, match="failed to load 1 parsed document"):
+        batch_embed.load_parsed_docs(tmp_path)
+
+
+def test_load_raw_docs_reports_parser_failures(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    (tmp_path / "broken.txt").write_text("content", encoding="utf-8")
+    monkeypatch.setitem(sys.modules, "unstructured_runner", unstructured_runner)
+
+    def fail_parse(_path: Path) -> dict[str, Any]:
+        raise RuntimeError("parser exploded")
+
+    monkeypatch.setattr(unstructured_runner, "parse_document", fail_parse)
+
+    with pytest.raises(RuntimeError, match="failed to parse 1 raw document"):
+        batch_embed.load_raw_docs(tmp_path)
+
+
+@pytest.mark.parametrize("suffix", [".doc", ".xls"])
+def test_parse_document_rejects_legacy_office_formats(
+    tmp_path: Path,
+    suffix: str,
+) -> None:
+    source = tmp_path / f"legacy{suffix}"
+    source.write_bytes(b"legacy office data")
+
+    with pytest.raises(ValueError, match="unsupported file type"):
+        unstructured_runner.parse_document(source)

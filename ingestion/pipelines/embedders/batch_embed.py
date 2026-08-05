@@ -156,11 +156,18 @@ def upsert_batch(client, collection: str, points: list[dict]) -> None:
 
 def load_parsed_docs(parsed_dir: Path) -> list[dict]:
     docs = []
-    for fp in sorted(parsed_dir.glob("*.json")):
+    errors: list[tuple[Path, Exception]] = []
+    for fp in sorted(parsed_dir.rglob("*.json")):
         try:
             docs.append(json.loads(fp.read_text(encoding="utf-8")))
         except (OSError, json.JSONDecodeError) as exc:
             logger.error("failed to load %s: %s", fp.name, exc)
+            errors.append((fp, exc))
+    if errors:
+        count = len(errors)
+        raise RuntimeError(
+            f"failed to load {count} parsed document{'s' if count != 1 else ''}"
+        ) from errors[0][1]
     return docs
 
 
@@ -171,6 +178,7 @@ def load_raw_docs(docs_dir: Path) -> list[dict]:
     # pyrefly: ignore [missing-import]
     from unstructured_runner import _PARSERS, parse_document
     docs = []
+    errors: list[tuple[Path, Exception]] = []
     for fp in sorted(docs_dir.rglob("*")):
         if fp.suffix.lower() not in _PARSERS:
             continue
@@ -178,10 +186,14 @@ def load_raw_docs(docs_dir: Path) -> list[dict]:
             doc = parse_document(fp)
             docs.append(doc)
             logger.info("parsed: %s (%d chars)", fp.name, len(doc["text"]))
-        # Parser adapters surface heterogeneous third-party exceptions; one bad
-        # source must not prevent the remaining corpus from being inspected.
         except Exception as exc:  # noqa: BLE001
             logger.error("parse failed %s: %s", fp.name, exc)
+            errors.append((fp, exc))
+    if errors:
+        count = len(errors)
+        raise RuntimeError(
+            f"failed to parse {count} raw document{'s' if count != 1 else ''}"
+        ) from errors[0][1]
     return docs
 
 

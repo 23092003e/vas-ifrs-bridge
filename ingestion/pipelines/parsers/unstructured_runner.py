@@ -64,8 +64,9 @@ _PDF_FOOTER_RE = re.compile(
 
 def _parse_pdf(path: Path) -> tuple[str, list[dict]]:
     # pyrefly: ignore [missing-import]
-    import fitz  # pymupdf
     from collections import Counter
+
+    import fitz  # pymupdf
 
     doc = fitz.open(str(path))
     
@@ -111,7 +112,8 @@ def _parse_pdf(path: Path) -> tuple[str, list[dict]]:
                 for r in rows[1:]:
                     md_rows.append("| " + " | ".join(str(c or '').replace('\n', ' ').strip() for c in r) + " |")
                 markdown_tables.append("\n".join(md_rows))
-            except Exception as e:
+            # PyMuPDF table extraction can surface several backend-specific errors.
+            except Exception as e:  # noqa: BLE001
                 logger.error("Failed to parse table: %s", e)
 
         # Extract text spans
@@ -199,8 +201,8 @@ def _parse_pdf(path: Path) -> tuple[str, list[dict]]:
 
 def _parse_docx(path: Path) -> tuple[str, list[dict]]:
     from docx import Document
-    from docx.text.paragraph import Paragraph
     from docx.table import Table
+    from docx.text.paragraph import Paragraph
 
     doc = Document(str(path))
     sections: list[dict] = []
@@ -272,9 +274,7 @@ def _parse_txt(path: Path) -> tuple[str, list[dict]]:
 _PARSERS = {
     ".pdf": _parse_pdf,
     ".docx": _parse_docx,
-    ".doc": _parse_docx,
     ".xlsx": _parse_xlsx,
-    ".xls": _parse_xlsx,
     ".txt": _parse_txt,
     ".md": _parse_txt,
 }
@@ -323,7 +323,8 @@ def process_directory(input_dir: Path, output_dir: Path, force: bool = False) ->
             out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
             logger.info("parsed: %s → %s (%d chars)", rel_path, out_path.relative_to(output_dir), len(result["text"]))
             processed += 1
-        except Exception as exc:
+        # Keep processing the corpus; the aggregate error count drives a nonzero exit.
+        except Exception as exc:  # noqa: BLE001
             logger.error("FAILED %s: %s", rel_path, exc)
             errors += 1
 
