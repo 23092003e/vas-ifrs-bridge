@@ -1,0 +1,42 @@
+name: CI Supabase
+
+on:
+  push:
+    paths:
+      - 'supabase/**'
+      - '.github/workflows/ci-supabase.yml'
+  pull_request:
+    paths:
+      - 'supabase/**'
+      - '.github/workflows/ci-supabase.yml'
+
+jobs:
+  edge-functions-and-rls:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: vasifrs_rls_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d vasifrs_rls_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test Edge Function handlers
+        run: node --test supabase/functions/handlers.test.mjs
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - name: Test migrations and RLS behavior
+        run: ./supabase/tests/run_rls_tests.sh
+        env:
+          SUPABASE_TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vasifrs_rls_test
