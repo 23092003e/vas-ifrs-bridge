@@ -17,7 +17,7 @@ export type SSEEvent =
 			snippet: string;
 			standard_code: string | null;
 	  }
-	| { type: "final"; content: string }
+	| { type: "final"; content: string; conversation_id?: string }
 	| { type: "error"; message: string };
 
 export interface Citation {

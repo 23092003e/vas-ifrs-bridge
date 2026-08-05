@@ -1,6 +1,5 @@
 "use client";
 
-import { MOCK_RETRIEVAL_SCORES } from "@/lib/constants";
 import type { Citation, Message } from "@/types/api";
 import { useState } from "react";
 
@@ -70,10 +69,7 @@ function CloseIcon() {
 
 /* ── Chunk card ── */
 function ChunkCard({ citation, index }: { citation: Citation; index: number }) {
-	const score = MOCK_RETRIEVAL_SCORES[index] ?? 0.55;
 	const page = citation.chunk_id.split("-").pop() ?? "–";
-	const scoreClass =
-		score >= 0.8 ? "score-high" : score >= 0.6 ? "score-mid" : "score-low";
 
 	return (
 		<div className="chunk">
@@ -83,7 +79,9 @@ function ChunkCard({ citation, index }: { citation: Citation; index: number }) {
 					{citation.doc_id}
 					<small>p.{page}</small>
 				</div>
-				<div className={`chunk-score ${scoreClass}`}>{score.toFixed(2)}</div>
+				{citation.standard_code && (
+					<div className="chunk-score">{citation.standard_code}</div>
+				)}
 			</div>
 			<p className="chunk-excerpt">"{citation.snippet.slice(0, 100)}…"</p>
 		</div>

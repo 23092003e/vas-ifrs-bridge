@@ -1,54 +1,78 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+	type DocumentItem,
+	parseDocumentsResponse,
+	validateDocumentFile,
+} from "@/lib/documents/validation";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-interface DocItem {
-	id: string;
-	filename: string;
-	size_bytes: number;
-	status: string; // pending | processing | ready | failed
-	chunk_count: number;
-	created_at: string;
+function getErrorMessage(error: unknown, fallback: string) {
+	return error instanceof Error ? error.message : fallback;
+}
+
+async function getResponseError(response: Response, fallback: string) {
+	try {
+		const payload: unknown = await response.json();
+		if (
+			typeof payload === "object" &&
+			payload !== null &&
+			"detail" in payload &&
+			typeof payload.detail === "string"
+		) {
+			return payload.detail;
+		}
+	} catch {
+		// Use the stable fallback below.
+	}
+	return fallback;
 }
 
 export default function DocumentsPage() {
-	const [docs, setDocs] = useState<DocItem[]>([]);
+	const [docs, setDocs] = useState<DocumentItem[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [uploading, setUploading] = useState(false);
 	const [error, setError] = useState("");
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const hasActiveDocuments = docs.some(
+		(document) =>
+			document.status === "pending" || document.status === "processing",
+	);
 
-	const fetchDocuments = async () => {
+	const fetchDocuments = useCallback(async (signal?: AbortSignal) => {
 		try {
-			const res = await fetch("/api/documents");
-			if (!res.ok) throw new Error("Failed to load documents");
-			const data = await res.json();
-			if (data.documents) {
-				setDocs(data.documents);
+			const response = await fetch("/api/documents", { signal });
+			if (!response.ok) {
+				throw new Error(
+					await getResponseError(response, "Failed to load documents"),
+				);
 			}
-		} catch (err: any) {
-			console.error(err);
-			setError(err.message || "Failed to load documents");
+			setDocs(parseDocumentsResponse(await response.json()));
+			setError("");
+		} catch (error) {
+			if (signal?.aborted) return;
+			console.error("Failed to load documents", error);
+			setError(getErrorMessage(error, "Failed to load documents"));
 		} finally {
-			setLoading(false);
+			if (!signal?.aborted) setLoading(false);
 		}
-	};
+	}, []);
+
+	// Fetch initial documents on mount
+	useEffect(() => {
+		const controller = new AbortController();
+		void fetchDocuments(controller.signal);
+		return () => controller.abort();
+	}, [fetchDocuments]);
 
 	// Poll documents if any is pending/processing
 	useEffect(() => {
-		fetchDocuments();
+		if (!hasActiveDocuments) return;
 
-		const interval = setInterval(() => {
-			const hasActive = docs.some(
-				(d) => d.status === "pending" || d.status === "processing",
-			);
-			if (hasActive) {
-				fetchDocuments();
-			}
-		}, 4000);
+		const interval = setInterval(() => void fetchDocuments(), 4000);
 
 		return () => clearInterval(interval);
-	}, [docs]);
+	}, [hasActiveDocuments, fetchDocuments]);
 
 	const handleUploadClick = () => {
 		fileInputRef.current?.click();
@@ -59,6 +83,12 @@ export default function DocumentsPage() {
 		if (!files || files.length === 0) return;
 
 		const file = files[0];
+		const validationError = validateDocumentFile(file);
+		if (validationError) {
+			setError(validationError);
+			e.target.value = "";
+			return;
+		}
 		setUploading(true);
 		setError("");
 
@@ -66,23 +96,21 @@ export default function DocumentsPage() {
 		formData.append("file", file);
 
 		try {
-			const res = await fetch("/api/documents", {
+			const response = await fetch("/api/documents", {
 				method: "POST",
 				body: formData,
 			});
 
-			if (!res.ok) {
-				const errData = await res.json();
-				throw new Error(errData.detail || "Upload failed");
+			if (!response.ok) {
+				throw new Error(await getResponseError(response, "Upload failed"));
 			}
 
-			// Clear input and reload
-			if (fileInputRef.current) fileInputRef.current.value = "";
-			fetchDocuments();
-		} catch (err: any) {
-			console.error(err);
-			setError(err.message || "Upload failed");
+			await fetchDocuments();
+		} catch (error) {
+			console.error("Failed to upload document", error);
+			setError(getErrorMessage(error, "Upload failed"));
 		} finally {
+			if (fileInputRef.current) fileInputRef.current.value = "";
 			setUploading(false);
 		}
 	};
@@ -164,7 +192,7 @@ export default function DocumentsPage() {
 						ref={fileInputRef}
 						onChange={handleFileChange}
 						style={{ display: "none" }}
-						accept=".pdf,.docx,.xlsx,.xls,.txt,.csv,.html"
+						accept=".pdf,.docx,.xlsx,.xls,.txt,.md,.csv"
 					/>
 					<button
 						type="button"
