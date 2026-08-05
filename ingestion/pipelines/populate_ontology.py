@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import asyncio
 import json
-# pyrefly: ignore [missing-import]
 import logging
 import sys
 import uuid
@@ -20,15 +19,29 @@ sys.path.insert(0, str(repo_root / "ingestion"))
 logger = logging.getLogger(__name__)
 
 # pyrefly: ignore [missing-import]
-from app.rag.embedder import embed  # noqa: E402
+from app.rag.embedder import embed
+
 # pyrefly: ignore [missing-import]
-from qdrant_client import QdrantClient  # noqa: E402
+from app.settings import settings
+
 # pyrefly: ignore [missing-import]
-from qdrant_client.models import Distance, VectorParams, PointStruct  # noqa: E402
+from qdrant_client import QdrantClient
+
 # pyrefly: ignore [missing-import]
-from app.settings import settings  # noqa: E402
+from qdrant_client.models import Distance, PointStruct, VectorParams
+
 QDRANT_URL = settings.qdrant_url
 QDRANT_API_KEY = settings.qdrant_api_key or ""
+
+
+def _load_json_array(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, list):
+        raise TypeError(f"ontology file must contain a JSON array: {path}")
+    return data
+
 
 def _get_qdrant():
     if QDRANT_URL == ":memory:":
@@ -47,20 +60,10 @@ async def main() -> None:
     relations_path = ontology_dir / "vas_ifrs_relations.json"
     examples_path = ontology_dir / "industry_examples.json"
 
-    # Load data
-    topics, terms, relations, examples = [], [], [], []
-    if topics_path.exists():
-        with open(topics_path, "r", encoding="utf-8") as f:
-            topics = json.load(f)
-    if terms_path.exists():
-        with open(terms_path, "r", encoding="utf-8") as f:
-            terms = json.load(f)
-    if relations_path.exists():
-        with open(relations_path, "r", encoding="utf-8") as f:
-            relations = json.load(f)
-    if examples_path.exists():
-        with open(examples_path, "r", encoding="utf-8") as f:
-            examples = json.load(f)
+    topics = _load_json_array(topics_path)
+    terms = _load_json_array(terms_path)
+    relations = _load_json_array(relations_path)
+    examples = _load_json_array(examples_path)
 
     logger.info("Loaded ontology: %d topics, %d terms, %d relations, %d examples",
                 len(topics), len(terms), len(relations), len(examples))
@@ -114,7 +117,42 @@ async def main() -> None:
             "source_type": "mapping"
         })
 
-    # 3. Examples
+    # 3. Terminology
+    for term in terms:
+        term_name = term["term"]
+        topic_id = term["topic_id"]
+        language = term["language"]
+        aliases = term.get("aliases", [])
+        aliases_text = ", ".join(aliases)
+
+        text_rep = (
+            f"Accounting term: {term_name}. Language: {language}. "
+            f"Topic: {topic_id}. Aliases: {aliases_text}."
+        )
+
+        items.append({
+            "id": str(
+                uuid.uuid5(
+                    uuid.NAMESPACE_URL,
+                    f"term_{language}_{topic_id}_{term_name}",
+                )
+            ),
+            "text": text_rep,
+            "term": term_name,
+            "aliases": aliases,
+            "lang": language,
+            "topic": topic_id,
+            "topic_id": topic_id,
+            "vas": "None",
+            "ifrs": "None",
+            "ias": "None",
+            "relationship": "term_definition",
+            "impact_summary": f"Aliases: {aliases_text}",
+            "scope": "shared",
+            "source_type": "terminology",
+        })
+
+    # 4. Examples
     for ex in examples:
         ex_id = ex["example_id"]
         topic_id = ex["topic_id"]
@@ -147,6 +185,12 @@ async def main() -> None:
     logger.info("Embedding %d ontology items...", len(items))
     texts = [it["text"] for it in items]
     vectors = await embed(texts)
+
+    if len(vectors) != len(items):
+        raise ValueError(
+            "embedding count does not match ontology item count: "
+            f"received {len(vectors)} vectors for {len(items)} items"
+        )
     
     dim = len(vectors[0]) if vectors else 1024
     logger.info("Active embedding dimension: %d", dim)

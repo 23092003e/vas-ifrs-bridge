@@ -36,7 +36,7 @@ def _extract_references(text: str) -> list[str]:
         prefix = m.group(1).upper()
         num = m.group(2)
         refs.append(f"{prefix}-{num}")
-    return list(set(refs))
+    return sorted(set(refs))
 
 
 def _extract_paragraph_number(text: str) -> str | None:
@@ -48,19 +48,32 @@ def _extract_paragraph_number(text: str) -> str | None:
     return None
 
 
+def _load_metadata(path: Path, label: str) -> list[dict]:
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"failed to load graph {label}: {path}") from exc
+    if not isinstance(data, list):
+        raise TypeError(f"graph {label} must contain a JSON array: {path}")
+    return data
+
+
 def build_graph(docs_dir: Path) -> nx.DiGraph:
     # 1. Setup paths to import unstructured_runner and backend modules
     parsers_dir = Path(__file__).parent / "parsers"
     sys.path.insert(0, str(parsers_dir))
     # pyrefly: ignore [missing-import]
-    from unstructured_runner import parse_document, _PARSERS
+    from unstructured_runner import _PARSERS, parse_document
 
     repo_root = Path(__file__).parent.parent.parent
     sys.path.insert(0, str(repo_root / "apps" / "backend"))
     # pyrefly: ignore [missing-import]
-    from app.rag.chunker import chunk_document
-    # pyrefly: ignore [missing-import]
     from app.gl.coa_loader import load_coa
+
+    # pyrefly: ignore [missing-import]
+    from app.rag.chunker import chunk_document
 
     G = nx.DiGraph()
 
@@ -69,13 +82,7 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
     topics_path = metadata_dir / "accounting_topics.json"
     relations_path = metadata_dir / "vas_ifrs_relations.json"
 
-    topics = []
-    if topics_path.exists():
-        try:
-            with open(topics_path, "r", encoding="utf-8") as f:
-                topics = json.load(f)
-        except Exception as e:
-            logger.error("Failed to load topics for graph building: %s", e)
+    topics = _load_metadata(topics_path, "topics")
 
     # Add Topic Nodes to Graph
     for topic in topics:
@@ -97,6 +104,7 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
 
     # 2. Parse all documents in the directories
     parsed_docs: list[dict] = []
+    parse_errors: list[tuple[Path, Exception]] = []
     for fp in sorted(docs_dir.rglob("*")):
         if fp.suffix.lower() not in _PARSERS:
             continue
@@ -104,8 +112,16 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
             doc = parse_document(fp)
             parsed_docs.append(doc)
             logger.info("Parsed %s for graph", fp.name)
-        except Exception as exc:
+        # Parser adapters can raise heterogeneous third-party exceptions.
+        except Exception as exc:  # noqa: BLE001
             logger.error("Failed parsing %s for graph: %s", fp.name, exc)
+            parse_errors.append((fp, exc))
+
+    if parse_errors:
+        count = len(parse_errors)
+        raise RuntimeError(
+            f"failed to parse {count} graph document{'s' if count != 1 else ''}"
+        ) from parse_errors[0][1]
 
     # 3. Add nodes and edges
     standard_nodes: dict[str, str] = {}  # standard_code -> doc_node_id
@@ -138,7 +154,9 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
         )
 
         for chunk in chunks:
-            chunk_id = str(uuid.uuid4())
+            chunk_id = str(
+                uuid.uuid5(uuid.NAMESPACE_URL, f"{doc_id}:{chunk.chunk_index}")
+            )
             
             para_num = _extract_paragraph_number(chunk.text)
             para_code = None
@@ -172,13 +190,7 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
     logger.info("Added %d document nodes and %d section nodes", len(parsed_docs), len(chunk_nodes))
 
     # Add standard-level equivalent_standard relations from ontology relations
-    relations = []
-    if relations_path.exists():
-        try:
-            with open(relations_path, "r", encoding="utf-8") as f:
-                relations = json.load(f)
-        except Exception as e:
-            logger.error("Failed to load relations for graph building: %s", e)
+    relations = _load_metadata(relations_path, "relations")
 
     for rel in relations:
         vas_std = rel.get("vas")
@@ -292,7 +304,7 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
             gov_std = None
             if acc_code.startswith("242"):
                 gov_std = "IFRS-16"  # Leases / Prepaid
-            elif acc_code.startswith("111") or acc_code.startswith("112"):
+            elif acc_code.startswith(("111", "112")):
                 gov_std = "IAS-1"    # Cash Presentation
             elif acc_code.startswith("511"):
                 gov_std = "IFRS-15"   # Revenue
@@ -300,7 +312,8 @@ def build_graph(docs_dir: Path) -> nx.DiGraph:
             if gov_std and gov_std in standard_nodes:
                 target_doc_id = standard_nodes[gov_std]
                 G.add_edge(acc_node_id, target_doc_id, relation="GOVERNED_BY")
-    except Exception as e:
+    # COA enrichment is optional and depends on external workbook parsers.
+    except Exception as e:  # noqa: BLE001
         logger.warning("Could not add COA accounts to graph: %s", e)
 
     return G
