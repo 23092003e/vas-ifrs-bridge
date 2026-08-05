@@ -136,6 +136,29 @@ def test_load_raw_docs_reports_parser_failures(
         batch_embed.load_raw_docs(tmp_path)
 
 
+def test_standalone_parser_extracts_and_normalizes_visible_html(tmp_path: Path) -> None:
+    source = tmp_path / "ifrs-1.html"
+    source.write_text(
+        "<html><head><style>.hidden {}</style></head>"
+        "<body><h1>IFRS 1</h1><script>ignore()</script><p>First\u00a0time</p></body></html>",
+        encoding="utf-8",
+    )
+
+    parsed = unstructured_runner.parse_document(source)
+
+    assert parsed["text"] == "IFRS 1\n\nFirst time"
+    assert parsed["standard_code"] == "IFRS-1"
+
+
+def test_standalone_parser_normalizes_plain_text(tmp_path: Path) -> None:
+    source = tmp_path / "vas-01.txt"
+    source.write_text("Chuẩn\u00a0mực\r\n\r\n\r\nchung", encoding="utf-8")
+
+    parsed = unstructured_runner.parse_document(source)
+
+    assert parsed["text"] == "Chuẩn mực\n\nchung"
+
+
 @pytest.mark.parametrize("suffix", [".doc", ".xls"])
 def test_parse_document_rejects_legacy_office_formats(
     tmp_path: Path,

@@ -1,5 +1,5 @@
 """
-Parse raw documents (PDF/DOCX/XLSX/TXT) into plain text + metadata JSON.
+Parse raw documents (PDF/DOCX/XLSX/HTML/TXT) into plain text + metadata JSON.
 
 Output format (one JSON file per input document):
   {
@@ -25,6 +25,12 @@ import sys
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
+
+
+def _ensure_backend_import_path() -> None:
+    backend_dir = Path(__file__).resolve().parents[3] / "apps" / "backend"
+    if str(backend_dir) not in sys.path:
+        sys.path.insert(0, str(backend_dir))
 
 _STANDARD_CODE_RE = re.compile(
     r"\b(VAS|IAS|IFRS|VFRS)[\s\-]?(\d+[A-Z]?)\b"
@@ -271,12 +277,23 @@ def _parse_txt(path: Path) -> tuple[str, list[dict]]:
     return text, []
 
 
+def _parse_html(path: Path) -> tuple[str, list[dict]]:
+    # Keep HTML visibility and whitespace rules identical to backend ingestion.
+    _ensure_backend_import_path()
+    from app.ingestion.parsers.html import parse_html
+
+    content = path.read_text(encoding="utf-8", errors="replace")
+    return parse_html(content), []
+
+
 _PARSERS = {
     ".pdf": _parse_pdf,
     ".docx": _parse_docx,
     ".xlsx": _parse_xlsx,
     ".txt": _parse_txt,
     ".md": _parse_txt,
+    ".html": _parse_html,
+    ".htm": _parse_html,
 }
 
 
@@ -287,6 +304,19 @@ def parse_document(path: Path) -> dict:
         raise ValueError(f"unsupported file type: {suffix}")
 
     text, sections = parser(path)
+    _ensure_backend_import_path()
+    from app.ingestion.normalizer import normalize
+
+    text = normalize(text)
+    sections = [
+        {
+            **section,
+            "heading": normalize(section.get("heading", "")),
+            "text": normalize(section.get("text", "")),
+        }
+        for section in sections
+        if normalize(section.get("text", "")) or normalize(section.get("heading", ""))
+    ]
     lang = _detect_lang(text)
     std_code = _extract_standard_code(path.name, text)
 

@@ -99,7 +99,7 @@ ingest_collection() {
 
     # Count matching files
     local file_count
-    file_count=$(find "$docs_dir" -type f \( -name "*.pdf" -o -name "*.docx" -o -name "*.xlsx" -o -name "*.txt" -o -name "*.md" \) 2>/dev/null | wc -l | tr -d ' ')
+    file_count=$(find "$docs_dir" -type f \( -name "*.pdf" -o -name "*.docx" -o -name "*.xlsx" -o -name "*.txt" -o -name "*.md" -o -name "*.html" -o -name "*.htm" \) 2>/dev/null | wc -l | tr -d ' ')
     if [ "$file_count" -eq 0 ]; then
         echo "[SKIP] No documents found in $docs_dir"
         return

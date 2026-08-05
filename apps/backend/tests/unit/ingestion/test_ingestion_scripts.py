@@ -73,3 +73,34 @@ def test_run_ingest_rejects_invalid_tenant_id(tmp_path: Path) -> None:
 
     assert result.returncode != 0
     assert "valid UUID" in result.stdout + result.stderr
+
+
+def test_run_ingest_discovers_html_documents(tmp_path: Path) -> None:
+    project, script = _portable_project(tmp_path)
+    docs = project / "ingestion/raw/shared/vas/standards"
+    (docs / "vas-01.txt").unlink()
+    (docs / "vas-01.html").write_text("<p>Chuẩn mực chung</p>", encoding="utf-8")
+
+    fake_python = tmp_path / "fake-python"
+    capture = tmp_path / "python-args.txt"
+    fake_python.write_text(
+        '#!/usr/bin/env bash\nprintf "%s\\n" "$@" > "$INGEST_CAPTURE"\n',
+        encoding="utf-8",
+    )
+    fake_python.chmod(0o755)
+
+    result = subprocess.run(
+        [str(script), "--scope", "vas", "--dry-run"],
+        cwd=tmp_path,
+        env={
+            **os.environ,
+            "INGEST_PYTHON": str(fake_python),
+            "INGEST_CAPTURE": str(capture),
+        },
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert capture.exists(), result.stdout
