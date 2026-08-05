@@ -111,7 +111,6 @@ export default function LoginPage() {
 					return;
 				}
 			} else {
-				const tenantId = crypto.randomUUID();
 				const { error: err } = await supabase.auth.signUp({
 					email,
 					password,
@@ -119,8 +118,6 @@ export default function LoginPage() {
 						data: {
 							full_name: name,
 							workspace: workspace || "Default Workspace",
-							tenant_id: tenantId,
-							role: "admin",
 						},
 					},
 				});
@@ -131,7 +128,8 @@ export default function LoginPage() {
 			}
 			router.push("/chat");
 			router.refresh();
-		} catch {
+		} catch (e) {
+			console.error("Login/Signup error:", e);
 			setError("Đã xảy ra lỗi. Vui lòng thử lại.");
 		} finally {
 			setLoading(false);
