@@ -105,17 +105,14 @@ async def retrieve(
 
     client = _qdrant_client()
     try:
-        from qdrant_client.http import models as http_models
-        result = await client.http.search_api.search_points(
+        result = await client.query_points(
             collection_name=collection,
-            search_request=http_models.SearchRequest(
-                vector=vec,
-                filter=flt,
-                limit=DENSE_K,
-                with_payload=True,
-            ),
+            query=vec,
+            query_filter=flt,
+            limit=DENSE_K,
+            with_payload=True,
         )
-        hits = result.result
+        hits = result.points
     except Exception as exc:
         raise QdrantUnavailableError(f"Qdrant search failed: {exc}") from exc
     finally:
