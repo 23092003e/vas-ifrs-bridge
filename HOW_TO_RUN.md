@@ -1,249 +1,128 @@
-# How to Run — VAS-IFRS Bridge
+# How to run VAS-IFRS Bridge
 
-## Prerequisites
+## Full stack with Docker
 
-| Requirement | Version | Notes |
-|-------------|---------|-------|
-| Python | ≥ 3.11 | `uv` recommended over pip |
-| Node.js | ≥ 18 | pnpm required |
-| pnpm | any | `npm i -g pnpm` |
-| Docker + Compose | any | for full-stack mode |
-| Qdrant | latest | vector DB, port 6333 |
-| Redis | 7 | queue + cache, port 6379 |
-| Supabase project | — | auth + Postgres |
-
----
-
-## Option A — Full Stack via Docker (Recommended)
+Requirements: Docker Desktop and Docker Compose.
 
 ```bash
-# 1. Copy env files
 cp apps/backend/.env.example apps/backend/.env
-# Edit apps/backend/.env — fill in SUPABASE_*, GEMINI_API_KEY, SECRET_KEY
-
-# 2. Start everything (backend + frontend + qdrant + redis + ollama)
-make dev
-# or directly:
-docker compose -f infra/docker/docker-compose.dev.yml up
+cp apps/frontend/.env.local.example apps/frontend/.env.local
 ```
 
-Services after start:
+For local-only access, set `DEV_AUTH_BYPASS=true` in `apps/backend/.env`. Replace placeholder secrets; do not reuse development values in production.
 
-| Service | URL |
-|---------|-----|
+```bash
+docker compose -f infra/docker/docker-compose.dev.yml up --build
+docker compose -f infra/docker/docker-compose.dev.yml exec backend alembic upgrade head
+docker compose -f infra/docker/docker-compose.dev.yml exec ollama ollama pull bge-m3
+docker compose -f infra/docker/docker-compose.dev.yml exec ollama ollama pull qwen2.5:14b-instruct
+```
+
+| Service | Address |
+|---|---|
 | Frontend | http://localhost:3000 |
-| Backend API | http://localhost:8000 |
-| API Docs (Swagger) | http://localhost:8000/docs |
-| Qdrant UI | http://localhost:6333/dashboard |
+| Backend | http://localhost:8000 |
+| Swagger | http://localhost:8000/docs |
+| Qdrant | http://localhost:6333/dashboard |
+| PostgreSQL | localhost:5432 |
+| Redis | localhost:6379 |
 | Ollama | http://localhost:11434 |
 
----
-
-## Option B — Local Dev (No Docker)
-
-### Step 1 — Infrastructure
-
-Run Qdrant and Redis manually or via partial compose:
+Verify the stack:
 
 ```bash
-# Qdrant only
-docker compose -f infra/docker/docker-compose.qdrant.yml up -d
-
-# Redis
-docker run -d -p 6379:6379 redis:7-alpine
-
-# Ollama (optional — only needed for fast/local LLM tier)
-docker compose -f infra/docker/docker-compose.ollama.yml up -d
+docker compose -f infra/docker/docker-compose.dev.yml ps
+curl --fail http://localhost:8000/healthz
+curl --fail http://localhost:8000/readyz
 ```
 
-### Step 2 — Backend
+Stop it without deleting persistent volumes:
+
+```bash
+docker compose -f infra/docker/docker-compose.dev.yml down
+```
+
+## Host development
+
+Requirements: Python 3.11+, `uv`, Node.js 22+, pnpm 11, plus PostgreSQL/Qdrant/Redis/Ollama endpoints.
+
+Backend:
 
 ```bash
 cd apps/backend
-
-# Install deps
-uv pip install -e ".[dev]"
-# or: pip install -e ".[dev]"
-
-# Copy and configure env
 cp .env.example .env
-# Required: DATABASE_URL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY,
-#           QDRANT_URL, GEMINI_API_KEY, SECRET_KEY, REDIS_URL
-
-# Run DB migrations
-alembic upgrade head
-
-# Start dev server (hot reload)
-uvicorn app.main:app --reload --port 8000
+uv sync --frozen --extra dev
+uv run alembic upgrade head
+uv run uvicorn app.main:app --reload --port 8000
 ```
 
-### Step 3 — Frontend
+Frontend, in another terminal:
 
 ```bash
 cd apps/frontend
-
-# Install deps
-pnpm install
-
-# .env.local already committed with dev Supabase keys
-# Verify BACKEND_URL=http://localhost:8000
-
-# Start dev server
+cp .env.local.example .env.local
+pnpm install --frozen-lockfile
 pnpm dev
-# -> http://localhost:3000
 ```
 
-Or use make shortcuts from root:
+The main backend variables are `DATABASE_URL`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SECRET_KEY`, `QDRANT_URL`, `REDIS_URL`, and `OLLAMA_BASE_URL`. `TEI_URL` enables cross-encoder reranking. OpenAI, Anthropic, Gemini, GCS, and Langfuse settings are optional for the features that use them.
+
+## Ingest documents
+
+Put source files under:
+
+```text
+ingestion/raw/shared/vas/
+ingestion/raw/shared/ifrs/
+ingestion/raw/tenant/<tenant-id>/
+```
+
+Then pull the embedding model and run the checked-in ingestion wrapper:
 
 ```bash
-make dev-backend   # backend only
-make dev-frontend  # frontend only
-```
-
----
-
-## Environment Variables
-
-### Backend (`apps/backend/.env`)
-
-```env
-# Required
-DATABASE_URL=postgresql+asyncpg://user:pass@localhost:5432/vasifrs
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-QDRANT_URL=http://localhost:6333
-REDIS_URL=redis://localhost:6379/0
-SECRET_KEY=change-me-32-chars-min
-GEMINI_API_KEY=your-gemini-api-key
-
-# Optional — LLM providers
-ANTHROPIC_API_KEY=sk-ant-...
-OPENAI_API_KEY=sk-...
-OLLAMA_BASE_URL=http://localhost:11434
-
-# Optional — Storage
-GCS_BUCKET_DOCS=vifb-docs-dev
-GCS_BUCKET_EXPORTS=vifb-exports-dev
-
-# Dev convenience — skip JWT validation
-DEV_AUTH_BYPASS=true
-```
-
-### Frontend (`apps/frontend/.env.local`)
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-BACKEND_URL=http://localhost:8000
-```
-
----
-
-## Ingest Documents
-
-Place raw documents in `ingestion/raw/`:
-
-```
-ingestion/raw/shared/ifrs/standards/   <- IFRS PDFs
-ingestion/raw/shared/vas/standards/    <- VAS PDFs
-ingestion/raw/tenant/<tenant-id>/      <- tenant docs
-```
-
-Then run ingestion (PowerShell / Windows):
-
-```powershell
-# All shared collections (also the default)
-./ingest.ps1 -Scope shared
-
-# VAS only
-./ingest.ps1 -Scope vas
-
-# IFRS only
-./ingest.ps1 -Scope ifrs
-
-# Tenant
-./ingest.ps1 -Scope tenant -TenantId <tenant-uuid>
-
-# Shared and tenant collections
-./ingest.ps1 -Scope all -TenantId <tenant-uuid>
-
-# Preview without writing
-./ingest.ps1 -DryRun
-```
-
-Or directly via Python (Linux/macOS):
-
-```bash
-# From repo root
+docker compose -f infra/docker/docker-compose.dev.yml exec ollama ollama pull bge-m3
 make embed-shared
-# or:
-PYTHONPATH=apps/backend:ingestion \
-  apps/backend/.venv/bin/python ingestion/pipelines/embedders/batch_embed.py \
-  --docs ingestion/raw/shared/vas --collection kb_shared_vas --scope shared \
-  --ollama-url http://localhost:11434 --qdrant-url http://localhost:6333
 ```
 
----
+PowerShell users can run `./ingest.ps1 -Scope vas`, `ifrs`, `shared`, `tenant`, or `all`; use `-DryRun` to preview.
 
-## Build Knowledge Graph
-
-```bash
-PYTHONPATH=apps/backend:. apps/backend/.venv/bin/python \
-  ingestion/pipelines/graph_builder.py \
-  --docs ingestion/raw/shared \
-  --output ingestion/metadata/paragraph_graph/cross_reference_graph.json
-```
-
----
-
-## Lint & Test
+## Checks
 
 ```bash
-# All (from root)
 make lint
 make test
 
-# Backend only
-cd apps/backend
-ruff check .
-pytest                        # all tests
-pytest tests/unit/            # unit only
-
-# Frontend only
-cd apps/frontend
-pnpm lint
-pnpm vitest run
+cd apps/frontend && pnpm build
+docker compose -f infra/docker/docker-compose.dev.yml config --quiet
 ```
 
----
+Backend integration tests need their documented external services; unit tests do not.
 
-## Ports Summary
+## Troubleshooting
 
-| Port | Service |
-|------|---------|
-| 3000 | Next.js frontend |
-| 8000 | FastAPI backend |
-| 5432 | PostgreSQL (Supabase managed or local) |
-| 6333 | Qdrant REST |
-| 6334 | Qdrant gRPC |
-| 6379 | Redis |
-| 11434 | Ollama |
+Port 3000 already in use:
 
----
+```bash
+lsof -nP -iTCP:3000 -sTCP:LISTEN
+```
 
-## Common Issues
+Stop the process/container you recognize, or change the frontend host mapping in the Compose file. Do not terminate an unknown process blindly.
 
-**Backend won't start — `alembic upgrade head` fails**
-Check `DATABASE_URL` in `.env`. Postgres must be running.
+Orphan container warning:
 
-**Qdrant collection not found**
-Run ingestion first (`make embed-shared`). Collections are created on first ingest.
+```bash
+docker compose -f infra/docker/docker-compose.dev.yml ps -a
+docker compose -f infra/docker/docker-compose.dev.yml up --remove-orphans
+```
 
-**Auth 401 on all API calls**
-Set `DEV_AUTH_BYPASS=true` in `apps/backend/.env` for local dev.
+Use `--remove-orphans` only after confirming those containers belong to this Compose project. The current development stack includes Qdrant, so a Qdrant container created by this file is no longer an orphan.
 
-**Ollama model not loaded**
-`docker exec -it <ollama-container> ollama pull qwen2.5:14b`
+Other checks:
 
-**Frontend shows blank / 404**
-Confirm `BACKEND_URL=http://localhost:8000` in `apps/frontend/.env.local`.
+- Migration fails: verify PostgreSQL is healthy and `DATABASE_URL` targets the correct host (`db` inside Compose, `localhost` from the host).
+- Qdrant collection missing: run ingestion after pulling `bge-m3`.
+- API returns 401: use a valid Supabase JWT, or enable `DEV_AUTH_BYPASS` only in local development.
+- Local answers fail: check `docker compose ... logs ollama backend` and confirm the required Ollama chat model is available.
+- HTTP 501 from KB/GL/mapping/adjustment/report/admin routes: those standalone workflow contracts remain explicit implementation boundaries; streaming chat is the supported end-to-end path today.
+
+For production provisioning, secrets, deployment, rollback, and nightly evaluation, see [docs/RUNBOOK.md](docs/RUNBOOK.md).

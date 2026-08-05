@@ -1,5 +1,7 @@
 # VAS-IFRS Knowledge Engine — Implementation Blueprint
 
+> **Target blueprint, not an implementation status report.** Some sections below describe planned components (including classifier, concurrency, workflow, and fallback designs) that are not present in the current runtime. For the verified architecture and explicit 501 boundaries, use [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
 ---
 
 # 1. PROJECT STRUCTURE
@@ -7,7 +9,7 @@
 ```
 vas-ifrs-bridge/
 ├── apps/
-│   ├── frontend/                          # Next.js 14 App Router
+│   ├── frontend/                          # Next.js 15 App Router
 │   │   ├── src/
 │   │   │   ├── app/
 │   │   │   │   ├── (auth)/

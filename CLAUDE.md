@@ -54,7 +54,7 @@ make dev-backend   # backend only (cd apps/backend && uvicorn ...)
 make dev-frontend  # frontend only
 make lint          # both
 make test          # both
-make embed-shared  # python ingestion/batch_embed.py --scope shared
+make embed-shared  # ./skills/vas-ifrs-document-ingestion/scripts/run_ingest.sh --scope shared
 ```
 
 ### Ingestion (PowerShell)
@@ -80,7 +80,7 @@ Browser → Next.js (App Router)
         TracingMiddleware → AuthMiddleware → TenantResolverMiddleware
         → RBACMiddleware → UsageLimiterMiddleware → AuditMiddleware
       → Orchestrator (keyword-based intent classifier, Phase 1)
-      → Agent (RetrievalAgent | IFRSCompareAgent)  ← only these two wired in Phase 1
+      → Agent (RetrievalAgent | IFRSCompareAgent | GLMappingAgent | AdjustmentAgent)
           → RAG: Qdrant dense + BM25 sparse → reranker (top-8) → citation validator
           → LLM Router → provider (fast=Ollama, balanced=OpenAI, deep=Anthropic)
           → stream JSON events via SSE
@@ -88,10 +88,20 @@ Browser → Next.js (App Router)
 
 ### Intent classification (Phase 1 → Phase 2)
 
-`Orchestrator._classify_intent()` uses keyword matching for `compare`, `mapping`, `report`, `qa`. **Only `compare` and `qa` delegate to their own agents**; `mapping` and `report` currently fall back to `RetrievalAgent`. Phase 2 will replace keyword matching with a Qwen14B classifier.
+`_classify_intent_keywords()` in `orchestrator.py` uses keyword matching for five intents:
+
+| Intent | Agent | Notes |
+|--------|-------|-------|
+| `compare` | `IFRSCompareAgent` | VAS↔IFRS diff questions |
+| `mapping` | `GLMappingAgent` | GL account mapping |
+| `adjustment` | `AdjustmentAgent` | Journal entry generation |
+| `report` | `RetrievalAgent` (fallback) | Not yet dedicated |
+| `qa` | `RetrievalAgent` | Default |
+
+Phase 2 will replace keyword matching with a Qwen14B classifier.
 
 `ChatRequest` fields that drive routing:
-- `intent_hint` — override classification (`qa` | `compare` | `mapping` | `report`)
+- `intent_hint` — override classification (`qa` | `compare` | `mapping` | `adjustment` | `report`)
 - `reasoning` — LLM tier (`fast` | `balanced` | `deep`)
 - `scope` — Qdrant search scope (`shared` | `tenant` | `both`)
 - `lang` — `vi` | `en` | `auto`
