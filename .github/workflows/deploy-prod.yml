@@ -109,7 +109,7 @@ jobs:
             --from-literal=REDIS_URL=redis://redis:6379/0 \
             --dry-run=client -o yaml | kubectl apply -f -
           kubectl --namespace "$NAMESPACE" get secret \
-            vas-ifrs-secrets vas-ifrs-frontend-secrets n8n-secrets vas-ifrs-tls
+            vas-ifrs-secrets n8n-secrets vas-ifrs-tls
       - name: Run database migrations
         shell: bash
         run: |
@@ -144,10 +144,12 @@ jobs:
             "backend=${registry}/backend:${IMAGE_TAG}" \
             "frontend=${registry}/frontend:${IMAGE_TAG}"
           kubectl apply -k .
+          kubectl rollout status deployment/ollama --namespace "$NAMESPACE" --timeout=10m
+          kubectl exec --namespace "$NAMESPACE" deployment/ollama -- ollama pull bge-m3
+          kubectl exec --namespace "$NAMESPACE" deployment/ollama -- ollama pull qwen2.5:14b-instruct
           kubectl rollout status deployment/backend --namespace "$NAMESPACE" --timeout=5m
           kubectl rollout status deployment/frontend --namespace "$NAMESPACE" --timeout=5m
           kubectl rollout status deployment/celery-worker --namespace "$NAMESPACE" --timeout=5m
-          kubectl rollout status deployment/ollama --namespace "$NAMESPACE" --timeout=10m
           kubectl rollout status deployment/n8n --namespace "$NAMESPACE" --timeout=5m
           kubectl rollout status statefulset/qdrant --namespace "$NAMESPACE" --timeout=10m
           kubectl rollout status statefulset/redis --namespace "$NAMESPACE" --timeout=5m
