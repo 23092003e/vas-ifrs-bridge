@@ -120,7 +120,9 @@ ingest_collection() {
     if [[ -n "$tenant_id" ]]; then
         command+=(--tenant-id "$tenant_id")
     fi
-    command+=("${EXTRA_ARGS[@]}")
+    if (( ${#EXTRA_ARGS[@]} > 0 )); then
+        command+=("${EXTRA_ARGS[@]}")
+    fi
 
     printf 'Running:'
     printf ' %q' "${command[@]}"

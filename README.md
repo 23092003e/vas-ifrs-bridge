@@ -5,7 +5,7 @@
 [![Frontend CI](https://github.com/23092003e/vas-ifrs-bridge/actions/workflows/ci-frontend.yml/badge.svg)](https://github.com/23092003e/vas-ifrs-bridge/actions/workflows/ci-frontend.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)](apps/backend/)
-[![Next.js Version](https://img.shields.io/badge/Next.js-14-black.svg)](apps/frontend/)
+[![Next.js Version](https://img.shields.io/badge/Next.js-15-black.svg)](apps/frontend/)
 
 An enterprise-grade, high-security, multi-tenant platform designed to bridge the gap between **Vietnamese Accounting Standards (VAS)** and **International Financial Reporting Standards (IFRS)**. 
 
@@ -40,9 +40,9 @@ The platform utilizes a state-of-the-art hybrid RAG pipeline coupled with a coop
 ## 💎 Core Technical Pillars
 
 ### 1. Advanced Hybrid RAG Engine
-*   **Dense + Sparse Hybrid Search:** Searches over public regulatory standards and private tenant documents using **BAAI/bge-m3** (1024-dimension multilingual dense vectors) combined with Qdrant's sparse vector search for high-fidelity keyword matching.
+*   **Dense Vector Search:** Searches over public regulatory standards and private tenant documents using **BAAI/bge-m3** (1024-dimension multilingual dense vectors) served locally via **Ollama**.
 *   **Cross-Encoder Reranking:** Filters and boosts retrieved chunks via **BAAI/bge-reranker-v2-m3** served through a high-throughput **Text-Embeddings-Inference (TEI)** gateway. It implements dynamic thresholding (`min_score=0.35`) and auto-relaxes under low-recall scenarios.
-*   **Dual-Cloud Ingestion:** Native fallback to Google Gemini `text-embedding-004` (768-dimension) if self-hosted TEI services are offline, preventing ingestion bottlenecks.
+*   **Local-First Embedding:** All embeddings are generated on-device via Ollama (`bge-m3`), eliminating cloud API costs and ensuring data privacy during ingestion.
 
 ### 2. Cooperative Financial Multi-Agent Orchestrator
 *   **Intelligent Intent Classifier:** Analyzes incoming user requests and dynamically dispatches sub-tasks to specialized agents (`RetrievalAgent`, `IFRSCompareAgent`, `GLMappingAgent`, `AdjustmentAgent`, and `ReportAgent`) via concurrent `asyncio.TaskGroup` flows.
@@ -54,7 +54,7 @@ The platform utilizes a state-of-the-art hybrid RAG pipeline coupled with a coop
 *   **Balanced Double-Entry Generator:** Synthesizes adjusting journal entries to restate VAS balances to IFRS compliance (e.g., capitalizing operating leases under IFRS 16 or provisioning expected credit losses under IFRS 9).
 *   **Mathematical Balance Guard:** Implements a deterministic parser that extracts adjustment rows and strictly verifies that $\sum \text{Debits} = \sum \text{Credits}$ to the penny. It raises `UnbalancedJE` exceptions and rejects unbalanced drafts before they reach the ledger.
 
-### 4. Next.js 14 Premium User Interface
+### 4. Next.js 15 Premium User Interface
 *   **Dynamic Chat Stream:** Features a low-latency Server-Sent Events (SSE) stream returning markdown text, inline mathematical equations, progress markers, and interactive citation cards side-by-side.
 *   **Comparative Diff Viewer:** Interactive side-by-side code/text parallel view showcasing legal differences between Vietnamese Accounting Standards and corresponding IFRS texts.
 *   **GL Workspace:** Full-featured drag-and-drop file upload zone, account mapping workspace with interactive validation tables, and a journal entry auditor approval dashboard.
@@ -136,11 +136,10 @@ flowchart TD
     end
     C1 & C2 & C3 --> D[app/rag/embedder.py]
     subgraph Multilingual Vector Embedding
-        D --> D1{TEI bge-m3 Online?}
-        D1 -- Yes --> D2[Generate float1024 Dense + Sparse vectors]
-        D1 -- No --> D3[Fallback: Gemini text-embedding-004 float768]
+        D --> D1[Ollama bge-m3]
+        D1 --> D2[Generate float1024 Dense vectors]
     end
-    D2 & D3 --> E[(Qdrant Vector Database)]
+    D2 --> E[(Qdrant Vector Database)]
     subgraph Storage Segregation
         E --> E1[kb_shared_vas: Circulars & Decisions]
         E --> E2[kb_shared_ifrs: Core IFRS/IAS Standards]
@@ -157,7 +156,7 @@ The workspace is organized as a pnpm-managed monorepo for JS/TS packages and pyt
 ```
 vas-ifrs-bridge/
 ├── apps/
-│   ├── frontend/                         # Next.js 14 Web Application
+│   ├── frontend/                         # Next.js 15 Web Application
 │   │   ├── src/
 │   │   │   ├── app/                      # App Router (auth, compare, chat, GL workspaces)
 │   │   │   ├── components/               # UI components (ChatStream, MappingTable, diffs)
@@ -183,7 +182,7 @@ vas-ifrs-bridge/
 │
 ├── ingestion/                            # Standalone document processing pipelines
 │   ├── pipelines/                        # VAS circulars & IFRS standards parser rules
-│   └── batch_embed.py                    # Heavy document parsing, embedding & indexing script
+│   └── pipelines/embedders/batch_embed.py # Heavy document parsing, embedding & indexing script
 │
 ├── orchestration/
 │   └── n8n/                              # Asynchronous workflow configurations
@@ -271,17 +270,17 @@ Before executing chat or mapping pipelines, you need to populate the shared regu
 2. **Execute the ingestion runner script:**
 ```bash
 # From the repository root, run the multi-scope ingest pipeline
-# If on macOS / Linux, run via python directly:
-python ingestion/batch_embed.py --scope shared
+# macOS / Linux:
+./skills/vas-ifrs-document-ingestion/scripts/run_ingest.sh --scope shared
 ```
 *(On Windows systems, you can alternatively execute `./ingest.ps1` in PowerShell).*
 
-This parses standard sections, structures markdown headings, chunks to 800 tokens, embeds using `BAAI/bge-m3` (falling back to Gemini if offline), and indexes into the `kb_shared_vas` and `kb_shared_ifrs` collections inside Qdrant.
+This parses standard sections, structures markdown headings, chunks to 800 tokens, embeds using `BAAI/bge-m3` via local Ollama, and indexes into the `kb_shared_vas` and `kb_shared_ifrs` collections inside Qdrant.
 
 ---
 
 ### Step 4: Frontend Application Setup
-The frontend is a premium Next.js 14 application styled using Tailwind CSS and shadcn UI.
+The frontend is a premium Next.js 15 application styled using Tailwind CSS and shadcn UI.
 
 1. **Navigate to the frontend directory:**
 ```bash
