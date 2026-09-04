@@ -1,12 +1,11 @@
-import { FeatureUnavailable } from "@/components/FeatureUnavailable";
+import { PipelineSandbox } from "@/components/gl/PipelineSandbox";
 
 export default function GlUploadPage() {
 	return (
-		<FeatureUnavailable
-			title="Upload Trial Balance"
-			description="Backend GL upload và xử lý trạng thái chưa được triển khai. Bạn vẫn có thể nạp tài liệu kế toán vào Knowledge Base để tra cứu trong Chat."
-			actionHref="/documents"
-			actionLabel="Mở Documents"
+		<PipelineSandbox
+			initialStep="upload"
+			title="Nạp & Phân Tích Bảng Cân Đối Phát Sinh (VAS Trial Balance)"
+			description="Trích xuất dữ liệu tự động từ Bảng cân đối phát sinh tài khoản kế toán theo Thông tư 200/2014/TT-BTC. Kiểm tra tính cân bằng Nợ/Có và chuẩn bị ma trận ánh xạ sang hệ thống IFRS."
 		/>
 	);
 }

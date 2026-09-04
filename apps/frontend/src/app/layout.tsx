@@ -14,9 +14,10 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-	title: "VAS·IFRS Knowledge Engine",
+	title:
+		"VAS-IFRS Bridge — Nền tảng Chuyển đổi & Đối chiếu Chuẩn mực Kế toán Quốc tế",
 	description:
-		"AI-powered accounting standards assistant for Vietnamese Accounting Standards and IFRS",
+		"Cầu nối VAS ↔ IFRS với độ chính xác chuẩn kiểm toán, ứng dụng AI RAG và Knowledge Graph cho doanh nghiệp FDI, tập đoàn niêm yết và hãng kiểm toán.",
 };
 
 export default function RootLayout({
@@ -35,7 +36,7 @@ export default function RootLayout({
 		>
 			<body
 				className={`${GeistSans.className} antialiased`}
-				style={{ height: "100%", margin: 0, overflow: "hidden" }}
+				style={{ minHeight: "100%", margin: 0 }}
 			>
 				{children}
 			</body>

@@ -1,10 +1,11 @@
-import { FeatureUnavailable } from "@/components/FeatureUnavailable";
+import { PipelineSandbox } from "@/components/gl/PipelineSandbox";
 
 export default function GlAdjustmentsPage() {
 	return (
-		<FeatureUnavailable
-			title="IFRS Adjustments"
-			description="Lưu trữ và phê duyệt bút toán điều chỉnh chưa được triển khai. Các bút toán mẫu đã được gỡ để không xuất hiện như dữ liệu kế toán thật."
+		<PipelineSandbox
+			initialStep="adjustments"
+			title="Đề Xuất Bút Toán Điều Chỉnh Chuyển Đổi (IFRS Adjustments)"
+			description="Tự động tính toán và tạo các bút toán tái phân loại (Reclassification) và tái đo lường (Remeasurement) theo IFRS 16 (Thuê tài sản), IFRS 9 (Tổn thất tín dụng dự kiến ECL) và IAS 12 (Thuế hoãn lại)."
 		/>
 	);
 }

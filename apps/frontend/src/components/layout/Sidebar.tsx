@@ -222,10 +222,17 @@ function TrashIcon() {
 	);
 }
 
+export type Palette = "slate" | "bordeaux" | "forest" | "graphite";
+export type Density = "compact" | "comfortable" | "spacious";
+
 interface SidebarProps {
 	onNewChat?: () => void;
 	theme: "light" | "dark";
 	onToggleTheme: () => void;
+	palette?: Palette;
+	onSelectPalette?: (palette: Palette) => void;
+	density?: Density;
+	onSelectDensity?: (density: Density) => void;
 }
 
 interface NavItemDef {
@@ -252,7 +259,15 @@ const NAV_ITEMS: NavItemDef[] = [
 	{ icon: <ChartIcon />, label: "Reports", href: "/reports" },
 ];
 
-export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
+export function Sidebar({
+	onNewChat,
+	theme,
+	onToggleTheme,
+	palette = "slate",
+	onSelectPalette,
+	density = "comfortable",
+	onSelectDensity,
+}: SidebarProps) {
 	const pathname = usePathname();
 	const router = useRouter();
 	const [expandedGL, setExpandedGL] = useState(pathname.startsWith("/gl"));
@@ -363,6 +378,48 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 					<div className="sb-title">
 						<div className="sb-title-1">VAS·IFRS</div>
 						<div className="sb-title-2">Knowledge Engine</div>
+					</div>
+				</div>
+
+				{/* Standards compliance badge */}
+				<div style={{ padding: "0 var(--sp-3) var(--sp-2)" }}>
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							gap: "6px",
+							padding: "5px 8px",
+							borderRadius: "var(--radius-sm)",
+							background: "var(--surface-2)",
+							border: "1px solid var(--border)",
+							fontSize: "0.68rem",
+							fontFamily: "var(--font-mono)",
+							color: "var(--ink-2)",
+						}}
+						title="Hệ thống chuẩn mực VAS 2026 và IFRS Bound Volume"
+					>
+						<span
+							style={{
+								width: 6,
+								height: 6,
+								borderRadius: "50%",
+								background: "var(--success)",
+								flexShrink: 0,
+								boxShadow: "0 0 6px var(--success)",
+							}}
+						/>
+						<span style={{ fontWeight: 600 }}>VAS 2026</span>
+						<span style={{ color: "var(--faint)" }}>/</span>
+						<span
+							style={{
+								color: "var(--muted)",
+								overflow: "hidden",
+								textOverflow: "ellipsis",
+								whiteSpace: "nowrap",
+							}}
+						>
+							IFRS Bound Vol.
+						</span>
 					</div>
 				</div>
 
@@ -504,6 +561,151 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 							))}
 						</div>
 					)}
+				</div>
+
+				{/* Display preferences: Palette & Density */}
+				<div
+					style={{
+						padding: "var(--sp-2) var(--sp-3)",
+						borderTop: "1px solid var(--border)",
+						background: "var(--surface-2)",
+						display: "flex",
+						flexDirection: "column",
+						gap: "6px",
+					}}
+				>
+					{/* Palette row */}
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "space-between",
+						}}
+					>
+						<span
+							style={{
+								fontSize: "0.64rem",
+								fontFamily: "var(--font-mono)",
+								color: "var(--muted)",
+								textTransform: "uppercase",
+								letterSpacing: "0.05em",
+							}}
+						>
+							Palette
+						</span>
+						<div style={{ display: "flex", gap: "5px" }}>
+							{(
+								[
+									{
+										id: "slate",
+										color: "oklch(46% 0.078 215)",
+										label: "Slate",
+									},
+									{
+										id: "bordeaux",
+										color: "oklch(42% 0.13 25)",
+										label: "Bordeaux",
+									},
+									{
+										id: "forest",
+										color: "oklch(42% 0.09 165)",
+										label: "Forest",
+									},
+									{
+										id: "graphite",
+										color: "oklch(28% 0.005 240)",
+										label: "Graphite",
+									},
+								] as const
+							).map((p) => {
+								const isSelected = palette === p.id;
+								return (
+									<button
+										key={p.id}
+										type="button"
+										title={`Bảng màu ${p.label}`}
+										onClick={() => onSelectPalette?.(p.id)}
+										style={{
+											width: 13,
+											height: 13,
+											borderRadius: "50%",
+											background: p.color,
+											border: isSelected
+												? "2px solid var(--ink)"
+												: "1px solid var(--border-strong)",
+											padding: 0,
+											cursor: "pointer",
+											transform: isSelected ? "scale(1.15)" : "scale(1)",
+											transition: "transform 150ms ease",
+										}}
+									/>
+								);
+							})}
+						</div>
+					</div>
+
+					{/* Density row */}
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "space-between",
+						}}
+					>
+						<span
+							style={{
+								fontSize: "0.64rem",
+								fontFamily: "var(--font-mono)",
+								color: "var(--muted)",
+								textTransform: "uppercase",
+								letterSpacing: "0.05em",
+							}}
+						>
+							Density
+						</span>
+						<div
+							style={{
+								display: "inline-flex",
+								padding: "1px",
+								borderRadius: "4px",
+								background: "var(--surface)",
+								border: "1px solid var(--border)",
+							}}
+						>
+							{(
+								[
+									{ id: "compact", label: "C" },
+									{ id: "comfortable", label: "M" },
+									{ id: "spacious", label: "L" },
+								] as const
+							).map((d) => {
+								const isSelected = density === d.id;
+								return (
+									<button
+										key={d.id}
+										type="button"
+										title={`Mật độ hiển thị ${d.id}`}
+										onClick={() => onSelectDensity?.(d.id)}
+										style={{
+											padding: "1px 6px",
+											fontSize: "0.62rem",
+											fontFamily: "var(--font-mono)",
+											fontWeight: isSelected ? 600 : 400,
+											color: isSelected ? "var(--ink)" : "var(--muted)",
+											background: isSelected
+												? "var(--surface-3)"
+												: "transparent",
+											borderRadius: "3px",
+											border: "none",
+											cursor: "pointer",
+										}}
+									>
+										{d.label}
+									</button>
+								);
+							})}
+						</div>
+					</div>
 				</div>
 
 				{/* Footer */}

@@ -73,22 +73,47 @@ function RegenerateIcon() {
 	);
 }
 /* ── Empty / welcome state ── */
-const SUGGESTIONS = [
+/* ── Empty / welcome state ── */
+interface SuggestionCard {
+	tag: string;
+	title: string;
+	category: string;
+	q: string;
+	detail: string;
+}
+
+const SUGGESTIONS: SuggestionCard[] = [
 	{
-		tag: "IFRS 1",
-		q: "What are the key requirements and exemptions when adopting IFRS for the first time?",
+		tag: "IFRS 16 · VAS 06",
+		title: "Thuê tài sản hoạt động 5 năm",
+		category: "ROU Asset & Lease Liability",
+		q: "Phân tích khác biệt chính giữa IFRS 16 và VAS 06 đối với hợp đồng thuê văn phòng 5 năm?",
+		detail:
+			"Đánh giá tác động ghi nhận Quyền sử dụng tài sản (ROU) và Nợ phải trả thuê tài sản lên EBITDA & Đòn bẩy tài chính.",
 	},
 	{
-		tag: "VAS 15 / IFRS 15",
-		q: "Compare VAS 15 and IFRS 15 on revenue recognition from contracts with customers.",
+		tag: "IFRS 15 · VAS 14",
+		title: "Nghĩa vụ thực hiện hợp đồng",
+		category: "Doanh thu 5 bước",
+		q: "Cách xác định Nghĩa vụ thực hiện riêng biệt (Performance Obligations) theo IFRS 15?",
+		detail:
+			"Phương pháp phân bổ giá giao dịch và thời điểm ghi nhận quyền kiểm soát hàng hóa kèm dịch vụ bảo hành/bảo trì.",
 	},
 	{
-		tag: "IFRS 2",
-		q: "Explain the accounting treatment under IFRS 2 for equity-settled share-based awards.",
+		tag: "IFRS 9 · TT 48",
+		title: "Tổn thất tín dụng dự kiến (ECL)",
+		category: "Công cụ tài chính",
+		q: "Bút toán điều chỉnh trích lập dự phòng tổn thất tín dụng theo IFRS 9 thay vì Thông tư 48?",
+		detail:
+			"Chuyển dịch từ mô hình tổn thất đã phát sinh (Incurred Loss) sang mô hình tổn thất dự kiến 3 giai đoạn (Staging ECL).",
 	},
 	{
-		tag: "IFRS 9",
-		q: "How does IFRS 9 classify and measure financial assets? What changed from IAS 39?",
+		tag: "IAS 12 · VAS 17",
+		title: "Tài sản thuế hoãn lại",
+		category: "Thuế thu nhập doanh nghiệp",
+		q: "Xác định tài sản thuế hoãn lại đối với chênh lệch tạm thời theo IAS 12 vs VAS 17?",
+		detail:
+			"Nguyên tắc ghi nhận theo phương pháp Bảng cân đối (Balance Sheet Liability) đối với các khoản chênh lệch khấu trừ.",
 	},
 ];
 
@@ -103,28 +128,215 @@ function EmptyState({
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
+				padding: "36px 20px 24px",
+				maxWidth: 820,
+				margin: "0 auto",
+				width: "100%",
 			}}
 		>
-			<div className="welcome-eyebrow">VAS·IFRS</div>
-			<h1 className="welcome-title">
-				Knowledge <em>Engine</em>
+			<div
+				style={{
+					display: "inline-flex",
+					alignItems: "center",
+					gap: 8,
+					padding: "4px 12px",
+					borderRadius: "999px",
+					background: "var(--surface-2)",
+					border: "1px solid var(--border)",
+					fontSize: "0.7rem",
+					fontFamily: "var(--font-mono)",
+					color: "var(--accent-ink)",
+					marginBottom: 16,
+					letterSpacing: "0.06em",
+					textTransform: "uppercase",
+				}}
+			>
+				<span
+					style={{
+						width: 6,
+						height: 6,
+						borderRadius: "50%",
+						background: "var(--success)",
+						boxShadow: "0 0 6px var(--success)",
+					}}
+				/>
+				<span>Grounded Audit Engine · RAG & Knowledge Graph</span>
+			</div>
+
+			<h1
+				style={{
+					fontFamily: "var(--font-serif)",
+					fontSize: "clamp(1.75rem, 3.5vw, 2.3rem)",
+					fontWeight: 500,
+					letterSpacing: "-0.02em",
+					lineHeight: 1.15,
+					color: "var(--ink)",
+					textAlign: "center",
+					margin: "0 0 10px",
+				}}
+			>
+				Hệ thống Trợ lý Chuẩn mực <em>VAS & IFRS</em>
 			</h1>
-			<p className="welcome-sub">
-				Query Vietnamese Accounting Standards or IFRS. Answers grounded in
-				retrieved source documents with citations.
+
+			<p
+				style={{
+					fontSize: "0.86rem",
+					color: "var(--muted)",
+					textAlign: "center",
+					maxWidth: 620,
+					margin: "0 auto 20px",
+					lineHeight: 1.6,
+				}}
+			>
+				Tra cứu, đối chiếu và đề xuất bút toán chuyển đổi báo cáo tài chính. Mọi
+				câu trả lời đều được kiểm chứng chéo với số đoạn chuẩn mực, thông tư và
+				tài liệu dẫn chứng cụ thể.
 			</p>
-			<div className="welcome-cards">
+
+			{/* Quick metadata strip */}
+			<div
+				style={{
+					display: "flex",
+					flexWrap: "wrap",
+					justifyContent: "center",
+					gap: "8px 16px",
+					padding: "8px 16px",
+					borderRadius: "var(--radius)",
+					background: "var(--surface-2)",
+					border: "1px solid var(--border)",
+					fontSize: "0.72rem",
+					fontFamily: "var(--font-mono)",
+					color: "var(--ink-2)",
+					marginBottom: 28,
+				}}
+			>
+				<span>
+					<strong style={{ color: "var(--ink)" }}>26</strong> VAS Standards
+				</span>
+				<span style={{ color: "var(--faint)" }}>•</span>
+				<span>
+					<strong style={{ color: "var(--ink)" }}>41</strong> IFRS/IAS Rules
+				</span>
+				<span style={{ color: "var(--faint)" }}>•</span>
+				<span>
+					<strong style={{ color: "var(--ink)" }}>200+</strong> Ontology
+					Mappings
+				</span>
+				<span style={{ color: "var(--faint)" }}>•</span>
+				<span style={{ color: "var(--accent)" }}>Zero Data Training</span>
+			</div>
+
+			{/* 4 Business scenario prompt chips */}
+			<div
+				style={{
+					display: "grid",
+					gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+					gap: 12,
+					width: "100%",
+				}}
+			>
 				{SUGGESTIONS.map((s) => (
 					<button
 						key={s.tag}
 						type="button"
-						className="welcome-card"
 						onClick={() => onSuggestion(s.q)}
+						style={{
+							textAlign: "left",
+							background: "var(--surface)",
+							border: "1px solid var(--border)",
+							borderRadius: "var(--radius-lg)",
+							padding: "14px 16px",
+							cursor: "pointer",
+							transition: "all 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+							display: "flex",
+							flexDirection: "column",
+							gap: 6,
+							position: "relative",
+						}}
+						onMouseEnter={(e) => {
+							e.currentTarget.style.borderColor = "var(--accent)";
+							e.currentTarget.style.boxShadow =
+								"0 2px 12px rgba(0,0,0,0.06), 0 0 0 1px var(--accent-ring)";
+							e.currentTarget.style.transform = "translateY(-1px)";
+						}}
+						onMouseLeave={(e) => {
+							e.currentTarget.style.borderColor = "var(--border)";
+							e.currentTarget.style.boxShadow = "none";
+							e.currentTarget.style.transform = "none";
+						}}
 					>
-						<div className="welcome-card-tag">{s.tag}</div>
-						<div className="welcome-card-q">{s.q}</div>
-						<div className="welcome-card-foot">
-							<span>Ask this →</span>
+						<div
+							style={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "space-between",
+								gap: 8,
+							}}
+						>
+							<span
+								style={{
+									fontFamily: "var(--font-mono)",
+									fontSize: "0.68rem",
+									fontWeight: 600,
+									color: "var(--accent-ink)",
+									background: "var(--accent-soft)",
+									padding: "2px 7px",
+									borderRadius: "4px",
+									letterSpacing: "0.02em",
+								}}
+							>
+								{s.tag}
+							</span>
+							<span
+								style={{
+									fontFamily: "var(--font-mono)",
+									fontSize: "0.64rem",
+									color: "var(--muted)",
+									textTransform: "uppercase",
+								}}
+							>
+								{s.category}
+							</span>
+						</div>
+
+						<div
+							style={{
+								fontSize: "0.85rem",
+								fontWeight: 600,
+								color: "var(--ink)",
+								lineHeight: 1.35,
+								marginTop: 2,
+							}}
+						>
+							{s.q}
+						</div>
+
+						<p
+							style={{
+								margin: 0,
+								fontSize: "0.74rem",
+								color: "var(--muted)",
+								lineHeight: 1.45,
+							}}
+						>
+							{s.detail}
+						</p>
+
+						<div
+							style={{
+								marginTop: 4,
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "flex-end",
+								fontSize: "0.7rem",
+								fontFamily: "var(--font-mono)",
+								fontWeight: 500,
+								color: "var(--accent)",
+								gap: 4,
+							}}
+						>
+							<span>Phân tích nghiệp vụ</span>
+							<span>→</span>
 						</div>
 					</button>
 				))}

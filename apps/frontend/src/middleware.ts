@@ -48,6 +48,8 @@ export async function middleware(request: NextRequest) {
 		path.startsWith("/signup") ||
 		path.startsWith("/auth/callback");
 
+	const isPublicPage = path === "/" || isAuthPage;
+
 	// Bypass static and api endpoints
 	const isStaticOrApi =
 		path.startsWith("/_next") ||
@@ -59,7 +61,7 @@ export async function middleware(request: NextRequest) {
 		return response;
 	}
 
-	if (!user && !isAuthPage) {
+	if (!user && !isPublicPage) {
 		// Redirect to login if trying to access app without session
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
