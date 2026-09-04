@@ -89,6 +89,7 @@ async def chat_stream(
                 body,
                 tenant_id=tenant_id,
                 tenant_collection=tenant.qdrant_collection if tenant else None,
+                conversation_id=conversation_id,
             ):
                 if event.startswith("data: "):
                     try:
@@ -142,7 +143,7 @@ async def chat_stream(
             # Always emit a final event with conversation_id
             final_payload = {
                 "type": "final",
-                "content": full_response if accumulated_tokens else "",
+                "content": full_response,
                 "conversation_id": conversation_id,
             }
             yield f"data: {json.dumps(final_payload)}\n\n".encode()

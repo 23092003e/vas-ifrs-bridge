@@ -22,6 +22,27 @@ _active_backend: str = "ollama"
 _query_cache: dict[str, list[float]] = {}
 _QUERY_CACHE_MAX = 512
 
+# Sparse model cache
+_sparse_model = None
+
+def _get_sparse_model():
+    global _sparse_model
+    if _sparse_model is None:
+        from fastembed import SparseTextEmbedding
+        _sparse_model = SparseTextEmbedding("Qdrant/bm25")
+        logger.info("BM25 sparse model loaded in embedder")
+    return _sparse_model
+
+async def embed_sparse(texts: list[str]) -> list:
+    """Return sparse embeddings (BM25) using FastEmbed, run in a background thread."""
+    if not texts:
+        return []
+    model = _get_sparse_model()
+    # model.embed returns a generator, we must consume it in the thread
+    # list() consumes the generator and yields a list of SparseEmbedding objects
+    return await asyncio.to_thread(lambda: list(model.embed(texts)))
+
+
 
 async def embed(texts: list[str], model: str = "bge-m3") -> list[list[float]]:
     """

@@ -21,6 +21,19 @@ DENSE_K = 40
 SPARSE_K = 40
 RERANK_K = 8
 
+# Lazy singleton for BM25 sparse model — loaded once, reused across all requests.
+_sparse_model = None
+
+
+def _get_sparse_model():
+    """Return a cached SparseTextEmbedding instance (loaded once on first call)."""
+    global _sparse_model
+    if _sparse_model is None:
+        from fastembed import SparseTextEmbedding
+        _sparse_model = SparseTextEmbedding("Qdrant/bm25")
+        logger.info("BM25 sparse model loaded (singleton)")
+    return _sparse_model
+
 
 @dataclass
 class RetrievedChunk:
@@ -83,6 +96,63 @@ def _build_filter(
     return Filter(must=conditions) if conditions else None
 
 
+async def _dense_only_search(client, collection: str, vec, flt) -> list:
+    """Fallback: dense-only search when sparse index is unavailable."""
+    result = await client.query_points(
+        collection_name=collection,
+        query=vec,
+        query_filter=flt,
+        limit=DENSE_K,
+        with_payload=True,
+    )
+    return result.points
+
+
+async def _hybrid_search(client, collection: str, vec, query: str, flt) -> list:
+    """
+    Attempt hybrid Dense+BM25 RRF search.
+    Falls back to dense-only if the collection lacks a "bm25" sparse index.
+    """
+    from qdrant_client.models import Fusion, FusionQuery, Prefetch, SparseVector
+
+    # Generate sparse query vector using cached BM25 model
+    sparse_model = _get_sparse_model()
+    # query_embed is synchronous and CPU-bound, run it in a thread to avoid blocking the event loop
+    sparse_gen = await asyncio.to_thread(lambda: list(sparse_model.query_embed(query)))
+    sparse_vec = sparse_gen[0] if sparse_gen else None
+
+    if not sparse_vec:
+        logger.warning("BM25 sparse embedding returned empty — falling back to dense-only")
+        return await _dense_only_search(client, collection, vec, flt)
+
+    sp_query = SparseVector(
+        indices=sparse_vec.indices.tolist(),
+        values=sparse_vec.values.tolist(),
+    )
+
+    try:
+        result = await client.query_points(
+            collection_name=collection,
+            prefetch=[
+                Prefetch(query=vec, limit=DENSE_K, filter=flt),
+                Prefetch(query=sp_query, using="bm25", limit=SPARSE_K, filter=flt),
+            ],
+            query=FusionQuery(fusion=Fusion.RRF),
+            limit=DENSE_K,
+            with_payload=True,
+        )
+        return result.points
+    except Exception as exc:
+        error_msg = str(exc)
+        if "bm25" in error_msg.lower() or "not existing vector name" in error_msg.lower():
+            logger.warning(
+                "Collection '%s' lacks sparse index 'bm25' — falling back to dense-only: %s",
+                collection,
+                exc,
+            )
+            return await _dense_only_search(client, collection, vec, flt)
+        raise
+
 async def retrieve(
     query: str,
     *,
@@ -105,14 +175,7 @@ async def retrieve(
 
     client = _qdrant_client()
     try:
-        result = await client.query_points(
-            collection_name=collection,
-            query=vec,
-            query_filter=flt,
-            limit=DENSE_K,
-            with_payload=True,
-        )
-        hits = result.points
+        hits = await _hybrid_search(client, collection, vec, query, flt)
     except Exception as exc:
         raise QdrantUnavailableError(f"Qdrant search failed: {exc}") from exc
     finally:
@@ -122,16 +185,20 @@ async def retrieve(
         logger.warning("qdrant returned 0 hits for collection=%s scope=%s", collection, scope)
         return []
 
-    raw_chunks = [
-        {
+    raw_chunks = []
+    for hit in hits:
+        payload = hit.payload or {}
+        std = payload.get("standard_code") or "Unknown"
+        hd = payload.get("heading", "")
+        t = payload.get("text_preview", "") or payload.get("text", "")
+        context_text = f"[{std}] {hd}\n{t}".strip()
+        raw_chunks.append({
             "id": str(hit.id),
-            "doc_id": (hit.payload or {}).get("doc_id", ""),
-            "text": (hit.payload or {}).get("text_preview", "") or (hit.payload or {}).get("text", ""),
+            "doc_id": payload.get("doc_id", ""),
+            "text": context_text,
             "score": hit.score,
-            "metadata": hit.payload or {},
-        }
-        for hit in hits
-    ]
+            "metadata": payload,
+        })
 
     if skip_rerank:
         reranked = raw_chunks[:k]

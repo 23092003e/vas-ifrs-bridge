@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 TEI_URL = getattr(settings, "tei_url", "http://localhost:8080")
 TIMEOUT_S = 15.0
-MIN_SCORE = 0.35
-LOW_RECALL_SCORE = 0.20
+MIN_SCORE = 0.10
+LOW_RECALL_SCORE = 0.01
 
 
 async def rerank(

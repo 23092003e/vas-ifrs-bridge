@@ -265,6 +265,7 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 		role: string;
 		workspace: string;
 	} | null>(null);
+	const [deleteSessionId, setDeleteSessionId] = useState<string | null>(null);
 
 	// Load user profile & workspace metadata
 	useEffect(() => {
@@ -297,7 +298,11 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 	// Fetch recent conversations
 	const fetchConversations = useCallback(async (signal?: AbortSignal) => {
 		try {
-			const response = await fetch("/api/chat/conversations", { signal });
+			const response = await fetch("/api/chat/conversations", {
+				signal,
+				cache: "no-store",
+				headers: { "Cache-Control": "no-cache" },
+			});
 			if (!response.ok) throw new Error("Failed to load conversations");
 			const conversations = parseConversationsResponse(await response.json());
 			setRecentSessions(groupConversations(conversations));
@@ -321,13 +326,7 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 		};
 	}, [pathname, fetchConversations]);
 
-	const handleDelete = async (e: React.MouseEvent, id: string) => {
-		e.preventDefault();
-		e.stopPropagation();
-
-		if (!window.confirm("Bạn có chắc chắn muốn xóa cuộc hội thoại này?"))
-			return;
-
+	const confirmDelete = async (id: string) => {
 		try {
 			const res = await fetch(
 				`/api/chat/conversations/${encodeURIComponent(id)}`,
@@ -343,6 +342,8 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 			}
 		} catch (err) {
 			console.error(err);
+		} finally {
+			setDeleteSessionId(null);
 		}
 	};
 
@@ -354,187 +355,268 @@ export function Sidebar({ onNewChat, theme, onToggleTheme }: SidebarProps) {
 	};
 
 	return (
-		<aside className="sidebar">
-			{/* Brand */}
-			<div className="sb-brand">
-				<div className="sb-mark">V</div>
-				<div className="sb-title">
-					<div className="sb-title-1">VAS·IFRS</div>
-					<div className="sb-title-2">Knowledge Engine</div>
+		<>
+			<aside className="sidebar">
+				{/* Brand */}
+				<div className="sb-brand">
+					<div className="sb-mark">V</div>
+					<div className="sb-title">
+						<div className="sb-title-1">VAS·IFRS</div>
+						<div className="sb-title-2">Knowledge Engine</div>
+					</div>
 				</div>
-			</div>
 
-			{/* New chat button */}
-			<div style={{ padding: "0 var(--sp-3) var(--sp-3)" }}>
-				<button type="button" className="sb-new" onClick={onNewChat}>
-					<span className="sb-new-plus">+</span>
-					<span>Nova tư vấn</span>
-					<kbd className="sb-new-kbd">⌘K</kbd>
-				</button>
-			</div>
+				{/* New chat button */}
+				<div style={{ padding: "0 var(--sp-3) var(--sp-3)" }}>
+					<button type="button" className="sb-new" onClick={onNewChat}>
+						<span className="sb-new-plus">+</span>
+						<span>Nova tư vấn</span>
+						<kbd className="sb-new-kbd">⌘K</kbd>
+					</button>
+				</div>
 
-			{/* Navigation */}
-			<div style={{ flex: 1, overflowY: "auto" }}>
-				<div className="sb-section">WORKSPACE</div>
-				<nav className="sb-nav">
-					{NAV_ITEMS.map((item) => {
-						const hasChildren = (item.children?.length ?? 0) > 0;
-						const isActive =
-							pathname === item.href ||
-							(hasChildren && item.children!.some((c) => pathname === c.href));
+				{/* Navigation */}
+				<div style={{ flex: 1, overflowY: "auto" }}>
+					<div className="sb-section">WORKSPACE</div>
+					<nav className="sb-nav">
+						{NAV_ITEMS.map((item) => {
+							const hasChildren = (item.children?.length ?? 0) > 0;
+							const isActive =
+								pathname === item.href ||
+								(hasChildren &&
+									item.children!.some((c) => pathname === c.href));
 
-						return (
-							<div key={item.href}>
-								{hasChildren ? (
-									<button
-										type="button"
-										className="sb-item"
-										data-active={isActive ? "true" : undefined}
-										data-expanded={expandedGL ? "true" : undefined}
-										onClick={() => setExpandedGL((v) => !v)}
-									>
-										{item.icon}
-										<span>{item.label}</span>
-										<span className="sb-chev">
-											<ChevronRightIcon rotated={expandedGL} />
-										</span>
-									</button>
-								) : (
-									<Link
-										href={item.href}
-										className="sb-item"
-										data-active={isActive ? "true" : undefined}
-									>
-										{item.icon}
-										<span>{item.label}</span>
-									</Link>
-								)}
-
-								{hasChildren && expandedGL && (
-									<div className="sb-sub-nav">
-										{item.children!.map((child) => (
-											<Link
-												key={child.href}
-												href={child.href}
-												className="sb-sub-item"
-												data-active={
-													pathname === child.href ? "true" : undefined
-												}
-											>
-												{child.label}
-											</Link>
-										))}
-									</div>
-								)}
-							</div>
-						);
-					})}
-				</nav>
-
-				{/* Recent sessions */}
-				{pathname.startsWith("/chat") && recentSessions.length > 0 && (
-					<div className="sb-recent">
-						{recentSessions.map((group) => (
-							<div key={group.group} className="sb-recent-group">
-								<div className="sb-recent-label">{group.group}</div>
-								{group.items.map((item) => (
-									<div
-										key={item.id}
-										style={{ position: "relative" }}
-										className="sb-recent-item-container"
-									>
-										<Link
-											href={`/chat/${item.id}`}
-											className="sb-recent-item"
-											data-active={
-												pathname === `/chat/${item.id}` ? "true" : undefined
-											}
-											style={{ paddingRight: "30px", display: "block" }}
-										>
-											<span
-												style={{
-													display: "block",
-													overflow: "hidden",
-													textOverflow: "ellipsis",
-													whiteSpace: "nowrap",
-												}}
-											>
-												{item.title}
-											</span>
-										</Link>
+							return (
+								<div key={item.href}>
+									{hasChildren ? (
 										<button
 											type="button"
-											onClick={(e) => handleDelete(e, item.id)}
-											style={{
-												position: "absolute",
-												right: "8px",
-												top: "50%",
-												transform: "translateY(-50%)",
-												background: "none",
-												border: "none",
-												color: "var(--ink-40)",
-												cursor: "pointer",
-												display: "flex",
-												alignItems: "center",
-												justifyContent: "center",
-												padding: "4px",
-												borderRadius: "3px",
-												zIndex: 10,
-											}}
-											title="Xóa cuộc trò chuyện"
-											onMouseEnter={(e) => {
-												e.currentTarget.style.color = "var(--danger)";
-											}}
-											onMouseLeave={(e) => {
-												e.currentTarget.style.color = "var(--ink-40)";
-											}}
+											className="sb-item"
+											data-active={isActive ? "true" : undefined}
+											data-expanded={expandedGL ? "true" : undefined}
+											onClick={() => setExpandedGL((v) => !v)}
 										>
-											<TrashIcon />
+											{item.icon}
+											<span>{item.label}</span>
+											<span className="sb-chev">
+												<ChevronRightIcon rotated={expandedGL} />
+											</span>
 										</button>
-									</div>
-								))}
-							</div>
-						))}
-					</div>
-				)}
-			</div>
+									) : (
+										<Link
+											href={item.href}
+											className="sb-item"
+											data-active={isActive ? "true" : undefined}
+										>
+											{item.icon}
+											<span>{item.label}</span>
+										</Link>
+									)}
 
-			{/* Footer */}
-			<div className="sb-footer">
-				<div className="sb-avatar">
-					{userProfile?.name
-						? userProfile.name.slice(0, 2).toUpperCase()
-						: "KT"}
+									{hasChildren && expandedGL && (
+										<div className="sb-sub-nav">
+											{item.children!.map((child) => (
+												<Link
+													key={child.href}
+													href={child.href}
+													className="sb-sub-item"
+													data-active={
+														pathname === child.href ? "true" : undefined
+													}
+												>
+													{child.label}
+												</Link>
+											))}
+										</div>
+									)}
+								</div>
+							);
+						})}
+					</nav>
+
+					{/* Recent sessions */}
+					{pathname.startsWith("/chat") && recentSessions.length > 0 && (
+						<div className="sb-recent">
+							{recentSessions.map((group) => (
+								<div key={group.group} className="sb-recent-group">
+									<div className="sb-recent-label">{group.group}</div>
+									{group.items.map((item) => (
+										<div
+											key={item.id}
+											style={{ position: "relative" }}
+											className="sb-recent-item-container"
+										>
+											<Link
+												href={`/chat/${item.id}`}
+												className="sb-recent-item"
+												data-active={
+													pathname === `/chat/${item.id}` ? "true" : undefined
+												}
+												style={{ paddingRight: "30px", display: "block" }}
+											>
+												<span
+													style={{
+														display: "block",
+														overflow: "hidden",
+														textOverflow: "ellipsis",
+														whiteSpace: "nowrap",
+													}}
+												>
+													{item.title}
+												</span>
+											</Link>
+											<button
+												type="button"
+												onClick={(e) => {
+													e.preventDefault();
+													e.stopPropagation();
+													setDeleteSessionId(item.id);
+												}}
+												style={{
+													position: "absolute",
+													right: "8px",
+													top: "50%",
+													transform: "translateY(-50%)",
+													background: "none",
+													border: "none",
+													color: "var(--ink-40)",
+													cursor: "pointer",
+													display: "flex",
+													alignItems: "center",
+													justifyContent: "center",
+													padding: "4px",
+													borderRadius: "3px",
+													zIndex: 10,
+												}}
+												title="Xóa cuộc trò chuyện"
+												onMouseEnter={(e) => {
+													e.currentTarget.style.color = "var(--danger)";
+												}}
+												onMouseLeave={(e) => {
+													e.currentTarget.style.color = "var(--ink-40)";
+												}}
+											>
+												<TrashIcon />
+											</button>
+										</div>
+									))}
+								</div>
+							))}
+						</div>
+					)}
 				</div>
-				<div className="sb-who">
-					<div className="sb-who-name">
-						{userProfile?.name || "Kế toán viên"}
+
+				{/* Footer */}
+				<div className="sb-footer">
+					<div className="sb-avatar">
+						{userProfile?.name
+							? userProfile.name.slice(0, 2).toUpperCase()
+							: "KT"}
 					</div>
-					<div className="sb-who-role">
-						{userProfile?.role || "Auditor"} ·{" "}
-						{userProfile?.workspace || "Default"}
+					<div className="sb-who">
+						<div className="sb-who-name">
+							{userProfile?.name || "Kế toán viên"}
+						</div>
+						<div className="sb-who-role">
+							{userProfile?.role || "Auditor"} ·{" "}
+							{userProfile?.workspace || "Default"}
+						</div>
+					</div>
+					<button
+						type="button"
+						className="sb-icon-btn"
+						title="Toggle theme"
+						onClick={onToggleTheme}
+					>
+						{theme === "dark" ? <SunIcon /> : <MoonIcon />}
+					</button>
+					<Link href="/settings" className="sb-icon-btn" title="Settings">
+						<GearIcon />
+					</Link>
+					<button
+						type="button"
+						className="sb-icon-btn"
+						title="Đăng xuất"
+						onClick={handleSignOut}
+					>
+						<SignOutIcon />
+					</button>
+				</div>
+			</aside>
+
+			{/* Custom Delete Confirmation Modal */}
+			{deleteSessionId && (
+				<div
+					style={{
+						position: "fixed",
+						inset: 0,
+						backgroundColor: "rgba(0, 0, 0, 0.5)",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						zIndex: 9999,
+					}}
+					onClick={() => setDeleteSessionId(null)}
+				>
+					<div
+						style={{
+							backgroundColor: "var(--surface)",
+							color: "var(--ink)",
+							padding: "24px",
+							borderRadius: "8px",
+							maxWidth: "400px",
+							width: "90%",
+							boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+							border: "1px solid var(--border)",
+						}}
+						onClick={(e) => e.stopPropagation()}
+					>
+						<h3 style={{ margin: "0 0 12px 0", fontSize: "1.1rem" }}>
+							Xác nhận xóa
+						</h3>
+						<p style={{ margin: "0 0 24px 0", color: "var(--ink-60)" }}>
+							Bạn có chắc chắn muốn xóa cuộc hội thoại này không? Hành động này
+							không thể hoàn tác.
+						</p>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "flex-end",
+								gap: "12px",
+							}}
+						>
+							<button
+								type="button"
+								onClick={() => setDeleteSessionId(null)}
+								style={{
+									padding: "8px 16px",
+									borderRadius: "4px",
+									border: "1px solid var(--border)",
+									backgroundColor: "transparent",
+									color: "var(--ink)",
+									cursor: "pointer",
+								}}
+							>
+								Hủy
+							</button>
+							<button
+								type="button"
+								onClick={() => confirmDelete(deleteSessionId)}
+								style={{
+									padding: "8px 16px",
+									borderRadius: "4px",
+									border: "none",
+									backgroundColor: "var(--danger)",
+									color: "white",
+									cursor: "pointer",
+								}}
+							>
+								Xóa
+							</button>
+						</div>
 					</div>
 				</div>
-				<button
-					type="button"
-					className="sb-icon-btn"
-					title="Toggle theme"
-					onClick={onToggleTheme}
-				>
-					{theme === "dark" ? <SunIcon /> : <MoonIcon />}
-				</button>
-				<Link href="/settings" className="sb-icon-btn" title="Settings">
-					<GearIcon />
-				</Link>
-				<button
-					type="button"
-					className="sb-icon-btn"
-					title="Đăng xuất"
-					onClick={handleSignOut}
-				>
-					<SignOutIcon />
-				</button>
-			</div>
-		</aside>
+			)}
+		</>
 	);
 }

@@ -32,6 +32,9 @@ dependencies = [
   "openai>=1.77.0",
   "python-multipart",
   "python-jose[cryptography]",
+  "tiktoken>=0.8.0",
+  "fastembed>=0.3.1",
+  "thefuzz>=0.22.1",
 ]
 
 [build-system]
@@ -61,3 +64,12 @@ disallow_untyped_decorators = false
 [tool.pytest.ini_options]
 pythonpath = ["../.."]
 testpaths = ["tests"]
+markers = [
+    "integration: integration tests requiring external services",
+]
+
+[dependency-groups]
+dev = [
+    "torch>=2.13.0",
+    "transformers>=5.15.0",
+]

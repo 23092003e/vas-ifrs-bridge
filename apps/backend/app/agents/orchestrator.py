@@ -63,7 +63,40 @@ Do NOT include any markdown formatting, code block markers (like ```json), or ex
 async def _classify_intent(text: str, hint: str | None) -> str:
     if hint:
         return hint
-    return _classify_intent_keywords(text)
+    
+    # Fast path: keyword matching
+    keyword_intent = _classify_intent_keywords(text)
+    if keyword_intent != "qa":
+        return keyword_intent
+        
+    # Slow path: LLM confirmation for ambiguous queries
+    try:
+        import re
+
+        from app.llm.router import complete_chat
+
+        response = await complete_chat(
+            system=INTENT_SYSTEM_PROMPT,
+            user=text,
+            model_hint="fast",
+            max_tokens=100,
+        )
+        # Check regex match first in case response contains markdown or extra formatting
+        match = re.search(r'["\']intent["\']\s*:\s*["\'](compare|mapping|adjustment|report|qa)["\']', response, re.IGNORECASE)
+        if match:
+            return match.group(1).lower()
+
+        try:
+            data = json.loads(response)
+            intent = data.get("intent", "qa")
+            if intent in {"compare", "mapping", "adjustment", "report", "qa"}:
+                return intent
+        except json.JSONDecodeError:
+            pass
+    except Exception as e:  # noqa: BLE001 - fallback to default QA intent
+        logger.warning("LLM intent classification failed: %s, falling back to 'qa'", e)
+        
+    return "qa"
 
 
 def _select_model(intent: str, reasoning: str) -> str:
@@ -84,6 +117,7 @@ class Orchestrator:
         *,
         tenant_id: str | None = None,
         tenant_collection: str | None = None,
+        conversation_id: str | None = None,
     ) -> AsyncIterator[str]:
         intent = await _classify_intent(request.content, request.intent_hint)
         model = _select_model(intent, request.reasoning)
@@ -96,10 +130,35 @@ class Orchestrator:
 
         yield f"data: {json.dumps({'type': 'intent', 'intent': intent, 'model': model})}\n\n"
 
+        history: list[dict[str, str]] = []
+        if conversation_id:
+            try:
+                from sqlalchemy import select
+
+                from app.db.models import Message as DbMessage
+                from app.db.session import AsyncSessionLocal
+                async with AsyncSessionLocal() as db_session:
+                    stmt = select(DbMessage).where(
+                        DbMessage.conversation_id == conversation_id
+                    ).order_by(DbMessage.created_at.desc()).limit(10)
+                    res = await db_session.execute(stmt)
+                    db_messages = res.scalars().all()
+                    for m in reversed(db_messages):
+                        if m.role in {"user", "assistant"}:
+                            history.append({"role": m.role, "content": m.content})
+
+                    # Since chat_stream saves the current user message in DB before calling orchestrator,
+                    # pop the trailing user message if it matches request.content so it is not sent twice
+                    if history and history[-1]["role"] == "user" and history[-1]["content"] == request.content:
+                        history.pop()
+            except Exception as e:  # noqa: BLE001 - history retrieval is best-effort
+                logger.warning("Failed to fetch conversation history: %s", e)
+
         from app.agents.base import AgentBase
 
         agent: AgentBase
 
+        # We will pass history to agents in Stage 4, but for now we'll just prepare it
         if intent == "compare":
             from app.agents.ifrs_compare_agent import IFRSCompareAgent
 
@@ -111,6 +170,7 @@ class Orchestrator:
                 tenant_collection=tenant_collection,
                 scope=request.scope,
                 model_hint=model,
+                messages=history,
             ):
                 yield token
         elif intent == "mapping":
@@ -124,6 +184,7 @@ class Orchestrator:
                 tenant_collection=tenant_collection,
                 scope=request.scope,
                 model_hint=model,
+                messages=history,
             ):
                 yield token
         elif intent == "adjustment":
@@ -135,7 +196,23 @@ class Orchestrator:
                 lang=lang,
                 tenant_id=tenant_id,
                 tenant_collection=tenant_collection,
+                scope=request.scope,
                 model_hint=model,
+                messages=history,
+            ):
+                yield token
+        elif intent == "report":
+            from app.agents.report_agent import ReportAgent
+            
+            agent = ReportAgent()
+            async for token in agent.arun(
+                query=request.content,
+                lang=lang,
+                tenant_id=tenant_id,
+                tenant_collection=tenant_collection,
+                scope=request.scope,
+                model_hint=model,
+                messages=history,
             ):
                 yield token
         else:
@@ -150,5 +227,6 @@ class Orchestrator:
                 tenant_collection=tenant_collection,
                 scope=request.scope,
                 model_hint=model,
+                messages=history,
             ):
                 yield token

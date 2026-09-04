@@ -229,3 +229,6 @@ ingestion/processed/
 
 # Local runtime storage
 apps/backend/storage/
+
+# Scratch & temporary workspace files
+scratch/

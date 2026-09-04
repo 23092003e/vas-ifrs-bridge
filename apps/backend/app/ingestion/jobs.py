@@ -16,7 +16,7 @@ from app.ingestion.parsers.html import parse_html
 from app.ingestion.parsers.pdf import parse_pdf
 from app.ingestion.parsers.xlsx import parse_xlsx
 from app.rag.chunker import chunk_document
-from app.rag.embedder import embed, get_active_dim
+from app.rag.embedder import embed, embed_sparse, get_active_dim
 from app.rag.retriever import _qdrant_client
 
 logger = logging.getLogger(__name__)
@@ -75,8 +75,10 @@ async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> 
                 raise ValueError("Document did not yield any text chunks")
 
             # 4. Embed chunks using local Ollama bge-m3
+            # 4. Embed chunks using local Ollama bge-m3 and FastEmbed BM25
             chunk_texts = [c.text for c in chunks]
             embeddings = await embed(chunk_texts)
+            sparse_embeddings = await embed_sparse(chunk_texts)
 
             # 5. Connect and upload points to Qdrant
             client = _qdrant_client()
@@ -87,15 +89,28 @@ async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> 
                 collections = await client.get_collections()
                 exists = any(c.name == collection for c in collections.collections)
                 if not exists:
+                    from qdrant_client.models import SparseVectorParams
                     await client.create_collection(
                         collection_name=collection,
                         vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
+                        sparse_vectors_config={"bm25": SparseVectorParams(modifier=None)}
                     )
 
                 # Assemble Qdrant points
+                # Pre-calculate global standard_code
+                import re
+
                 from app.ingestion.enrichment import enrich
+                full_sample_text = (doc.filename + " " + text)[:2000]
+                doc_meta_std = doc.doc_metadata.get("standard_code") if (doc.doc_metadata and isinstance(doc.doc_metadata, dict)) else None
+                global_std = doc_meta_std
+                if not global_std:
+                    m = re.search(r"\b(VAS|IAS|IFRS|VFRS)[\s\-]?(\d+[A-Z]?)\b", full_sample_text, re.IGNORECASE)
+                    if m:
+                        global_std = f"{m.group(1).upper()}-{m.group(2)}"
+
                 points = []
-                for idx, (chunk, vector) in enumerate(zip(chunks, embeddings, strict=True)):
+                for idx, (chunk, vector, sparse_vec) in enumerate(zip(chunks, embeddings, sparse_embeddings, strict=True)):
                     chunk_payload = {
                         "doc_id": document_id,
                         "chunk_index": idx,
@@ -106,14 +121,24 @@ async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> 
                         "lang": lang,
                         "scope": "tenant",
                         "tenant_id": doc.tenant_id,
-                        "standard_code": doc.doc_metadata.get("standard_code") if (doc.doc_metadata and isinstance(doc.doc_metadata, dict)) else None,
+                        "standard_code": global_std,
                         "source_uri": doc.filename,
                     }
                     chunk_payload = enrich(chunk_payload)
+                    
+                    from qdrant_client.models import SparseVector
+                    point_vector = {
+                        "": vector,
+                        "bm25": SparseVector(
+                            indices=sparse_vec.indices.tolist(),
+                            values=sparse_vec.values.tolist(),
+                        )
+                    }
+                    
                     points.append(
                         PointStruct(
                             id=_point_id(document_id, idx),
-                            vector=vector,
+                            vector=point_vector,
                             payload=chunk_payload
                         )
                     )

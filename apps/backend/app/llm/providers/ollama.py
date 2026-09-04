@@ -20,19 +20,22 @@ async def stream_chat(
     *,
     system: str,
     user: str,
+    messages: list[dict[str, str]] | None = None,
     model: str = DEFAULT_MODEL,
     temperature: float = 0.1,
     max_tokens: int = 2048,
 ) -> AsyncIterator[str]:
     """Stream tokens from Ollama /api/chat endpoint."""
+    payload_messages = [{"role": "system", "content": system}]
+    if messages:
+        payload_messages.extend(messages)
+    payload_messages.append({"role": "user", "content": user})
+    
     payload = {
         "model": model,
         "stream": True,
         "options": {"temperature": temperature, "num_predict": max_tokens},
-        "messages": [
-            {"role": "system", "content": system},
-            {"role": "user", "content": user},
-        ],
+        "messages": payload_messages,
     }
     url = f"{settings.ollama_base_url}/api/chat"
 

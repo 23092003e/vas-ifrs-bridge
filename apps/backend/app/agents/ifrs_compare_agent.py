@@ -15,22 +15,6 @@ from app.rag.retriever import retrieve_multi
 logger = logging.getLogger(__name__)
 _validator = CitationValidator()
 
-COMPARE_SYSTEM = """\
-You are an expert in Vietnamese Accounting Standards (VAS) and IFRS.
-
-Compare the two standards on the topic below. Structure your response as:
-1. **Overview** — one paragraph each
-2. **Key Differences** — table with columns: Aspect | VAS | IFRS | Practical Impact
-3. **Convergence Areas** — what is already aligned
-4. **Adoption Implications** — for Vietnamese enterprises
-
-Cite every factual claim with [Cn]. Respond in {lang}.
-
---- CONTEXT ---
-{context}
---- END CONTEXT ---
-"""
-
 
 class IFRSCompareAgent(AgentBase):
     """Retrieves VAS + IFRS content on a topic and generates structured comparison."""
@@ -44,6 +28,7 @@ class IFRSCompareAgent(AgentBase):
         tenant_collection: str | None = None,
         scope: str = "both",
         model_hint: str = "openai",
+        messages: list[dict[str, str]] | None = None,
         **kwargs: Any,
     ) -> AsyncIterator[str]:
         # Retrieve from both VAS and IFRS shared collections
@@ -57,10 +42,16 @@ class IFRSCompareAgent(AgentBase):
         )
 
         context_block, citation_map = wrap_chunks_for_prompt(chunks)
-        system = COMPARE_SYSTEM.format(lang=lang, context=context_block)
+        from app.prompts.composer import render
+        system = render(
+            "system/ifrs_compare.j2",
+            lang=lang,
+            context=context_block,
+            tenant_name=kwargs.get("tenant_name")
+        )
 
         collected: list[str] = []
-        async for token in _call_llm(query, system, model_hint):
+        async for token in _call_llm(query, system, model_hint, messages):
             collected.append(token)
             yield f"data: {json.dumps({'type': 'token', 'delta': token})}\n\n"
 
@@ -83,8 +74,8 @@ class IFRSCompareAgent(AgentBase):
         yield f"data: {json.dumps({'type': 'final', 'content': cleaned})}\n\n"
 
 
-async def _call_llm(user: str, system: str, model_hint: str) -> AsyncIterator[str]:
+async def _call_llm(user: str, system: str, model_hint: str, messages: list[dict[str, str]] | None = None) -> AsyncIterator[str]:
     from app.llm.router import stream_chat
 
-    async for tok in stream_chat(system=system, user=user, model_hint=model_hint):
+    async for tok in stream_chat(system=system, user=user, messages=messages, model_hint=model_hint):
         yield tok

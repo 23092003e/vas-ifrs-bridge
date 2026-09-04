@@ -16,23 +16,6 @@ logger = logging.getLogger(__name__)
 
 _validator = CitationValidator()
 
-SYSTEM_PROMPT = """\
-You are an expert accounting assistant specialising in Vietnamese Accounting Standards (VAS) \
-and International Financial Reporting Standards (IFRS).
-
-If the user's message is a greeting, introduction, or general pleasantry (e.g., "hello", "hi", "xin chào", "cảm ơn"), respond politely, introduce yourself, and invite them to ask questions about accounting standards.
-
-Otherwise, for any accounting or factual questions, you must answer ONLY using the provided context blocks below. Cite every factual claim with [Cn] where n matches the context block number. If the context does not contain the answer or is empty, state clearly that you cannot answer based on the provided context. Do NOT fabricate information.
-
-When answering, ensure you cover all relevant aspects of the accounting treatment present in the context, including distinguishing clearly between initial recognition/measurement (ghi nhận ban đầu) and subsequent measurement (đo lường sau ghi nhận) if both are mentioned.
-
-Respond in {lang}. Provide a comprehensive, detailed, and structured explanation. Do not be overly brief.
-
---- CONTEXT ---
-{context}
---- END CONTEXT ---
-"""
-
 
 class RetrievalAgent(AgentBase):
     """Retrieve chunks → compose prompt → stream cited answer."""
@@ -47,6 +30,7 @@ class RetrievalAgent(AgentBase):
         scope: str = "both",
         k: int = 8,
         model_hint: str = "qwen",
+        messages: list[dict[str, str]] | None = None,
         **kwargs: Any,
     ) -> AsyncIterator[str]:
         # 1. Topic/Ontology Detection, Standards Mapping, and Query Expansion
@@ -312,11 +296,17 @@ class RetrievalAgent(AgentBase):
         ]
 
         context_block, citation_map = wrap_chunks_for_prompt(chunks)
-        system = SYSTEM_PROMPT.format(lang=lang, context=context_block)
+        from app.prompts.composer import render
+        system = render(
+            "system/retrieval_qa.j2",
+            lang=lang,
+            context=context_block,
+            tenant_name=kwargs.get("tenant_name")
+        )
 
         # 2. Stream from LLM
         collected: list[str] = []
-        async for token in _stream_llm(query, system, model_hint):
+        async for token in _stream_llm(query, system, model_hint, messages):
             collected.append(token)
             yield f"data: {json.dumps({'type': 'token', 'delta': token})}\n\n"
 
@@ -331,7 +321,7 @@ class RetrievalAgent(AgentBase):
                 f"{unresolved}. Remove them or replace with valid [Cn] keys.]"
             )
             fixed: list[str] = []
-            async for token in _stream_llm(fix_prompt, system, model_hint):
+            async for token in _stream_llm(fix_prompt, system, model_hint, messages):
                 fixed.append(token)
             cleaned = "".join(fixed)
 
@@ -350,9 +340,9 @@ class RetrievalAgent(AgentBase):
         yield f"data: {json.dumps({'type': 'final', 'content': cleaned})}\n\n"
 
 
-async def _stream_llm(user_msg: str, system: str, model_hint: str) -> AsyncIterator[str]:
+async def _stream_llm(user_msg: str, system: str, model_hint: str, messages: list[dict[str, str]] | None = None) -> AsyncIterator[str]:
     """Stream from the configured LLM provider."""
     from app.llm.router import stream_chat
 
-    async for tok in stream_chat(system=system, user=user_msg, model_hint=model_hint):
+    async for tok in stream_chat(system=system, user=user_msg, messages=messages, model_hint=model_hint):
         yield tok

@@ -91,14 +91,26 @@ def enrich(chunk: dict) -> dict:
 
     # 2. topic detection (check matching aliases or terms from ontology)
     detected_topic = None
+    from thefuzz import fuzz
+    
     # Check terms first
     text_lower = text.lower()
     for term in _ONTOLOGY_TERMS:
         matched = False
         term_word = term["term"].lower()
-        if re.search(r"(?<!\w)" + re.escape(term_word) + r"(?!\w)", text_lower):
-            matched = True
+        
+        # We can do exact match for very short words, and fuzzy for longer words
+        # but fuzz.partial_ratio handles substrings well.
+        # Alternatively, token_set_ratio is great for "tài sản cố định" matching "tài sản cố định hữu hình"
+        if len(term_word) < 4:
+            if re.search(r"(?<!\w)" + re.escape(term_word) + r"(?!\w)", text_lower):
+                matched = True
         else:
+            # simple fast check first
+            if term_word in text_lower or fuzz.partial_ratio(term_word, text_lower) >= 90:
+                matched = True
+                
+        if not matched:
             for alias in term.get("aliases", []):
                 alias_pattern = r"(?<!\w)" + re.escape(alias.lower()) + r"(?!\w)"
                 if re.search(alias_pattern, text_lower):

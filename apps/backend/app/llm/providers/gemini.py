@@ -41,13 +41,16 @@ async def stream_chat(
     *,
     system: str,
     user: str,
+    messages: list[dict[str, str]] | None = None,
+    model: str = "balanced",
     model_hint: str = "balanced",
     temperature: float = 0.1,
     max_tokens: int = 8192,
 ) -> AsyncIterator[str]:
     """Stream tokens from Gemini using the google-genai SDK."""
     client = _get_client()
-    model_name = _pick_model(model_hint)
+    effective_hint = model if model != "balanced" else model_hint
+    model_name = _pick_model(effective_hint)
 
     config = types.GenerateContentConfig(
         system_instruction=system,
@@ -55,12 +58,30 @@ async def stream_chat(
         max_output_tokens=max_tokens,
     )
 
+    contents: list[types.ContentUnion] = []
+    if messages:
+        for msg in messages:
+            role = "user" if msg["role"] == "user" else "model"
+            contents.append(
+                types.Content(
+                    role=role,
+                    parts=[types.Part.from_text(text=msg["content"])],
+                )
+            )
+    contents.append(
+        types.Content(
+            role="user",
+            parts=[types.Part.from_text(text=user)],
+        )
+    )
+
     try:
-        async for chunk in await client.aio.models.generate_content_stream(
+        stream = await client.aio.models.generate_content_stream(
             model=model_name,
-            contents=user,
+            contents=contents,
             config=config,
-        ):
+        )
+        async for chunk in stream:
             text = chunk.text or ""
             if text:
                 yield text

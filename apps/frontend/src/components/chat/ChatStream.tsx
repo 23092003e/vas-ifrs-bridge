@@ -2,6 +2,7 @@
 
 import { useChat } from "@/lib/hooks/useChat";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 import { MessageList } from "./MessageList";
 import { RetrievalPanel } from "./RetrievalPanel";
@@ -198,7 +199,8 @@ function PillDropdown({ label, value, options, onChange }: PillDropdownProps) {
 /* ── Main component ── */
 export default function ChatStream() {
 	const { messages, loading, sendMessage, clearMessages, abort } = useChat();
-	const [input, setInput] = useState("");
+	const searchParams = useSearchParams();
+	const [input, setInput] = useState(() => searchParams?.get("q") ?? "");
 	const [lang, setLang] = useState<"vi" | "en" | "auto">("auto");
 	const [scope, setScope] = useState<"shared" | "tenant" | "both">("shared");
 	const [reasoning, setReasoning] = useState<"fast" | "balanced" | "deep">(
@@ -207,6 +209,13 @@ export default function ChatStream() {
 	const [drawerOpen, setDrawerOpen] = useState(true);
 	const composingRef = useRef(false);
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+	useEffect(() => {
+		const q = searchParams?.get("q");
+		if (q && !input) {
+			setInput(q);
+		}
+	}, [searchParams, input]);
 
 	useEffect(() => {
 		const handler = () => {

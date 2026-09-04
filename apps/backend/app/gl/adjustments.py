@@ -39,27 +39,69 @@ async def generate_entries(mapping_results: list[dict[str, Any]]) -> list[dict[s
     full_text = "".join(tokens)
 
     # 2. Extract structured JSON block containing the entries
-    # Look for ```json ... ``` blocks
-    json_match = re.search(r"```json\s*(\[\s*\{.*\}\s*\])\s*```", full_text, re.DOTALL)
-    if not json_match:
-        # Fallback to general JSON list matching if Markdown code blocks are absent
-        json_match = re.search(r"(\[\s*\{.*\}\s*\])", full_text, re.DOTALL)
-
-    entries: list[dict[str, Any]] = []
-    if json_match:
-        try:
-            entries = json.loads(json_match.group(1).strip())
-        except json.JSONDecodeError as exc:
-            raise ValueError("LLM returned an invalid adjustment JSON block") from exc
+    # Try finding markdown code block ```json ... ``` first
+    raw_json = None
+    json_code_match = re.search(r"```(?:json)?\s*([\[\{].*?[\]\}])\s*```", full_text, re.DOTALL)
+    if json_code_match:
+        raw_json = json_code_match.group(1).strip()
     else:
-        raise ValueError("LLM response did not contain an adjustment JSON array")
+        # Fallback to finding outermost JSON array or object
+        json_fallback_match = re.search(r"(\[\s*\{.*\}\s*\]|\{\s*\"adjustments\".*\}\s*)", full_text, re.DOTALL)
+        if json_fallback_match:
+            raw_json = json_fallback_match.group(1).strip()
 
-    if not isinstance(entries, list) or not all(isinstance(entry, dict) for entry in entries):
-        raise ValueError("LLM adjustment JSON must be a list of objects")
+    if not raw_json:
+        raise ValueError("LLM response did not contain a valid adjustment JSON structure")
 
-    # 3. Validate balance for each entry
-    for entry in entries:
-        # Accept amount-based balanced entries or explicit debit_amount/credit_amount
+    try:
+        parsed = json.loads(raw_json)
+    except json.JSONDecodeError as exc:
+        raise ValueError("LLM returned an invalid adjustment JSON block") from exc
+
+    raw_list: list[dict[str, Any]] = []
+
+    # Normalize parsed data into raw_list of entries
+    if isinstance(parsed, list):
+        raw_list = parsed
+    elif isinstance(parsed, dict) and "adjustments" in parsed and isinstance(parsed["adjustments"], list):
+        # Handle nested object format: {"adjustments": [...]}
+        for i, adj in enumerate(parsed["adjustments"]):
+            if not isinstance(adj, dict):
+                continue
+            desc = adj.get("description") or adj.get("rationale") or ""
+            entry_id = adj.get("entry_id") or f"ADJ-{i+1:03d}"
+            std = adj.get("standard") or ""
+
+            if "entries" in adj and isinstance(adj["entries"], list):
+                debits = [e for e in adj["entries"] if str(e.get("type", "")).lower() == "debit"]
+                credits = [e for e in adj["entries"] if str(e.get("type", "")).lower() == "credit"]
+
+                total_dr = sum(float(e.get("amount") or 0.0) for e in debits)
+                total_cr = sum(float(e.get("amount") or 0.0) for e in credits)
+                validate_balance(total_dr, total_cr)
+
+                dr_acct = ", ".join(str(e.get("account", "")) for e in debits)
+                cr_acct = ", ".join(str(e.get("account", "")) for e in credits)
+
+                raw_list.append({
+                    "entry_id": entry_id,
+                    "debit_account": dr_acct,
+                    "credit_account": cr_acct,
+                    "amount": total_dr,
+                    "rationale": desc,
+                    "standard": std,
+                })
+            else:
+                raw_list.append(adj)
+    else:
+        raise ValueError("LLM adjustment JSON must be a list of objects or an adjustments object")
+
+    if not raw_list or not all(isinstance(entry, dict) for entry in raw_list):
+        raise ValueError("LLM adjustment JSON must be a non-empty list of objects")
+
+    # 3. Validate balance and normalize each entry
+    normalized_entries: list[dict[str, Any]] = []
+    for i, entry in enumerate(raw_list):
         raw_debit = entry.get("debit_amount")
         debit = float(raw_debit) if raw_debit is not None else float(entry.get("amount") or 0.0)
 
@@ -71,4 +113,19 @@ async def generate_entries(mapping_results: list[dict[str, Any]]) -> list[dict[s
         except (ValueError, TypeError) as e:
             raise UnbalancedJEError(f"Invalid entry amounts: {debit} or {credit}. Error: {e}") from e
 
-    return entries
+        entry_id = entry.get("entry_id") or f"ADJ-{i+1:03d}"
+        dr_acct = entry.get("debit_account") or entry.get("debit") or ""
+        cr_acct = entry.get("credit_account") or entry.get("credit") or ""
+
+        normalized_entries.append({
+            "entry_id": entry_id,
+            "debit_account": dr_acct,
+            "credit_account": cr_acct,
+            "amount": debit,
+            "debit_amount": debit,
+            "credit_amount": credit,
+            "rationale": entry.get("rationale") or entry.get("description") or "",
+            "standard": entry.get("standard") or "",
+        })
+
+    return normalized_entries

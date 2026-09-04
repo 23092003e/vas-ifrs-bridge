@@ -127,3 +127,29 @@ async def test_stream_uses_agent_validated_final_content(
 
     assert '"content": "draft"' in payload
     assert persisted[-1].content == "draft"
+
+
+@pytest.mark.asyncio
+async def test_stream_passes_conversation_id_to_orchestrator(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured_kwargs: dict[str, Any] = {}
+
+    class _CapturingOrchestrator:
+        async def run_stream(self, request: Any, **kwargs: Any) -> Any:
+            captured_kwargs.update(kwargs)
+            yield 'data: {"type":"token","delta":"ok"}\n\n'
+
+    monkeypatch.setattr(chat, "_orchestrator", _CapturingOrchestrator())
+
+    response = await chat.chat_stream(
+        ChatRequest(content="Câu hỏi mới"),
+        _request("POST"),
+        _CapturingDb(),
+    )
+    _ = [chunk async for chunk in response.body_iterator]
+
+    assert "conversation_id" in captured_kwargs
+    assert captured_kwargs["conversation_id"] is not None
+    assert len(captured_kwargs["conversation_id"]) > 0
+

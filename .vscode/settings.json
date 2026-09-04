@@ -1,4 +1,12 @@
 {
+  "python.defaultInterpreterPath": "${workspaceFolder}/apps/backend/.venv/bin/python",
   "python.terminal.useEnvFile": true,
-  "python.envFile": "${workspaceFolder}/apps/backend/.env"
+  "python.envFile": "${workspaceFolder}/apps/backend/.env",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/apps/backend"
+  ],
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}/apps/backend"
+  ],
+  "makefile.configureOnOpen": false
 }

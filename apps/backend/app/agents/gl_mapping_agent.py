@@ -15,24 +15,6 @@ from app.rag.retriever import retrieve_multi
 logger = logging.getLogger(__name__)
 _validator = CitationValidator()
 
-MAPPING_SYSTEM = """\
-You are an expert VAS-IFRS Mapping Specialist.
-
-Your task is to analyze the requested Vietnamese Accounting Standards (VAS) accounts and map them to their corresponding International Financial Reporting Standards (IFRS) equivalents.
-
-Structure your response as follows:
-1. **Overview**: A brief paragraph explaining the mapping approach for the requested accounts.
-2. **Account Mapping Table**: A markdown table with the following columns:
-   VAS Code | VAS Account Name | IFRS Equivalent Line Item | Category | Confidence | Rationale
-3. **Key Adjustments / Notes**: Highlight any significant adjustment considerations or lease/financial instrument implications.
-
-Cite every factual claim with [Cn] where possible. Respond in {lang}.
-
---- CONTEXT ---
-{context}
---- END CONTEXT ---
-"""
-
 
 class GLMappingAgent(AgentBase):
     """Maps a batch of VAS GL accounts to IFRS classification using RAG + LLM."""
@@ -46,6 +28,7 @@ class GLMappingAgent(AgentBase):
         tenant_collection: str | None = None,
         scope: str = "both",
         model_hint: str = "openai",
+        messages: list[dict[str, str]] | None = None,
         **kwargs: Any,
     ) -> AsyncIterator[str]:
         # 1. Retrieve relevant standards context
@@ -59,11 +42,17 @@ class GLMappingAgent(AgentBase):
         )
 
         context_block, citation_map = wrap_chunks_for_prompt(chunks)
-        system = MAPPING_SYSTEM.format(lang=lang, context=context_block)
+        from app.prompts.composer import render
+        system = render(
+            "system/gl_mapping.j2",
+            lang=lang,
+            context=context_block,
+            tenant_name=kwargs.get("tenant_name")
+        )
 
         # 2. Stream tokens from LLM
         collected: list[str] = []
-        async for token in _call_llm(query, system, model_hint):
+        async for token in _call_llm(query, system, model_hint, messages):
             collected.append(token)
             yield f"data: {json.dumps({'type': 'token', 'delta': token})}\n\n"
 
@@ -87,8 +76,8 @@ class GLMappingAgent(AgentBase):
         yield f"data: {json.dumps({'type': 'final', 'content': cleaned})}\n\n"
 
 
-async def _call_llm(user: str, system: str, model_hint: str) -> AsyncIterator[str]:
+async def _call_llm(user: str, system: str, model_hint: str, messages: list[dict[str, str]] | None = None) -> AsyncIterator[str]:
     from app.llm.router import stream_chat
 
-    async for tok in stream_chat(system=system, user=user, model_hint=model_hint):
+    async for tok in stream_chat(system=system, user=user, messages=messages, model_hint=model_hint):
         yield tok

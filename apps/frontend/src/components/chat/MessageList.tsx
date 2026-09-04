@@ -271,7 +271,50 @@ function MessageBubble({ msg }: { msg: Message }) {
 			) : (
 				<div className="msg-body">
 					<span style={{ whiteSpace: "pre-wrap" }}>
-						{msg.content}
+						{msg.content.split(/(\[C\d+(?:[,\s]+C\d+)*\])/g).map((part, i) => {
+							if (part.startsWith("[C") && part.endsWith("]")) {
+								const keys = part.match(/C\d+/g) || [];
+								return (
+									<span
+										key={i}
+										className="msg-inline-citations"
+										style={{ whiteSpace: "normal" }}
+									>
+										{keys.map((key, j) => {
+											const index = msg.citations.findIndex(
+												(c) => c.key === key,
+											);
+											if (index === -1) return null;
+											return (
+												<span
+													key={j}
+													title={msg.citations[index].doc_id}
+													style={{
+														display: "inline-flex",
+														alignItems: "center",
+														justifyContent: "center",
+														background: "var(--accent)",
+														color: "white",
+														fontSize: "0.75em",
+														fontWeight: 600,
+														padding: "0 4px",
+														borderRadius: "4px",
+														margin: "0 2px",
+														verticalAlign: "super",
+														cursor: "pointer",
+														minWidth: "16px",
+														height: "16px",
+													}}
+												>
+													{index + 1}
+												</span>
+											);
+										})}
+									</span>
+								);
+							}
+							return <span key={i}>{part}</span>;
+						})}
 						{isStreaming && (
 							<span
 								style={{

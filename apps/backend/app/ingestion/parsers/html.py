@@ -57,6 +57,7 @@ class _VisibleTextParser(HTMLParser):
             self.parts.append(data)
 
 
+
 def parse_html(content: str) -> str:
     """Extract clean text from HTML content."""
     if not content:

@@ -1,1 +1,3 @@
-{# Tenant context fragment — injects tenant name, plan, and preferences #}
+{% if tenant_name %}
+You are assisting {{ tenant_name }}. Focus your responses accordingly.
+{% endif %}

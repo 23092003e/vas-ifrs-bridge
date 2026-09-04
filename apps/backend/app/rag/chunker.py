@@ -5,15 +5,17 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-# Approximate token count: 1 token ≈ 4 chars (works for VI + EN)
-CHARS_PER_TOKEN = 4
+import tiktoken
+
+# Use cl100k_base (OpenAI) as a solid proxy for token counts
+_enc = tiktoken.get_encoding("cl100k_base")
+
+def get_token_count(text: str) -> int:
+    return len(_enc.encode(text))
+
 TARGET_TOKENS = 800
 OVERLAP_TOKENS = 120
 MAX_TABLE_TOKENS = 1500
-
-TARGET_CHARS = TARGET_TOKENS * CHARS_PER_TOKEN
-OVERLAP_CHARS = OVERLAP_TOKENS * CHARS_PER_TOKEN
-MAX_TABLE_CHARS = MAX_TABLE_TOKENS * CHARS_PER_TOKEN
 
 _HEADING_RE = re.compile(r"^(#{1,6})\s+(.+)$", re.MULTILINE)
 _TABLE_RE = re.compile(r"(\|.+\|\n)+", re.MULTILINE)
@@ -36,7 +38,7 @@ class Chunk:
     token_count: int = field(init=False)
 
     def __post_init__(self) -> None:
-        self.token_count = max(1, len(self.text) // CHARS_PER_TOKEN)
+        self.token_count = max(1, get_token_count(self.text))
 
 
 def chunk_document(
@@ -57,9 +59,6 @@ def chunk_document(
     if overlap_tokens < 0:
         raise ValueError("overlap_tokens must be non-negative")
 
-    target_chars = target_tokens * CHARS_PER_TOKEN
-    overlap_chars = overlap_tokens * CHARS_PER_TOKEN
-
     segments = _split_on_headings(text)
     chunks: list[Chunk] = []
     index = 0
@@ -71,16 +70,16 @@ def chunk_document(
         # Extract and handle tables first
         tables, remaining = _extract_tables(seg_text)
         for table in tables:
-            if len(table) <= MAX_TABLE_CHARS:
+            if get_token_count(table) <= MAX_TABLE_TOKENS:
                 chunks.append(Chunk(table, index, effective_path, effective_heading, lang))
                 index += 1
             else:
                 # Split large table into row groups
-                for sub in _split_chars(table, target_chars, overlap_chars):
+                for sub in _split_tokens(table, target_tokens, overlap_tokens):
                     chunks.append(Chunk(sub, index, effective_path, effective_heading, lang))
                     index += 1
 
-        for piece in _split_chars(remaining.strip(), target_chars, overlap_chars):
+        for piece in _split_tokens(remaining.strip(), target_tokens, overlap_tokens):
             if piece.strip():
                 chunks.append(Chunk(piece, index, effective_path, effective_heading, lang))
                 index += 1
@@ -114,33 +113,29 @@ def _extract_tables(text: str) -> tuple[list[str], str]:
     return tables, remaining
 
 
-def _split_chars(text: str, target: int, overlap: int) -> list[str]:
-    if len(text) <= target:
+def _split_tokens(text: str, target_tokens: int, overlap_tokens: int) -> list[str]:
+    tokens = _enc.encode(text)
+    if len(tokens) <= target_tokens:
         return [text] if text else []
-    # Guard against infinite loop: overlap must be strictly less than target
-    if overlap >= target:
-        overlap = target // 2
+    
+    # Guard against infinite loop
+    if overlap_tokens >= target_tokens:
+        overlap_tokens = target_tokens // 2
+        
     pieces: list[str] = []
     start = 0
-    while start < len(text):
-        end = start + target
-        if end < len(text):
-            # Break at nearest sentence boundary before end
-            boundary = _find_sentence_boundary(text, end)
-            end = boundary if boundary > start else end
-        pieces.append(text[start:end])
-        start = end - overlap
+    while start < len(tokens):
+        end = start + target_tokens
+        if end >= len(tokens):
+            pieces.append(_enc.decode(tokens[start:]))
+            break
+            
+        # Optional: could adjust `end` to sentence boundary in decoded text,
+        # but for safety and speed with token arrays, we decode directly.
+        chunk = _enc.decode(tokens[start:end])
+        pieces.append(chunk)
+        start = end - overlap_tokens
     return pieces
-
-
-def _find_sentence_boundary(text: str, pos: int) -> int:
-    """Search backwards from pos for . ! ? \n boundary."""
-    # Clamp pos to valid index range to prevent IndexError
-    pos = min(pos, len(text) - 1)
-    for i in range(pos, max(pos - 200, 0), -1):
-        if text[i] in ".!?\n":
-            return i + 1
-    return pos
 
 
 def _build_path(base: str, heading: str) -> str:

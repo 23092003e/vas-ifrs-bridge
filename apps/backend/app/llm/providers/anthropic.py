@@ -27,6 +27,7 @@ async def stream_chat(
     *,
     system: str,
     user: str,
+    messages: list[dict[str, str]] | None = None,
     model: str = DEFAULT_MODEL,
     temperature: float = 0.1,
     max_tokens: int = 8192,
@@ -36,12 +37,17 @@ async def stream_chat(
     """Stream tokens from Anthropic Messages API."""
     client = _get_client()
 
+    api_messages = []
+    if messages:
+        api_messages.extend(messages)
+    api_messages.append({"role": "user", "content": user})
+
     kwargs: dict = {
         "model": model,
         "max_tokens": max_tokens,
         "temperature": temperature if not extended_thinking else 1,
         "system": system,
-        "messages": [{"role": "user", "content": user}],
+        "messages": api_messages,
     }
 
     if extended_thinking:

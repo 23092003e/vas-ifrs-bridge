@@ -4,6 +4,7 @@ export interface ChatRequest {
 	lang: "vi" | "en" | "auto";
 	scope: "shared" | "tenant" | "both";
 	reasoning?: "fast" | "balanced" | "deep";
+	intent_hint?: "qa" | "compare" | "mapping" | "report" | "adjustment";
 }
 
 export type SSEEvent =

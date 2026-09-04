@@ -45,6 +45,15 @@ def wrap_chunks_for_prompt(chunks: list) -> tuple[str, dict[str, Citation]]:
             text = getattr(chunk, "text", "")
             metadata = getattr(chunk, "metadata", {}) or {}
 
+        source_uri = metadata.get("source_uri", "")
+        if source_uri:
+            import os
+            doc_id = os.path.basename(source_uri)
+
+        chunk_index = metadata.get("chunk_index")
+        if chunk_index is not None:
+            chunk_id = str(chunk_index)
+
         wrapped = f'<<{key} src="{doc_id}#{chunk_id}">>\n{text}\n<</{key}>>'
         parts.append(wrapped)
         citation_map[key] = Citation(
@@ -61,7 +70,13 @@ def wrap_chunks_for_prompt(chunks: list) -> tuple[str, dict[str, Citation]]:
 
 def extract_used_keys(text: str) -> set[str]:
     """Return all [Cn] citation keys found in LLM answer text."""
-    return {f"C{m.group(1)}" for m in _CITATION_RE.finditer(text)}
+    keys = set()
+    import re
+    for bracket_match in re.finditer(r"\[([^\]]+)\]", text):
+        inner = bracket_match.group(1)
+        for m in re.finditer(r"C(\d+)", inner):
+            keys.add(f"C{m.group(1)}")
+    return keys
 
 
 def validate_citations(answer: str, citation_map: dict[str, Citation]) -> tuple[bool, list[str]]:
@@ -85,9 +100,12 @@ def build_citation_list(answer: str, citation_map: dict[str, Citation]) -> list[
     """Return Citation objects for every [Cn] key found in answer (in order)."""
     seen: set[str] = set()
     result: list[Citation] = []
-    for m in _CITATION_RE.finditer(answer):
-        key = f"C{m.group(1)}"
-        if key in citation_map and key not in seen:
-            result.append(citation_map[key])
-            seen.add(key)
+    import re
+    for bracket_match in re.finditer(r"\[([^\]]+)\]", answer):
+        inner = bracket_match.group(1)
+        for m in re.finditer(r"C(\d+)", inner):
+            key = f"C{m.group(1)}"
+            if key in citation_map and key not in seen:
+                result.append(citation_map[key])
+                seen.add(key)
     return result

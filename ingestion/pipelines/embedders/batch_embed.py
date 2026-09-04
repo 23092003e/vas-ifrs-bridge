@@ -65,13 +65,15 @@ except ImportError:
 
 
 # ---------------------------------------------------------------------------
-# Embedding — Ollama (bge-m3)
+# Embedding — Ollama (bge-m3) and FastEmbed (BM25)
 # ---------------------------------------------------------------------------
 
 # pyrefly: ignore [missing-import]
 import httpx
+from fastembed import SparseTextEmbedding
 
-OLLAMA_SEMAPHORE = asyncio.Semaphore(1)
+OLLAMA_CONCURRENCY = int(os.environ.get("OLLAMA_CONCURRENCY", "1"))
+OLLAMA_SEMAPHORE = asyncio.Semaphore(OLLAMA_CONCURRENCY)
 
 async def embed_batch_with_retry(
     client: httpx.AsyncClient, 
@@ -89,7 +91,7 @@ async def embed_batch_with_retry(
     async with OLLAMA_SEMAPHORE:
         for attempt in range(1, retries + 1):
             try:
-                resp = await client.post(url, json=payload, timeout=180.0)
+                resp = await client.post(url, json=payload, timeout=600.0)
                 resp.raise_for_status()
                 data = resp.json()
                 return data["embeddings"]
@@ -128,9 +130,17 @@ def ensure_collection(client, collection: str, dim: int, recreate: bool = False)
 
     if not exists:
         logger.info("creating collection %s (dim=%d)", collection, dim)
+        
+        # Configure both dense and sparse vectors
+        from qdrant_client.models import SparseVectorParams
         client.create_collection(
             collection_name=collection,
             vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
+            sparse_vectors_config={
+                "bm25": SparseVectorParams(
+                    modifier=None,
+                )
+            }
         )
     else:
         logger.info("collection %s already exists", collection)
@@ -139,14 +149,23 @@ def ensure_collection(client, collection: str, dim: int, recreate: bool = False)
 def upsert_batch(client, collection: str, points: list[dict]) -> None:
     # pyrefly: ignore [missing-import]
     from qdrant_client.models import PointStruct
-    structs = [
-        PointStruct(
-            id=p["id"],
-            vector=p["vector"],
-            payload={k: v for k, v in p.items() if k not in ("id", "vector")},
+    structs = []
+    for p in points:
+        vector = p["vector"]
+        if "sparse_vector" in p:
+            # Multi-vector format: dense is default name "", sparse is named
+            vector = {
+                "": p["vector"],
+                "bm25": p["sparse_vector"]
+            }
+        
+        structs.append(
+            PointStruct(
+                id=p["id"],
+                vector=vector,
+                payload={k: v for k, v in p.items() if k not in ("id", "vector", "sparse_vector")},
+            )
         )
-        for p in points
-    ]
     client.upsert(collection_name=collection, points=structs)
 
 
@@ -237,6 +256,15 @@ async def ingest(
 
         doc_id = str(uuid.uuid5(uuid.NAMESPACE_URL, doc["source_path"]))
         
+        # Pre-calculate global standard_code for the document
+        import re
+        full_sample_text = (doc["filename"] + " " + doc.get("text", ""))[:2000]
+        global_std_code = doc.get("standard_code")
+        if not global_std_code:
+            m = re.search(r"\b(VAS|IAS|IFRS|VFRS)[\s\-]?(\d+[A-Z]?)\b", full_sample_text, re.IGNORECASE)
+            if m:
+                global_std_code = f"{m.group(1).upper()}-{m.group(2)}"
+
         # If the document has structured sections (from parser), chunk them individually
         # to preserve section boundaries and correctly map headings/paths.
         if doc.get("sections"):
@@ -278,7 +306,7 @@ async def ingest(
                 "lang": chunk.lang,
                 "scope": scope,
                 "tenant_id": tenant_id,
-                "standard_code": doc.get("standard_code"),
+                "standard_code": global_std_code,
                 "source_uri": doc["source_path"],
                 "embedding_model": "unknown",
                 "token_count": chunk.token_count,
@@ -309,7 +337,7 @@ async def ingest(
         return 0
 
     # Embed in batches concurrently
-    texts = [m["text"] for m in all_chunks_meta]
+    texts = [f"[{m.get('standard_code') or 'Unknown'}] {m.get('heading', '')}\n{m['text']}".strip() for m in all_chunks_meta]
     vectors: list[list[float]] = []
     
     async with httpx.AsyncClient() as client:
@@ -328,6 +356,22 @@ async def ingest(
             "embedding count does not match chunk count: "
             f"received {len(vectors)} vectors for {len(all_chunks_meta)} chunks"
         )
+        
+    # Generate Sparse Vectors (BM25)
+    logger.info("generating sparse vectors for %d chunks using fastembed...", len(texts))
+    # Load model once
+    sparse_model = SparseTextEmbedding("Qdrant/bm25")
+    # fastembed yields a generator, list() materializes it. Run in thread to avoid blocking.
+    sparse_vectors_raw = await asyncio.to_thread(lambda: list(sparse_model.embed(texts)))
+    
+    # fastembed returns SparseEmbedding objects, Qdrant client needs models.SparseVector
+    # but the python client accepts dicts or SparseVector objects. 
+    # Qdrant client expects models.SparseVector(indices=..., values=...)
+    from qdrant_client.models import SparseVector
+    sparse_vectors = [
+        SparseVector(indices=sv.indices.tolist(), values=sv.values.tolist())
+        for sv in sparse_vectors_raw
+    ]
 
     # Detect actual dim from first vector
     actual_dim = len(vectors[0]) if vectors else EMBED_DIM
@@ -345,11 +389,12 @@ async def ingest(
     for i in range(0, len(all_chunks_meta), BATCH_SIZE):
         batch_meta = all_chunks_meta[i : i + BATCH_SIZE]
         batch_vecs = vectors[i : i + BATCH_SIZE]
+        batch_sparse = sparse_vectors[i : i + BATCH_SIZE]
         points = []
-        for meta, vec in zip(batch_meta, batch_vecs):
+        for meta, vec, sp_vec in zip(batch_meta, batch_vecs, batch_sparse):
             # Qdrant needs uint64 or UUID string ID
             point_id = str(uuid.UUID(meta["chunk_id"]))
-            points.append({**meta, "id": point_id, "vector": vec})
+            points.append({**meta, "id": point_id, "vector": vec, "sparse_vector": sp_vec})
         upsert_batch(qdrant, collection, points)
         total += len(points)
         logger.info("upserted %d/%d chunks", total, len(all_chunks_meta))
