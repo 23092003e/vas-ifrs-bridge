@@ -1,0 +1,81 @@
+{
+  "method": "assistant grading with shuffled configuration labels",
+  "strict_pass": "all required points with no material error",
+  "n": 7,
+  "summary": {
+    "oracle_base": 0,
+    "oracle_evidence_prompt": 1
+  },
+  "grades": {
+    "vas-inventory-01": {
+      "oracle_base": {
+        "correct": false,
+        "reason": "Incorrectly asks for values already supplied."
+      },
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "reason": "Invents a carrying amount and unsupported calculation."
+      }
+    },
+    "vas-inventory-02": {
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "reason": "Correctly says item by item, but omits the lower-than-cost condition."
+      },
+      "oracle_base": {
+        "correct": false,
+        "reason": "Incorrectly recommends aggregate inventory."
+      }
+    },
+    "vas-revenue-01": {
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "reason": "Correctly says no, but stops before the cost condition."
+      },
+      "oracle_base": {
+        "correct": false,
+        "reason": "Incorrectly affirms recognition."
+      }
+    },
+    "vas-events-01": {
+      "oracle_base": {
+        "correct": false,
+        "reason": "Repeats the question without stating the treatment."
+      },
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "reason": "Asks for unnecessary data and does not say to adjust the statements."
+      }
+    },
+    "vas-events-02": {
+      "oracle_base": {
+        "correct": false,
+        "reason": "States both required disclosures but does not explicitly state that amounts are not adjusted."
+      },
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "reason": "States both required disclosures but does not explicitly state that amounts are not adjusted."
+      }
+    },
+    "vas-regime-01": {
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "reason": "Correct period, but omits retained equitisation guidance under TT200."
+      },
+      "oracle_base": {
+        "correct": false,
+        "reason": "Correct period, but omits retained equitisation guidance under TT200."
+      }
+    },
+    "abstain-inventory-01": {
+      "oracle_base": {
+        "correct": false,
+        "reason": "Describes NRV but does not conclude that an exact provision cannot be computed."
+      },
+      "oracle_evidence_prompt": {
+        "correct": true,
+        "reason": "Correctly says the amount cannot be calculated and identifies missing inputs."
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "method": "assistant review of per-question randomized answer labels, no independent accountant review",
+  "strict_pass": "all required points, no material contradiction",
+  "n": 6,
+  "summary": {
+    "base": {
+      "correct": 0,
+      "direction_only": 0
+    },
+    "preview": {
+      "correct": 0,
+      "direction_only": 1
+    },
+    "full": {
+      "correct": 1,
+      "direction_only": 2
+    }
+  },
+  "grades": {
+    "vas-h01": {
+      "preview": {
+        "correct": false,
+        "direction_only": true,
+        "reason": "States no need rather than the prohibition, and stops mid-sentence."
+      },
+      "full": {
+        "correct": false,
+        "direction_only": true,
+        "reason": "States prohibition but falsely claims that VAS 18 does not specify the rule."
+      },
+      "base": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Ambiguous conclusion and unrelated rationale."
+      }
+    },
+    "vas-h02": {
+      "full": {
+        "correct": true,
+        "direction_only": true,
+        "reason": "Correctly says a contingent asset is not recognised."
+      },
+      "preview": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Misinterprets the question as VAT and does not apply the recognition rule."
+      },
+      "base": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "No answer to the recognition question."
+      }
+    },
+    "vas-h03": {
+      "preview": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "No conclusion."
+      },
+      "full": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Does not address the missing reliable estimate."
+      },
+      "base": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "No conclusion and incorrectly expands VAS."
+      }
+    },
+    "vas-h04": {
+      "preview": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Abstains despite the supplied control date."
+      },
+      "full": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Gives 1 March instead of 1 April."
+      },
+      "base": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Does not resolve the acquisition date."
+      }
+    },
+    "vas-h05": {
+      "preview": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Uses end-of-period shares."
+      },
+      "full": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Does not specify the weighted average."
+      },
+      "base": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Rejects the weighted average."
+      }
+    },
+    "vas-h06": {
+      "base": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Misidentifies VAS and gives no correct conclusion."
+      },
+      "full": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "Unnecessary abstention."
+      },
+      "preview": {
+        "correct": false,
+        "direction_only": false,
+        "reason": "No conclusion."
+      }
+    }
+  }
+}

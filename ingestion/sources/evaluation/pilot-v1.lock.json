@@ -1,0 +1,33 @@
+{
+  "dataset": "pilot-v1.jsonl",
+  "split": "dev",
+  "status": "reference_only_not_indexed",
+  "sha256": "e1129f64fd95a840261a2b928179647cdedd1800f55c2e723ef5cb80d2184668",
+  "sources": [
+    {
+      "file": "ifrs/eu-2023-1803-consolidated-2026-03-08.en.html",
+      "sha256": "2817145e467ceb5f85c843deca85f539ca452fd6585a6159fe5b7bd64173f597",
+      "scope": "personal_reference"
+    },
+    {
+      "file": "ifrs/eu-2026-338-ifrs18.en.html",
+      "sha256": "231323dbfbcf76f9a8ae5c4617a56f08fe0452fa22163e92998ef515bd3afd8e",
+      "scope": "personal_reference"
+    },
+    {
+      "file": "vas/12-2005-QD-BTC.doc",
+      "sha256": "25817e4abe2d9cc416d9fc92dba9bf65cba0667000961c53c4f56fff703bee43",
+      "scope": "source_review"
+    },
+    {
+      "file": "vas/149-2001-QD-BTC.pdf",
+      "sha256": "b110b2bb9c2d24d7eaacedaf2413c74c6e4999fae6db84b3c38432a17595d85a",
+      "scope": "source_review"
+    },
+    {
+      "file": "vas/99-2025-TT-BTC-part-01.pdf",
+      "sha256": "9aa44ed7a5aed27f18001df6e163858332ede3c4280397faf74fba01c1ccc86d",
+      "scope": "source_review"
+    }
+  ]
+}

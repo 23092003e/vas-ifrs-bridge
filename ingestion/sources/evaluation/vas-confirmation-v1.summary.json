@@ -1,0 +1,378 @@
+{
+  "recommend_default_change": false,
+  "gates": {
+    "independent_review": false,
+    "tei_scored_majority": false,
+    "all_sse_completed": true,
+    "correct_delta_at_least_three": true,
+    "supported_not_lower": true,
+    "no_new_serious_errors": false,
+    "p95_within_20_percent": true
+  },
+  "new_serious_case_ids": [
+    "vas-confirm-07",
+    "vas-confirm-08",
+    "vas-confirm-13",
+    "vas-confirm-14",
+    "vas-confirm-21"
+  ],
+  "summary": {
+    "tei_current": {
+      "correct": 4,
+      "supported": 0,
+      "serious": 9,
+      "sse_ok": 24,
+      "timeout": 24,
+      "p50_seconds": 68.17643412505277,
+      "p95_seconds": 75.77763024996966
+    },
+    "rrf_bounded": {
+      "correct": 15,
+      "supported": 7,
+      "serious": 5,
+      "sse_ok": 24,
+      "bypassed": 24,
+      "p50_seconds": 54.266472083632834,
+      "p95_seconds": 70.20515758288093
+    }
+  },
+  "grades": {
+    "vas-confirm-01": {
+      "tei_current": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Tách và ghi nhận riêng vào TSCĐ vô hình; không có citation SSE."
+      },
+      "rrf_bounded": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Phân loại và tách riêng đúng; số đoạn nêu sai và không có citation SSE."
+      }
+    },
+    "vas-confirm-02": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": true,
+        "serious": false,
+        "reason": "Đúng chi phí sản xuất, kinh doanh trong kỳ và trích đúng đoạn."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Kết luận chi phí trong kỳ nhưng dẫn sai VAS 14 thay vì VAS 03."
+      }
+    },
+    "vas-confirm-03": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Kết luận đúng không tái ghi nhận vào nguyên giá; key viết ngoài định dạng SSE."
+      },
+      "tei_current": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Kết luận đúng không đưa vào nguyên giá kỳ sau; số đoạn bổ sung thiếu căn cứ, không có citation SSE."
+      }
+    },
+    "vas-confirm-04": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": true,
+        "serious": false,
+        "reason": "Nêu đủ ngày và người quyết định phát hành, có đoạn nguồn chứa cả hai."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Phủ nhận yêu cầu công bố thông tin phát hành của VAS 23, có thể làm bỏ thuyết minh bắt buộc."
+      }
+    },
+    "vas-confirm-05": {
+      "tei_current": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Phân loại đúng là thay đổi ước tính, không phải sửa sai sót; không có citation SSE."
+      },
+      "rrf_bounded": {
+        "correct": true,
+        "supported": true,
+        "serious": false,
+        "reason": "Phân loại đúng và nguồn trích chứa cả điều kiện có thêm thông tin và kết luận không sửa sai sót."
+      }
+    },
+    "vas-confirm-06": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Nêu rõ cấm tính lãi thanh lý dự kiến vào dự phòng; không có citation SSE."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Biến điều cấm thành khuyến nghị và nhầm dự phòng với đo giá trị hợp lý hoặc giá trị thuần tài sản."
+      }
+    },
+    "vas-confirm-07": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Tính 350 thay vì 388 theo đáp án khóa. Câu hỏi chưa ghi rõ giá niêm yết đã gồm thuế hay chưa nên không xếp nghiêm trọng."
+      },
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Gọi máy là TSCĐ vô hình và chưa kết luận nguyên giá; sai phân loại tài sản."
+      }
+    },
+    "vas-confirm-08": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Xác định đúng nguyên giá 260 triệu nhưng dừng trước kết luận về lãi hoặc lỗ."
+      },
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Gán quy tắc không ghi lãi lỗ cho cả tài sản vô hình không tương tự và chưa đưa đủ kết quả cho tình huống."
+      }
+    },
+    "vas-confirm-09": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Thêm ngưỡng giảm lợi ích phải đáng kể, có thể dẫn đến không ghi nhận dự phòng đủ điều kiện; chưa hoàn tất điều kiện ước tính."
+      },
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Chưa nêu đủ nghĩa vụ phát sinh từ sự kiện đã xảy ra và điều kiện ước tính đáng tin cậy."
+      }
+    },
+    "vas-confirm-10": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Giới hạn sai thay đổi bắt buộc vào trường hợp có hướng dẫn chuyển đổi và bỏ phần tin cậy ở nhánh tự nguyện."
+      },
+      "rrf_bounded": {
+        "correct": true,
+        "supported": true,
+        "serious": false,
+        "reason": "Nêu đủ hai căn cứ và dẫn đúng đoạn 06."
+      }
+    },
+    "vas-confirm-11": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Nêu thủ tục tái phân loại và đánh giá lại từ chế độ kế toán nhưng không trả lời đầy đủ yêu cầu thay đổi cơ sở kế toán theo đoạn 13."
+      },
+      "rrf_bounded": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Nêu đúng phải thay đổi cơ sở kế toán thay vì chỉ điều chỉnh số liệu; không có citation SSE."
+      }
+    },
+    "vas-confirm-12": {
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Bỏ yêu cầu gắn với một TSCĐ vô hình cụ thể và không nêu lợi ích kinh tế tăng so với mức ban đầu."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Dùng điều kiện chi phí đưa tài sản vào sử dụng lần đầu để quyết định vốn hóa khoản phát sinh sau ghi nhận."
+      }
+    },
+    "vas-confirm-13": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Có 320 triệu và chênh lệch 30 triệu nhưng dừng trước cách hạch toán chênh lệch; nêu sai tên chuẩn mực."
+      },
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Nêu đúng cách xử lý số tiền nhưng áp VAS 03 cho TSCĐ vô hình và phân loại sai đối tượng máy."
+      }
+    },
+    "vas-confirm-14": {
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Nêu ngoại lệ đúng ở đầu rồi đảo điều kiện giảm giá ở kết luận."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Chỉ nêu nguyên tắc chung và không trả lời ngoại lệ đối với nguyên liệu khi thành phẩm còn bán được đủ giá thành."
+      }
+    },
+    "vas-confirm-15": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": true,
+        "serious": false,
+        "reason": "Ghi đúng toàn bộ vào chi phí trong kỳ và dẫn đoạn quy định khi không tách được hai giai đoạn."
+      },
+      "tei_current": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Đủ kết luận phải ghi toàn bộ chi phí trong kỳ, chưa có citation SSE."
+      }
+    },
+    "vas-confirm-16": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Nêu tài sản riêng và trần 90 triệu; khóa citation bị cắt."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Thêm quy tắc buộc ghi nhận cùng kỳ lập dự phòng và chưa nêu tài sản riêng hay trần số tiền."
+      }
+    },
+    "vas-confirm-17": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": true,
+        "serious": false,
+        "reason": "Nêu đúng kỳ sớm nhất có thể thực hiện và dẫn đoạn hỗ trợ."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Khẳng định áp dụng phi hồi tố rồi lại yêu cầu hồi tố trong cùng tình huống."
+      }
+    },
+    "vas-confirm-18": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Nêu không tạo doanh thu ở đầu nhưng gắn thêm điều kiện mục đích thương mại và dẫn sai loại văn bản."
+      },
+      "rrf_bounded": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Xác định đúng không có doanh thu từ trao đổi hàng tương tự; không phát citation SSE."
+      }
+    },
+    "vas-confirm-19": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Nói không xác định chính xác vì thiếu khấu hao lũy kế; con số 480 chỉ nêu trong giả thiết khấu hao bằng không."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Gán giá trị còn lại 480 triệu khi thiếu số khấu hao lũy kế."
+      }
+    },
+    "vas-confirm-20": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Gán thiếu hồ sơ nguồn lực thành thiếu chắc chắn lợi ích, chưa nêu đúng điều kiện nguồn lực ở giai đoạn triển khai hoặc kết luận."
+      },
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Nêu đúng điều kiện nguồn lực nhưng suy thiếu thông tin thành chưa thỏa mãn, nhầm phạm vi bốn và bảy điều kiện, rồi dừng trước kết luận."
+      }
+    },
+    "vas-confirm-21": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Nhận ra thiếu dữ liệu nhưng không nêu phép lấy giá trị ghi sổ trừ phần được khấu trừ."
+      },
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Chuyển sang chỉ dẫn ghi tài sản thuế hoãn lại không phân biệt hướng chênh lệch và chưa trả lời cơ sở tính thuế."
+      }
+    },
+    "vas-confirm-22": {
+      "rrf_bounded": {
+        "correct": true,
+        "supported": true,
+        "serious": false,
+        "reason": "Không ghi số dự phòng, trình bày nợ tiềm tàng vì không thể ước tính đáng tin cậy; đoạn trích hỗ trợ cả hai ý."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Nêu khó khăn, chuyển sang tài sản tiềm tàng và chưa kết luận đúng cách xử lý nghĩa vụ."
+      }
+    },
+    "vas-confirm-23": {
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Chuyển sang ví dụ khấu hao, bỏ cách phân biệt kỳ hiện tại với các kỳ sau cho tình huống thiếu dữ liệu."
+      },
+      "rrf_bounded": {
+        "correct": true,
+        "supported": false,
+        "serious": false,
+        "reason": "Nêu đủ hai nhánh ghi nhận và nhận ra chưa biết phạm vi ảnh hưởng; không phát citation SSE."
+      }
+    },
+    "vas-confirm-24": {
+      "rrf_bounded": {
+        "correct": false,
+        "supported": false,
+        "serious": false,
+        "reason": "Đề xuất ước tính thời gian sử dụng nhưng không kết luận thiếu căn cứ tính chính xác và bỏ ngày bắt đầu."
+      },
+      "tei_current": {
+        "correct": false,
+        "supported": false,
+        "serious": true,
+        "reason": "Dẫn sai VAS 15 và nói không cần biết ngày đưa vào sử dụng vẫn có thể tính khấu hao năm đầu."
+      }
+    }
+  },
+  "reviewer": "assistant, configuration labels masked"
+}

@@ -1,0 +1,85 @@
+{
+  "method": "assistant grading of per-case shuffled model labels",
+  "models": {
+    "small": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "large": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+  },
+  "n": 7,
+  "strict_pass": "all required accounting points with no material accounting error",
+  "summary": {
+    "small": 0,
+    "large": 2
+  },
+  "grades": {
+    "vas-inventory-01": {
+      "large": {
+        "correct": true,
+        "reason": "Gives 95 million and applies the lower-of rule. The expansion of VAS is fabricated, but does not change the accounting conclusion."
+      },
+      "small": {
+        "correct": false,
+        "reason": "Incorrectly asks for values already supplied."
+      }
+    },
+    "vas-inventory-02": {
+      "large": {
+        "correct": false,
+        "reason": "Incorrectly recommends aggregate inventory."
+      },
+      "small": {
+        "correct": false,
+        "reason": "Incorrectly recommends aggregate inventory."
+      }
+    },
+    "vas-revenue-01": {
+      "large": {
+        "correct": false,
+        "reason": "Starts listing conditions and stops before the cost requirement and conclusion."
+      },
+      "small": {
+        "correct": false,
+        "reason": "Incorrectly affirms recognition."
+      }
+    },
+    "vas-events-01": {
+      "large": {
+        "correct": true,
+        "reason": "Explicitly says to adjust the recorded amounts. The attempted elaboration ends mid-sentence."
+      },
+      "small": {
+        "correct": false,
+        "reason": "Repeats the question without stating the treatment."
+      }
+    },
+    "vas-events-02": {
+      "large": {
+        "correct": false,
+        "reason": "Gives the required disclosures without explicitly saying the amounts are not adjusted."
+      },
+      "small": {
+        "correct": false,
+        "reason": "Gives the required disclosures without explicitly saying the amounts are not adjusted."
+      }
+    },
+    "vas-regime-01": {
+      "large": {
+        "correct": false,
+        "reason": "Gives the correct period and acknowledges an exception, but does not clearly say which retained guidance continues or when it ends."
+      },
+      "small": {
+        "correct": false,
+        "reason": "Gives the correct period but omits retained TT200 guidance."
+      }
+    },
+    "abstain-inventory-01": {
+      "large": {
+        "correct": false,
+        "reason": "Gives the NRV formula and stops without saying an exact provision cannot be calculated."
+      },
+      "small": {
+        "correct": false,
+        "reason": "Describes NRV but does not conclude it cannot be calculated."
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "method": "assistant grading of shuffled prompt labels using prior rubric",
+  "n": 7,
+  "summary": {
+    "oracle_base": {
+      "correct": 4,
+      "direct_question_correct": 6
+    },
+    "oracle_evidence_prompt": {
+      "correct": 4,
+      "direct_question_correct": 6
+    }
+  },
+  "grades": {
+    "vas-inventory-01": {
+      "oracle_evidence_prompt": {
+        "correct": true,
+        "direct_question_correct": true,
+        "reason": "Correct carrying amount and lower-of rule."
+      },
+      "oracle_base": {
+        "correct": true,
+        "direct_question_correct": true,
+        "reason": "Correct carrying amount and lower-of rule."
+      }
+    },
+    "vas-inventory-02": {
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "direct_question_correct": true,
+        "reason": "Correctly says item by item but omits the lower-than-cost condition."
+      },
+      "oracle_base": {
+        "correct": false,
+        "direct_question_correct": true,
+        "reason": "Correctly says item by item but omits the lower-than-cost condition."
+      }
+    },
+    "vas-revenue-01": {
+      "oracle_base": {
+        "correct": true,
+        "direct_question_correct": true,
+        "reason": "Correct result and the missing cost condition."
+      },
+      "oracle_evidence_prompt": {
+        "correct": true,
+        "direct_question_correct": true,
+        "reason": "Correct result and the missing cost condition."
+      }
+    },
+    "vas-events-01": {
+      "oracle_base": {
+        "correct": true,
+        "direct_question_correct": true,
+        "reason": "States that recorded amounts must be adjusted."
+      },
+      "oracle_evidence_prompt": {
+        "correct": true,
+        "direct_question_correct": true,
+        "reason": "States that recorded amounts must be adjusted."
+      }
+    },
+    "vas-events-02": {
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "direct_question_correct": true,
+        "reason": "Correct disclosures but does not explicitly say amounts are unchanged."
+      },
+      "oracle_base": {
+        "correct": false,
+        "direct_question_correct": true,
+        "reason": "Correct disclosures but does not explicitly say amounts are unchanged."
+      }
+    },
+    "vas-regime-01": {
+      "oracle_base": {
+        "correct": false,
+        "direct_question_correct": false,
+        "reason": "Correct date and refers to retained guidance, but truncates before completing the exception."
+      },
+      "oracle_evidence_prompt": {
+        "correct": false,
+        "direct_question_correct": false,
+        "reason": "Correct date and refers to retained guidance, but truncates before completing the exception."
+      }
+    },
+    "abstain-inventory-01": {
+      "oracle_evidence_prompt": {
+        "correct": true,
+        "direct_question_correct": true,
+        "reason": "Correctly refuses to calculate and identifies missing NRV or inputs."
+      },
+      "oracle_base": {
+        "correct": true,
+        "direct_question_correct": true,
+        "reason": "Correctly refuses to calculate and identifies missing NRV or inputs."
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "method": "Assistant graded the new RRF responses using the same dev rubric. The TEI grades were reused from the prior SSE run.",
+  "n": 7,
+  "grades": {
+    "vas-inventory-01": {
+      "correct": false,
+      "reason": "Nêu đúng quy tắc và hai dữ kiện, dừng trước khi kết luận giá trị trình bày 95 triệu.",
+      "all_context_markers": true,
+      "all_cited_markers": false
+    },
+    "vas-inventory-02": {
+      "correct": false,
+      "reason": "Nói có thể chọn lập dự phòng theo tổng kho và bỏ ngưỡng giá trị thuần thấp hơn giá gốc.",
+      "all_context_markers": true,
+      "all_cited_markers": false
+    },
+    "vas-revenue-01": {
+      "correct": false,
+      "reason": "Khẳng định có thể ghi nhận ngay cả khi chưa xác định chi phí.",
+      "all_context_markers": true,
+      "all_cited_markers": false
+    },
+    "vas-events-01": {
+      "correct": true,
+      "reason": "Kết luận phải điều chỉnh và nêu rõ điều chỉnh số liệu đã ghi nhận.",
+      "all_context_markers": true,
+      "all_cited_markers": false
+    },
+    "vas-events-02": {
+      "correct": true,
+      "reason": "Nêu loại không cần điều chỉnh, nội dung sự kiện và ước tính ảnh hưởng hoặc lý do không thể ước tính. Citation sai cú pháp.",
+      "all_context_markers": true,
+      "all_cited_markers": false
+    },
+    "vas-regime-01": {
+      "correct": false,
+      "reason": "Thiếu cả mốc 01/01/2026 và phạm vi ngoại lệ; đưa khoảng 15–30 ngày không có căn cứ.",
+      "all_context_markers": true,
+      "all_cited_markers": false
+    },
+    "abstain-inventory-01": {
+      "correct": true,
+      "reason": "Không đưa ra số tiền và xác định thiếu giá bán hoặc chi phí. Gọi chưa chính xác tên chuẩn mực.",
+      "all_context_markers": false,
+      "all_cited_markers": false
+    }
+  },
+  "correct": 3
+}

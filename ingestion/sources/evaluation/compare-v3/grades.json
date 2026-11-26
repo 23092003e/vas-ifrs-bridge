@@ -1,0 +1,272 @@
+{
+  "summary": {
+    "two_sided": {
+      "n": 20,
+      "gold_in_context": 20,
+      "both_sources_cited": 14,
+      "results": {
+        "wrong": 5,
+        "incomplete": 6,
+        "pass": 4,
+        "refused": 5
+      },
+      "p50_seconds": 7.587386853992939,
+      "passed_by_language": {
+        "en": 3,
+        "vi": 1
+      },
+      "passed_by_topic": {
+        "fx": 3,
+        "group": 1
+      }
+    },
+    "missing_cases": {
+      "n": 4,
+      "safe_abstention": 4,
+      "partial_correct": 2,
+      "strict_pass": 3
+    }
+  },
+  "cases": [
+    {
+      "id": "E01",
+      "group": "cash",
+      "lang": "vi",
+      "result": "wrong",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 6.491455417126417,
+      "reason": "IFRS ghi 7 tỷ thành dòng tiền tài chính dù không phát sinh tiền. Phía VAS chỉ nhắc lại dữ kiện."
+    },
+    {
+      "id": "E02",
+      "group": "cash",
+      "lang": "en",
+      "result": "incomplete",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 6.9027787912636995,
+      "reason": "IFRS loại khỏi báo cáo lưu chuyển và công bố riêng. VAS thiếu nơi công bố và gán nguyên nhân loại trừ cho phân loại đầu tư."
+    },
+    {
+      "id": "E03",
+      "group": "cash",
+      "lang": "vi",
+      "result": "wrong",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 8.17332729185,
+      "reason": "Nhận định VAS đưa giao dịch vào dòng tiền đầu tư mâu thuẫn với trình bày riêng của giao dịch phi tiền. IFRS thiếu việc loại khỏi báo cáo lưu chuyển."
+    },
+    {
+      "id": "E04",
+      "group": "fx",
+      "lang": "en",
+      "result": "pass",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 14.165030499920249,
+      "reason": "Hai phía nêu đúng tỷ giá cuối kỳ cho khoản tiền tệ và tỷ giá giao dịch cho khoản phi tiền tệ theo giá gốc."
+    },
+    {
+      "id": "E05",
+      "group": "fx",
+      "lang": "vi",
+      "result": "incomplete",
+      "gold_in_context": true,
+      "gold_cited": false,
+      "seconds": 10.646528250072151,
+      "reason": "VAS nêu đúng hai tỷ giá. Bản final thiếu phần IAS 21."
+    },
+    {
+      "id": "E06",
+      "group": "fx",
+      "lang": "en",
+      "result": "pass",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 5.908897832967341,
+      "reason": "Hai phía áp đúng tỷ giá cho khoản vay và máy theo giá gốc."
+    },
+    {
+      "id": "E07",
+      "group": "group",
+      "lang": "vi",
+      "result": "refused",
+      "gold_in_context": true,
+      "gold_cited": false,
+      "seconds": 12.016052040737122,
+      "reason": "Cả hai nguồn có trong ngữ cảnh. Nội dung model thiếu mã trích dẫn và bản final từ chối."
+    },
+    {
+      "id": "E08",
+      "group": "group",
+      "lang": "en",
+      "result": "wrong",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 9.812297041993588,
+      "reason": "Phía VAS giữ doanh thu và số dư nội bộ trên báo cáo hợp nhất, trái với đoạn được dẫn."
+    },
+    {
+      "id": "E09",
+      "group": "group",
+      "lang": "vi",
+      "result": "pass",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 7.216563708148897,
+      "reason": "Cả hai phía nêu loại trừ số dư nội bộ trên báo cáo hợp nhất."
+    },
+    {
+      "id": "E10",
+      "group": "property",
+      "lang": "en",
+      "result": "incomplete",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 8.264981334097683,
+      "reason": "IFRS nêu biến động giá trị vào lãi/lỗ. VAS thiếu cơ sở nguyên giá và hao mòn."
+    },
+    {
+      "id": "E11",
+      "group": "property",
+      "lang": "vi",
+      "result": "refused",
+      "gold_in_context": true,
+      "gold_cited": false,
+      "seconds": 6.770690707955509,
+      "reason": "Model nhắc lại câu hỏi, sai cấu trúc mã đoạn. Bản final từ chối."
+    },
+    {
+      "id": "E12",
+      "group": "property",
+      "lang": "en",
+      "result": "refused",
+      "gold_in_context": true,
+      "gold_cited": false,
+      "seconds": 4.073729957919568,
+      "reason": "Model gắn kết luận theo IAS 40 dưới nhãn VAS. Bản final từ chối."
+    },
+    {
+      "id": "E13",
+      "group": "influence",
+      "lang": "vi",
+      "result": "wrong",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 8.369850208982825,
+      "reason": "Hai nhận định đồng nhất tỷ lệ quyền biểu quyết với tỷ lệ quyền kiểm soát mà các đoạn dẫn không hỗ trợ."
+    },
+    {
+      "id": "E14",
+      "group": "influence",
+      "lang": "en",
+      "result": "wrong",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 4.564482083078474,
+      "reason": "Phía VAS nói về quyền kiểm soát đáng kể thay vì ảnh hưởng đáng kể. Phía IAS nêu đúng quy tắc."
+    },
+    {
+      "id": "E15",
+      "group": "influence",
+      "lang": "vi",
+      "result": "incomplete",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 1.8135856250301003,
+      "reason": "Chỉ đưa ngưỡng dưới dạng 20% và 1/5, thiếu kết luận cho tình huống 35%."
+    },
+    {
+      "id": "E16",
+      "group": "lease",
+      "lang": "en",
+      "result": "refused",
+      "gold_in_context": true,
+      "gold_cited": false,
+      "seconds": 7.958209999836981,
+      "reason": "Model lặp nội dung IFRS dưới cả hai nhãn và không dẫn mã. Bản final từ chối."
+    },
+    {
+      "id": "E17",
+      "group": "lease",
+      "lang": "vi",
+      "result": "incomplete",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 10.889802209101617,
+      "reason": "Nêu đúng nguyên tắc VAS và hai khoản mục IFRS nhưng bỏ số tiền 360 theo VAS."
+    },
+    {
+      "id": "E18",
+      "group": "lease",
+      "lang": "en",
+      "result": "refused",
+      "gold_in_context": true,
+      "gold_cited": false,
+      "seconds": 8.887743999715894,
+      "reason": "Model đưa cách đo không thuộc thuê hoạt động và thiếu mã trích dẫn. Bản final từ chối."
+    },
+    {
+      "id": "E19",
+      "group": "lease",
+      "lang": "vi",
+      "result": "incomplete",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 4.821399000007659,
+      "reason": "Nhắc lại giả định câu hỏi. VAS chưa kết luận cách ghi chi phí và IFRS chưa nêu hai khoản mục ghi nhận."
+    },
+    {
+      "id": "E20",
+      "group": "fx",
+      "lang": "en",
+      "result": "pass",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 3.583202083595097,
+      "reason": "Hai phía nêu đúng tỷ giá cuối kỳ cho phải thu tiền tệ."
+    },
+    {
+      "id": "E21",
+      "group": "missing",
+      "lang": "vi",
+      "result": "partial_pass",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 6.262076708022505,
+      "reason": "Trả lời đúng phần VAS 05 có nguồn và nêu rõ thiếu IFRS 17."
+    },
+    {
+      "id": "E22",
+      "group": "missing",
+      "lang": "en",
+      "result": "partial_pass",
+      "gold_in_context": true,
+      "gold_cited": true,
+      "seconds": 7.027716832701117,
+      "reason": "VAS 10 nêu đúng tỷ giá cuối kỳ và báo thiếu IAS 29. Phần nghiệp vụ dùng tiếng Việt trong lượt hỏi tiếng Anh."
+    },
+    {
+      "id": "E23",
+      "group": "missing",
+      "lang": "vi",
+      "result": "missing_incomplete",
+      "gold_in_context": true,
+      "gold_cited": false,
+      "seconds": 5.184924209024757,
+      "reason": "Thông báo thiếu VAS 20 đúng. Phần IAS 40 bị loại vì model đặt dưới nhãn VAS."
+    },
+    {
+      "id": "E24",
+      "group": "missing",
+      "lang": "en",
+      "result": "no_sources_pass",
+      "gold_in_context": true,
+      "gold_cited": false,
+      "seconds": 0.016836707945913076,
+      "reason": "Từ chối toàn bộ và không trích dẫn khi thiếu nguồn cả hai phía."
+    }
+  ]
+}

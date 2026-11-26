@@ -223,6 +223,8 @@ __marimo__/
 ingestion/processed/
 !ingestion/processed/.gitkeep
 !ingestion/processed/*/.gitkeep
+/ingestion/sources/vas/
+/ingestion/sources/ifrs/
 
 # Local code intelligence index
 .codegraph/

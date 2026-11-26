@@ -1,0 +1,576 @@
+{
+  "source_sha256": {
+    "149-2001-QD-BTC.pdf": "b110b2bb9c2d24d7eaacedaf2413c74c6e4999fae6db84b3c38432a17595d85a",
+    "100-2005-QD-BTC.pdf": "dc84d9846127975c52a3f17d459df586404fa2ae3231f4dacc74de89281aca02",
+    "99-2025-TT-BTC-part-01.pdf": "9aa44ed7a5aed27f18001df6e163858332ede3c4280397faf74fba01c1ccc86d",
+    "12-2005-QD-BTC.doc": "25817e4abe2d9cc416d9fc92dba9bf65cba0667000961c53c4f56fff703bee43"
+  },
+  "dev_sha256": "e1129f64fd95a840261a2b928179647cdedd1800f55c2e723ef5cb80d2184668",
+  "labels_sha256": "ac9116a7ff253dc4f315b38dd7a611f47652030601160465d0dc95234fe41a0a",
+  "context_budget": 512,
+  "generator": "7cdf5a0187d5c58cc5d369b255592f7841d1c4696d45a8c8a9489440385b22f6",
+  "ollama": {
+    "model": "qwen2.5:14b-instruct",
+    "digest": "7cdf5a0187d5c58cc5d369b255592f7841d1c4696d45a8c8a9489440385b22f6",
+    "version": "0.32.0",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "14.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "num_ctx": 4096,
+    "temperature": 0
+  },
+  "system_prompt": "Trả lời câu hỏi kế toán bằng tiếng Việt, tối đa hai câu. Nêu rõ nếu thiếu dữ liệu.",
+  "embedder": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "device": "cpu",
+  "threads": 4,
+  "chunk_count": 359,
+  "index_seconds": 11.361511583905667,
+  "ranking": {
+    "dense": {
+      "hit_at_5": 0.8571428571428571,
+      "mrr_at_5": 0.5476190476190477
+    },
+    "sparse": {
+      "hit_at_5": 0.5714285714285714,
+      "mrr_at_5": 0.4761904761904762
+    },
+    "hybrid": {
+      "hit_at_5": 0.7142857142857143,
+      "mrr_at_5": 0.5476190476190477
+    }
+  },
+  "generation": {
+    "preview": {
+      "evidence_visible": 0,
+      "markers_visible": 0,
+      "median_input_tokens": 384,
+      "p50_total_seconds": 14.605575958034024,
+      "p95_total_seconds": 17.071967224404215
+    },
+    "full": {
+      "evidence_visible": 5,
+      "markers_visible": 9,
+      "median_input_tokens": 2509,
+      "p50_total_seconds": 34.584205583902076,
+      "p95_total_seconds": 40.118644758244045
+    },
+    "prefix_512": {
+      "evidence_visible": 1,
+      "markers_visible": 4,
+      "median_input_tokens": 608,
+      "p50_total_seconds": 10.343577624997124,
+      "p95_total_seconds": 16.09918314474635
+    },
+    "passages_512": {
+      "evidence_visible": 2,
+      "markers_visible": 6,
+      "median_input_tokens": 584,
+      "p50_total_seconds": 12.475626249797642,
+      "p95_total_seconds": 20.07664340818301
+    }
+  },
+  "results": [
+    {
+      "id": "vas-inventory-01",
+      "question": "Một lô hàng có giá gốc 120 triệu và giá trị thuần có thể thực hiện được 95 triệu. Theo VAS 02, giá trị trình bày là bao nhiêu?",
+      "reference": "95 triệu đồng, vì giá trị thuần có thể thực hiện được thấp hơn giá gốc.",
+      "gold": [
+        2
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 1,
+        "sparse": null,
+        "hybrid": 2
+      },
+      "dense_ms": 11.820291168987751,
+      "hybrid_ms": 13.23499926365912,
+      "hybrid_top5": [
+        6,
+        2,
+        1,
+        10,
+        7
+      ],
+      "selection_seconds": 0.010482958052307367,
+      "marker_total": 1,
+      "markers_visible": {
+        "preview": 0,
+        "full": 1,
+        "prefix_512": 0,
+        "passages_512": 0
+      },
+      "evidence_visible": {
+        "preview": false,
+        "full": true,
+        "prefix_512": false,
+        "passages_512": false
+      },
+      "generations": {
+        "preview": {
+          "answer": "Theo VAS 02, hàng tồn kho phải được ghi nhận tại mức thấp nhất giữa giá gốc và giá trị thuần có thể thực hiện được. Do đó, lô hàng này sẽ được trình bày với giá trị 95 triệu đồng.",
+          "input_tokens": 385,
+          "output_tokens": 55,
+          "seconds": 5.770967124961317,
+          "ttft_seconds": 1.4565579579211771,
+          "done_reason": "stop"
+        },
+        "full": {
+          "answer": "Theo VAS 02, khi giá trị thuần có thể thực hiện được của hàng tồn kho nhỏ hơn giá gốc thì phải tính theo giá trị thuần có thể thực hiện được. Do đó, giá trị trình bày của lô hàng này là 95 triệu đồng.",
+          "input_tokens": 2578,
+          "output_tokens": 61,
+          "seconds": 15.780236666090786,
+          "ttft_seconds": 10.610843332950026,
+          "done_reason": "stop"
+        },
+        "prefix_512": {
+          "answer": "Theo VAS 02, khi giá trị thuần có thể thực hiện được của hàng tồn kho nhỏ hơn giá gốc thì phải lập dự phòng giảm giá hàng tồn kho. Do đó, giá trị trình bày của lô hàng này sẽ là 95 triệu đồng sau khi đã lập dự phòng giảm giá 25 triệu đồng (120 - 95).",
+          "input_tokens": 604,
+          "output_tokens": 79,
+          "seconds": 6.813754792092368,
+          "ttft_seconds": 0.7164532500319183,
+          "done_reason": "stop"
+        },
+        "passages_512": {
+          "answer": "Theo VAS 02, khi giá trị thuần có thể thực hiện được của hàng tồn kho nhỏ hơn giá gốc thì phải lập dự phòng giảm giá hàng tồn kho. Do đó, lô hàng này sẽ được trình bày với giá trị 95 triệu đồng sau khi đã ghi nhận dự phòng giảm giá là 25 triệu đồng (120 - 95",
+          "input_tokens": 604,
+          "output_tokens": 80,
+          "seconds": 8.53669208404608,
+          "ttft_seconds": 2.4810399590060115,
+          "done_reason": "length"
+        }
+      }
+    },
+    {
+      "id": "vas-inventory-02",
+      "question": "VAS 02 yêu cầu lập dự phòng giảm giá hàng tồn kho theo tổng kho hay theo từng mặt hàng?",
+      "reference": "Cuối kỳ kế toán năm, lập dự phòng trên cơ sở từng mặt hàng có giá trị thuần có thể thực hiện được thấp hơn giá gốc.",
+      "gold": [
+        6
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 1,
+        "sparse": 1,
+        "hybrid": 1
+      },
+      "dense_ms": 23.325666086748242,
+      "hybrid_ms": 23.93679111264646,
+      "hybrid_top5": [
+        6,
+        8,
+        9,
+        1,
+        5
+      ],
+      "selection_seconds": 0.01837587496265769,
+      "marker_total": 2,
+      "markers_visible": {
+        "preview": 0,
+        "full": 2,
+        "prefix_512": 2,
+        "passages_512": 1
+      },
+      "evidence_visible": {
+        "preview": false,
+        "full": true,
+        "prefix_512": true,
+        "passages_512": false
+      },
+      "generations": {
+        "full": {
+          "answer": "VAS 02 yêu cầu lập dự phòng giảm giá hàng tồn kho theo từng mặt hàng tồn kho. Đối với dịch vụ cung cấp dở dang, việc lập dự phòng giảm giá hàng tồn kho được tính theo từng loại dịch vụ có mức giá riêng biệt.",
+          "input_tokens": 2511,
+          "output_tokens": 57,
+          "seconds": 14.456162708811462,
+          "ttft_seconds": 9.440118333790451,
+          "done_reason": "stop"
+        },
+        "prefix_512": {
+          "answer": "VAS 02 yêu cầu lập dự phòng giảm giá hàng tồn kho trên cơ sở từng mặt hàng tồn kho. Đối với dịch vụ cung cấp dở dang, việc lập dự phòng giảm giá được tính theo từng loại dịch vụ có mức giá riêng biệt.",
+          "input_tokens": 587,
+          "output_tokens": 55,
+          "seconds": 5.480032917112112,
+          "ttft_seconds": 0.8467152079101652,
+          "done_reason": "stop"
+        },
+        "passages_512": {
+          "answer": "VAS 02 yêu cầu lập dự phòng giảm giá hàng tồn kho theo từng mặt hàng. Đối với dịch vụ cung cấp dở dang, việc lập dự phòng giảm giá được tính theo từng loại dịch vụ có mức giá riêng biệt.",
+          "input_tokens": 576,
+          "output_tokens": 52,
+          "seconds": 7.682647499954328,
+          "ttft_seconds": 3.026948624989018,
+          "done_reason": "stop"
+        },
+        "preview": {
+          "answer": "VAS 02 không明确规定是针对总体存货还是个别存货项目设立跌价准备，但通常的做法是针对每个具体的存货项目进行评估。需要进一步的具体指导建议咨询最新的会计准则或专业意见。",
+          "input_tokens": 384,
+          "output_tokens": 45,
+          "seconds": 6.55059991707094,
+          "ttft_seconds": 2.1167280829977244,
+          "done_reason": "stop"
+        }
+      }
+    },
+    {
+      "id": "vas-revenue-01",
+      "question": "Theo VAS 14, giao hàng đã chuyển phần lớn rủi ro và lợi ích nhưng chi phí liên quan chưa xác định được. Đã đủ điều kiện ghi nhận doanh thu bán hàng chưa?",
+      "reference": "Chưa. Các điều kiện phải đồng thời thỏa mãn, trong đó có việc xác định được chi phí liên quan đến giao dịch bán hàng.",
+      "gold": [
+        49,
+        50
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 2,
+        "sparse": 1,
+        "hybrid": 1
+      },
+      "dense_ms": 326.2445000000298,
+      "hybrid_ms": 328.9637500420213,
+      "hybrid_top5": [
+        50,
+        51,
+        49,
+        30,
+        266
+      ],
+      "selection_seconds": 0.018305457895621657,
+      "marker_total": 2,
+      "markers_visible": {
+        "preview": 0,
+        "full": 2,
+        "prefix_512": 1,
+        "passages_512": 2
+      },
+      "evidence_visible": {
+        "preview": false,
+        "full": true,
+        "prefix_512": false,
+        "passages_512": true
+      },
+      "generations": {
+        "prefix_512": {
+          "answer": "Theo VAS 14, nếu giao dịch đã chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu hàng hóa cho người mua nhưng chi phí liên quan chưa xác định được thì chưa đủ điều kiện để ghi nhận doanh thu bán hàng.",
+          "input_tokens": 608,
+          "output_tokens": 63,
+          "seconds": 10.014613874955103,
+          "ttft_seconds": 3.679763291031122,
+          "done_reason": "stop"
+        },
+        "passages_512": {
+          "answer": "Theo VAS 14, để ghi nhận doanh thu bán hàng, cần thỏa mãn tất cả năm điều kiện, trong đó bao gồm việc phải xác định được chi phí liên quan đến giao dịch. Nếu chi phí liên quan chưa được xác định thì chưa đủ điều kiện ghi nhận doanh thu.",
+          "input_tokens": 584,
+          "output_tokens": 71,
+          "seconds": 12.12835704186,
+          "ttft_seconds": 2.9701333339326084,
+          "done_reason": "stop"
+        },
+        "preview": {
+          "answer": "Theo VAS 14, nếu giao dịch bán hàng đã chuyển phần lớn rủi ro và lợi ích kinh tế cho bên mua nhưng không thể xác định được chi phí liên quan của hàng hóa thì chưa đủ điều kiện để ghi nhận doanh thu. Cần phải xác định được chi phí hợp lý của hàng hóa mới có thể ghi nhận doanh thu",
+          "input_tokens": 362,
+          "output_tokens": 80,
+          "seconds": 14.276612207992002,
+          "ttft_seconds": 2.5114411250688136,
+          "done_reason": "length"
+        },
+        "full": {
+          "answer": "Theo VAS 14, để ghi nhận doanh thu bán hàng phải thỏa mãn năm điều kiện đồng thời, trong đó bao gồm việc xác định được chi phí liên quan đến giao dịch bán hàng. Nếu chi phí liên quan chưa xác định được thì chưa đủ điều kiện ghi nhận doanh thu bán hàng.",
+          "input_tokens": 2480,
+          "output_tokens": 73,
+          "seconds": 34.255241833860055,
+          "ttft_seconds": 17.55088641680777,
+          "done_reason": "stop"
+        }
+      }
+    },
+    {
+      "id": "vas-events-01",
+      "question": "Sau ngày kết thúc năm nhưng trước ngày phát hành BCTC, một sự kiện cung cấp thêm bằng chứng về điều kiện đã tồn tại cuối năm và thuộc nhóm điều chỉnh. VAS 23 yêu cầu xử lý số liệu ra sao?",
+      "reference": "Điều chỉnh số liệu BCTC để phản ánh sự kiện cần điều chỉnh.",
+      "gold": [
+        298
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 3,
+        "sparse": 3,
+        "hybrid": 3
+      },
+      "dense_ms": 289.75016600452363,
+      "hybrid_ms": 294.14804093539715,
+      "hybrid_top5": [
+        7,
+        299,
+        298,
+        297,
+        301
+      ],
+      "selection_seconds": 0.017819999950006604,
+      "marker_total": 1,
+      "markers_visible": {
+        "preview": 0,
+        "full": 1,
+        "prefix_512": 0,
+        "passages_512": 0
+      },
+      "evidence_visible": {
+        "preview": false,
+        "full": true,
+        "prefix_512": false,
+        "passages_512": false
+      },
+      "generations": {
+        "passages_512": {
+          "answer": "Theo VAS 23, nếu sau ngày kết thúc năm nhưng trước khi phát hành báo cáo tài chính có sự kiện cung cấp thêm bằng chứng về các điều kiện đã tồn tại cuối năm, thì cần phải điều chỉnh báo cáo tài chính cho phù hợp với thông tin mới này.",
+          "input_tokens": 603,
+          "output_tokens": 61,
+          "seconds": 19.838989542098716,
+          "ttft_seconds": 8.419405792141333,
+          "done_reason": "stop"
+        },
+        "preview": {
+          "answer": "Theo VAS 23, nếu sau ngày kết thúc năm nhưng trước khi phát hành báo cáo tài chính xảy ra sự kiện cung cấp thêm bằng chứng về các điều kiện đã tồn tại cuối năm và thuộc nhóm điều chỉnh thì phải điều chỉnh lại báo cáo tài chính cho kỳ kế toán đó.",
+          "input_tokens": 354,
+          "output_tokens": 63,
+          "seconds": 14.379444708116353,
+          "ttft_seconds": 3.130840750178322,
+          "done_reason": "stop"
+        },
+        "full": {
+          "answer": "Theo VAS 23, doanh nghiệp phải điều chỉnh các số liệu đã ghi nhận trong báo cáo tài chính để phản ánh sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh. Điều này có nghĩa là thông tin mới cung cấp bằng chứng về một điều kiện đã tồn tại vào cuối năm cần được sử dụng để điều chỉnh báo cáo tài chính",
+          "input_tokens": 2311,
+          "output_tokens": 80,
+          "seconds": 36.806934458902106,
+          "ttft_seconds": 22.225123916985467,
+          "done_reason": "length"
+        },
+        "prefix_512": {
+          "answer": "Theo VAS 23, sau ngày kết thúc năm nhưng trước khi phát hành BCTC, nếu có sự kiện cung cấp thêm bằng chứng về điều kiện đã tồn tại cuối năm và thuộc nhóm điều chỉnh thì phải thực hiện điều chỉnh cho báo cáo tài chính năm đó. Điều này đảm bảo rằng báo cáo tài chính phản ánh đúng tình hình thực tế của doanh nghiệp",
+          "input_tokens": 613,
+          "output_tokens": 80,
+          "seconds": 16.29982829093933,
+          "ttft_seconds": 1.3934653329197317,
+          "done_reason": "length"
+        }
+      }
+    },
+    {
+      "id": "vas-events-02",
+      "question": "Theo VAS 23, một sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu cần được trình bày những gì?",
+      "reference": "Không điều chỉnh số liệu. Trình bày bản chất sự kiện và ước tính ảnh hưởng tài chính, hoặc nêu rằng không thể ước tính.",
+      "gold": [
+        299,
+        302
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 2,
+        "sparse": null,
+        "hybrid": null
+      },
+      "dense_ms": 709.1828749980778,
+      "hybrid_ms": 718.4688339475542,
+      "hybrid_top5": [
+        352,
+        296,
+        7,
+        301,
+        297
+      ],
+      "selection_seconds": 0.04253325005993247,
+      "marker_total": 3,
+      "markers_visible": {
+        "preview": 0,
+        "full": 0,
+        "prefix_512": 0,
+        "passages_512": 0
+      },
+      "evidence_visible": {
+        "preview": false,
+        "full": false,
+        "prefix_512": false,
+        "passages_512": false
+      },
+      "generations": {
+        "preview": {
+          "answer": "Theo VAS 23, một sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu cần được giải trình về nội dung và lý do tại sao nó không phải là sự kiện điều chỉnh. Ngoài ra, cần nêu rõ ảnh hưởng của sự kiện đó đến báo cáo tài chính.",
+          "input_tokens": 334,
+          "output_tokens": 63,
+          "seconds": 14.803854958154261,
+          "ttft_seconds": 3.628110333113,
+          "done_reason": "stop"
+        },
+        "full": {
+          "answer": "Theo VAS 23, sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu phải được trình bày trong báo cáo tài chính để người sử dụng có thông tin đầy đủ ra quyết định kinh tế. Doanh nghiệp cần mô tả và phân tích về tính chất và ảnh hưởng tiềm tàng của sự kiện đó.",
+          "input_tokens": 2333,
+          "output_tokens": 69,
+          "seconds": 39.37898208294064,
+          "ttft_seconds": 26.877208292018622,
+          "done_reason": "stop"
+        },
+        "prefix_512": {
+          "answer": "Theo VAS 23, một sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu cần được trình bày trong chú giải báo cáo tài chính, cung cấp thông tin về bản chất và tác động của sự kiện đó đến tình hình tài chính hiện tại và tương lai của doanh nghiệp.",
+          "input_tokens": 588,
+          "output_tokens": 65,
+          "seconds": 12.135525667108595,
+          "ttft_seconds": 1.3394911671057343,
+          "done_reason": "stop"
+        },
+        "passages_512": {
+          "answer": "Theo VAS 23, nếu sự kiện sau kỳ là không điều chỉnh nhưng trọng yếu, doanh nghiệp phải trình bày về sự kiện đó trong báo cáo tài chính để cung cấp thông tin cho người sử dụng. Cách trình bày cụ thể sẽ dựa trên tính chất và ảnh hưởng của sự kiện đến tình hình tài chính của doanh nghiệp.",
+          "input_tokens": 581,
+          "output_tokens": 75,
+          "seconds": 19.14224158297293,
+          "ttft_seconds": 5.65841570799239,
+          "done_reason": "stop"
+        }
+      }
+    },
+    {
+      "id": "vas-regime-01",
+      "question": "Thông tư 99/2025/TT-BTC bắt đầu áp dụng cho năm tài chính nào và có thay thế toàn bộ hướng dẫn cổ phần hóa theo Thông tư 200 ngay không?",
+      "reference": "Áp dụng cho năm tài chính bắt đầu từ hoặc sau 01/01/2026. Những nội dung cổ phần hóa doanh nghiệp nhà nước được liệt kê tại Điều 31 khoản 2 tiếp tục áp dụng cho tới khi có văn bản thay thế.",
+      "gold": [
+        220,
+        221
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 2,
+        "sparse": 1,
+        "hybrid": 1
+      },
+      "dense_ms": 472.94666711241007,
+      "hybrid_ms": 477.9355830978602,
+      "hybrid_top5": [
+        220,
+        221,
+        171,
+        222,
+        218
+      ],
+      "selection_seconds": 0.02317008306272328,
+      "marker_total": 3,
+      "markers_visible": {
+        "preview": 0,
+        "full": 3,
+        "prefix_512": 1,
+        "passages_512": 3
+      },
+      "evidence_visible": {
+        "preview": false,
+        "full": true,
+        "prefix_512": false,
+        "passages_512": true
+      },
+      "generations": {
+        "full": {
+          "answer": "Thông tư 99/2025/TT-BTC bắt đầu áp dụng cho năm tài chính bắt đầu từ hoặc sau ngày 01/01/2026. Thông tư này thay thế cho Thông tư số 200/2014/TT-BTC nhưng không thay thế các nội dung liên quan đến kế toán cổ phần hóa",
+          "input_tokens": 2842,
+          "output_tokens": 80,
+          "seconds": 39.64979225001298,
+          "ttft_seconds": 27.20020058308728,
+          "done_reason": "length"
+        },
+        "prefix_512": {
+          "answer": "Thông tư 99/2025/TT-BTC bắt đầu áp dụng cho năm tài chính bắt đầu từ hoặc sau ngày 01/01/2026. Thông tư này thay thế cho Thông tư số 200/2014/TT-BTC nhưng không rõ liệu nó có thay thế toàn bộ hướng dẫn cổ phần hóa the",
+          "input_tokens": 608,
+          "output_tokens": 80,
+          "seconds": 14.466730125015602,
+          "ttft_seconds": 1.251151875127107,
+          "done_reason": "length"
+        },
+        "passages_512": {
+          "answer": "Thông tư 99/2025/TT-BTC bắt đầu áp dụng cho năm tài chính bắt đầu từ hoặc sau ngày 01/01/2026. Thông tư này thay thế cho Thông tư số 200/2014/TT-BTC nhưng không nói rõ là thay thế toàn bộ nội dung hướng dẫn cổ phần hóa",
+          "input_tokens": 572,
+          "output_tokens": 80,
+          "seconds": 18.723328874912113,
+          "ttft_seconds": 6.513790416996926,
+          "done_reason": "length"
+        },
+        "preview": {
+          "answer": "Thiếu thông tin về nội dung cụ thể của Thông tư 99/2025/TT-BTC nên không xác định được năm tài chính bắt đầu áp dụng và việc thay thế Thông tư 200. Cần có thêm chi tiết từ văn bản mới để trả lời chính xác câu hỏi.",
+          "input_tokens": 487,
+          "output_tokens": 66,
+          "seconds": 17.258164540864527,
+          "ttft_seconds": 4.312170665943995,
+          "done_reason": "stop"
+        }
+      }
+    },
+    {
+      "id": "abstain-inventory-01",
+      "question": "Theo VAS 02, một lô hàng có giá gốc 120 triệu. Không có thông tin giá bán dự kiến hoặc chi phí hoàn thiện, tiêu thụ. Hãy xác định chính xác số tiền dự phòng giảm giá.",
+      "reference": "Chưa thể xác định số tiền dự phòng. Cần giá trị thuần có thể thực hiện được, hoặc các dữ liệu phù hợp để ước tính giá trị này.",
+      "gold": [
+        2
+      ],
+      "first_gold_rank_at_5": {
+        "dense": null,
+        "sparse": null,
+        "hybrid": null
+      },
+      "dense_ms": 355.9775419998914,
+      "hybrid_ms": 359.65445917099714,
+      "hybrid_top5": [
+        6,
+        8,
+        7,
+        9,
+        1
+      ],
+      "selection_seconds": 0.017582791857421398,
+      "marker_total": 2,
+      "markers_visible": {
+        "preview": 0,
+        "full": 0,
+        "prefix_512": 0,
+        "passages_512": 0
+      },
+      "evidence_visible": {
+        "preview": false,
+        "full": false,
+        "prefix_512": false,
+        "passages_512": false
+      },
+      "generations": {
+        "prefix_512": {
+          "answer": "Thiếu dữ liệu để xác định số tiền dự phòng giảm giá cho lô hàng này vì không có thông tin về giá bán dự kiến hay chi phí hoàn thiện, tiêu thụ.",
+          "input_tokens": 610,
+          "output_tokens": 38,
+          "seconds": 8.6467172910925,
+          "ttft_seconds": 1.1107562079560012,
+          "done_reason": "stop"
+        },
+        "passages_512": {
+          "answer": "Thiếu dữ liệu để xác định số tiền dự phòng giảm giá cho lô hàng này vì không có thông tin về giá bán dự kiến hay chi phí liên quan.",
+          "input_tokens": 599,
+          "output_tokens": 36,
+          "seconds": 10.665460875025019,
+          "ttft_seconds": 5.052872583968565,
+          "done_reason": "stop"
+        },
+        "preview": {
+          "answer": "Thiếu dữ liệu để xác định số tiền dự phòng giảm giá cho lô hàng này vì không có thông tin về giá bán dự kiến và chi phí liên quan.",
+          "input_tokens": 400,
+          "output_tokens": 36,
+          "seconds": 8.06895829201676,
+          "ttft_seconds": 2.496547750197351,
+          "done_reason": "stop"
+        },
+        "full": {
+          "answer": "Thiếu dữ liệu để xác định số tiền dự phòng giảm giá vì không có thông tin về giá bán dự kiến hay chi phí hoàn thiện, tiêu thụ.",
+          "input_tokens": 2509,
+          "output_tokens": 33,
+          "seconds": 20.025147625012323,
+          "ttft_seconds": 15.417928790906444,
+          "done_reason": "stop"
+        }
+      }
+    }
+  ]
+}

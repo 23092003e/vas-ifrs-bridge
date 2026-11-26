@@ -1,0 +1,226 @@
+{
+  "dev_sha256": "e1129f64fd95a840261a2b928179647cdedd1800f55c2e723ef5cb80d2184668",
+  "labels_sha256": "ac9116a7ff253dc4f315b38dd7a611f47652030601160465d0dc95234fe41a0a",
+  "baseline_sha256": "a9e30a4b058b21e982645695913010c7f0d92c13b155e5cba298afec62417938",
+  "source_sha256": {
+    "vas/12-2005-QD-BTC.doc": "25817e4abe2d9cc416d9fc92dba9bf65cba0667000961c53c4f56fff703bee43",
+    "vas/149-2001-QD-BTC.pdf": "b110b2bb9c2d24d7eaacedaf2413c74c6e4999fae6db84b3c38432a17595d85a",
+    "vas/99-2025-TT-BTC-part-01.pdf": "9aa44ed7a5aed27f18001df6e163858332ede3c4280397faf74fba01c1ccc86d"
+  },
+  "generator_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "generator": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+  "device": "cpu",
+  "threads": 4,
+  "prompts": {
+    "oracle_base": "Trả lời câu hỏi kế toán bằng tiếng Việt, tối đa hai câu. Nêu rõ nếu thiếu dữ liệu."
+  },
+  "generation": {
+    "oracle_base": {
+      "median_input_tokens": 235,
+      "p50_generation_seconds": 8.407963708974421
+    }
+  },
+  "results": [
+    {
+      "id": "vas-inventory-01",
+      "question": "Một lô hàng có giá gốc 120 triệu và giá trị thuần có thể thực hiện được 95 triệu. Theo VAS 02, giá trị trình bày là bao nhiêu?",
+      "reference": "95 triệu đồng, vì giá trị thuần có thể thực hiện được thấp hơn giá gốc.",
+      "required_points": [
+        "95 triệu đồng",
+        "dùng giá trị thấp hơn giữa giá gốc và giá trị thuần có thể thực hiện được"
+      ],
+      "source": "vas/149-2001-QD-BTC.pdf",
+      "locator": "đoạn 04",
+      "lines": [
+        [
+          71,
+          72
+        ]
+      ],
+      "context": "04. Hàng tồn kho được tính theo giá gốc. Trường hợp giá trị thuần có thể thực hiện được thấp hơn giá gốc thì phải tính theo giá trị thuần có thể thực hiện được.",
+      "markers_visible": 1,
+      "generations": {
+        "oracle_base": {
+          "answer": "Theo VAS 02 (Viện Tài chính - Ngân sách), khi giá trị thuần có thể thực hiện được thấp hơn giá gốc, giá trị trình bày sẽ được xác định như sau:\n\nGiá trị trình bày = Giá trị thuần có thể thực hiện được\n\nVậy, trong trường hợp này, giá trị trình bày của lô hàng sẽ là 95 triệu",
+          "input_tokens": 134,
+          "output_tokens": 80,
+          "seconds": 6.227752374950796
+        }
+      }
+    },
+    {
+      "id": "vas-inventory-02",
+      "question": "VAS 02 yêu cầu lập dự phòng giảm giá hàng tồn kho theo tổng kho hay theo từng mặt hàng?",
+      "reference": "Cuối kỳ kế toán năm, lập dự phòng trên cơ sở từng mặt hàng có giá trị thuần có thể thực hiện được thấp hơn giá gốc.",
+      "required_points": [
+        "từng mặt hàng",
+        "giá trị thuần thấp hơn giá gốc"
+      ],
+      "source": "vas/149-2001-QD-BTC.pdf",
+      "locator": "đoạn 19",
+      "lines": [
+        [
+          153,
+          158
+        ]
+      ],
+      "context": "19. Cuối kỳ kế toán năm, khi giá trị thuần có thể thực hiện được của hàng tồn kho nhỏ hơn giá gốc thì phải lập dự phòng giảm giá hàng tồn kho. Số dự phòng giảm giá hàng tồn kho được lập là số chênh lệch giữa giá gốc của hàng tồn kho lớn hơn giá trị thuần có thể thực hiện được của chúng. Việc lập dự phòng giảm giá hàng tồn kho được thực hiện trên cơ sở từng mặt hàng tồn kho. Đối với dịch vụ cung cấp dở dang, việc lập dự phòng giảm giá hàng tồn kho được tính theo từng loại dịch vụ có mức giá riêng biệt.",
+      "markers_visible": 2,
+      "generations": {
+        "oracle_base": {
+          "answer": "VAS 02 yêu cầu lập dự phòng giảm giá hàng tồn kho theo tổng kho.",
+          "input_tokens": 206,
+          "output_tokens": 20,
+          "seconds": 5.17323000007309
+        }
+      }
+    },
+    {
+      "id": "vas-revenue-01",
+      "question": "Theo VAS 14, giao hàng đã chuyển phần lớn rủi ro và lợi ích nhưng chi phí liên quan chưa xác định được. Đã đủ điều kiện ghi nhận doanh thu bán hàng chưa?",
+      "reference": "Chưa. Các điều kiện phải đồng thời thỏa mãn, trong đó có việc xác định được chi phí liên quan đến giao dịch bán hàng.",
+      "required_points": [
+        "chưa ghi nhận",
+        "phải xác định được chi phí liên quan"
+      ],
+      "source": "vas/149-2001-QD-BTC.pdf",
+      "locator": "đoạn 10",
+      "lines": [
+        [
+          1002,
+          1009
+        ]
+      ],
+      "context": "10. Doanh thu bán hàng được ghi nhận khi đồng thời thỏa mãn tất cả năm (5) điều kiện sau: (a) Doanh nghiệp đã chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu sản phẩm hoặc hàng hóa cho người mua; (b) Doanh nghiệp không còn nắm giữ quyền quản lý hàng hóa như người sở hữu hàng hóa hoặc quyền kiểm soát hàng hóa; (c) Doanh thu được xác định tương đối chắc chắn; (d) Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng; (e) Xác định được chi phí liên quan đến giao dịch bán hàng.",
+      "markers_visible": 2,
+      "generations": {
+        "oracle_base": {
+          "answer": "Theo VAS 14, để ghi nhận doanh thu bán hàng, các điều kiện cần phải thỏa mãn bao gồm:\n\n(a) Doanh nghiệp đã chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu sản phẩm hoặc hàng hóa cho người mua;\n(b) Doanh nghiệp không còn nắm giữ quyền quản lý hàng hóa như người",
+          "input_tokens": 244,
+          "output_tokens": 80,
+          "seconds": 9.00800554198213
+        }
+      }
+    },
+    {
+      "id": "vas-events-01",
+      "question": "Sau ngày kết thúc năm nhưng trước ngày phát hành BCTC, một sự kiện cung cấp thêm bằng chứng về điều kiện đã tồn tại cuối năm và thuộc nhóm điều chỉnh. VAS 23 yêu cầu xử lý số liệu ra sao?",
+      "reference": "Điều chỉnh số liệu BCTC để phản ánh sự kiện cần điều chỉnh.",
+      "required_points": [
+        "điều chỉnh số liệu BCTC"
+      ],
+      "source": "vas/12-2005-QD-BTC.doc",
+      "locator": "đoạn 06–07",
+      "lines": [
+        [
+          417,
+          418
+        ]
+      ],
+      "context": "06. Doanh nghiệp phải điều chỉnh các số liệu đã được ghi nhận trong báo cáo tài chính để phản ánh các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh.",
+      "markers_visible": 1,
+      "generations": {
+        "oracle_base": {
+          "answer": "Theo VAS 23 (Điều chỉnh), khi có sự kiện cung cấp thêm bằng chứng về điều kiện đã tồn tại cuối năm mà thuộc nhóm điều chỉnh, doanh nghiệp cần điều chỉnh các số liệu đã được ghi nhận trong báo cáo tài chính để phản ánh đúng tình hình thực tế. Điều này bao gồm việc cập nhật các giá trị tài sản,",
+          "input_tokens": 143,
+          "output_tokens": 80,
+          "seconds": 6.791011875029653
+        }
+      }
+    },
+    {
+      "id": "vas-events-02",
+      "question": "Theo VAS 23, một sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu cần được trình bày những gì?",
+      "reference": "Không điều chỉnh số liệu. Trình bày bản chất sự kiện và ước tính ảnh hưởng tài chính, hoặc nêu rằng không thể ước tính.",
+      "required_points": [
+        "không điều chỉnh số liệu",
+        "bản chất sự kiện",
+        "ước tính ảnh hưởng hoặc nêu không thể ước tính"
+      ],
+      "source": "vas/12-2005-QD-BTC.doc",
+      "locator": "đoạn 08 và 19",
+      "lines": [
+        [
+          428,
+          429
+        ],
+        [
+          458,
+          461
+        ]
+      ],
+      "context": "08. Doanh nghiệp không phải điều chỉnh các số liệu đã ghi nhận trong báo cáo tài chính về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh.\n\n19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điều chỉnh về: (a) Nội dung và số liệu của sự kiện; (b) ước tính ảnh hưởng về tài chính, hoặc lý do không thể ước tính được các ảnh hưởng này.",
+      "markers_visible": 3,
+      "generations": {
+        "oracle_base": {
+          "answer": "Theo VAS 23, một sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu cần được trình bày như sau:\n\n(a) Nội dung và số liệu của sự kiện.\n(b) Ước tính ảnh hưởng về tài chính, hoặc lý do không thể ước tính được các ảnh hưởng này.",
+          "input_tokens": 235,
+          "output_tokens": 67,
+          "seconds": 8.407963708974421
+        }
+      }
+    },
+    {
+      "id": "vas-regime-01",
+      "question": "Thông tư 99/2025/TT-BTC bắt đầu áp dụng cho năm tài chính nào và có thay thế toàn bộ hướng dẫn cổ phần hóa theo Thông tư 200 ngay không?",
+      "reference": "Áp dụng cho năm tài chính bắt đầu từ hoặc sau 01/01/2026. Những nội dung cổ phần hóa doanh nghiệp nhà nước được liệt kê tại Điều 31 khoản 2 tiếp tục áp dụng cho tới khi có văn bản thay thế.",
+      "required_points": [
+        "năm tài chính bắt đầu từ hoặc sau 01/01/2026",
+        "ngoại lệ cổ phần hóa liệt kê ở khoản 2 vẫn tiếp tục"
+      ],
+      "source": "vas/99-2025-TT-BTC-part-01.pdf",
+      "locator": "Điều 31 khoản 1–2",
+      "lines": [
+        [
+          1108,
+          1127
+        ]
+      ],
+      "context": "Điều 31. Điều khoản thi hành 1. Thông tư này có hiệu lực thi hành kể từ ngày 01/01/2026 và áp dụng cho năm tài chính bắt đầu từ hoặc sau ngày 01/01/2026. Thông tư này thay thế cho các Thông tư số 200/2014/TT-BTC ngày 22/12/2014 của Bộ Tài chính hướng dẫn chế độ kế toán doanh nghiệp (trừ trường hợp quy định tại khoản 2 Điều này), Thông tư số 75/2015/TT-BTC ngày 18/5/2015 của Bộ Tài chính về sửa đổi, bổ sung Điều 128 Thông tư số 200/2014/TT-BTC ngày 22/12/2014 của Bộ Tài chính, Thông tư số 53/2016/TT-BTC ngày 21/3/2016 về sửa đổi, bổ sung một số Điều của Thông tư số 200/2014/TT-BTC ngày 22/12/2014 của Bộ Tài chính và Thông tư số 195/2012/TT-BTC ngày 15/11/2012 hướng dẫn kế toán áp dụng cho đơn vị chủ đầu tư. 2. Các nội dung liên quan đến kế toán cổ phần hóa doanh nghiệp Nhà nước hướng dẫn tại các khoản 3.11, khoản 3.12 Điều 21; khoản 3.3 Điều 35; điểm h, i khoản 3 Điều 38; điểm c khoản 5 Điều 40; điểm c khoản 3.1, điểm d khoản 3.2, điểm e khoản 3.3, điểm d khoản 3.4 Điều 45; điểm k, l, m khoản 3 Điều 47; điểm l khoản 3 Điều 54; khoản 3.2, khoản 3.9 Điều 57; điểm đ khoản 3 Điều 62; điểm p khoản 3 Điều 63; khoản 3.13 Điều 67; Điều 71; điểm g khoản 3 Điều 74; điểm d khoản 3 Điều 77; khoản 3.15, khoản 3.16 Điều 92; điểm m khoản 3 Điều 93; điểm d khoản 3 Điều 94 Thông tư số 200/2014/TT-BTC ngày 22/12/2014 của Bộ Tài chính hướng dẫn chế độ kế toán doanh nghiệp vẫn tiếp tục thực hiện cho đến khi có văn bản thay thế.",
+      "markers_visible": 3,
+      "generations": {
+        "oracle_base": {
+          "answer": "Thông tư 99/2025/TT-BTC bắt đầu áp dụng cho năm tài chính bắt đầu từ hoặc sau ngày 01/01/2026. Tuy nhiên, thông tư này không thay thế toàn bộ hướng dẫn cổ phần hóa theo Thông tư 200 mà chỉ thay thế cho các Thông tư trước đó như đã n",
+          "input_tokens": 702,
+          "output_tokens": 80,
+          "seconds": 22.149549207882956
+        }
+      }
+    },
+    {
+      "id": "abstain-inventory-01",
+      "question": "Theo VAS 02, một lô hàng có giá gốc 120 triệu. Không có thông tin giá bán dự kiến hoặc chi phí hoàn thiện, tiêu thụ. Hãy xác định chính xác số tiền dự phòng giảm giá.",
+      "reference": "Chưa thể xác định số tiền dự phòng. Cần giá trị thuần có thể thực hiện được, hoặc các dữ liệu phù hợp để ước tính giá trị này.",
+      "required_points": [
+        "không xác định được số tiền chính xác",
+        "cần giá trị thuần hoặc dữ liệu để ước tính"
+      ],
+      "source": "vas/149-2001-QD-BTC.pdf",
+      "locator": "đoạn 03–04 và 19",
+      "lines": [
+        [
+          65,
+          67
+        ],
+        [
+          71,
+          72
+        ],
+        [
+          153,
+          156
+        ]
+      ],
+      "context": "Giá trị thuần có thể thực hiện được: Là giá bán ước tính của hàng tồn kho trong kỳ sản xuất, kinh doanh bình thường trừ (-) chi phí ước tính để hoàn thành sản phẩm và chi phí ước tính cần thiết cho việc tiêu thụ chúng.\n\n04. Hàng tồn kho được tính theo giá gốc. Trường hợp giá trị thuần có thể thực hiện được thấp hơn giá gốc thì phải tính theo giá trị thuần có thể thực hiện được.\n\n19. Cuối kỳ kế toán năm, khi giá trị thuần có thể thực hiện được của hàng tồn kho nhỏ hơn giá gốc thì phải lập dự phòng giảm giá hàng tồn kho. Số dự phòng giảm giá hàng tồn kho được lập là số chênh lệch giữa giá gốc của hàng tồn kho lớn hơn giá trị thuần có thể thực hiện được của chúng. Việc lập dự phòng giảm giá hàng tồn kho được thực hiện trên cơ sở từng mặt hàng tồn",
+      "markers_visible": 2,
+      "generations": {
+        "oracle_base": {
+          "answer": "Theo VAS 02 (Vietnam Accounting Standard for Business Enterprises), để xác định số tiền dự phòng giảm giá hàng tồn kho, ta cần thực hiện các bước sau:\n\n1. Tính giá trị thuần có thể thực hiện được:\n   Giá trị thuần có thể thực hiện được = Giá bán ước tính - Chi phí hoàn thiện - Chi phí tiêu thụ\n\n2.",
+          "input_tokens": 296,
+          "output_tokens": 80,
+          "seconds": 15.49207437504083
+        }
+      }
+    }
+  ]
+}

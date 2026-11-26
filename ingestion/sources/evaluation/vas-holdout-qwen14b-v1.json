@@ -1,0 +1,433 @@
+{
+  "source_sha256": {
+    "149-2001-QD-BTC.pdf": "b110b2bb9c2d24d7eaacedaf2413c74c6e4999fae6db84b3c38432a17595d85a",
+    "100-2005-QD-BTC.pdf": "dc84d9846127975c52a3f17d459df586404fa2ae3231f4dacc74de89281aca02",
+    "99-2025-TT-BTC-part-01.pdf": "9aa44ed7a5aed27f18001df6e163858332ede3c4280397faf74fba01c1ccc86d"
+  },
+  "holdout_sha256": "60d6965f7e48c2abc5db8c1aae3c61b8da011317f792a84b3658841a6e8b4ccb",
+  "generator": "7cdf5a0187d5c58cc5d369b255592f7841d1c4696d45a8c8a9489440385b22f6",
+  "ollama": {
+    "model": "qwen2.5:14b-instruct",
+    "digest": "7cdf5a0187d5c58cc5d369b255592f7841d1c4696d45a8c8a9489440385b22f6",
+    "version": "0.32.0",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen2",
+      "families": [
+        "qwen2"
+      ],
+      "parameter_size": "14.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 32768,
+      "embedding_length": 5120
+    },
+    "num_ctx": 4096,
+    "temperature": 0
+  },
+  "system_prompt": "Trả lời câu hỏi kế toán bằng tiếng Việt, tối đa hai câu. Nêu rõ nếu thiếu dữ liệu.",
+  "embedder": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "device": "cpu",
+  "threads": 4,
+  "chunk_count": 250,
+  "index_seconds": 9.137230167165399,
+  "ranking": {
+    "dense": {
+      "hit_at_5": 1.0,
+      "mrr_at_5": 0.8055555555555555
+    },
+    "sparse": {
+      "hit_at_5": 0.6666666666666666,
+      "mrr_at_5": 0.5
+    },
+    "hybrid": {
+      "hit_at_5": 1.0,
+      "mrr_at_5": 0.8333333333333334
+    }
+  },
+  "generation": {
+    "base": {
+      "evidence_visible": 0,
+      "markers_visible": 0,
+      "median_input_tokens": 80.5,
+      "p50_total_seconds": 16.95435825001914,
+      "p95_total_seconds": 18.6955446038628
+    },
+    "full": {
+      "evidence_visible": 6,
+      "markers_visible": 6,
+      "median_input_tokens": 2473.5,
+      "p50_total_seconds": 38.106275437865406,
+      "p95_total_seconds": 43.87085165618919
+    },
+    "passages_512": {
+      "evidence_visible": 4,
+      "markers_visible": 4,
+      "median_input_tokens": 584.0,
+      "p50_total_seconds": 17.388556957943365,
+      "p95_total_seconds": 21.874247217725497
+    }
+  },
+  "results": [
+    {
+      "id": "vas-h01",
+      "question": "Doanh nghiệp dự báo năm sau hoạt động kinh doanh bị lỗ. Chỉ vì dự báo này, có được ghi nhận dự phòng lỗ hoạt động tương lai theo VAS 18 không?",
+      "reference": "Không được ghi nhận dự phòng cho khoản lỗ hoạt động trong tương lai.",
+      "gold": [
+        116
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 1,
+        "sparse": null,
+        "hybrid": 1
+      },
+      "dense_ms": 35.5562090408057,
+      "hybrid_ms": 38.33358408883214,
+      "hybrid_top5": [
+        116,
+        76,
+        122,
+        211,
+        105
+      ],
+      "selection_seconds": 0.021760375006124377,
+      "marker_total": 1,
+      "markers_visible": {
+        "base": 0,
+        "full": 1,
+        "passages_512": 0
+      },
+      "evidence_visible": {
+        "base": false,
+        "full": true,
+        "passages_512": false
+      },
+      "generations": {
+        "base": {
+          "answer": "Theo Việt Nam Accounting Standards (VAS) 18 về Doanh thu và các khoản mục liên quan, không có quy định cho phép doanh nghiệp ghi nhận trước các dự phòng cho lỗ hoạt động trong tương lai chỉ dựa trên dự báo. VAS áp dụng nguyên tắc thận trọng nhưng cũng yêu cầu sự chắc chắn về việc phát sinh nghĩa vụ hoặc giảm giá",
+          "input_tokens": 83,
+          "output_tokens": 80,
+          "seconds": 9.745340874884278,
+          "ttft_seconds": 0.7998741660267115,
+          "done_reason": "length"
+        },
+        "full": {
+          "answer": "Theo VAS 18, doanh nghiệp không được ghi nhận khoản dự phòng cho các khoản lỗ hoạt động trong tương lai. Vì vậy, chỉ vì dự báo năm sau sẽ bị lỗ thì doanh nghiệp không thể ghi nhận dự phòng lỗ hoạt động tương lai.",
+          "input_tokens": 2481,
+          "output_tokens": 64,
+          "seconds": 25.819928833981976,
+          "ttft_seconds": 17.409333124989644,
+          "done_reason": "stop"
+        },
+        "passages_512": {
+          "answer": "Theo VAS 18, những khoản lỗ từ hoạt động kinh doanh trong tương lai chỉ được bao gồm trong khoản dự phòng nếu khả năng phát sinh khoản lỗ là chắc chắn và giá trị của khoản lỗ có thể xác định được. Do đó, chỉ vì dự báo năm sau hoạt động kinh doanh bị lỗ không đủ để ghi nhận",
+          "input_tokens": 592,
+          "output_tokens": 80,
+          "seconds": 16.589884791057557,
+          "ttft_seconds": 4.901433374965563,
+          "done_reason": "length"
+        }
+      }
+    },
+    {
+      "id": "vas-h02",
+      "question": "Một khoản bồi thường đang tranh tụng và chưa chắc thu được. Nếu là tài sản tiềm tàng, doanh nghiệp có ghi nhận nó vào BCTC theo VAS 18 không?",
+      "reference": "Không ghi nhận tài sản tiềm tàng.",
+      "gold": [
+        108
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 2,
+        "sparse": 2,
+        "hybrid": 2
+      },
+      "dense_ms": 30.00199981033802,
+      "hybrid_ms": 31.58129076473415,
+      "hybrid_top5": [
+        109,
+        108,
+        76,
+        78,
+        123
+      ],
+      "selection_seconds": 0.019509082892909646,
+      "marker_total": 1,
+      "markers_visible": {
+        "base": 0,
+        "full": 1,
+        "passages_512": 0
+      },
+      "evidence_visible": {
+        "base": false,
+        "full": true,
+        "passages_512": false
+      },
+      "generations": {
+        "full": {
+          "answer": "Theo VAS 18, doanh nghiệp không được ghi nhận tài sản tiềm tàng trên báo cáo tài chính vì chưa chắc chắn về khả năng thu được lợi ích kinh tế. Khoản bồi thường đang tranh tụng chỉ được ghi nhận khi gần như chắc chắn sẽ thu được.",
+          "input_tokens": 2530,
+          "output_tokens": 67,
+          "seconds": 32.8646679171361,
+          "ttft_seconds": 21.495351874968037,
+          "done_reason": "stop"
+        },
+        "passages_512": {
+          "answer": "Theo VAS 18, doanh nghiệp không ghi nhận khoản bồi thường đang tranh tụng vào báo cáo tài chính vì chưa chắc chắn về việc thu được lợi ích kinh tế. Khoản này chỉ được ghi nhận khi khả năng thu được gần như chắc chắn.",
+          "input_tokens": 570,
+          "output_tokens": 63,
+          "seconds": 18.468191500054672,
+          "ttft_seconds": 6.445372834103182,
+          "done_reason": "stop"
+        },
+        "base": {
+          "answer": "Theo VAS 18 (IAS 37), một khoản bồi thường đang tranh tụng và chưa chắc chắn về việc thu được không được ghi nhận là tài sản tiềm tàng trong báo cáo tài chính. Doanh nghiệp chỉ ghi nhận khi có đủ cơ sở xác thực chắc chắn về quyền lợi nhận được khoản đó.",
+          "input_tokens": 83,
+          "output_tokens": 73,
+          "seconds": 15.479611833114177,
+          "ttft_seconds": 1.1888627500738949,
+          "done_reason": "stop"
+        }
+      }
+    },
+    {
+      "id": "vas-h03",
+      "question": "Theo VAS 18, nghĩa vụ nợ hiện tại phát sinh từ một sự kiện đã xảy ra và có khả năng phải thanh toán. Nếu chưa thể ước tính đáng tin cậy giá trị nghĩa vụ thì có đủ điều kiện ghi nhận dự phòng không?",
+      "reference": "Không. Còn thiếu ước tính đáng tin cậy về giá trị nghĩa vụ.",
+      "gold": [
+        103
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 1,
+        "sparse": null,
+        "hybrid": 2
+      },
+      "dense_ms": 609.9751668516546,
+      "hybrid_ms": 615.5846249312162,
+      "hybrid_top5": [
+        107,
+        103,
+        108,
+        106,
+        102
+      ],
+      "selection_seconds": 0.023822291055694222,
+      "marker_total": 1,
+      "markers_visible": {
+        "base": 0,
+        "full": 1,
+        "passages_512": 1
+      },
+      "evidence_visible": {
+        "base": false,
+        "full": true,
+        "passages_512": true
+      },
+      "generations": {
+        "passages_512": {
+          "answer": "Theo VAS 18, nếu chưa thể ước tính đáng tin cậy về giá trị của một nghĩa vụ nợ tiềm tàng, doanh nghiệp không được ghi nhận dự phòng cho nghĩa vụ đó. Cần phải xác định đầy đủ các điều kiện để có thể ước tính nghĩa vụ nợ một cách đáng tin cậy mới ghi nhận được khoản dự phòng.",
+          "input_tokens": 614,
+          "output_tokens": 79,
+          "seconds": 22.353162083076313,
+          "ttft_seconds": 6.077776542166248,
+          "done_reason": "stop"
+        },
+        "base": {
+          "answer": "Theo VAS 18, nếu không thể ước tính đáng tin cậy về giá trị của nghĩa vụ nợ hiện tại, vẫn cần phải ghi nhận một khoản dự phòng với số tiền tối thiểu là mức thanh toán chắc chắn và có khả năng xảy ra nhất. Tuy nhiên, cần có đủ bằng chứng để xác định được phần nào chắc chắn sẽ phát sinh.",
+          "input_tokens": 94,
+          "output_tokens": 80,
+          "seconds": 18.429104666924104,
+          "ttft_seconds": 1.3758567080367357,
+          "done_reason": "stop"
+        },
+        "full": {
+          "answer": "Theo VAS 18, nếu chưa thể ước tính đáng tin cậy giá trị của nghĩa vụ nợ, doanh nghiệp không được ghi nhận khoản dự phòng mà phải trình bày như một khoản nợ tiềm tàng.",
+          "input_tokens": 2373,
+          "output_tokens": 49,
+          "seconds": 39.58452020888217,
+          "ttft_seconds": 29.13443962484598,
+          "done_reason": "stop"
+        }
+      }
+    },
+    {
+      "id": "vas-h04",
+      "question": "Theo VAS 11, bên mua ký hợp đồng ngày 1/3 và đạt quyền kiểm soát thực tế ngày 1/4. Ngày mua là ngày nào?",
+      "reference": "Ngày 1/4, ngày đạt quyền kiểm soát thực tế.",
+      "gold": [
+        69
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 1,
+        "sparse": 1,
+        "hybrid": 1
+      },
+      "dense_ms": 58.17279196344316,
+      "hybrid_ms": 58.86983382515609,
+      "hybrid_top5": [
+        69,
+        75,
+        62,
+        70,
+        66
+      ],
+      "selection_seconds": 0.012027792166918516,
+      "marker_total": 1,
+      "markers_visible": {
+        "base": 0,
+        "full": 1,
+        "passages_512": 1
+      },
+      "evidence_visible": {
+        "base": false,
+        "full": true,
+        "passages_512": true
+      },
+      "generations": {
+        "base": {
+          "answer": "Theo VAS 11, ngày mua (ngày ghi nhận doanh thu và chi phí) là ngày 1/4, khi bên mua đạt được quyền kiểm soát thực tế.",
+          "input_tokens": 76,
+          "output_tokens": 44,
+          "seconds": 10.259253458119929,
+          "ttft_seconds": 1.3232846250757575,
+          "done_reason": "stop"
+        },
+        "full": {
+          "answer": "Theo VAS 11, ngày mua là ngày 1/4, vì đó là ngày bên mua đạt được quyền kiểm soát thực tế đối với bên bị mua.",
+          "input_tokens": 2466,
+          "output_tokens": 40,
+          "seconds": 35.95357620809227,
+          "ttft_seconds": 27.6970431660302,
+          "done_reason": "stop"
+        },
+        "passages_512": {
+          "answer": "Theo VAS 11, ngày mua là ngày mà bên mua đạt được quyền kiểm soát thực tế đối với bên bị mua. Do đó, trong trường hợp này, ngày mua là ngày 1/4.",
+          "input_tokens": 581,
+          "output_tokens": 50,
+          "seconds": 14.158654707949609,
+          "ttft_seconds": 5.708584416890517,
+          "done_reason": "stop"
+        }
+      }
+    },
+    {
+      "id": "vas-h05",
+      "question": "Theo VAS 30, mẫu số để tính lãi cơ bản trên cổ phiếu dùng số cổ phiếu cuối kỳ hay số bình quân gia quyền của cổ phiếu phổ thông đang lưu hành trong kỳ?",
+      "reference": "Dùng số bình quân gia quyền cổ phiếu phổ thông đang lưu hành trong kỳ.",
+      "gold": [
+        151
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 1,
+        "sparse": 2,
+        "hybrid": 1
+      },
+      "dense_ms": 59.45191695354879,
+      "hybrid_ms": 61.55683402903378,
+      "hybrid_top5": [
+        151,
+        154,
+        169,
+        152,
+        162
+      ],
+      "selection_seconds": 0.013693958055227995,
+      "marker_total": 1,
+      "markers_visible": {
+        "base": 0,
+        "full": 1,
+        "passages_512": 1
+      },
+      "evidence_visible": {
+        "base": false,
+        "full": true,
+        "passages_512": true
+      },
+      "generations": {
+        "full": {
+          "answer": "Theo VAS 30, mẫu số để tính lãi cơ bản trên cổ phiếu sử dụng số bình quân gia权重系数为0.9286，因此答案倾向于使用加权平均的普通股数量，而不是期末的数量。根据提供的资料，计算每股基本收益时采用的是“在报告期内流通的普通股加权平均数”。所以最终答案是：VAS ",
+          "input_tokens": 2360,
+          "output_tokens": 80,
+          "seconds": 42.28750679199584,
+          "ttft_seconds": 24.970632542157546,
+          "done_reason": "length"
+        },
+        "passages_512": {
+          "answer": "Theo VAS 30, mẫu số để tính lãi cơ bản trên cổ phiếu sử dụng số bình quân gia quyền của cổ phiếu phổ thông đang lưu hành trong kỳ, không phải là số cổ phiếu cuối kỳ.",
+          "input_tokens": 587,
+          "output_tokens": 46,
+          "seconds": 16.038697500014678,
+          "ttft_seconds": 7.144821875030175,
+          "done_reason": "stop"
+        },
+        "base": {
+          "answer": "Theo VAS 30, mẫu số để tính lãi cơ bản trên cổ phiếu sử dụng số lượng cổ phiếu bình quân gia quyền (AWPS) của cổ phiếu phổ thông đang lưu hành trong kỳ,而不是直接回答问题，我将提供正确的答案：根据VAS 30，计算基本每股收益时，分母应使用报告期内普通股的加权平均数，而非",
+          "input_tokens": 78,
+          "output_tokens": 80,
+          "seconds": 18.48580679204315,
+          "ttft_seconds": 1.327615583082661,
+          "done_reason": "length"
+        }
+      }
+    },
+    {
+      "id": "vas-h06",
+      "question": "Một khoản thu nhập trước đó chỉ là tài sản tiềm tàng nay đã gần như chắc chắn. Theo VAS 18, có còn coi là tài sản tiềm tàng không?",
+      "reference": "Không. Khi khoản thu nhập gần như chắc chắn, tài sản không còn là tài sản tiềm tàng và có thể ghi nhận.",
+      "gold": [
+        109
+      ],
+      "first_gold_rank_at_5": {
+        "dense": 3,
+        "sparse": 1,
+        "hybrid": 1
+      },
+      "dense_ms": 707.6615828555077,
+      "hybrid_ms": 713.6970828287303,
+      "hybrid_top5": [
+        109,
+        79,
+        76,
+        63,
+        78
+      ],
+      "selection_seconds": 0.03267962485551834,
+      "marker_total": 1,
+      "markers_visible": {
+        "base": 0,
+        "full": 1,
+        "passages_512": 1
+      },
+      "evidence_visible": {
+        "base": false,
+        "full": true,
+        "passages_512": true
+      },
+      "generations": {
+        "passages_512": {
+          "answer": "Theo VAS 18, khi một khoản thu nhập gần như chắc chắn sẽ được nhận, tài sản liên quan đến nó không còn được coi là tài sản tiềm tàng mà phải được ghi nhận vào báo cáo tài chính.",
+          "input_tokens": 564,
+          "output_tokens": 52,
+          "seconds": 17.380758458049968,
+          "ttft_seconds": 6.8055273331701756,
+          "done_reason": "stop"
+        },
+        "base": {
+          "answer": "Theo VAS 18 (Vietnam Accounting Standards 18 - Doanh thu và các khoản phải thu), khi một khoản thu nhập trước đó chỉ là tài sản tiềm tàng mà nay đã gần như chắc chắn sẽ được thực hiện, doanh nghiệp cần đánh giá lại. Nếu xác suất thu được khoản này cao, nó không còn được coi là tài sản tiềm",
+          "input_tokens": 78,
+          "output_tokens": 80,
+          "seconds": 18.765457207802683,
+          "ttft_seconds": 1.6763234168756753,
+          "done_reason": "length"
+        },
+        "full": {
+          "answer": "Khi một khoản thu nhập trước đây chỉ là tài sản tiềm tàng trở nên gần như chắc chắn, doanh nghiệp sẽ ghi nhận nó vào báo cáo tài chính và không còn coi là tài sản tiềm tàng theo VAS 18.",
+          "input_tokens": 2511,
+          "output_tokens": 55,
+          "seconds": 43.6644172500819,
+          "ttft_seconds": 31.53237499995157,
+          "done_reason": "stop"
+        }
+      }
+    }
+  ]
+}

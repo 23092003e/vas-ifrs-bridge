@@ -1,0 +1,288 @@
+[
+  {
+    "id": "C21",
+    "group": "freeform",
+    "seconds": 22.672364375088364,
+    "expected": "VAS chưa đổi nhóm khi chưa đổi mục đích sử dụng. IAS ghi biến động giá trị hợp lý vào lãi/lỗ.",
+    "gold": [
+      "S01",
+      "S12"
+    ],
+    "docs": {
+      "C1": "S12",
+      "C2": "S03",
+      "C3": "S02",
+      "C4": "S01",
+      "C5": "S16",
+      "C6": "S08",
+      "C7": "S17",
+      "C8": "S05",
+      "C9": "S04",
+      "C10": "S14"
+    },
+    "raw": "Tôi không thể cung cấp thông tin chi tiết về việc chuyển đổi từ VAS 05 sang IAS 40 vì tôi không có dữ liệu cụ thể về tình huống cụ thể này. Tuy nhiên, theo VAS 05, bất động sản đầu tư được theo dõi trên cơ sở nguyên giá và hao mòn sau ghi nhận. Trong trường hợp IAS 40, việc chênh lệch định giá sẽ được ghi vào tài khoản Profit or Loss (lợi nhuận hoặc thua lỗ).\n\nNếu công ty đang sử dụng mô hình giá trị hợp lý của IAS 40, chênh lệch định giá sẽ được ghi vào tài khoản Gain or Loss on Fair Value Changes (lợi nhuận hoặc thua lỗ do biến đổi giá",
+    "evidence_present": true,
+    "final": "Tôi không thể cung cấp thông tin chi tiết về việc chuyển đổi từ VAS 05 sang IAS 40 vì tôi không có dữ liệu cụ thể về tình huống cụ thể này. Tuy nhiên, theo VAS 05, bất động sản đầu tư được theo dõi trên cơ sở nguyên giá và hao mòn sau ghi nhận. Trong trường hợp IAS 40, việc chênh lệch định giá sẽ được ghi vào tài khoản Profit or Loss (lợi nhuận hoặc thua lỗ).\n\nNếu công ty đang sử dụng mô hình giá trị hợp lý của IAS 40, chênh lệch định giá sẽ được ghi vào tài khoản Gain or Loss on Fair Value Changes (lợi nhuận hoặc thua lỗ do biến đổi giá",
+    "citations": []
+  },
+  {
+    "id": "C22",
+    "group": "freeform",
+    "seconds": 16.62775537511334,
+    "expected": "Both apply closing rate to the monetary invoice and transaction-date rate to the historical-cost nonmonetary machine.",
+    "gold": [
+      "S04",
+      "S10"
+    ],
+    "docs": {
+      "C1": "S04",
+      "C2": "S10",
+      "C3": "S09",
+      "C4": "S15",
+      "C5": "S18",
+      "C6": "S03",
+      "C7": "S06",
+      "C8": "S12",
+      "C9": "S02",
+      "C10": "S05"
+    },
+    "raw": "### Comparison Between VAS 10 and IAS 21\n\n#### Overview\nVAS 10 and IAS 21 both deal with translating foreign currency transactions but differ significantly in their treatment of different types of assets and liabilities. \n\n#### Comparison Table\n\n| Aspect (Khía cạnh) | VAS Treatment | IFRS Treatment | Impact (Tác động) |\n|---|---|---|---|\n| (Aspect 1) | (VAS rule) | (IFRS rule) | (Difference impact) |\n| Unpaid Foreign-Currency Invoice | At period end, translate foreign-currency monetary balances at the closing rate. Keep the transaction-date rate for nonmonetary balances at historical cost; for fair-value measurement use the exchange rate on the measurement date. | At period end, translate foreign-currency monetary",
+    "evidence_present": true,
+    "final": "### Comparison Between VAS 10 and IAS 21\n\n#### Overview\nVAS 10 and IAS 21 both deal with translating foreign currency transactions but differ significantly in their treatment of different types of assets and liabilities. \n\n#### Comparison Table\n\n| Aspect (Khía cạnh) | VAS Treatment | IFRS Treatment | Impact (Tác động) |\n|---|---|---|---|\n| (Aspect 1) | (VAS rule) | (IFRS rule) | (Difference impact) |\n| Unpaid Foreign-Currency Invoice | At period end, translate foreign-currency monetary balances at the closing rate. Keep the transaction-date rate for nonmonetary balances at historical cost; for fair-value measurement use the exchange rate on the measurement date. | At period end, translate foreign-currency monetary",
+    "citations": []
+  },
+  {
+    "id": "C23",
+    "group": "freeform",
+    "seconds": 16.458220416214317,
+    "expected": "VAS ghi tài sản và nợ 270. IFRS ghi tài sản quyền sử dụng và nợ thuê; dữ kiện không đủ để kết luận cả hai cùng trị giá 270.",
+    "gold": [
+      "S02",
+      "S08"
+    ],
+    "docs": {
+      "C1": "S02",
+      "C2": "S08",
+      "C3": "S09",
+      "C4": "S18",
+      "C5": "S01",
+      "C6": "S07",
+      "C7": "S04",
+      "C8": "S05",
+      "C9": "S06",
+      "C10": "S03"
+    },
+    "raw": "Tôi có thể giúp bạn với điều này. Theo VAS 06, thuế tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. Trong trường hợp này, giá trị hợp lý là 300 và hiện giá tiền thuê tối thiểu là 270, nên thuế tài chính sẽ được ghi nhận bằng 270. \n\nTrái lại, theo IFRS 16, tại thời điểm khởi tạo, một bên thuê (ở đây là lessee) thường ghi nhận một tài sản hữu hạn và một负债 (liability). Tài sản hữu hạn này bao gồm cả giá trị hợp lý và hiện giá khoản thuê tối thiểu. Do đó, lessee sẽ ghi nhận một tài sản hữu hạn bằng tổng cộng ",
+    "evidence_present": true,
+    "final": "Tôi có thể giúp bạn với điều này. Theo VAS 06, thuế tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. Trong trường hợp này, giá trị hợp lý là 300 và hiện giá tiền thuê tối thiểu là 270, nên thuế tài chính sẽ được ghi nhận bằng 270. \n\nTrái lại, theo IFRS 16, tại thời điểm khởi tạo, một bên thuê (ở đây là lessee) thường ghi nhận một tài sản hữu hạn và một负债 (liability). Tài sản hữu hạn này bao gồm cả giá trị hợp lý và hiện giá khoản thuê tối thiểu. Do đó, lessee sẽ ghi nhận một tài sản hữu hạn bằng tổng cộng ",
+    "citations": []
+  },
+  {
+    "id": "C24",
+    "group": "freeform",
+    "seconds": 19.674247624818236,
+    "expected": "Both eliminate the intragroup income, expense, receivable and payable.",
+    "gold": [
+      "S06",
+      "S13"
+    ],
+    "docs": {
+      "C1": "S13",
+      "C2": "S04",
+      "C3": "S06",
+      "C4": "S10",
+      "C5": "S15",
+      "C6": "S16",
+      "C7": "S01",
+      "C8": "S02",
+      "C9": "S18",
+      "C10": "S05"
+    },
+    "raw": "VAS 25 treats the income as part of the consolidated income statement because it represents a revenue earned by the parent company but not yet received by the subsidiary. The expense would be recognized in the consolidated income statement as well since it relates to the service provided by the parent to the subsidiary.\n\nIFRS 10, however, eliminates results embedded in assets from intragroup transactions in full. Therefore, any income generated from providing services to the subsidiary would need to be eliminated from the consolidated financial statements. This means that the income would not appear in the consolidated income statement, and the expense related to the service would also be eliminated.\n\nIn terms of outstanding balances, both standards require eliminating intragroup balances and transactions. However, IFRS 10 specifically addresses this by requiring the elimination of results embedded in assets, whereas VAS 2",
+    "evidence_present": true,
+    "final": "VAS 25 treats the income as part of the consolidated income statement because it represents a revenue earned by the parent company but not yet received by the subsidiary. The expense would be recognized in the consolidated income statement as well since it relates to the service provided by the parent to the subsidiary.\n\nIFRS 10, however, eliminates results embedded in assets from intragroup transactions in full. Therefore, any income generated from providing services to the subsidiary would need to be eliminated from the consolidated financial statements. This means that the income would not appear in the consolidated income statement, and the expense related to the service would also be eliminated.\n\nIn terms of outstanding balances, both standards require eliminating intragroup balances and transactions. However, IFRS 10 specifically addresses this by requiring the elimination of results embedded in assets, whereas VAS 2",
+    "citations": []
+  },
+  {
+    "id": "C25",
+    "group": "freeform",
+    "seconds": 27.485096083022654,
+    "expected": "Cả hai loại khỏi báo cáo lưu chuyển tiền tệ và thuyết minh riêng.",
+    "gold": [
+      "S05",
+      "S11"
+    ],
+    "docs": {
+      "C1": "S05",
+      "C2": "S11",
+      "C3": "S06",
+      "C4": "S04",
+      "C5": "S10",
+      "C6": "S02",
+      "C7": "S03",
+      "C8": "S14",
+      "C9": "S17",
+      "C10": "S12"
+    },
+    "raw": "Tôi có thể cung cấp thông tin về cách các chuẩn mực VAS 24 và IAS 7 xử lý trường hợp này:\n\nVAS 24: Không cho phép ghi lại bất kỳ khoản thanh toán nào từ việc phát hành cổ phiếu để trả nợ. Điều này được trình bày riêng trong thuyết minh.\n\nIAS 7: Các khoản thanh toán từ việc phát hành cổ phiếu để trả nợ được ghi lại trong báo cáo tài chính. Tuy nhiên, IAS 7 cũng yêu cầu ghi rõ rằng khoản này không phải là một khoản thanh toán thực sự mà chỉ là một hình thức giao dịch không tạo ra tiền mặt.\n\nDựa trên thông tin này, chúng ta thấy rằng cả hai chuẩn mực đều chấp nhận việc ghi lại khoản thanh toán từ việc phát hành",
+    "evidence_present": true,
+    "final": "Tôi có thể cung cấp thông tin về cách các chuẩn mực VAS 24 và IAS 7 xử lý trường hợp này:\n\nVAS 24: Không cho phép ghi lại bất kỳ khoản thanh toán nào từ việc phát hành cổ phiếu để trả nợ. Điều này được trình bày riêng trong thuyết minh.\n\nIAS 7: Các khoản thanh toán từ việc phát hành cổ phiếu để trả nợ được ghi lại trong báo cáo tài chính. Tuy nhiên, IAS 7 cũng yêu cầu ghi rõ rằng khoản này không phải là một khoản thanh toán thực sự mà chỉ là một hình thức giao dịch không tạo ra tiền mặt.\n\nDựa trên thông tin này, chúng ta thấy rằng cả hai chuẩn mực đều chấp nhận việc ghi lại khoản thanh toán từ việc phát hành",
+    "citations": []
+  },
+  {
+    "id": "C26",
+    "group": "freeform",
+    "seconds": 19.358005040790886,
+    "expected": "Both generally imply significant influence at 30%, absent contrary evidence. The provided sources cannot support a finding under IFRS 17.",
+    "gold": [
+      "S03",
+      "S14"
+    ],
+    "docs": {
+      "C1": "S03",
+      "C2": "S14",
+      "C3": "S05",
+      "C4": "S18",
+      "C5": "S08",
+      "C6": "S06",
+      "C7": "S04",
+      "C8": "S16",
+      "C9": "S12",
+      "C10": "S11"
+    },
+    "raw": "**Overview:**\nVAS 07 and IAS 28 differ significantly in their treatment of investments held by passive investors. In VAS, passive investors typically do not have significant influence over the investee unless they hold more than 20%. Conversely, IAS 28 presumes significant influence if an investor owns at least one-fifth of the voting power.\n\n**Comparison Table:**\n\n| Aspect (Khía cạnh) | VAS Treatment | IFRS Treatment | Impact (Tác động) |\n|---|---|---|---|\n| Passive Investor Holding | No significant influence unless >20% | Significant Influence if ≥1/5 | Higher valuation under IFRS due to presumed significant influence |\n| Recognition under IFRS 17 | Triggered upon initial application of IFRS 17",
+    "evidence_present": true,
+    "final": "**Overview:**\nVAS 07 and IAS 28 differ significantly in their treatment of investments held by passive investors. In VAS, passive investors typically do not have significant influence over the investee unless they hold more than 20%. Conversely, IAS 28 presumes significant influence if an investor owns at least one-fifth of the voting power.\n\n**Comparison Table:**\n\n| Aspect (Khía cạnh) | VAS Treatment | IFRS Treatment | Impact (Tác động) |\n|---|---|---|---|\n| Passive Investor Holding | No significant influence unless >20% | Significant Influence if ≥1/5 | Higher valuation under IFRS due to presumed significant influence |\n| Recognition under IFRS 17 | Triggered upon initial application of IFRS 17",
+    "citations": []
+  },
+  {
+    "id": "T11",
+    "group": "pilot",
+    "seconds": 17.694023499730974,
+    "expected": null,
+    "gold": [
+      "S01",
+      "S12"
+    ],
+    "docs": {
+      "C1": "S01",
+      "C2": "S12",
+      "C3": "S02",
+      "C4": "S03",
+      "C5": "S16",
+      "C6": "S09",
+      "C7": "S14",
+      "C8": "S05",
+      "C9": "S18",
+      "C10": "S17"
+    },
+    "raw": "VAS 05 và IAS 40 đều đề cập đến việc theo dõi bất động sản đầu tư trên cơ sở nguyên giá và hao mòn sau ghi nhận. Tuy nhiên, hai tiêu chuẩn này có những điểm khác biệt quan trọng:\n\nVAS 05 không cho phép thay đổi giữa bất động sản đầu tư và các nhóm khác dựa trên mục đích sử dụng. Điều này có nghĩa là bất động sản đầu tư sẽ luôn được theo dõi theo cách mà nó đã được ghi nhận từ đầu.\n\nTrong khi đó, IAS 40 cho phép sự thay đổi giữa bất động sản đầu tư và các nhóm khác dựa trên mục đích sử dụng. Điều này có thể dẫn đến việc thay đổi cách tiếp cận đối với bất động sản đầu tư dựa trên tình",
+    "evidence_present": true,
+    "final": "VAS 05 và IAS 40 đều đề cập đến việc theo dõi bất động sản đầu tư trên cơ sở nguyên giá và hao mòn sau ghi nhận. Tuy nhiên, hai tiêu chuẩn này có những điểm khác biệt quan trọng:\n\nVAS 05 không cho phép thay đổi giữa bất động sản đầu tư và các nhóm khác dựa trên mục đích sử dụng. Điều này có nghĩa là bất động sản đầu tư sẽ luôn được theo dõi theo cách mà nó đã được ghi nhận từ đầu.\n\nTrong khi đó, IAS 40 cho phép sự thay đổi giữa bất động sản đầu tư và các nhóm khác dựa trên mục đích sử dụng. Điều này có thể dẫn đến việc thay đổi cách tiếp cận đối với bất động sản đầu tư dựa trên tình",
+    "citations": []
+  },
+  {
+    "id": "T12",
+    "group": "pilot",
+    "seconds": 18.51141529204324,
+    "expected": null,
+    "gold": [
+      "S04",
+      "S10"
+    ],
+    "docs": {
+      "C1": "S04",
+      "C2": "S10",
+      "C3": "S18",
+      "C4": "S09",
+      "C5": "S15",
+      "C6": "S06",
+      "C7": "S02",
+      "C8": "S05",
+      "C9": "S07",
+      "C10": "S01"
+    },
+    "raw": "### Comparison\n\n#### Year-End Translation Under VAS 10 and IAS 21\n\n**VAS 10:**\n- At the beginning of the reporting period, the foreign currency receivable is translated into local currency at the exchange rate prevailing on the day of the transaction.\n- The amount remains unchanged until the end of the reporting period.\n- For subsequent periods, the foreign currency receivable is translated at the exchange rate prevailing on the last day of the reporting period.\n\n**IAS 21:**\n- At the end of the reporting period, the foreign currency receivable is translated into local currency at the exchange rate prevailing on the last day of the reporting period.\n- The amount remains unchanged until the next reporting period.\n\n#### Impact\n\nUnder both standards, the foreign currency receivable is translated into local currency at the same exchange",
+    "evidence_present": true,
+    "final": "### Comparison\n\n#### Year-End Translation Under VAS 10 and IAS 21\n\n**VAS 10:**\n- At the beginning of the reporting period, the foreign currency receivable is translated into local currency at the exchange rate prevailing on the day of the transaction.\n- The amount remains unchanged until the end of the reporting period.\n- For subsequent periods, the foreign currency receivable is translated at the exchange rate prevailing on the last day of the reporting period.\n\n**IAS 21:**\n- At the end of the reporting period, the foreign currency receivable is translated into local currency at the exchange rate prevailing on the last day of the reporting period.\n- The amount remains unchanged until the next reporting period.\n\n#### Impact\n\nUnder both standards, the foreign currency receivable is translated into local currency at the same exchange",
+    "citations": []
+  },
+  {
+    "id": "T13",
+    "group": "pilot",
+    "seconds": 20.84523499989882,
+    "expected": null,
+    "gold": [
+      "S02",
+      "S08"
+    ],
+    "docs": {
+      "C1": "S02",
+      "C2": "S08",
+      "C3": "S09",
+      "C4": "S05",
+      "C5": "S18",
+      "C6": "S01",
+      "C7": "S07",
+      "C8": "S13",
+      "C9": "S03",
+      "C10": "S06"
+    },
+    "raw": "Tôi có thể giúp bạn với việc so sánh các khía cạnh cụ thể của kế toán cho thuê theo VAS 06 và IFRS 16:\n\n### Khía cạnh 1: Phân loại theo mức chuyển giao rủi ro và lợi ích\n\n**VAS 06**: Theo VAS 06, thuê hoạt động được phân loại dựa trên mức độ chuyển giao rủi ro và lợi ích. Thuê tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. \n\n**IFRS 16**: Theo IFRS 16, thuê hoạt động được ghi nhận ban đầu bằng giá trị hợp lý của nó. Nếu giá trị hợp lý cao hơn giá hiện tại, thì giá hiện",
+    "evidence_present": true,
+    "final": "Tôi có thể giúp bạn với việc so sánh các khía cạnh cụ thể của kế toán cho thuê theo VAS 06 và IFRS 16:\n\n### Khía cạnh 1: Phân loại theo mức chuyển giao rủi ro và lợi ích\n\n**VAS 06**: Theo VAS 06, thuê hoạt động được phân loại dựa trên mức độ chuyển giao rủi ro và lợi ích. Thuê tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. \n\n**IFRS 16**: Theo IFRS 16, thuê hoạt động được ghi nhận ban đầu bằng giá trị hợp lý của nó. Nếu giá trị hợp lý cao hơn giá hiện tại, thì giá hiện",
+    "citations": []
+  },
+  {
+    "id": "T14",
+    "group": "pilot",
+    "seconds": 22.120563958305866,
+    "expected": null,
+    "gold": [
+      "S05",
+      "S11"
+    ],
+    "docs": {
+      "C1": "S05",
+      "C2": "S11",
+      "C3": "S06",
+      "C4": "S12",
+      "C5": "S18",
+      "C6": "S03",
+      "C7": "S14",
+      "C8": "S02",
+      "C9": "S07",
+      "C10": "S10"
+    },
+    "raw": "### Comparison Table\n\n| Aspect (Khía cạnh) | VAS Treatment | IFRS Treatment | Impact (Tác động) |\n|---|---|---|---|\n| (Aspect 1) | (VAS rule) | (IFRS rule) | (Difference impact) |\n| Debt-to-Equity Conversion | No change in cash balance | Cash flows excluded from the statement of cash flows | Lower reported assets under IFRS due to exclusion of debt-to-equity conversions |\n| Presentation of Non-Cash Investing and Financing Transactions | Disclosed separately in the notes | Excluded from the cash flow statement | Reduced transparency regarding non-cash transactions under IFRS |\n| Impact on Financial Statements | Assets may be overstated if not disclosed | Assets may be understated as they are excluded from the cash flow statement | Higher",
+    "evidence_present": true,
+    "final": "### Comparison Table\n\n| Aspect (Khía cạnh) | VAS Treatment | IFRS Treatment | Impact (Tác động) |\n|---|---|---|---|\n| (Aspect 1) | (VAS rule) | (IFRS rule) | (Difference impact) |\n| Debt-to-Equity Conversion | No change in cash balance | Cash flows excluded from the statement of cash flows | Lower reported assets under IFRS due to exclusion of debt-to-equity conversions |\n| Presentation of Non-Cash Investing and Financing Transactions | Disclosed separately in the notes | Excluded from the cash flow statement | Reduced transparency regarding non-cash transactions under IFRS |\n| Impact on Financial Statements | Assets may be overstated if not disclosed | Assets may be understated as they are excluded from the cash flow statement | Higher",
+    "citations": []
+  },
+  {
+    "id": "T15",
+    "group": "pilot",
+    "seconds": 19.730609291698784,
+    "expected": null,
+    "gold": [
+      "S06",
+      "S13"
+    ],
+    "docs": {
+      "C1": "S06",
+      "C2": "S13",
+      "C3": "S04",
+      "C4": "S10",
+      "C5": "S15",
+      "C6": "S01",
+      "C7": "S18",
+      "C8": "S03",
+      "C9": "S05",
+      "C10": "S16"
+    },
+    "raw": "VAS 25 and IFRS 10 both require consolidated reporting to combine like items and remove intragroup balances and transactions, including income and expenses. However, there are some key differences:\n\n**VAS 25:**\n- Sales between two subsidiaries within the reporting group are eliminated in their entirety.\n- The sale price is used as the basis for determining the net profit margin of each subsidiary.\n- No adjustment is made for any gains or losses resulting from the sale.\n\n**IFRS 10:**\n- Sales between two subsidiaries within the reporting group are combined into one item.\n- The total sales amount is recognized in the consolidated income statement.\n- Any gains or losses resulting from the sale are allocated proportionally among the subsidiaries involved in the transaction.\n\nThe impact of these differences can be significant. Under VAS 25,",
+    "evidence_present": true,
+    "final": "VAS 25 and IFRS 10 both require consolidated reporting to combine like items and remove intragroup balances and transactions, including income and expenses. However, there are some key differences:\n\n**VAS 25:**\n- Sales between two subsidiaries within the reporting group are eliminated in their entirety.\n- The sale price is used as the basis for determining the net profit margin of each subsidiary.\n- No adjustment is made for any gains or losses resulting from the sale.\n\n**IFRS 10:**\n- Sales between two subsidiaries within the reporting group are combined into one item.\n- The total sales amount is recognized in the consolidated income statement.\n- Any gains or losses resulting from the sale are allocated proportionally among the subsidiaries involved in the transaction.\n\nThe impact of these differences can be significant. Under VAS 25,",
+    "citations": []
+  }
+]

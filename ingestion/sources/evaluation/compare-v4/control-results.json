@@ -1,0 +1,227 @@
+[
+  {
+    "id": "E01",
+    "index": 2,
+    "expected": "contradicted",
+    "claim": "**IFRS** — Ghi dòng tiền tài chính 7 tỷ, nhưng phải xử lý theo cách khác ở mỗi bên. [C2]",
+    "sources": [
+      "S11"
+    ],
+    "verdict": "contradicted",
+    "logits": [
+      30.661235809326172,
+      32.44239807128906,
+      29.879047393798828
+    ]
+  },
+  {
+    "id": "E03",
+    "index": 1,
+    "expected": "contradicted",
+    "claim": "**VAS** — Công ty sẽ chỉ định hoạt động đầu tư không sử dụng tiền vào dòng tiền đầu tư thông qua việc trình bày các giao dịch này ở phần khác của báo cáo tài chính [C1].",
+    "sources": [
+      "S05"
+    ],
+    "verdict": "contradicted",
+    "logits": [
+      30.635025024414062,
+      30.890045166015625,
+      28.994003295898438
+    ]
+  },
+  {
+    "id": "E08",
+    "index": 1,
+    "expected": "contradicted",
+    "claim": "**VAS** — Consolidated revenue includes the internal support charge [C1].",
+    "sources": [
+      "S06"
+    ],
+    "verdict": "supported",
+    "logits": [
+      31.417510986328125,
+      30.5527400970459,
+      29.153289794921875
+    ]
+  },
+  {
+    "id": "E13",
+    "index": 1,
+    "expected": "insufficient",
+    "claim": "**VAS** — 24% quyền biểu quyết tương đương với 24% quyền kiểm soát, theo VAS 07, nên nhà đầu tư có thể có ảnh hưởng đáng kể. [C1]",
+    "sources": [
+      "S03"
+    ],
+    "verdict": "supported",
+    "logits": [
+      30.636749267578125,
+      30.092365264892578,
+      28.30543327331543
+    ]
+  },
+  {
+    "id": "E14",
+    "index": 1,
+    "expected": "insufficient",
+    "claim": "**VAS** — At 26% voting power, a company's control over another entity can be considered significant without contrary evidence or arrangements [C1].",
+    "sources": [
+      "S03"
+    ],
+    "verdict": "supported",
+    "logits": [
+      31.510055541992188,
+      31.278762817382812,
+      29.322372436523438
+    ]
+  },
+  {
+    "id": "E04",
+    "index": 1,
+    "expected": "supported",
+    "claim": "**VAS** — At period end, translate foreign-currency monetary balances at the closing rate. [C1]",
+    "sources": [
+      "S04"
+    ],
+    "verdict": "supported",
+    "logits": [
+      29.850032806396484,
+      29.59547233581543,
+      28.547264099121094
+    ]
+  },
+  {
+    "id": "E04",
+    "index": 2,
+    "expected": "supported",
+    "claim": "**IFRS** — At period end, translate foreign-currency monetary balances at the closing rate. [C2]",
+    "sources": [
+      "S10"
+    ],
+    "verdict": "contradicted",
+    "logits": [
+      30.19428062438965,
+      31.915481567382812,
+      30.487855911254883
+    ]
+  },
+  {
+    "id": "E04",
+    "index": 3,
+    "expected": "supported",
+    "claim": "**VAS** — Keep the transaction-date rate for nonmonetary balances at historical cost. [C1]",
+    "sources": [
+      "S04"
+    ],
+    "verdict": "supported",
+    "logits": [
+      30.709205627441406,
+      29.854082107543945,
+      28.688716888427734
+    ]
+  },
+  {
+    "id": "E04",
+    "index": 4,
+    "expected": "supported",
+    "claim": "**IFRS** — Keep the transaction-date rate for nonmonetary balances at historical cost. [C2]",
+    "sources": [
+      "S10"
+    ],
+    "verdict": "contradicted",
+    "logits": [
+      30.432464599609375,
+      32.81386947631836,
+      30.80204963684082
+    ]
+  },
+  {
+    "id": "E06",
+    "index": 1,
+    "expected": "supported",
+    "claim": "**VAS** — At year-end, a foreign-currency loan payable should be translated at the closing rate [C1], while a machine at historical cost should retain the original purchase rate [C1].",
+    "sources": [
+      "S04"
+    ],
+    "verdict": "contradicted",
+    "logits": [
+      29.90195083618164,
+      30.123247146606445,
+      28.227235794067383
+    ]
+  },
+  {
+    "id": "E06",
+    "index": 2,
+    "expected": "supported",
+    "claim": "**IFRS** — At year-end, a foreign-currency loan payable should be translated at the closing rate [C2], while a machine at historical cost should retain the original purchase rate [C2].",
+    "sources": [
+      "S10"
+    ],
+    "verdict": "contradicted",
+    "logits": [
+      31.155685424804688,
+      32.53911590576172,
+      30.36665153503418
+    ]
+  },
+  {
+    "id": "E09",
+    "index": 1,
+    "expected": "supported",
+    "claim": "**VAS** — Khi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế. [C1]",
+    "sources": [
+      "S06"
+    ],
+    "verdict": "supported",
+    "logits": [
+      30.53327178955078,
+      29.49807357788086,
+      28.12820816040039
+    ]
+  },
+  {
+    "id": "E09",
+    "index": 2,
+    "expected": "supported",
+    "claim": "**IFRS** — Consolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions in full. [C2]",
+    "sources": [
+      "S13"
+    ],
+    "verdict": "supported",
+    "logits": [
+      30.86353874206543,
+      29.87095069885254,
+      28.462276458740234
+    ]
+  },
+  {
+    "id": "E20",
+    "index": 1,
+    "expected": "supported",
+    "claim": "**VAS** — A foreign-currency receivable is reported at the current period end rate [C1].",
+    "sources": [
+      "S04"
+    ],
+    "verdict": "supported",
+    "logits": [
+      32.05876159667969,
+      31.185569763183594,
+      29.22552490234375
+    ]
+  },
+  {
+    "id": "E20",
+    "index": 2,
+    "expected": "supported",
+    "claim": "**IFRS** — At period end, a foreign-currency receivable is translated at the closing rate [C2].",
+    "sources": [
+      "S10"
+    ],
+    "verdict": "contradicted",
+    "logits": [
+      31.310348510742188,
+      33.25231170654297,
+      31.51469612121582
+    ]
+  }
+]

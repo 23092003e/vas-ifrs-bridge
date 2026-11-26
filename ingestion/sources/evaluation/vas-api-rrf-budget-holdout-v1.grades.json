@@ -1,0 +1,106 @@
+{
+  "method": "Assistant graded paired responses with the context variant masked.",
+  "n": 6,
+  "summary": {
+    "full": {
+      "correct": 0,
+      "correct_with_all_context_markers": 0,
+      "correct_with_all_cited_markers": 0,
+      "p50_latency_seconds": 46.004898645565845,
+      "p50_ttft_seconds": 18.790816353983246
+    },
+    "bounded": {
+      "correct": 4,
+      "correct_with_all_context_markers": 4,
+      "correct_with_all_cited_markers": 1,
+      "p50_latency_seconds": 55.39362031198107,
+      "p50_ttft_seconds": 31.688758416566998
+    }
+  },
+  "grades": {
+    "vas-api-n01": {
+      "full": {
+        "correct": false,
+        "reason": "Cộng đúng thuế nhưng dẫn việc trừ chiết khấu như một lựa chọn có điều kiện rồi dừng giữa câu.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "bounded": {
+        "correct": false,
+        "reason": "Cộng đúng thuế không hoàn lại, nhưng chỉ nói chiết khấu không nằm trong chi phí mua và chưa chỉ rõ phải trừ khỏi giá mua.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    },
+    "vas-api-n02": {
+      "bounded": {
+        "correct": true,
+        "reason": "Nêu đúng cơ sở công suất bình thường và ghi chi phí phần không phân bổ trong kỳ.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": false,
+        "reason": "Có nêu công suất bình thường, nhưng diễn đạt như khuyến nghị và dừng trước cách xử lý phần không phân bổ.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "vas-api-n03": {
+      "full": {
+        "correct": false,
+        "reason": "Nêu công thức chung nhưng chưa trả lời cơ sở riêng của phần hàng vượt hợp đồng.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "bounded": {
+        "correct": true,
+        "reason": "Nêu giá bán ước tính cho đúng phần chênh lệch vượt số hàng cần cho hợp đồng.",
+        "all_context_markers": true,
+        "all_cited_markers": true
+      }
+    },
+    "vas-api-n04": {
+      "bounded": {
+        "correct": false,
+        "reason": "Không nêu ngưỡng trên một năm hoặc quyết định ghi nhận cho máy trong câu hỏi.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": false,
+        "reason": "Nêu đúng ngưỡng và xác định không đạt điều kiện, nhưng dừng trước quyết định ghi nhận theo rubric đã dùng.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "vas-api-n05": {
+      "full": {
+        "correct": false,
+        "reason": "Liệt kê phương pháp tỷ lệ hoàn thành nhưng thêm phương pháp chuyển giao rủi ro cho dịch vụ và không kết luận đúng phương pháp thường dùng.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "bounded": {
+        "correct": true,
+        "reason": "Nêu phương pháp tỷ lệ hoàn thành và cách ghi nhận theo phần công việc đã hoàn thành.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "vas-api-n06": {
+      "bounded": {
+        "correct": true,
+        "reason": "Nêu đúng không ghi nhận nợ phải trả cuối kỳ và trình bày cổ tức trong Bản thuyết minh BCTC.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": false,
+        "reason": "Phân loại sai là sự kiện cần điều chỉnh và ghi nợ phải trả cuối kỳ.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    }
+  }
+}

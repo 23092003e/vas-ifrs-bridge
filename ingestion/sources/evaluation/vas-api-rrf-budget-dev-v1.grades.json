@@ -1,0 +1,120 @@
+{
+  "method": "Assistant graded paired responses with the context variant masked.",
+  "n": 7,
+  "summary": {
+    "full": {
+      "correct": 2,
+      "correct_with_all_context_markers": 2,
+      "correct_with_all_cited_markers": 0,
+      "p50_latency_seconds": 52.71808841614984,
+      "p50_ttft_seconds": 24.125189791200683
+    },
+    "bounded": {
+      "correct": 5,
+      "correct_with_all_context_markers": 3,
+      "correct_with_all_cited_markers": 1,
+      "p50_latency_seconds": 61.63005179190077,
+      "p50_ttft_seconds": 29.827916790964082
+    }
+  },
+  "grades": {
+    "vas-inventory-01": {
+      "full": {
+        "correct": false,
+        "reason": "Có quy tắc và dữ kiện nhưng bị cắt trước khi trả lời giá trị trình bày.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "bounded": {
+        "correct": true,
+        "reason": "Nêu đúng cơ sở đo lường và kết luận giá trị trình bày là 95 triệu đồng.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    },
+    "vas-inventory-02": {
+      "bounded": {
+        "correct": true,
+        "reason": "Nêu đúng từng mặt hàng và điều kiện giá trị thuần thấp hơn giá gốc.",
+        "all_context_markers": true,
+        "all_cited_markers": true
+      },
+      "full": {
+        "correct": false,
+        "reason": "Nêu đúng từng mặt hàng, nhưng không nêu ngưỡng giá trị thuần thấp hơn giá gốc và đổi cơ sở thành giá trị kế toán.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "vas-revenue-01": {
+      "full": {
+        "correct": false,
+        "reason": "Kết luận sai rằng vẫn được ghi nhận khi chưa xác định được chi phí.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "bounded": {
+        "correct": false,
+        "reason": "Nêu đủ năm điều kiện nhưng dừng trước kết luận chưa được ghi nhận trong tình huống hỏi.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "vas-events-01": {
+      "bounded": {
+        "correct": true,
+        "reason": "Xác định phải điều chỉnh số liệu đã ghi nhận để phản ánh sự kiện.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": true,
+        "reason": "Xác định phải điều chỉnh số liệu báo cáo tài chính.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "vas-events-02": {
+      "full": {
+        "correct": true,
+        "reason": "Nêu loại không điều chỉnh, bản chất sự kiện và ước tính tác động hoặc lý do không thể ước tính.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "bounded": {
+        "correct": true,
+        "reason": "Nêu loại không điều chỉnh và đủ hai nội dung cần trình bày trước phần cuối bị cắt.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "vas-regime-01": {
+      "bounded": {
+        "correct": false,
+        "reason": "Nêu đúng mốc áp dụng và phần nội dung cổ phần hóa còn hiệu lực nhưng bị cắt trước điều kiện có văn bản thay thế.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": false,
+        "reason": "Không nêu mốc áp dụng và không xác định phạm vi ngoại lệ.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "abstain-inventory-01": {
+      "full": {
+        "correct": false,
+        "reason": "Nhận ra thiếu dữ liệu nhưng gán sai nội dung VAS 02 và viện dẫn VAS 34 cho lập dự phòng hàng tồn kho.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "bounded": {
+        "correct": true,
+        "reason": "Không đưa số tiền và nêu dữ liệu giá bán hoặc chi phí cần có để tính.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    }
+  }
+}

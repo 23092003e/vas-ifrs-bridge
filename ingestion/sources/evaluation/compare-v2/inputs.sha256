@@ -1,0 +1,3 @@
+d85239d16e58d550187bf66271f0b995bc62fe35c01f0aa09ef3cb6e52a9b12e  ingestion/sources/evaluation/compare-v2/questions.jsonl
+803c9550851db95ddba845c9908d02ff52c7027856b80cbd03b7c38d439f5b4c  ingestion/sources/evaluation/matrix-v1/corpus.jsonl
+9cf23637e871afe717c18047534416f5a812b7f2ba1bc4224f5558895932968c  ingestion/sources/evaluation/compare-v2/holdout.jsonl

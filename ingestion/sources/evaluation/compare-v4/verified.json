@@ -1,0 +1,536 @@
+[
+  {
+    "id": "V01",
+    "checks": [
+      {
+        "claim": "**VAS** — Công ty sẽ ghi nhận việc phát hành cổ phần vào Báo cáo Lưu chuyển [C1].",
+        "sources": [
+          "S05"
+        ],
+        "verdict": "contradicted",
+        "logits": [
+          30.877195358276367,
+          31.155963897705078,
+          28.855098724365234
+        ]
+      },
+      {
+        "claim": "**IFRS** — Công ty phải ghi nhận việc phát hành cổ phần vào Thuyết minh [C2].",
+        "sources": [
+          "S11"
+        ],
+        "verdict": "contradicted",
+        "logits": [
+          30.084911346435547,
+          33.11885070800781,
+          29.96955108642578
+        ]
+      }
+    ],
+    "final": "Chưa xác minh được nhận định nào từ các đoạn được dẫn.",
+    "citations": [],
+    "seconds_verifier": 1.110201207920909,
+    "seconds_paired_sum": 6.343645749613643
+  },
+  {
+    "id": "V02",
+    "checks": [
+      {
+        "claim": "**VAS** — A lender converting a loan into shares without cash settlement does not affect the cash flow statement's reporting of financing activities [C1].",
+        "sources": [
+          "S05"
+        ],
+        "verdict": "supported",
+        "logits": [
+          31.717947006225586,
+          31.491426467895508,
+          29.416223526000977
+        ]
+      },
+      {
+        "claim": "**IFRS** — According to IAS 7, such transactions are disclosed separately in the notes to the financial statements rather than reported directly in the cash flow statement [C2].",
+        "sources": [
+          "S11"
+        ],
+        "verdict": "contradicted",
+        "logits": [
+          31.344242095947266,
+          32.23753356933594,
+          29.51292610168457
+        ]
+      }
+    ],
+    "final": "**VAS** — A lender converting a loan into shares without cash settlement does not affect the cash flow statement's reporting of financing activities [C1].",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S05",
+        "chunk_id": "S05",
+        "snippet": "[VAS 24] \nHoạt động đầu tư hoặc tài chính không làm thay đổi tiền và tương đương tiền được trình bày riêng trong thuyết minh. Chuyển nợ thành vốn chủ sở hữu là một ví dụ.",
+        "standard_code": "VAS 24"
+      }
+    ],
+    "seconds_verifier": 1.1032032081857324,
+    "seconds_paired_sum": 6.895547666121274
+  },
+  {
+    "id": "V03",
+    "checks": [
+      {
+        "claim": "**VAS** — [C1] Giao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ giá ngày xác định giá trị đó. [VAS C1]",
+        "sources": [
+          "S04"
+        ],
+        "verdict": "supported",
+        "logits": [
+          29.626358032226562,
+          29.4931697845459,
+          27.961162567138672
+        ]
+      }
+    ],
+    "final": "**VAS** — [C1] Giao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ giá ngày xác định giá trị đó. [VAS C1]",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S04",
+        "chunk_id": "S04",
+        "snippet": "[VAS 10] \nGiao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ gi",
+        "standard_code": "VAS 10"
+      }
+    ],
+    "seconds_verifier": 0.6916692079976201,
+    "seconds_paired_sum": 11.652368541806936
+  },
+  {
+    "id": "V04",
+    "checks": [
+      {
+        "claim": "**VAS** — At period end, translate foreign-currency monetary balances at the closing rate [C1].",
+        "sources": [
+          "S04"
+        ],
+        "verdict": "supported",
+        "logits": [
+          29.856632232666016,
+          29.150726318359375,
+          28.275545120239258
+        ]
+      },
+      {
+        "claim": "**IFRS** — At period end, translate foreign-currency monetary balances at the closing rate [C2].",
+        "sources": [
+          "S10"
+        ],
+        "verdict": "contradicted",
+        "logits": [
+          30.160118103027344,
+          30.51630973815918,
+          29.002408981323242
+        ]
+      },
+      {
+        "claim": "**VAS** — For nonmonetary assets measured at fair value, use the exchange rate on the measurement date [C1].",
+        "sources": [
+          "S04"
+        ],
+        "verdict": "supported",
+        "logits": [
+          29.44237518310547,
+          28.639612197875977,
+          27.94476318359375
+        ]
+      },
+      {
+        "claim": "**IFRS** — For nonmonetary assets measured at fair value, use the exchange rate on the measurement date [C2].",
+        "sources": [
+          "S10"
+        ],
+        "verdict": "contradicted",
+        "logits": [
+          30.607967376708984,
+          30.705856323242188,
+          29.32469940185547
+        ]
+      }
+    ],
+    "final": "**VAS** — At period end, translate foreign-currency monetary balances at the closing rate [C1].\n\n**VAS** — For nonmonetary assets measured at fair value, use the exchange rate on the measurement date [C1].",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S04",
+        "chunk_id": "S04",
+        "snippet": "[VAS 10] \nGiao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ gi",
+        "standard_code": "VAS 10"
+      }
+    ],
+    "seconds_verifier": 1.9975925413891673,
+    "seconds_paired_sum": 8.985221625305712
+  },
+  {
+    "id": "V05",
+    "checks": [
+      {
+        "claim": "**VAS** — Khi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ của hai công ty con phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế [C1].",
+        "sources": [
+          "S06"
+        ],
+        "verdict": "supported",
+        "logits": [
+          30.905677795410156,
+          30.68238067626953,
+          28.17929458618164
+        ]
+      },
+      {
+        "claim": "**IFRS** — Consolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions in full. [C2].",
+        "sources": [
+          "S13"
+        ],
+        "verdict": "supported",
+        "logits": [
+          31.263736724853516,
+          30.53170394897461,
+          28.66135597229004
+        ]
+      }
+    ],
+    "final": "**VAS** — Khi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ của hai công ty con phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế [C1].\n\n**IFRS** — Consolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions in full. [C2].",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S06",
+        "chunk_id": "S06",
+        "snippet": "[VAS 25] \nKhi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế.",
+        "standard_code": "VAS 25"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S13",
+        "chunk_id": "S13",
+        "snippet": "[IFRS 10] \nConsolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions",
+        "standard_code": "IFRS 10"
+      }
+    ],
+    "seconds_verifier": 1.0394167923368514,
+    "seconds_paired_sum": 9.096740334294736
+  },
+  {
+    "id": "V06",
+    "checks": [
+      {
+        "claim": "**VAS** — When a subsidiary and parent record the same intragroup consulting invoice and pay it before year-end, both entities should eliminate the result of this transaction in their consolidated financial statements. [C1]",
+        "sources": [
+          "S06"
+        ],
+        "verdict": "supported",
+        "logits": [
+          32.308753967285156,
+          30.175010681152344,
+          28.435510635375977
+        ]
+      },
+      {
+        "claim": "**IFRS** — In accordance with IFRS 10, when a subsidiary and parent record the same intragroup consulting invoice and pay it before year-end, they must eliminate the entire amount of the consulting revenue and consulting expense in their consolidated financial statements. [C2]",
+        "sources": [
+          "S13"
+        ],
+        "verdict": "supported",
+        "logits": [
+          33.332603454589844,
+          30.445648193359375,
+          28.960742950439453
+        ]
+      }
+    ],
+    "final": "**VAS** — When a subsidiary and parent record the same intragroup consulting invoice and pay it before year-end, both entities should eliminate the result of this transaction in their consolidated financial statements. [C1]\n\n**IFRS** — In accordance with IFRS 10, when a subsidiary and parent record the same intragroup consulting invoice and pay it before year-end, they must eliminate the entire amount of the consulting revenue and consulting expense in their consolidated financial statements. [C2]",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S06",
+        "chunk_id": "S06",
+        "snippet": "[VAS 25] \nKhi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế.",
+        "standard_code": "VAS 25"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S13",
+        "chunk_id": "S13",
+        "snippet": "[IFRS 10] \nConsolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions",
+        "standard_code": "IFRS 10"
+      }
+    ],
+    "seconds_verifier": 1.0500664575956762,
+    "seconds_paired_sum": 8.914333207532763
+  },
+  {
+    "id": "V07",
+    "checks": [],
+    "final": "Chưa đủ căn cứ để đưa ra kết luận đối chiếu có thể kiểm chứng.",
+    "citations": [],
+    "seconds_verifier": 2.2496096789836884e-06,
+    "seconds_paired_sum": 7.632724333554506
+  },
+  {
+    "id": "V08",
+    "checks": [],
+    "final": "The available sources did not support a comparison with verifiable citations.",
+    "citations": [],
+    "seconds_verifier": 7.501803338527679e-07,
+    "seconds_paired_sum": 4.131864417344332
+  },
+  {
+    "id": "V09",
+    "checks": [
+      {
+        "claim": "**VAS** — [C1] Từ 20% quyền biểu quyết, thông thường nhà đầu tư có ảnh hưởng đáng kể, trừ khi quy định hoặc thỏa thuận khác. Báo cáo riêng của nhà đầu tư phản ánh công ty liên kết theo phương pháp giá gốc.",
+        "sources": [
+          "S03"
+        ],
+        "verdict": "supported",
+        "logits": [
+          31.03109359741211,
+          30.5838565826416,
+          28.15511703491211
+        ]
+      }
+    ],
+    "final": "**VAS** — [C1] Từ 20% quyền biểu quyết, thông thường nhà đầu tư có ảnh hưởng đáng kể, trừ khi quy định hoặc thỏa thuận khác. Báo cáo riêng của nhà đầu tư phản ánh công ty liên kết theo phương pháp giá gốc.",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S03",
+        "chunk_id": "S03",
+        "snippet": "[VAS 07] \nTừ 20% quyền biểu quyết, thông thường nhà đầu tư có ảnh hưởng đáng kể, trừ khi quy định hoặc thỏa thuận khác. Báo cáo riêng của nhà đầu tư phản ánh công ty liên kết theo phương pháp giá gốc.",
+        "standard_code": "VAS 07"
+      }
+    ],
+    "seconds_verifier": 0.5527587090618908,
+    "seconds_paired_sum": 8.729913751129061
+  },
+  {
+    "id": "V10",
+    "checks": [
+      {
+        "claim": "**VAS** — At 31% of voting power, general presumption of significant influence exists under VAS 07 [C1].",
+        "sources": [
+          "S03"
+        ],
+        "verdict": "supported",
+        "logits": [
+          31.22551918029785,
+          29.901248931884766,
+          28.202468872070312
+        ]
+      },
+      {
+        "claim": "**IFRS** — Holding at least one fifth of voting power generally indicates significant influence unless clearly rebutted, starting at cost reflecting investor's share of subsequent results under IAS 28 [C2].",
+        "sources": [
+          "S14"
+        ],
+        "verdict": "supported",
+        "logits": [
+          30.574914932250977,
+          29.307968139648438,
+          28.415002822875977
+        ]
+      }
+    ],
+    "final": "**VAS** — At 31% of voting power, general presumption of significant influence exists under VAS 07 [C1].\n\n**IFRS** — Holding at least one fifth of voting power generally indicates significant influence unless clearly rebutted, starting at cost reflecting investor's share of subsequent results under IAS 28 [C2].",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S03",
+        "chunk_id": "S03",
+        "snippet": "[VAS 07] \nTừ 20% quyền biểu quyết, thông thường nhà đầu tư có ảnh hưởng đáng kể, trừ khi quy định hoặc thỏa thuận khác. Báo cáo riêng của nhà đầu tư phản ánh công ty liên kết theo phương pháp giá gốc.",
+        "standard_code": "VAS 07"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S14",
+        "chunk_id": "S14",
+        "snippet": "[IAS 28] \nHolding at least one fifth of voting power generally indicates significant influence unless clearly rebutted. An equity-accounted investment begins at cost, then reflects the investor’s shar",
+        "standard_code": "IAS 28"
+      }
+    ],
+    "seconds_verifier": 1.1652736249379814,
+    "seconds_paired_sum": 7.060697958339006
+  },
+  {
+    "id": "V11",
+    "checks": [
+      {
+        "claim": "**VAS** — [C1] Bên thuê phân loại theo mức chuyển giao rủi ro và lợi ích. Thuê tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. Tiền thuê hoạt động thường được phân bổ đường thẳng, trừ khi cơ sở khác phù hợp hơn.",
+        "sources": [
+          "S02"
+        ],
+        "verdict": "supported",
+        "logits": [
+          31.12546157836914,
+          30.385894775390625,
+          27.998779296875
+        ]
+      },
+      {
+        "claim": "**IFRS** — [C2] At commencement a lessee generally recognises a right-of-use asset and lease liability. The lessee can elect relief for leases of low-value underlying assets and for qualifying short-term leases. Low value is judged using the asset when new.",
+        "sources": [
+          "S08"
+        ],
+        "verdict": "supported",
+        "logits": [
+          31.149330139160156,
+          30.994953155517578,
+          29.021310806274414
+        ]
+      }
+    ],
+    "final": "**VAS** — [C1] Bên thuê phân loại theo mức chuyển giao rủi ro và lợi ích. Thuê tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. Tiền thuê hoạt động thường được phân bổ đường thẳng, trừ khi cơ sở khác phù hợp hơn.\n\n**IFRS** — [C2] At commencement a lessee generally recognises a right-of-use asset and lease liability. The lessee can elect relief for leases of low-value underlying assets and for qualifying short-term leases. Low value is judged using the asset when new.",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S02",
+        "chunk_id": "S02",
+        "snippet": "[VAS 06] \nBên thuê phân loại theo mức chuyển giao rủi ro và lợi ích. Thuê tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. Tiền thuê hoạt động th",
+        "standard_code": "VAS 06"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S08",
+        "chunk_id": "S08",
+        "snippet": "[IFRS 16] \nAt commencement a lessee generally recognises a right-of-use asset and lease liability. The lessee can elect relief for leases of low-value underlying assets and for qualifying short-term l",
+        "standard_code": "IFRS 16"
+      }
+    ],
+    "seconds_verifier": 1.5058754170313478,
+    "seconds_paired_sum": 12.47062212601304
+  },
+  {
+    "id": "V12",
+    "checks": [
+      {
+        "claim": "**VAS** — A lessee must recognize a right-of-use asset and lease liability at commencement. Straight-line expense is typically used unless another method is more suitable. [C1]",
+        "sources": [
+          "S02"
+        ],
+        "verdict": "supported",
+        "logits": [
+          30.27737808227539,
+          29.955585479736328,
+          28.64556121826172
+        ]
+      },
+      {
+        "claim": "**IFRS** — At commencement, a lessee recognizes a right-of-use asset and lease liability if the lease term exceeds twelve months. For low-value leases, relief may be applied. [C2]",
+        "sources": [
+          "S08"
+        ],
+        "verdict": "supported",
+        "logits": [
+          30.636383056640625,
+          30.045263290405273,
+          29.288406372070312
+        ]
+      }
+    ],
+    "final": "**VAS** — A lessee must recognize a right-of-use asset and lease liability at commencement. Straight-line expense is typically used unless another method is more suitable. [C1]\n\n**IFRS** — At commencement, a lessee recognizes a right-of-use asset and lease liability if the lease term exceeds twelve months. For low-value leases, relief may be applied. [C2]",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S02",
+        "chunk_id": "S02",
+        "snippet": "[VAS 06] \nBên thuê phân loại theo mức chuyển giao rủi ro và lợi ích. Thuê tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. Tiền thuê hoạt động th",
+        "standard_code": "VAS 06"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S08",
+        "chunk_id": "S08",
+        "snippet": "[IFRS 16] \nAt commencement a lessee generally recognises a right-of-use asset and lease liability. The lessee can elect relief for leases of low-value underlying assets and for qualifying short-term l",
+        "standard_code": "IFRS 16"
+      }
+    ],
+    "seconds_verifier": 1.0426893327385187,
+    "seconds_paired_sum": 11.26027749851346
+  },
+  {
+    "id": "V13",
+    "checks": [
+      {
+        "claim": "**VAS** — Giao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ giá ngày xác định giá trị đó. [C1]",
+        "sources": [
+          "S04"
+        ],
+        "verdict": "supported",
+        "logits": [
+          32.02766418457031,
+          30.1666202545166,
+          28.457988739013672
+        ]
+      }
+    ],
+    "final": "**VAS** — Giao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ giá ngày xác định giá trị đó. [C1]\n\nChưa có nguồn cho IAS 29. Chưa đủ căn cứ để đối chiếu đầy đủ.",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S04",
+        "chunk_id": "S04",
+        "snippet": "[VAS 10] \nGiao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ gi",
+        "standard_code": "VAS 10"
+      }
+    ],
+    "seconds_verifier": 0.5439915000461042,
+    "seconds_paired_sum": 9.246501916088164
+  },
+  {
+    "id": "V14",
+    "checks": [],
+    "final": "Sources are missing for VAS 20. A full comparison is unavailable.",
+    "citations": [],
+    "seconds_verifier": 1.2922100722789764e-06,
+    "seconds_paired_sum": 2.792248208541423
+  },
+  {
+    "id": "V15",
+    "checks": [
+      {
+        "claim": "**VAS** — Không có thông tin về yêu cầu công bố hợp đồng bảo hiểm trong VAS 05. [C1]",
+        "sources": [
+          "S01"
+        ],
+        "verdict": "contradicted",
+        "logits": [
+          30.167343139648438,
+          33.1289176940918,
+          30.228551864624023
+        ]
+      }
+    ],
+    "final": "Chưa có nguồn cho IFRS 17. Chưa đủ căn cứ để đối chiếu đầy đủ.",
+    "citations": [],
+    "seconds_verifier": 0.4933229167945683,
+    "seconds_paired_sum": 5.8274682918563485
+  },
+  {
+    "id": "V16",
+    "checks": [],
+    "final": "No relevant sources were found for this comparison.",
+    "citations": [],
+    "seconds_verifier": 1.62515789270401e-06,
+    "seconds_paired_sum": 0.01923854136839509
+  }
+]

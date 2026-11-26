@@ -1,0 +1,116 @@
+{
+  "method": "Assistant grading with the two context labels masked. Mandatory domain points and no material contradictions; no independent review.",
+  "n": 7,
+  "summary": {
+    "full": {
+      "correct": 3,
+      "correct_with_all_context_markers": 1,
+      "correct_with_all_cited_markers": 1
+    },
+    "adaptive": {
+      "correct": 2,
+      "correct_with_all_context_markers": 0,
+      "correct_with_all_cited_markers": 0
+    }
+  },
+  "grades": {
+    "vas-inventory-01": {
+      "full": {
+        "correct": true,
+        "reason": "Nêu quy tắc chọn số thấp hơn và kết luận 95 triệu đồng.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "adaptive": {
+        "correct": false,
+        "reason": "Nêu đúng quy tắc và hai giá trị nhưng dừng giữa câu trước khi kết luận số trình bày.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    },
+    "vas-inventory-02": {
+      "adaptive": {
+        "correct": false,
+        "reason": "Nói VAS không xác định cách lập dự phòng; không nêu theo từng mặt hàng khi giá trị thuần thấp hơn giá gốc.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": false,
+        "reason": "Chỉ nêu theo từng mặt hàng như thông lệ và bỏ điều kiện giá trị thuần thấp hơn giá gốc.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    },
+    "vas-revenue-01": {
+      "full": {
+        "correct": false,
+        "reason": "Nêu thiếu điều kiện chi phí nhưng dừng trước quyết định chưa ghi nhận, đồng thời danh sách năm điều kiện chỉ có bốn mục.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "adaptive": {
+        "correct": false,
+        "reason": "Nêu chi phí chưa thỏa nhưng dừng trước kết luận chưa ghi nhận.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    },
+    "vas-events-01": {
+      "adaptive": {
+        "correct": true,
+        "reason": "Nêu rõ cập nhật số liệu BCTC để phản ánh điều kiện tại ngày kết thúc kỳ.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": true,
+        "reason": "Nêu rõ điều chỉnh số liệu đã ghi nhận để phản ánh sự kiện.",
+        "all_context_markers": true,
+        "all_cited_markers": true
+      }
+    },
+    "vas-events-02": {
+      "full": {
+        "correct": false,
+        "reason": "Nêu ý thuyết minh nhưng gán sai VAS 27 và không nêu rõ giữ nguyên số liệu.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "adaptive": {
+        "correct": false,
+        "reason": "Nêu phải trình bày nhưng bỏ chi tiết về bản chất và ước tính ảnh hưởng hoặc giới hạn ước tính.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    },
+    "vas-regime-01": {
+      "adaptive": {
+        "correct": false,
+        "reason": "Bỏ mốc áp dụng và nhầm văn bản tiếp tục thực hiện cho đến khi có văn bản thay thế.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": false,
+        "reason": "Có nêu ngoại lệ cổ phần hóa nhưng bỏ mốc 01/01/2026 và phạm vi các nội dung được liệt kê.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    },
+    "abstain-inventory-01": {
+      "full": {
+        "correct": true,
+        "reason": "Từ chối xác định số tiền và nêu dữ liệu còn thiếu; dùng chưa chuẩn thuật ngữ giá trị hợp lý.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "adaptive": {
+        "correct": true,
+        "reason": "Không đưa ra số tiền và yêu cầu dữ liệu giá bán, chi phí hoàn thiện và tiêu thụ.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    }
+  }
+}

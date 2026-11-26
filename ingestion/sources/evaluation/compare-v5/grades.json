@@ -1,0 +1,50 @@
+[
+  {
+    "id": "P01",
+    "generated": "incomplete",
+    "evidence": "incomplete",
+    "reason": "Có quy tắc tỷ giá cuối kỳ hai phía, thiếu lựa chọn 25.200."
+  },
+  {
+    "id": "P02",
+    "generated": "pass",
+    "evidence": "pass",
+    "reason": "Cả hai nêu loại số dư nội bộ khi hợp nhất."
+  },
+  {
+    "id": "P03",
+    "generated": "incomplete",
+    "evidence": "incomplete",
+    "reason": "Đối chứng thiếu quy tắc phía VAS. Trích đoạn có công bố riêng nhưng thiếu phát biểu rõ loại khỏi báo cáo lưu chuyển ở phía VAS."
+  },
+  {
+    "id": "P04",
+    "generated": "incomplete",
+    "evidence": "incomplete",
+    "reason": "Hai nhánh có nguyên tắc giá thấp hơn và hai khoản mục IFRS nhưng thiếu kết quả 690."
+  },
+  {
+    "id": "P05",
+    "generated": "incomplete",
+    "evidence": "incomplete",
+    "reason": "Đối chứng dùng cổ phiếu thay quyền biểu quyết trong kết luận và kết thúc giữa câu. Trích đoạn nêu ngưỡng nhưng chưa kết luận cho 28%."
+  },
+  {
+    "id": "P06",
+    "generated": "wrong",
+    "evidence": "incomplete",
+    "reason": "Đối chứng gán lựa chọn giá trị hợp lý cho VAS 05. Trích đoạn cho đủ căn cứ, không diễn giải trực tiếp tình huống."
+  },
+  {
+    "id": "P07",
+    "generated": "pass",
+    "evidence": "pass",
+    "reason": "Cả hai nêu được cơ sở đo theo VAS và thiếu IFRS 17."
+  },
+  {
+    "id": "P08",
+    "generated": "pass",
+    "evidence": "pass",
+    "reason": "Cả hai từ chối khi không có nguồn. Chế độ trích đoạn chỉ rõ hai mã còn thiếu."
+  }
+]

@@ -1,0 +1,306 @@
+{
+  "summary": {
+    "baseline": {
+      "two_sided_count": 12,
+      "results": {
+        "wrong": 2,
+        "incomplete": 5,
+        "pass": 3,
+        "refused": 2
+      },
+      "gold_cited": 8,
+      "p50_seconds": 7.748494416940957,
+      "missing_count": 4,
+      "missing_safe": 4,
+      "missing_pass": 2
+    },
+    "verified": {
+      "two_sided_count": 12,
+      "results": {
+        "refused": 3,
+        "incomplete": 6,
+        "pass": 2,
+        "wrong": 1
+      },
+      "gold_cited": 5,
+      "p50_seconds": 8.822123479330912,
+      "missing_count": 4,
+      "missing_safe": 4,
+      "missing_pass": 2
+    }
+  },
+  "cases": [
+    {
+      "id": "V01",
+      "family": "cash",
+      "lang": "vi",
+      "baseline": {
+        "status": "wrong",
+        "reason": "Phía VAS đưa phát hành cổ phần phi tiền tệ vào báo cáo lưu chuyển. Phía IFRS chỉ nói công bố riêng.",
+        "gold_cited": true,
+        "seconds": 5.233444541692734
+      },
+      "verified": {
+        "status": "refused",
+        "reason": "Bộ kiểm tra loại lỗi VAS nhưng cũng loại phần IFRS. Bản final từ chối.",
+        "gold_cited": false,
+        "seconds": 6.343645749613643
+      }
+    },
+    {
+      "id": "V02",
+      "family": "cash",
+      "lang": "en",
+      "baseline": {
+        "status": "incomplete",
+        "reason": "VAS nêu loại khỏi dòng tiền tài chính nhưng thiếu công bố riêng. IFRS nêu đủ hai ý.",
+        "gold_cited": true,
+        "seconds": 5.792344457935542
+      },
+      "verified": {
+        "status": "incomplete",
+        "reason": "Giữ đúng phần VAS loại khỏi dòng tiền. Mất phần IFRS có nguồn và VAS vẫn thiếu công bố riêng.",
+        "gold_cited": false,
+        "seconds": 6.895547666121274
+      }
+    },
+    {
+      "id": "V03",
+      "family": "fx",
+      "lang": "vi",
+      "baseline": {
+        "status": "incomplete",
+        "reason": "VAS áp tỷ giá cuối kỳ cho khoản tiền tệ, nhưng thiếu phần IAS 21.",
+        "gold_cited": false,
+        "seconds": 10.960699333809316
+      },
+      "verified": {
+        "status": "incomplete",
+        "reason": "Phần VAS còn giữ, IAS 21 vẫn thiếu như đối chứng.",
+        "gold_cited": false,
+        "seconds": 11.652368541806936
+      }
+    },
+    {
+      "id": "V04",
+      "family": "fx",
+      "lang": "en",
+      "baseline": {
+        "status": "pass",
+        "reason": "Cả hai nêu đúng tỷ giá cuối kỳ và tỷ giá ngày đo giá trị hợp lý. Hai mốc tương ứng 31 và 24 tháng 12 trong câu hỏi.",
+        "gold_cited": true,
+        "seconds": 6.987629083916545
+      },
+      "verified": {
+        "status": "incomplete",
+        "reason": "Loại nhầm cả hai nhận định đúng phía IAS 21. Giữ hai tỷ giá đúng ở phía VAS.",
+        "gold_cited": false,
+        "seconds": 8.985221625305712
+      }
+    },
+    {
+      "id": "V05",
+      "family": "group",
+      "lang": "vi",
+      "baseline": {
+        "status": "pass",
+        "reason": "Cả hai loại doanh thu, chi phí và số dư nội bộ khi hợp nhất.",
+        "gold_cited": true,
+        "seconds": 8.057323541957885
+      },
+      "verified": {
+        "status": "pass",
+        "reason": "Giữ đủ hai nhận định loại doanh thu, chi phí và số dư nội bộ.",
+        "gold_cited": true,
+        "seconds": 9.096740334294736
+      }
+    },
+    {
+      "id": "V06",
+      "family": "group",
+      "lang": "en",
+      "baseline": {
+        "status": "incomplete",
+        "reason": "IFRS nêu đủ doanh thu và chi phí. VAS chỉ nói loại kết quả giao dịch, chưa nêu hai khoản mục.",
+        "gold_cited": true,
+        "seconds": 7.864266749937087
+      },
+      "verified": {
+        "status": "incomplete",
+        "reason": "Cả hai đoạn được giữ. VAS vẫn thiếu nêu riêng loại doanh thu và chi phí.",
+        "gold_cited": true,
+        "seconds": 8.914333207532763
+      }
+    },
+    {
+      "id": "V07",
+      "family": "property",
+      "lang": "vi",
+      "baseline": {
+        "status": "refused",
+        "reason": "Có nguồn cả hai phía, nhưng bản final không có nhận định được trích dẫn.",
+        "gold_cited": false,
+        "seconds": 7.632722083944827
+      },
+      "verified": {
+        "status": "refused",
+        "reason": "Giữ từ chối của đối chứng vì không có nhận định đủ mã đoạn.",
+        "gold_cited": false,
+        "seconds": 7.632724333554506
+      }
+    },
+    {
+      "id": "V08",
+      "family": "property",
+      "lang": "en",
+      "baseline": {
+        "status": "refused",
+        "reason": "Không có nhận định được trích dẫn trong bản final.",
+        "gold_cited": false,
+        "seconds": 4.131863667163998
+      },
+      "verified": {
+        "status": "refused",
+        "reason": "Giữ từ chối của đối chứng vì không có nhận định đủ mã đoạn.",
+        "gold_cited": false,
+        "seconds": 4.131864417344332
+      }
+    },
+    {
+      "id": "V09",
+      "family": "influence",
+      "lang": "vi",
+      "baseline": {
+        "status": "incomplete",
+        "reason": "Chỉ nêu quy tắc ảnh hưởng đáng kể của VAS. Thiếu IAS 28.",
+        "gold_cited": false,
+        "seconds": 8.17715504206717
+      },
+      "verified": {
+        "status": "incomplete",
+        "reason": "Giữ phần VAS đúng về ảnh hưởng đáng kể. Vẫn thiếu IAS 28.",
+        "gold_cited": false,
+        "seconds": 8.729913751129061
+      }
+    },
+    {
+      "id": "V10",
+      "family": "influence",
+      "lang": "en",
+      "baseline": {
+        "status": "pass",
+        "reason": "Cả hai nêu ảnh hưởng đáng kể trong tình huống 31% và không có bằng chứng ngược.",
+        "gold_cited": true,
+        "seconds": 5.895424333401024
+      },
+      "verified": {
+        "status": "pass",
+        "reason": "Giữ hai nhận định về ảnh hưởng đáng kể.",
+        "gold_cited": true,
+        "seconds": 7.060697958339006
+      }
+    },
+    {
+      "id": "V11",
+      "family": "lease",
+      "lang": "vi",
+      "baseline": {
+        "status": "incomplete",
+        "reason": "Trích quy tắc giá thấp hơn nhưng không tính ra 480 triệu. Phía IFRS nêu đúng hai khoản mục.",
+        "gold_cited": true,
+        "seconds": 10.964746708981693
+      },
+      "verified": {
+        "status": "incomplete",
+        "reason": "Giữ hai đoạn nhưng vẫn thiếu câu trả lời số tiền 480 triệu.",
+        "gold_cited": true,
+        "seconds": 12.47062212601304
+      }
+    },
+    {
+      "id": "V12",
+      "family": "lease",
+      "lang": "en",
+      "baseline": {
+        "status": "wrong",
+        "reason": "Phía VAS yêu cầu tài sản quyền sử dụng cho thuê hoạt động. Phía IFRS biến mốc 12 tháng thành điều kiện chung dù đề bài loại miễn trừ.",
+        "gold_cited": true,
+        "seconds": 10.217588165774941
+      },
+      "verified": {
+        "status": "wrong",
+        "reason": "Cả hai nhận định sai về thuê hoạt động VAS và điều kiện 12 tháng IFRS vẫn được giữ.",
+        "gold_cited": true,
+        "seconds": 11.26027749851346
+      }
+    },
+    {
+      "id": "V13",
+      "family": "missing",
+      "lang": "vi",
+      "baseline": {
+        "status": "pass",
+        "reason": "Phần VAS nêu tỷ giá cuối kỳ và bản final báo thiếu IAS 29.",
+        "gold_cited": true,
+        "seconds": 8.70251041604206
+      },
+      "verified": {
+        "status": "pass",
+        "reason": "Giữ quy tắc tỷ giá cuối kỳ theo VAS và cảnh báo thiếu IAS 29.",
+        "gold_cited": true,
+        "seconds": 9.246501916088164
+      }
+    },
+    {
+      "id": "V14",
+      "family": "missing",
+      "lang": "en",
+      "baseline": {
+        "status": "incomplete",
+        "reason": "Báo đúng thiếu VAS 20 nhưng không trả phần IAS 40 có nguồn.",
+        "gold_cited": false,
+        "seconds": 2.792246916331351
+      },
+      "verified": {
+        "status": "incomplete",
+        "reason": "Giữ cảnh báo thiếu VAS 20. Vẫn chưa trả lời IAS 40.",
+        "gold_cited": false,
+        "seconds": 2.792248208541423
+      }
+    },
+    {
+      "id": "V15",
+      "family": "missing",
+      "lang": "vi",
+      "baseline": {
+        "status": "incomplete",
+        "reason": "Báo đúng thiếu IFRS 17 nhưng phần VAS không trả lời cơ sở đo lường bất động sản.",
+        "gold_cited": true,
+        "seconds": 5.33414537506178
+      },
+      "verified": {
+        "status": "incomplete",
+        "reason": "Giữ cảnh báo thiếu IFRS 17. Vẫn chưa trả lời cách đo theo VAS 05.",
+        "gold_cited": false,
+        "seconds": 5.8274682918563485
+      }
+    },
+    {
+      "id": "V16",
+      "family": "missing",
+      "lang": "en",
+      "baseline": {
+        "status": "pass",
+        "reason": "Từ chối toàn bộ khi cả hai mã đều thiếu nguồn.",
+        "gold_cited": false,
+        "seconds": 0.019236916210502386
+      },
+      "verified": {
+        "status": "pass",
+        "reason": "Giữ từ chối toàn bộ khi cả hai mã thiếu nguồn.",
+        "gold_cited": false,
+        "seconds": 0.01923854136839509
+      }
+    }
+  ]
+}

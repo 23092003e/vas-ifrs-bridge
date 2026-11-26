@@ -1,0 +1,75 @@
+{
+  "method": "Assistant graded masked answers with the prior mandatory points rubric.",
+  "summary": {
+    "stepwise": {
+      "correct": 2,
+      "correct_and_all_cited_markers": 1
+    },
+    "conclusion_first": {
+      "correct": 2,
+      "correct_and_all_cited_markers": 0
+    }
+  },
+  "grades": {
+    "vas-inventory-02": {
+      "stepwise": {
+        "correct": true,
+        "reason": "Nêu từng mặt hàng và giữ điều kiện giá trị thuần thấp hơn giá gốc.",
+        "all_cited_markers": true
+      },
+      "conclusion_first": {
+        "correct": false,
+        "reason": "Nêu đúng từng mặt hàng nhưng bỏ điều kiện giá trị thuần thấp hơn giá gốc.",
+        "all_cited_markers": true
+      }
+    },
+    "vas-revenue-01": {
+      "conclusion_first": {
+        "correct": true,
+        "reason": "Kết luận chưa ghi nhận và nêu đúng điều kiện chưa xác định được chi phí.",
+        "all_cited_markers": false
+      },
+      "stepwise": {
+        "correct": false,
+        "reason": "Liệt kê đủ điều kiện nhưng dừng trước kết luận nghiệp vụ.",
+        "all_cited_markers": false
+      }
+    },
+    "vas-events-02": {
+      "stepwise": {
+        "correct": true,
+        "reason": "Nêu loại không điều chỉnh và đủ hai nội dung cần trình bày.",
+        "all_cited_markers": false
+      },
+      "conclusion_first": {
+        "correct": false,
+        "reason": "Nêu đủ nội dung thuyết minh, nhưng bỏ ý không điều chỉnh số liệu theo rubric.",
+        "all_cited_markers": false
+      }
+    },
+    "vas-regime-01": {
+      "conclusion_first": {
+        "correct": false,
+        "reason": "Nêu đúng mốc áp dụng, nhưng nói thay thế một phần thay vì xác định nội dung cổ phần hóa tiếp tục áp dụng đến văn bản thay thế.",
+        "all_cited_markers": false
+      },
+      "stepwise": {
+        "correct": false,
+        "reason": "Nêu đúng mốc áp dụng và một phần ngoại lệ, nhưng dừng trước điều kiện có văn bản thay thế.",
+        "all_cited_markers": false
+      }
+    },
+    "abstain-inventory-01": {
+      "stepwise": {
+        "correct": false,
+        "reason": "Nêu dữ liệu còn thiếu nhưng yêu cầu dùng giả định để ước tính giá trị hợp lý, thay vì từ chối tính số tiền khi thiếu căn cứ.",
+        "all_cited_markers": false
+      },
+      "conclusion_first": {
+        "correct": true,
+        "reason": "Từ chối xác định số tiền và nêu dữ liệu giá bán và chi phí còn thiếu.",
+        "all_cited_markers": false
+      }
+    }
+  }
+}

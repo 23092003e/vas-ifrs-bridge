@@ -1,0 +1,122 @@
+{
+  "method": "assistant grading of shuffled context labels",
+  "n": 6,
+  "summary": {
+    "base": {
+      "correct": 3,
+      "correct_with_markers": 0
+    },
+    "full": {
+      "correct": 5,
+      "correct_with_markers": 5
+    },
+    "passages_512": {
+      "correct": 5,
+      "correct_with_markers": 4
+    }
+  },
+  "grades": {
+    "vas-h01": {
+      "full": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correct prohibition on future operating losses."
+      },
+      "passages_512": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Invents a recognition exception for certain future operating losses."
+      },
+      "base": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correctly rejects recognition based on a forecast, but incorrectly expands the title of VAS 18."
+      }
+    },
+    "vas-h02": {
+      "passages_512": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correctly rejects recognition and gives the near-certain threshold."
+      },
+      "base": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correctly rejects recognition for an unresolved award; adds an unnecessary IAS attribution."
+      },
+      "full": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correctly rejects recognition and gives the near-certain threshold."
+      }
+    },
+    "vas-h03": {
+      "full": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correctly rejects recognising the provision without a reliable estimate."
+      },
+      "passages_512": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correctly rejects recognising the provision without a reliable estimate."
+      },
+      "base": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Incorrectly says to recognise a provision using a minimum amount."
+      }
+    },
+    "vas-h04": {
+      "full": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correct date and control basis."
+      },
+      "base": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Correct date but misidentifies the acquisition date as the date of recognising revenue and expenses."
+      },
+      "passages_512": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correct date and control basis."
+      }
+    },
+    "vas-h05": {
+      "full": {
+        "correct": false,
+        "all_markers": true,
+        "reason": "Mixes languages and invents a coefficient."
+      },
+      "base": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Completes the weighted-average accounting point, then switches languages and is cut off."
+      },
+      "passages_512": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correct weighted-average criterion."
+      }
+    },
+    "vas-h06": {
+      "full": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correctly says it is no longer contingent and is recognised."
+      },
+      "base": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Substitutes a high probability for near certainty and is incomplete."
+      },
+      "passages_512": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correctly says it is no longer contingent and is recognised."
+      }
+    }
+  }
+}

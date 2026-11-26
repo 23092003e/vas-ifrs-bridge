@@ -1,0 +1,7 @@
+[
+  ["E01",2,"contradicted"], ["E03",1,"contradicted"], ["E08",1,"contradicted"],
+  ["E13",1,"insufficient"], ["E14",1,"insufficient"],
+  ["E04",1,"supported"], ["E04",2,"supported"], ["E04",3,"supported"], ["E04",4,"supported"],
+  ["E06",1,"supported"], ["E06",2,"supported"], ["E09",1,"supported"], ["E09",2,"supported"],
+  ["E20",1,"supported"], ["E20",2,"supported"]
+]

@@ -1,0 +1,249 @@
+[
+  {
+    "id": "P01",
+    "group": "freeform",
+    "seconds": 10.524704750161618,
+    "expected": "Cả hai dùng tỷ giá cuối kỳ 25.200 vì khoản vay là khoản mục tiền tệ.",
+    "gold": [
+      "S04",
+      "S10"
+    ],
+    "docs": {
+      "C1": "S04",
+      "C2": "S10"
+    },
+    "raw": "VAS: Giao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ giá ngày xác định giá trị đó. [C1]\n\nIAS 21: At period end, translate foreign-currency monetary balances at the closing rate. Keep the transaction-date rate for nonmonetary balances at historical cost; for fair-value measurement use the exchange rate on the measurement date. [C2]",
+    "evidence_present": true,
+    "final": "**VAS** — Giao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ giá ngày xác định giá trị đó. [C1]\n\n**IFRS** — At period end, translate foreign-currency monetary balances at the closing rate. Keep the transaction-date rate for nonmonetary balances at historical cost; for fair-value measurement use the exchange rate on the measurement date. [C2]",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S04",
+        "chunk_id": "S04",
+        "snippet": "[VAS 10] \nGiao dịch ngoại tệ ban đầu áp tỷ giá ngày giao dịch. Cuối kỳ, khoản tiền tệ dùng tỷ giá cuối kỳ. Khoản phi tiền tệ theo giá gốc giữ tỷ giá giao dịch, còn khoản theo giá trị hợp lý dùng tỷ gi",
+        "standard_code": "VAS 10"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S10",
+        "chunk_id": "S10",
+        "snippet": "[IAS 21] \nAt period end, translate foreign-currency monetary balances at the closing rate. Keep the transaction-date rate for nonmonetary balances at historical cost; for fair-value measurement use th",
+        "standard_code": "IAS 21"
+      }
+    ]
+  },
+  {
+    "id": "P02",
+    "group": "freeform",
+    "seconds": 5.674052332993597,
+    "expected": "Eliminate both intragroup balances in consolidated reporting under both standards.",
+    "gold": [
+      "S06",
+      "S13"
+    ],
+    "docs": {
+      "C1": "S06",
+      "C2": "S13"
+    },
+    "raw": "VAS: When a subsidiary records a reciprocal service receivable and payable between itself and another subsidiary within the same group, it must be eliminated in the consolidation process. [VAS 25]\nIFRS: In accordance with IFRS 10, such intra-group balances are removed when preparing consolidated financial statements. [IFRS 10]",
+    "evidence_present": true,
+    "final": "**VAS** — When a subsidiary records a reciprocal service receivable and payable between itself and another subsidiary within the same group, it must be eliminated in the consolidation process. [C1]\n\n**IFRS** — In accordance with IFRS 10, such intra-group balances are removed when preparing consolidated financial statements. [C2]",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S06",
+        "chunk_id": "S06",
+        "snippet": "[VAS 25] \nKhi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế.",
+        "standard_code": "VAS 25"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S13",
+        "chunk_id": "S13",
+        "snippet": "[IFRS 10] \nConsolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions",
+        "standard_code": "IFRS 10"
+      }
+    ]
+  },
+  {
+    "id": "P03",
+    "group": "freeform",
+    "seconds": 4.81310045812279,
+    "expected": "Cả hai loại khỏi lưu chuyển tiền tệ và công bố riêng giao dịch phi tiền tệ.",
+    "gold": [
+      "S05",
+      "S11"
+    ],
+    "docs": {
+      "C1": "S05",
+      "C2": "S11"
+    },
+    "raw": "VAS: Một chủ nợ nhận cổ phần thay cho thu tiền trả nợ [VAS 24].\nIAS 7: Disclose noncash investing and financing transactions elsewhere in the financial statements. The cash flow statement excludes these items, including a conversion of debt into equity. [IAS 7].",
+    "evidence_present": true,
+    "final": "**VAS** — Một chủ nợ nhận cổ phần thay cho thu tiền trả nợ [C1].\n\n**IFRS** — Disclose noncash investing and financing transactions elsewhere in the financial statements. The cash flow statement excludes these items, including a conversion of debt into equity. [C2].",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S05",
+        "chunk_id": "S05",
+        "snippet": "[VAS 24] \nHoạt động đầu tư hoặc tài chính không làm thay đổi tiền và tương đương tiền được trình bày riêng trong thuyết minh. Chuyển nợ thành vốn chủ sở hữu là một ví dụ.",
+        "standard_code": "VAS 24"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S11",
+        "chunk_id": "S11",
+        "snippet": "[IAS 7] \nDisclose noncash investing and financing transactions elsewhere in the financial statements. The cash flow statement excludes these items, including a conversion of debt into equity.",
+        "standard_code": "IAS 7"
+      }
+    ]
+  },
+  {
+    "id": "P04",
+    "group": "freeform",
+    "seconds": 8.716830207966268,
+    "expected": "VAS uses 690. IFRS requires a right-of-use asset and lease liability.",
+    "gold": [
+      "S02",
+      "S08"
+    ],
+    "docs": {
+      "C1": "S02",
+      "C2": "S08"
+    },
+    "raw": "VAS: A finance lease under VAS 06 has fair value 760 and present value of minimum payments 690. Therefore, the initial amount that applies is the lower of the fair value and the present value of minimum payments [C1].\nIFRS: Under IFRS 16, no exemption applies; therefore, the two items recognised at commencement are a right-of-use asset and a lease liability [C2].",
+    "evidence_present": true,
+    "final": "**VAS** — A finance lease under VAS 06 has fair value 760 and present value of minimum payments 690. Therefore, the initial amount that applies is the lower of the fair value and the present value of minimum payments [C1].\n\n**IFRS** — Under IFRS 16, no exemption applies; therefore, the two items recognised at commencement are a right-of-use asset and a lease liability [C2].",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S02",
+        "chunk_id": "S02",
+        "snippet": "[VAS 06] \nBên thuê phân loại theo mức chuyển giao rủi ro và lợi ích. Thuê tài chính được ghi nhận ban đầu bằng giá thấp hơn giữa giá trị hợp lý và hiện giá khoản thuê tối thiểu. Tiền thuê hoạt động th",
+        "standard_code": "VAS 06"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S08",
+        "chunk_id": "S08",
+        "snippet": "[IFRS 16] \nAt commencement a lessee generally recognises a right-of-use asset and lease liability. The lessee can elect relief for leases of low-value underlying assets and for qualifying short-term l",
+        "standard_code": "IFRS 16"
+      }
+    ]
+  },
+  {
+    "id": "P05",
+    "group": "freeform",
+    "seconds": 13.774587207939476,
+    "expected": "Cả hai thường suy đoán ảnh hưởng đáng kể với điều kiện đã nêu.",
+    "gold": [
+      "S03",
+      "S14"
+    ],
+    "docs": {
+      "C1": "S03",
+      "C2": "S14"
+    },
+    "raw": "VAS: [VAS 07] Từ 20% quyền biểu quyết, thông thường nhà đầu tư có ảnh hưởng đáng kể, trừ khi quy định hoặc thỏa thuận khác. Báo cáo riêng của nhà đầu tư phản ánh công ty liên kết theo phương pháp giá gốc.\nIAS 28: Holding at least one fifth of voting power generally indicates significant influence unless clearly rebutted. An equity-accounted investment begins at cost, then reflects the investor’s share of subsequent results.\nCOMPARE: [VAS 07], [IAS 28]: Hai chuẩn đều xác định rằng doanh nghiệp nắm giữ ít nhất 20% hoặc một phần năm cổ phiếu có thể được coi là có ảnh hưởng đáng kể đến hoạt động kinh doanh của công ty. Tuy nhiên, IAS 28 thêm rằng điều",
+    "evidence_present": true,
+    "final": "**VAS** — [C1] Từ 20% quyền biểu quyết, thông thường nhà đầu tư có ảnh hưởng đáng kể, trừ khi quy định hoặc thỏa thuận khác. Báo cáo riêng của nhà đầu tư phản ánh công ty liên kết theo phương pháp giá gốc.\n\n**Đối chiếu** — [C1], [C2]: Hai chuẩn đều xác định rằng doanh nghiệp nắm giữ ít nhất 20% hoặc một phần năm cổ phiếu có thể được coi là có ảnh hưởng đáng kể đến hoạt động kinh doanh của công ty. Tuy nhiên, IAS 28 thêm rằng điều",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S03",
+        "chunk_id": "S03",
+        "snippet": "[VAS 07] \nTừ 20% quyền biểu quyết, thông thường nhà đầu tư có ảnh hưởng đáng kể, trừ khi quy định hoặc thỏa thuận khác. Báo cáo riêng của nhà đầu tư phản ánh công ty liên kết theo phương pháp giá gốc.",
+        "standard_code": "VAS 07"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S14",
+        "chunk_id": "S14",
+        "snippet": "[IAS 28] \nHolding at least one fifth of voting power generally indicates significant influence unless clearly rebutted. An equity-accounted investment begins at cost, then reflects the investor’s shar",
+        "standard_code": "IAS 28"
+      }
+    ]
+  },
+  {
+    "id": "P06",
+    "group": "freeform",
+    "seconds": 7.412866333965212,
+    "expected": "VAS uses cost and depreciation. IAS 40 fair-value gain goes to profit or loss.",
+    "gold": [
+      "S01",
+      "S12"
+    ],
+    "docs": {
+      "C1": "S01",
+      "C2": "S12"
+    },
+    "raw": "VAS: Investment properties are measured at their original cost or fair value through profit or loss, depending on the entity's choice. If the fair-value model is selected, changes in fair value affect income directly. [VAS 05]\nIFRS: Rental properties remain classified as investment properties under IAS 40. The fair-value change gains recognized under this standard go into profit or loss for the reporting period. [IAS 40]",
+    "evidence_present": true,
+    "final": "**VAS** — Investment properties are measured at their original cost or fair value through profit or loss, depending on the entity's choice. If the fair-value model is selected, changes in fair value affect income directly. [C1]\n\n**IFRS** — Rental properties remain classified as investment properties under IAS 40. The fair-value change gains recognized under this standard go into profit or loss for the reporting period. [C2]",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S01",
+        "chunk_id": "S01",
+        "snippet": "[VAS 05] \nBất động sản đầu tư được theo dõi trên cơ sở nguyên giá và hao mòn sau ghi nhận. Thay đổi giữa bất động sản đầu tư và nhóm khác cần có thay đổi mục đích sử dụng.",
+        "standard_code": "VAS 05"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S12",
+        "chunk_id": "S12",
+        "snippet": "[IAS 40] \nInvestment property normally follows the entity’s chosen cost or fair-value policy, subject to specified exceptions. Under the fair-value model, the movement in fair value goes to profit or ",
+        "standard_code": "IAS 40"
+      }
+    ]
+  },
+  {
+    "id": "P07",
+    "group": "freeform",
+    "seconds": 2.94725879188627,
+    "expected": "Nêu nguyên giá và hao mòn ở VAS 05. Báo thiếu nguồn IFRS 17.",
+    "gold": [
+      "S01"
+    ],
+    "docs": {
+      "C1": "S01"
+    },
+    "raw": "VAS: Bất động sản đầu tư được theo dõi trên cơ sở nguyên giá và hao mòn sau ghi nhận. [VAS 05]",
+    "evidence_present": true,
+    "final": "**VAS** — Bất động sản đầu tư được theo dõi trên cơ sở nguyên giá và hao mòn sau ghi nhận. [C1]\n\nChưa có nguồn cho IFRS 17. Chưa đủ căn cứ để đối chiếu đầy đủ.",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S01",
+        "chunk_id": "S01",
+        "snippet": "[VAS 05] \nBất động sản đầu tư được theo dõi trên cơ sở nguyên giá và hao mòn sau ghi nhận. Thay đổi giữa bất động sản đầu tư và nhóm khác cần có thay đổi mục đích sử dụng.",
+        "standard_code": "VAS 05"
+      }
+    ]
+  },
+  {
+    "id": "P08",
+    "group": "freeform",
+    "seconds": 0.01658891700208187,
+    "expected": "Abstain for both when neither requested source exists.",
+    "gold": [],
+    "docs": {},
+    "raw": null,
+    "evidence_present": true,
+    "final": "No relevant sources were found for this comparison.",
+    "citations": []
+  }
+]

@@ -1,0 +1,994 @@
+{
+  "dataset_sha256": "e1129f64fd95a840261a2b928179647cdedd1800f55c2e723ef5cb80d2184668",
+  "graph_nodes": 124,
+  "results": [
+    {
+      "id": "vas-inventory-01",
+      "reference": "95 triệu đồng, vì giá trị thuần có thể thực hiện được thấp hơn giá gốc.",
+      "final": "Theo VAS 02 về Hàng tồn kho, hàng tồn kho phải được ghi nhận và đo lường sau ghi nhận theo nguyên tắc \"Giá gốc hoặc Giá trị thuần có thể thực hiện được, tùy thuộc vào điều kiện nào thấp hơn\". Trong trường hợp này, giá gốc của lô hàng là 120 triệu đồng trong khi giá trị thuần có thể thực hiện được là 95 triệu đồng. Vì giá trị thuần có thể thực hiện được (95 triệu) nhỏ hơn giá gốc (120 triệu), nên giá trị trình bày trên báo cáo tài chính sẽ là 95 triệu đồng.\n\nVậy, theo VAS 02, giá trị trình bày của lô hàng này là 95",
+      "persisted": true,
+      "ttft_seconds": 55.974819499999285,
+      "seconds": 83.79862945806235,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 1,
+      "trace": {
+        "mode": "full",
+        "question": "Một lô hàng có giá gốc 120 triệu và giá trị thuần có thể thực hiện được 95 triệu. Theo VAS 02, giá trị trình bày là bao nhiêu?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 18.426934165880084
+        },
+        "retrieved": [
+          {
+            "id": "b1d5a768-0c83-5f18-9e0c-96f9cd07f1fc",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "54e63ea3-a0c2-541b-8870-4524eb29840a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "2180876f-4d35-5afa-ba1d-0e13c01dabdb",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          },
+          {
+            "id": "8097fce2-2499-5259-993c-20c1c060a317",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C4"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#10\">>\n[Unknown] \n�n kho cuối kỳ tính theo phương pháp bình quân gia quyền nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho tính theo phương pháp nhập trước, xuất trước và phương pháp bình quân gia quyền); hoặc (b) Giá trị hiện hành của hàng tồn kho cuối kỳ tại ngày lập bảng cân đối kế toán (nếu giá trị hiện hành của hàng tồn kho tại ngày lập bảng cân đối kế toán nhỏ hơn giá trị thuần có thể thực hiện được); hoặc với giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo giá trị hiện hành tại ngày lập bảng cân đối kế toán). 29. Trình bày chi phí về hàng tồn kho trên báo cáo kết quả sản xuất, kinh doanh được phân loại chi phí theo chức năng. Phân loại chi phí theo chức năng là hàng tồn kho được trình bày trong khoản mục \"Giá vốn hàng bán\" trong báo cáo kết quả kinh doanh, gồm giá gốc của hàng tồn kho đã bán, khoản dự phòng giảm giá hàng tồn kho, các khoản hao hụt mất mát của hàng tồn kho sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, chi phí sản xuất chung không được phân bổ. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 03TÀI SẢN CỐ ĐỊNH HỮU HÌNH (Ban hành và công bố theo Quyết định số 149/2001/QĐ-BTC ngày 31 tháng 12 năm 2001 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn các nguyên tắc và phương pháp kế toán đối với tài sản cố định (TSCĐ) hữu hình, gồm: Tiêu chuẩ\n<</C1>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#8\">>\n[Unknown] \nối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho, giá gốc của hàng tồn kho đã bán được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ phù hợp với doanh thu liên quan đến chúng được ghi nhận. Tất cả các khoản chênh lệch giữa khoản dự phòng giảm giá hàng tồn kho phải lập ở cuối niên độ kế toán năm nay lớn hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, các khoản hao hụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, và chi phí sản xuất chung không phân bổ, được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Trường hợp khoản dự phòng giảm giá hàng tồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc phù hợp giữa chi phí và doanh thu. 26. Trường hợp một số loại hàng tồn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do\n<</C2>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#9\">>\n[Unknown] \nn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, doanh nghiệp phải trình bày: (a) Các chính sách kế toán áp dụng trong việc đánh giá hàng tồn kho, gồm cả phương pháp tính giá trị hàng tồn kho; (b) Giá gốc của tổng số hàng tồn kho và giá gốc của từng loại hàng tồn kho được phân loại phù hợp với doanh nghiệp; (c) Giá trị dự phòng giảm giá hàng tồn kho; (d) Giá trị hoàn nhập dự phòng giảm giá hàng tồn kho; (e) Những trường hợp hay sự kiện dẫn đến việc trích lập thêm hoặc hoàn nhập dự phòng giảm giá hàng tồn kho; (f) Giá trị ghi sổ của hàng tồn kho (Giá gốc trừ (-) dự phòng giảm giá hàng tồn kho) đã dùng để thế chấp, cầm cố đảm bảo cho các khoản nợ phải trả. 28. Trường hợp doanh nghiệp tính giá trị hàng tồn kho theo phương pháp nhập sau, xuất trước thì báo cáo tài chính phải phản ánh số chênh lệch giữa giá trị hàng tồn kho trình bày trong bảng cân đối kế toán với: (a) Giá trị hàng tồn kho cuối kỳ được tính theo phương pháp nhập trước, xuất trước (nếu giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp bình quân gia quyền và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo phương pháp bình quân gia quyền (nếu giá trị hàng tồn kho cuối kỳ tính theo phương pháp bình quân gia quyền nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo giá trị thuần có thể thực hiện được (nếu gi\n<</C3>>\n\n<<C4 src=\"149-2001-QD-BTC.pdf#7\">>\n[Unknown] \n thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp liên quan đến các sự kiện diễn ra sau ngày kết thúc năm tài chính, mà các sự kiện này được xác nhận với các điều kiện hiện có ở thời điểm ước tính. 21. Khi ước tính giá trị thuần có thể thực hiện được phải tính đến mục đích của việc dự trữ hàng tồn kho. Ví dụ, giá trị thuần có thể thực hiện được của lượng hàng tồn kho dự trữ để đảm bảo cho các hợp đồng bán hàng hoặc cung cấp dịch vụ không thể hủy bỏ phải dựa vào giá trị trong hợp đồng. Nếu số hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính. 22. Nguyên liệu, vật liệu và công cụ, dụng cụ dự trữ để sử dụng cho mục đích sản xuất sản phẩm không được đánh giá thấp hơn giá gốc nếu sản phẩm do chúng góp phần cấu tạo nên sẽ được bán bằng hoặc cao hơn giá thành sản xuất của sản phẩm. Khi có sự giảm giá của nguyên liệu, vật liệu, công cụ, dụng cụ mà giá thành sản xuất sản phẩm cao hơn giá trị thuần có thể thực hiện được, thì nguyên liệu, vật liệu, công cụ, dụng cụ tồn kho được đánh giá giảm xuống bằng với giá trị thuần có thể thực hiện được của chúng. 23. Cuối kỳ kế toán năm tiếp theo phải thực hiện đánh giá mới về giá trị thuần có thể thực hiện được của hàng tồn kho cuối năm đó. Trường hợp cuối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho gi\n<</C4>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n�n kho cuối kỳ tính theo phương pháp bình quân gia quyền nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho tính theo phương pháp nhập trước, xuất trước và phương pháp bình quân gia quyền); hoặc (b) Giá trị hiện hành của hàng tồn kho cuối kỳ tại ngày lập bảng cân đối kế toán (nếu giá trị hiện hành của hàng tồn kho tại ngày lập bảng cân đối kế toán nhỏ hơn giá trị thuần có thể thực hiện được); hoặc với giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo giá trị hiện hành tại ngày lập bảng cân đối kế toán). 29. Trình bày chi phí về hàng tồn kho trên báo cáo kết quả sản xuất, kinh doanh được phân loại chi phí theo chức năng. Phân loại chi phí theo chức năng là hàng tồn kho được trình bày trong khoản mục \"Giá vốn hàng bán\" trong báo cáo kết quả kinh doanh, gồm giá gốc của hàng tồn kho đã bán, khoản dự phòng giảm giá hàng tồn kho, các khoản hao hụt mất mát của hàng tồn kho sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, chi phí sản xuất chung không được phân bổ. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 03TÀI SẢN CỐ ĐỊNH HỮU HÌNH (Ban hành và công bố theo Quyết định số 149/2001/QĐ-BTC ngày 31 tháng 12 năm 2001 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn các nguyên tắc và phương pháp kế toán đối với tài sản cố định (TSCĐ) hữu hình, gồm: Tiêu chuẩ"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho, giá gốc của hàng tồn kho đã bán được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ phù hợp với doanh thu liên quan đến chúng được ghi nhận. Tất cả các khoản chênh lệch giữa khoản dự phòng giảm giá hàng tồn kho phải lập ở cuối niên độ kế toán năm nay lớn hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, các khoản hao hụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, và chi phí sản xuất chung không phân bổ, được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Trường hợp khoản dự phòng giảm giá hàng tồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc phù hợp giữa chi phí và doanh thu. 26. Trường hợp một số loại hàng tồn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, doanh nghiệp phải trình bày: (a) Các chính sách kế toán áp dụng trong việc đánh giá hàng tồn kho, gồm cả phương pháp tính giá trị hàng tồn kho; (b) Giá gốc của tổng số hàng tồn kho và giá gốc của từng loại hàng tồn kho được phân loại phù hợp với doanh nghiệp; (c) Giá trị dự phòng giảm giá hàng tồn kho; (d) Giá trị hoàn nhập dự phòng giảm giá hàng tồn kho; (e) Những trường hợp hay sự kiện dẫn đến việc trích lập thêm hoặc hoàn nhập dự phòng giảm giá hàng tồn kho; (f) Giá trị ghi sổ của hàng tồn kho (Giá gốc trừ (-) dự phòng giảm giá hàng tồn kho) đã dùng để thế chấp, cầm cố đảm bảo cho các khoản nợ phải trả. 28. Trường hợp doanh nghiệp tính giá trị hàng tồn kho theo phương pháp nhập sau, xuất trước thì báo cáo tài chính phải phản ánh số chênh lệch giữa giá trị hàng tồn kho trình bày trong bảng cân đối kế toán với: (a) Giá trị hàng tồn kho cuối kỳ được tính theo phương pháp nhập trước, xuất trước (nếu giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp bình quân gia quyền và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo phương pháp bình quân gia quyền (nếu giá trị hàng tồn kho cuối kỳ tính theo phương pháp bình quân gia quyền nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo giá trị thuần có thể thực hiện được (nếu gi"
+          },
+          "C4": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp liên quan đến các sự kiện diễn ra sau ngày kết thúc năm tài chính, mà các sự kiện này được xác nhận với các điều kiện hiện có ở thời điểm ước tính. 21. Khi ước tính giá trị thuần có thể thực hiện được phải tính đến mục đích của việc dự trữ hàng tồn kho. Ví dụ, giá trị thuần có thể thực hiện được của lượng hàng tồn kho dự trữ để đảm bảo cho các hợp đồng bán hàng hoặc cung cấp dịch vụ không thể hủy bỏ phải dựa vào giá trị trong hợp đồng. Nếu số hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính. 22. Nguyên liệu, vật liệu và công cụ, dụng cụ dự trữ để sử dụng cho mục đích sản xuất sản phẩm không được đánh giá thấp hơn giá gốc nếu sản phẩm do chúng góp phần cấu tạo nên sẽ được bán bằng hoặc cao hơn giá thành sản xuất của sản phẩm. Khi có sự giảm giá của nguyên liệu, vật liệu, công cụ, dụng cụ mà giá thành sản xuất sản phẩm cao hơn giá trị thuần có thể thực hiện được, thì nguyên liệu, vật liệu, công cụ, dụng cụ tồn kho được đánh giá giảm xuống bằng với giá trị thuần có thể thực hiện được của chúng. 23. Cuối kỳ kế toán năm tiếp theo phải thực hiện đánh giá mới về giá trị thuần có thể thực hiện được của hàng tồn kho cuối năm đó. Trường hợp cuối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho gi"
+          }
+        },
+        "context_tokens": 2044,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          2250
+        ]
+      }
+    },
+    {
+      "id": "vas-inventory-01",
+      "reference": "95 triệu đồng, vì giá trị thuần có thể thực hiện được thấp hơn giá gốc.",
+      "final": "Theo VAS 02 quy định tại đoạn 24 trong tệp tài liệu cung cấp [C2], hàng tồn kho phải được ghi nhận theo nguyên tắc sau:\n\n- Nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được thì hàng tồn kho sẽ được ghi nhận theo giá gốc.\n- Nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được thì hàng tồn kho sẽ được ghi nhận theo giá trị thuần có thể thực hiện được.\n\nTrong trường hợp này, lô hàng có giá gốc là 120 triệu và giá trị thuần có thể thực hiện được là 95 triệu. Vì giá gốc lớn hơn giá trị thuần có thể thực hiện được nên hàng tồn kho sẽ được g",
+      "persisted": true,
+      "ttft_seconds": 41.30975891696289,
+      "seconds": 72.86612920789048,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C2",
+          "doc_id": "149-2001-QD-BTC.pdf",
+          "chunk_id": "8",
+          "snippet": "ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện đư",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 1,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Một lô hàng có giá gốc 120 triệu và giá trị thuần có thể thực hiện được 95 triệu. Theo VAS 02, giá trị trình bày là bao nhiêu?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 27.280129458056763
+        },
+        "retrieved": [
+          {
+            "id": "b1d5a768-0c83-5f18-9e0c-96f9cd07f1fc",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "54e63ea3-a0c2-541b-8870-4524eb29840a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "2180876f-4d35-5afa-ba1d-0e13c01dabdb",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          },
+          {
+            "id": "8097fce2-2499-5259-993c-20c1c060a317",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C4"
+          }
+        ],
+        "context": "<<C2 src=\"149-2001-QD-BTC.pdf#8\">>\nở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho, giá gốc của hàng tồn kho đã bán được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ phù hợp với doanh thu liên quan đến chúng được ghi nhận. Tất cả các khoản chênh lệch giữa khoản\n\n25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc phù hợp giữa chi phí và doanh thu. 26. Trường hợp một số loại hàng tồn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do\n<</C2>>\n\n<<C1 src=\"149-2001-QD-BTC.pdf#10\">>\nthuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo giá trị hiện hành tại ngày lập bảng cân đối kế toán). 29. Trình bày chi phí về hàng tồn kho trên báo cáo kết quả sản xuất, kinh doanh được phân loại chi phí theo chức năng. Phân loại chi phí theo chức năng là hàng tồn kho được trình bày trong khoản mục \"Giá vốn hàng bán\" trong báo cáo kết quả kinh doanh, gồm giá gốc của hàng tồn kho đã bán,\n\nbổ. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 03TÀI SẢN CỐ ĐỊNH HỮU HÌNH (Ban hành và công bố theo Quyết định số 149/2001/QĐ-BTC ngày 31 tháng 12 năm 2001 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn các nguyên tắc và phương pháp kế toán đối với tài sản cố định (TSCĐ) hữu hình, gồm: Tiêu chuẩ\n<</C1>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#9\">>\n[Unknown] n kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, doanh nghiệp phải trình bày: (a) Các chính sách kế toán áp dụng trong việc đánh giá hàng tồn kho, gồm cả phương pháp tính giá trị hàng tồn kho; (b) Giá gốc của tổng số hàng tồn kho và giá gốc của từng loại hàng tồn kho được phân loại phù hợp với\n\ndự phòng giảm giá hàng tồn kho; (f) Giá trị ghi sổ của hàng tồn kho (Giá gốc trừ (-) dự phòng giảm giá hàng tồn kho) đã dùng để thế chấp, cầm cố đảm bảo cho các khoản nợ phải trả. 28. Trường hợp doanh nghiệp tính giá trị hàng tồn kho theo phương pháp nhập sau, xuất trước thì báo cáo tài chính phải phản ánh số chênh lệch giữa giá trị hàng tồn kho trình bày trong bảng cân đối kế toán với: (a) Giá trị hàng tồn kho cuối kỳ được tính theo phương pháp nhập trước, xuất trước (nếu giá trị hàng tồn kho cuối\n<</C3>>\n\n<<C4 src=\"149-2001-QD-BTC.pdf#7\">>\nhơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính. 22. Nguyên liệu, vật liệu và công cụ, dụng cụ dự trữ để sử dụng cho mục đích sản xuất sản phẩm không được đánh giá thấp hơn giá gốc nếu sản phẩm do chúng góp phần cấu tạo nên sẽ được bán bằng hoặc cao hơn giá thành sản xuất của sản phẩm. Khi có sự giảm giá của nguyên liệu, vật liệu, công cụ, dụng\n<</C4>>",
+        "prompt_chunks": {
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho, giá gốc của hàng tồn kho đã bán được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ phù hợp với doanh thu liên quan đến chúng được ghi nhận. Tất cả các khoản chênh lệch giữa khoản\n\n25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc phù hợp giữa chi phí và doanh thu. 26. Trường hợp một số loại hàng tồn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do"
+          },
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo giá trị hiện hành tại ngày lập bảng cân đối kế toán). 29. Trình bày chi phí về hàng tồn kho trên báo cáo kết quả sản xuất, kinh doanh được phân loại chi phí theo chức năng. Phân loại chi phí theo chức năng là hàng tồn kho được trình bày trong khoản mục \"Giá vốn hàng bán\" trong báo cáo kết quả kinh doanh, gồm giá gốc của hàng tồn kho đã bán,\n\nbổ. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 03TÀI SẢN CỐ ĐỊNH HỮU HÌNH (Ban hành và công bố theo Quyết định số 149/2001/QĐ-BTC ngày 31 tháng 12 năm 2001 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn các nguyên tắc và phương pháp kế toán đối với tài sản cố định (TSCĐ) hữu hình, gồm: Tiêu chuẩ"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] n kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, doanh nghiệp phải trình bày: (a) Các chính sách kế toán áp dụng trong việc đánh giá hàng tồn kho, gồm cả phương pháp tính giá trị hàng tồn kho; (b) Giá gốc của tổng số hàng tồn kho và giá gốc của từng loại hàng tồn kho được phân loại phù hợp với\n\ndự phòng giảm giá hàng tồn kho; (f) Giá trị ghi sổ của hàng tồn kho (Giá gốc trừ (-) dự phòng giảm giá hàng tồn kho) đã dùng để thế chấp, cầm cố đảm bảo cho các khoản nợ phải trả. 28. Trường hợp doanh nghiệp tính giá trị hàng tồn kho theo phương pháp nhập sau, xuất trước thì báo cáo tài chính phải phản ánh số chênh lệch giữa giá trị hàng tồn kho trình bày trong bảng cân đối kế toán với: (a) Giá trị hàng tồn kho cuối kỳ được tính theo phương pháp nhập trước, xuất trước (nếu giá trị hàng tồn kho cuối"
+          },
+          "C4": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "hơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính. 22. Nguyên liệu, vật liệu và công cụ, dụng cụ dự trữ để sử dụng cho mục đích sản xuất sản phẩm không được đánh giá thấp hơn giá gốc nếu sản phẩm do chúng góp phần cấu tạo nên sẽ được bán bằng hoặc cao hơn giá thành sản xuất của sản phẩm. Khi có sự giảm giá của nguyên liệu, vật liệu, công cụ, dụng"
+          }
+        },
+        "context_tokens": 1079,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1285
+        ]
+      }
+    },
+    {
+      "id": "vas-inventory-02",
+      "reference": "Cuối kỳ kế toán năm, lập dự phòng trên cơ sở từng mặt hàng có giá trị thuần có thể thực hiện được thấp hơn giá gốc.",
+      "final": "Theo VAS 02, việc lập dự phòng giảm giá hàng tồn kho có thể được thực hiện trên cơ sở tổng kho hoặc từng mặt hàng. Tuy nhiên, tài liệu cung cấp không đưa ra yêu cầu cụ thể về việc phải lập dự phòng theo cách thức nào (tổng kho hay từng mặt hàng). Để đảm bảo chính xác và tuân thủ các quy định chi tiết hơn, bạn nên tham khảo thêm các hướng dẫn cụ thể từ Bộ Tài Chính hoặc tư vấn với chuyên gia kế toán.",
+      "persisted": true,
+      "ttft_seconds": 40.87670704210177,
+      "seconds": 61.00111566716805,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "adaptive",
+        "question": "VAS 02 yêu cầu lập dự phòng giảm giá hàng tồn kho theo tổng kho hay theo từng mặt hàng?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 33.37457983288914
+        },
+        "retrieved": [
+          {
+            "id": "54e63ea3-a0c2-541b-8870-4524eb29840a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#8\">>\nở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho,\n\nghi nhận. Tất cả các khoản chênh lệch giữa khoản dự phòng giảm giá hàng tồn kho phải lập ở cuối niên độ kế toán năm nay lớn hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, các khoản hao hụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây\n\ntồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc\n\ndụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do\n<</C1>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho,\n\nghi nhận. Tất cả các khoản chênh lệch giữa khoản dự phòng giảm giá hàng tồn kho phải lập ở cuối niên độ kế toán năm nay lớn hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, các khoản hao hụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây\n\ntồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc\n\ndụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do"
+          }
+        },
+        "context_tokens": 358,
+        "body_budget": 512,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          564
+        ]
+      }
+    },
+    {
+      "id": "vas-inventory-02",
+      "reference": "Cuối kỳ kế toán năm, lập dự phòng trên cơ sở từng mặt hàng có giá trị thuần có thể thực hiện được thấp hơn giá gốc.",
+      "final": "VAS 02 không cung cấp chi tiết cụ thể về việc lập dự phòng giảm giá hàng tồn kho là theo tổng kho hay từng mặt hàng. Tuy nhiên, theo nguyên tắc thận trọng và đảm bảo tính chính xác của thông tin tài chính, thường thì doanh nghiệp sẽ lập dự phòng giảm giá cho từng mặt hàng để đánh giá sát thực tế tình hình hàng hóa tồn kho. Để có thông tin chính xác và phù hợp với hoạt động kinh doanh cụ thể, bạn nên tham khảo thêm hướng dẫn chi tiết từ Bộ Tài chính hoặc tư vấn chuyên gia kế toán.",
+      "persisted": true,
+      "ttft_seconds": 26.678674957947806,
+      "seconds": 47.896622041938826,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "full",
+        "question": "VAS 02 yêu cầu lập dự phòng giảm giá hàng tồn kho theo tổng kho hay theo từng mặt hàng?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 18.914139541098848
+        },
+        "retrieved": [
+          {
+            "id": "54e63ea3-a0c2-541b-8870-4524eb29840a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#8\">>\n[Unknown] \nối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho, giá gốc của hàng tồn kho đã bán được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ phù hợp với doanh thu liên quan đến chúng được ghi nhận. Tất cả các khoản chênh lệch giữa khoản dự phòng giảm giá hàng tồn kho phải lập ở cuối niên độ kế toán năm nay lớn hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, các khoản hao hụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, và chi phí sản xuất chung không phân bổ, được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Trường hợp khoản dự phòng giảm giá hàng tồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc phù hợp giữa chi phí và doanh thu. 26. Trường hợp một số loại hàng tồn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do\n<</C1>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho, giá gốc của hàng tồn kho đã bán được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ phù hợp với doanh thu liên quan đến chúng được ghi nhận. Tất cả các khoản chênh lệch giữa khoản dự phòng giảm giá hàng tồn kho phải lập ở cuối niên độ kế toán năm nay lớn hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, các khoản hao hụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, và chi phí sản xuất chung không phân bổ, được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Trường hợp khoản dự phòng giảm giá hàng tồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc phù hợp giữa chi phí và doanh thu. 26. Trường hợp một số loại hàng tồn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do"
+          }
+        },
+        "context_tokens": 523,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          729
+        ]
+      }
+    },
+    {
+      "id": "vas-revenue-01",
+      "reference": "Chưa. Các điều kiện phải đồng thời thỏa mãn, trong đó có việc xác định được chi phí liên quan đến giao dịch bán hàng.",
+      "final": "Theo VAS 14, để ghi nhận doanh thu bán hàng, cần phải thỏa mãn năm (5) điều kiện sau:\n\n- Giao hàng đã chuyển phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu hàng hóa cho người mua;\n- Doanh thu được xác định tương đối chắc chắn;\n- Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng;\n- Xác định được chi phí liên quan đến giao dịch bán hàng.\n\nTrong trường hợp này, mặc dù điều kiện về chuyển giao phần lớn rủi ro và lợi ích đã thỏa mãn nhưng chi phí liên quan chưa xác định được. Điều này có nghĩa là một trong những điều kiện cần",
+      "persisted": true,
+      "ttft_seconds": 34.620716583915055,
+      "seconds": 62.232950208941475,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 1,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "full",
+        "question": "Theo VAS 14, giao hàng đã chuyển phần lớn rủi ro và lợi ích nhưng chi phí liên quan chưa xác định được. Đã đủ điều kiện ghi nhận doanh thu bán hàng chưa?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 14.84440154209733
+        },
+        "retrieved": [
+          {
+            "id": "48963c1a-802e-532d-a443-62e454cbd966",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "586d1f9b-35ba-5842-b1fe-f822730f0cdb",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "5a8a9c3a-34aa-5784-9d0d-142217c6765a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#51\">>\n[Unknown] \nanh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản thanh toán. 14. Doanh thu bán hàng được ghi nhận chỉ khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Trường hợp lợi ích kinh tế từ giao dịch bán hàng còn phụ thuộc yếu tố không chắc chắn thì chỉ ghi nhận doanh thu khi yếu tố không chắc chắn này đã xử lý xong (ví dụ, khi doanh nghiệp không chắc chắn là Chính phủ nước sở tại có chấp nhận chuyển tiền bán hàng ở nước ngoài về hay không). Nếu doanh thu đã được ghi nhận trong trường hợp chưa thu được tiền thì khi xác định khoản tiền nợ phải thu này là không thu được thì phải hạch toán vào chi phí sản xuất, kinh doanh trong kỳ mà không được ghi giảm doanh thu. Khi xác định khoản phải thu là không chắc chắn thu được (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Các khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được bù đắp bằng nguồn dự phòng nợ phải thu khó đòi. 15. Doanh thu và chi phí liên quan tới cùng một giao dịch phải được ghi nhận đồng thời theo nguyên tắc phù hợp. Các chi phí, bao gồm cả chi phí phát sinh sau ngày giao hàng (như chi phí bảo hành và chi phí khác), thường được xác định chắc chắn khi các điều kiện ghi nhận doanh thu được thỏa mãn. Các khoản tiền nhận trước của khách hàng không được ghi nhận là doanh thu mà được ghi nhận là một khoản nợ phải trả tại thời điểm nhận tiền trước của khách hàng. Khoản nợ phải trả về số tiền nhận trước của khách hàng chỉ được ghi nhận là doanh thu khi đồng thời thỏa mãn năm (5) điều kiện quy định ở đoạn 10. DOANH THU CUNG CẤP DỊCH VỤ 16. Doanh thu của\n<</C1>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#50\">>\n[Unknown] \nóa hoặc quyền kiểm soát hàng hóa; (c) Doanh thu được xác định tương đối chắc chắn; (d) Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng; (e) Xác định được chi phí liên quan đến giao dịch bán hàng. 11. Doanh nghiệp phải xác định thời điểm chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu hàng hóa cho người mua trong từng trường hợp cụ thể. Trong hầu hết các trường hợp, thời điểm chuyển giao phần lớn rủi ro trùng với thời điểm chuyển giao lợi ích gắn liền với quyền sở hữu hợp pháp hoặc quyền kiểm soát hàng hóa cho người mua. Trường hợp doanh nghiệp vẫn còn chịu phần lớn rủi ro gắn liền với quyền sở hữu hàng hóa thì giao dịch không được coi là hoạt động bán hàng và doanh thu không được ghi nhận. Doanh nghiệp còn phải chịu rủi ro gắn liền với quyền sở hữu hàng hóa dưới nhiều hình thức khác nhau, như: (a) Doanh nghiệp còn phải chịu trách nhiệm để đảm bảo cho tài sản được hoạt động bình thường mà việc này không nằm trong các điều khoản bảo hành thông thường; (b) Khi việc thanh toán tiền bán hàng còn chưa chắc chắn vì phụ thuộc vào người mua hàng hóa đó; (c) Khi hàng hóa được giao còn chờ lắp đặt và việc lắp đặt đó là một phần quan trọng của hợp đồng mà doanh nghiệp chưa hoàn thành; (d) Khi người mua có quyền huỷ bỏ việc mua hàng vì một lý do nào đó được nêu trong hợp đồng mua bán và doanh nghiệp chưa chắc chắn về khả năng hàng bán có bị trả lại hay không. 13. Nếu doanh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản\n<</C2>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#54\">>\n[Unknown] \n phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được ghi nhận tương ứng với chi phí đã ghi nhận và có thể thu hồi. 23. Trong giai đoạn đầu của một giao dịch về cung cấp dịch vụ, khi chưa xác định được kết quả một cách chắc chắn thì doanh thu được ghi nhận bằng chi phí đã ghi nhận và có thể thu hồi được. Nếu chi phí liên quan đến dịch vụ đó chắc chắn không thu hồi được thì không ghi nhận doanh thu, và chi phí đã phát sinh được hạch toán vào chi phí để xác định kết quả kinh doanh trong kỳ. Khi có bằng chứng tin cậy về các chi phí đã phát sinh sẽ thu hồi được thì doanh thu được ghi nhận theo quy định tại đoạn 16. DOANH THU TỪ TIỀN LÃI, TIỀN BẢN QUYỀN, CỔ TỨC VÀ LỢI NHUẬN ĐƯỢC CHIA 24. Doanh thu phát sinh từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia của doanh nghiệp được ghi nhận khi thỏa mãn đồng thời hai (2) điều kiện sau: (a) Có khả năng thu được lợi ích kinh tế từ giao dịch đó; (b) Doanh thu được xác định tương đối chắc chắn. 25. Doanh thu từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia được ghi nhận trên cơ sở: (a) Tiền lãi được ghi nhận trên cơ sở thời gian và lãi suất thực tế từng kỳ; (b) Tiền bản quyền được ghi nhận trên cơ sở dồn tích phù hợp với hợp đồng; (c) Cổ tức và lợi nhuận được chia được ghi nhận khi cổ đông được quyền nhận cổ tức hoặc các bên tham gia góp vốn được quyền nhận lợi nhuận từ việc góp vốn. 26. Lãi suất thực tế là tỷ lệ lãi dùng để quy đổi các khoản tiền nhận được trong tương lai trong suố\n<</C3>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nanh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản thanh toán. 14. Doanh thu bán hàng được ghi nhận chỉ khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Trường hợp lợi ích kinh tế từ giao dịch bán hàng còn phụ thuộc yếu tố không chắc chắn thì chỉ ghi nhận doanh thu khi yếu tố không chắc chắn này đã xử lý xong (ví dụ, khi doanh nghiệp không chắc chắn là Chính phủ nước sở tại có chấp nhận chuyển tiền bán hàng ở nước ngoài về hay không). Nếu doanh thu đã được ghi nhận trong trường hợp chưa thu được tiền thì khi xác định khoản tiền nợ phải thu này là không thu được thì phải hạch toán vào chi phí sản xuất, kinh doanh trong kỳ mà không được ghi giảm doanh thu. Khi xác định khoản phải thu là không chắc chắn thu được (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Các khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được bù đắp bằng nguồn dự phòng nợ phải thu khó đòi. 15. Doanh thu và chi phí liên quan tới cùng một giao dịch phải được ghi nhận đồng thời theo nguyên tắc phù hợp. Các chi phí, bao gồm cả chi phí phát sinh sau ngày giao hàng (như chi phí bảo hành và chi phí khác), thường được xác định chắc chắn khi các điều kiện ghi nhận doanh thu được thỏa mãn. Các khoản tiền nhận trước của khách hàng không được ghi nhận là doanh thu mà được ghi nhận là một khoản nợ phải trả tại thời điểm nhận tiền trước của khách hàng. Khoản nợ phải trả về số tiền nhận trước của khách hàng chỉ được ghi nhận là doanh thu khi đồng thời thỏa mãn năm (5) điều kiện quy định ở đoạn 10. DOANH THU CUNG CẤP DỊCH VỤ 16. Doanh thu của"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nóa hoặc quyền kiểm soát hàng hóa; (c) Doanh thu được xác định tương đối chắc chắn; (d) Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng; (e) Xác định được chi phí liên quan đến giao dịch bán hàng. 11. Doanh nghiệp phải xác định thời điểm chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu hàng hóa cho người mua trong từng trường hợp cụ thể. Trong hầu hết các trường hợp, thời điểm chuyển giao phần lớn rủi ro trùng với thời điểm chuyển giao lợi ích gắn liền với quyền sở hữu hợp pháp hoặc quyền kiểm soát hàng hóa cho người mua. Trường hợp doanh nghiệp vẫn còn chịu phần lớn rủi ro gắn liền với quyền sở hữu hàng hóa thì giao dịch không được coi là hoạt động bán hàng và doanh thu không được ghi nhận. Doanh nghiệp còn phải chịu rủi ro gắn liền với quyền sở hữu hàng hóa dưới nhiều hình thức khác nhau, như: (a) Doanh nghiệp còn phải chịu trách nhiệm để đảm bảo cho tài sản được hoạt động bình thường mà việc này không nằm trong các điều khoản bảo hành thông thường; (b) Khi việc thanh toán tiền bán hàng còn chưa chắc chắn vì phụ thuộc vào người mua hàng hóa đó; (c) Khi hàng hóa được giao còn chờ lắp đặt và việc lắp đặt đó là một phần quan trọng của hợp đồng mà doanh nghiệp chưa hoàn thành; (d) Khi người mua có quyền huỷ bỏ việc mua hàng vì một lý do nào đó được nêu trong hợp đồng mua bán và doanh nghiệp chưa chắc chắn về khả năng hàng bán có bị trả lại hay không. 13. Nếu doanh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được ghi nhận tương ứng với chi phí đã ghi nhận và có thể thu hồi. 23. Trong giai đoạn đầu của một giao dịch về cung cấp dịch vụ, khi chưa xác định được kết quả một cách chắc chắn thì doanh thu được ghi nhận bằng chi phí đã ghi nhận và có thể thu hồi được. Nếu chi phí liên quan đến dịch vụ đó chắc chắn không thu hồi được thì không ghi nhận doanh thu, và chi phí đã phát sinh được hạch toán vào chi phí để xác định kết quả kinh doanh trong kỳ. Khi có bằng chứng tin cậy về các chi phí đã phát sinh sẽ thu hồi được thì doanh thu được ghi nhận theo quy định tại đoạn 16. DOANH THU TỪ TIỀN LÃI, TIỀN BẢN QUYỀN, CỔ TỨC VÀ LỢI NHUẬN ĐƯỢC CHIA 24. Doanh thu phát sinh từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia của doanh nghiệp được ghi nhận khi thỏa mãn đồng thời hai (2) điều kiện sau: (a) Có khả năng thu được lợi ích kinh tế từ giao dịch đó; (b) Doanh thu được xác định tương đối chắc chắn. 25. Doanh thu từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia được ghi nhận trên cơ sở: (a) Tiền lãi được ghi nhận trên cơ sở thời gian và lãi suất thực tế từng kỳ; (b) Tiền bản quyền được ghi nhận trên cơ sở dồn tích phù hợp với hợp đồng; (c) Cổ tức và lợi nhuận được chia được ghi nhận khi cổ đông được quyền nhận cổ tức hoặc các bên tham gia góp vốn được quyền nhận lợi nhuận từ việc góp vốn. 26. Lãi suất thực tế là tỷ lệ lãi dùng để quy đổi các khoản tiền nhận được trong tương lai trong suố"
+          }
+        },
+        "context_tokens": 1537,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1743
+        ]
+      }
+    },
+    {
+      "id": "vas-revenue-01",
+      "reference": "Chưa. Các điều kiện phải đồng thời thỏa mãn, trong đó có việc xác định được chi phí liên quan đến giao dịch bán hàng.",
+      "final": "Dựa trên thông tin từ VAS 14, để ghi nhận doanh thu bán hàng cần phải thỏa mãn các điều kiện sau:\n\n- Chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu hàng hóa cho người mua.\n- Doanh thu được xác định tương đối chắc chắn.\n- Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng.\n\nTuy nhiên, theo đoạn 15 của VAS 14, các chi phí liên quan đến cùng một giao dịch phải được ghi nhận đồng thời với doanh thu. Nếu chi phí liên quan chưa xác định được thì điều kiện này chưa được thỏa mãn.\n\nVì vậy, nếu chỉ",
+      "persisted": true,
+      "ttft_seconds": 27.38548674993217,
+      "seconds": 53.671758082928136,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 1,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Theo VAS 14, giao hàng đã chuyển phần lớn rủi ro và lợi ích nhưng chi phí liên quan chưa xác định được. Đã đủ điều kiện ghi nhận doanh thu bán hàng chưa?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 15.082776374882087
+        },
+        "retrieved": [
+          {
+            "id": "48963c1a-802e-532d-a443-62e454cbd966",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "586d1f9b-35ba-5842-b1fe-f822730f0cdb",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "5a8a9c3a-34aa-5784-9d0d-142217c6765a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          }
+        ],
+        "context": "<<C2 src=\"149-2001-QD-BTC.pdf#50\">>\n[Unknown] óa hoặc quyền kiểm soát hàng hóa; (c) Doanh thu được xác định tương đối chắc chắn; (d) Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng; (e) Xác định được chi phí liên quan đến giao dịch bán hàng. 11. Doanh nghiệp phải xác định thời điểm chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu hàng hóa cho người mua trong từng trường hợp cụ thể. Trong hầu hết các trường hợp, thời điểm chuyển giao phần lớn rủi ro trùng với thời điểm chuyển giao lợi ích gắn liền với quyền\n\nđộng bán hàng và doanh thu không được ghi nhận. Doanh nghiệp còn phải chịu rủi ro gắn liền với quyền sở hữu hàng hóa dưới nhiều hình thức khác nhau, như: (a) Doanh nghiệp còn phải chịu trách nhiệm để đảm bảo cho tài sản được hoạt động bình thường mà việc này không nằm trong các điều khoản bảo hành thông thường; (b) Khi việc thanh toán tiền bán hàng còn chưa chắc chắn vì phụ thuộc vào người mua hàng hóa đó; (c) Khi hàng hóa được giao còn chờ lắp đặt và việc lắp đặt đó là một phần quan trọng của hợp đồng mà doanh\n\nbị trả lại hay không. 13. Nếu doanh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản\n<</C2>>\n\n<<C1 src=\"149-2001-QD-BTC.pdf#51\">>\nđảm bảo sẽ nhận được đủ các khoản thanh toán. 14. Doanh thu bán hàng được ghi nhận chỉ khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Trường hợp lợi ích kinh tế từ giao dịch bán hàng còn phụ thuộc yếu tố không chắc chắn thì chỉ ghi nhận doanh thu khi yếu tố không chắc chắn này đã xử lý xong (ví dụ, khi doanh nghiệp không chắc chắn là Chính phủ nước sở tại có chấp nhận chuyển tiền bán hàng ở nước ngoài về hay không). Nếu doanh thu đã được ghi nhận trong trường hợp chưa thu được\n\ndự phòng nợ phải thu khó đòi. 15. Doanh thu và chi phí liên quan tới cùng một giao dịch phải được ghi nhận đồng thời theo nguyên tắc phù hợp. Các chi phí, bao gồm cả chi phí phát sinh sau ngày giao hàng (như chi phí bảo hành và chi phí khác), thường được xác định chắc chắn khi các điều kiện ghi nhận doanh thu được thỏa mãn. Các khoản tiền nhận trước của khách hàng không được ghi nhận là doanh thu mà được ghi nhận là một khoản nợ phải trả tại thời điểm nhận tiền trước của khách hàng. Khoản nợ phải trả về\n<</C1>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#54\">>\n[Unknown] phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được ghi nhận tương ứng với chi phí đã ghi nhận và có thể thu hồi. 23. Trong giai đoạn đầu của một giao dịch về cung cấp dịch vụ, khi chưa xác định được kết quả một cách chắc chắn thì doanh thu được ghi nhận bằng chi phí đã ghi nhận và\n\nđịnh kết quả kinh doanh trong kỳ. Khi có bằng chứng tin cậy về các chi phí đã phát sinh sẽ thu hồi được thì doanh thu được ghi nhận theo quy định tại đoạn 16. DOANH THU TỪ TIỀN LÃI, TIỀN BẢN QUYỀN, CỔ TỨC VÀ LỢI NHUẬN ĐƯỢC CHIA 24. Doanh thu phát sinh từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia của doanh nghiệp được ghi nhận khi thỏa mãn đồng thời hai (2) điều kiện sau: (a) Có khả năng thu được lợi ích kinh tế từ giao dịch đó; (b) Doanh thu được xác định tương đối chắc chắn. 25.\n<</C3>>",
+        "prompt_chunks": {
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] óa hoặc quyền kiểm soát hàng hóa; (c) Doanh thu được xác định tương đối chắc chắn; (d) Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng; (e) Xác định được chi phí liên quan đến giao dịch bán hàng. 11. Doanh nghiệp phải xác định thời điểm chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu hàng hóa cho người mua trong từng trường hợp cụ thể. Trong hầu hết các trường hợp, thời điểm chuyển giao phần lớn rủi ro trùng với thời điểm chuyển giao lợi ích gắn liền với quyền\n\nđộng bán hàng và doanh thu không được ghi nhận. Doanh nghiệp còn phải chịu rủi ro gắn liền với quyền sở hữu hàng hóa dưới nhiều hình thức khác nhau, như: (a) Doanh nghiệp còn phải chịu trách nhiệm để đảm bảo cho tài sản được hoạt động bình thường mà việc này không nằm trong các điều khoản bảo hành thông thường; (b) Khi việc thanh toán tiền bán hàng còn chưa chắc chắn vì phụ thuộc vào người mua hàng hóa đó; (c) Khi hàng hóa được giao còn chờ lắp đặt và việc lắp đặt đó là một phần quan trọng của hợp đồng mà doanh\n\nbị trả lại hay không. 13. Nếu doanh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản"
+          },
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "đảm bảo sẽ nhận được đủ các khoản thanh toán. 14. Doanh thu bán hàng được ghi nhận chỉ khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Trường hợp lợi ích kinh tế từ giao dịch bán hàng còn phụ thuộc yếu tố không chắc chắn thì chỉ ghi nhận doanh thu khi yếu tố không chắc chắn này đã xử lý xong (ví dụ, khi doanh nghiệp không chắc chắn là Chính phủ nước sở tại có chấp nhận chuyển tiền bán hàng ở nước ngoài về hay không). Nếu doanh thu đã được ghi nhận trong trường hợp chưa thu được\n\ndự phòng nợ phải thu khó đòi. 15. Doanh thu và chi phí liên quan tới cùng một giao dịch phải được ghi nhận đồng thời theo nguyên tắc phù hợp. Các chi phí, bao gồm cả chi phí phát sinh sau ngày giao hàng (như chi phí bảo hành và chi phí khác), thường được xác định chắc chắn khi các điều kiện ghi nhận doanh thu được thỏa mãn. Các khoản tiền nhận trước của khách hàng không được ghi nhận là doanh thu mà được ghi nhận là một khoản nợ phải trả tại thời điểm nhận tiền trước của khách hàng. Khoản nợ phải trả về"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được ghi nhận tương ứng với chi phí đã ghi nhận và có thể thu hồi. 23. Trong giai đoạn đầu của một giao dịch về cung cấp dịch vụ, khi chưa xác định được kết quả một cách chắc chắn thì doanh thu được ghi nhận bằng chi phí đã ghi nhận và\n\nđịnh kết quả kinh doanh trong kỳ. Khi có bằng chứng tin cậy về các chi phí đã phát sinh sẽ thu hồi được thì doanh thu được ghi nhận theo quy định tại đoạn 16. DOANH THU TỪ TIỀN LÃI, TIỀN BẢN QUYỀN, CỔ TỨC VÀ LỢI NHUẬN ĐƯỢC CHIA 24. Doanh thu phát sinh từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia của doanh nghiệp được ghi nhận khi thỏa mãn đồng thời hai (2) điều kiện sau: (a) Có khả năng thu được lợi ích kinh tế từ giao dịch đó; (b) Doanh thu được xác định tương đối chắc chắn. 25."
+          }
+        },
+        "context_tokens": 1034,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1240
+        ]
+      }
+    },
+    {
+      "id": "vas-events-01",
+      "reference": "Điều chỉnh số liệu BCTC để phản ánh sự kiện cần điều chỉnh.",
+      "final": "Theo VAS 23 (điều chỉnh), sau ngày kết thúc năm nhưng trước khi phát hành báo cáo tài chính, nếu một sự kiện cung cấp thêm bằng chứng về các điều kiện đã tồn tại cuối năm và thuộc nhóm điều chỉnh, doanh nghiệp cần thực hiện việc điều chỉnh trong báo cáo tài chính. Điều này có nghĩa là doanh nghiệp phải cập nhật lại số liệu trên báo cáo tài chính để phản ánh đúng tình hình tài chính vào ngày kết thúc kỳ kế toán.\n\nCụ thể, nếu thông tin sau ngày kết thúc năm cho thấy một khoản nợ phải thu không còn khả năng thu hồi hoặc tài sản bị tổn thất giá trị, doanh nghiệp cần ghi nhận điều này như là một khoản lỗ trong báo cáo tài chính.",
+      "persisted": true,
+      "ttft_seconds": 28.856462666997686,
+      "seconds": 54.43670616694726,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 1,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Sau ngày kết thúc năm nhưng trước ngày phát hành BCTC, một sự kiện cung cấp thêm bằng chứng về điều kiện đã tồn tại cuối năm và thuộc nhóm điều chỉnh. VAS 23 yêu cầu xử lý số liệu ra sao?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 14.5541776670143
+        },
+        "retrieved": [
+          {
+            "id": "623a5b9f-a318-5cb9-9f41-c410617f6292",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C1"
+          },
+          {
+            "id": "0bf73981-472a-53d4-90f9-aca64021b6b3",
+            "source": "100-2005-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "58bb8f3a-bb98-5eb0-bf4c-1801e01a551b",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C3"
+          },
+          {
+            "id": "7100d028-f1a6-5b63-8791-ced52c17d0ef",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C4"
+          },
+          {
+            "id": "d683a57d-1b8d-5445-b099-0c3a269c2258",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C5"
+          },
+          {
+            "id": "456cf08b-1a19-5e0d-8624-f8b93b469f54",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C6"
+          },
+          {
+            "id": "4069b3e8-5c84-51f3-92d0-8a3bd230f993",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C7"
+          }
+        ],
+        "context": "<<C1 src=\"12-2005-QD-BTC.doc#47\">>\nđiều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính nhưng không phải điều chỉnh trước khi lập báo cáo tài chính. Ngày phát hành báo cáo tài chính: Là ngày, tháng, năm ghi trên báo cáo tài chính mà Giám đốc (hoặc người được ủy quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ\n<</C1>>\n\n<<C7 src=\"12-2005-QD-BTC.doc#48\">>\n[Unknown] quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo tài chính. 05. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm bao gồm tất cả các sự kiện phát sinh đến ngày phát hành báo cáo tài chính. NỘI DUNG CHUẨN MỰC Ghi nhận và xác định Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm\n\nghi nhận những khoản dự phòng mới hoặc ghi nhận những khoản nợ phải thu, nợ phải trả mới. (b) Thông tin nhận được sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về một tài sản bị tổn thất trong kỳ kế toán năm, hoặc giá trị của khoản tổn thất được ghi nhận từ trước đối với tài sản này cần phải điều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong\n<</C7>>\n\n<<C4 src=\"12-2005-QD-BTC.doc#49\">>\n[Unknown] ều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về giá trị thuần có thể thực hiện được vào ngày kết thúc kỳ kế toán năm của hàng tồn kho. (c) Việc xác nhận sau ngày kết thúc kỳ kế toán năm về giá gốc của tài sản đã mua hoặc số tiền thu được\n<</C4>>\n\n<<C6 src=\"12-2005-QD-BTC.doc#51\">>\nkỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan trọng đối với người sử dụng báo cáo tài chính là phải biết là báo cáo tài chính không phản ánh các sự kiện phát sinh sau ngày phát hành. Trình bày về sự kiện tồn tại trong kỳ kế\n\ncơ sở xem xét những thông tin mới. 18. Trong một số trường hợp, doanh nghiệp phải trình bày trong báo cáo tài chính để phản ánh thông tin nhận được sau ngày kết thúc kỳ kế toán năm, ngay cả khi thông tin này không ảnh hưởng đến các số liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu\n<</C6>>\n\n<<C2 src=\"100-2005-QD-BTC.pdf#47\">>\n[Unknown] . Trường hợp như thế, doanh nghiệp phải xác định xem liệu có tồn tại nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm hay không thông qua việc xem xét tất cả các chứng cứ đã có, bao gồm cả ý kiến của các chuyên gia. Chứng cứ đưa ra xem xét phải tính đến bất cứ một dấu hiệu 26 bổ sung nào của các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm. Dựa trên cơ sở của các dấu hiệu đó: a) Khi chắc chắn xác định được nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm, thì\n<</C2>>\n\n<<C3 src=\"12-2005-QD-BTC.doc#31\">>\nchính riêng và báo cáo tài chính hợp nhất của các Ngân hàng. Bên cạnh đó cũng khuyến khích việc trình bày trên thuyết minh báo cáo tài chính những thông tin về kiểm soát khả năng thanh toán và kiểm soát rủi ro của các Ngân hàng. Đối với những tập đoàn có hoạt động ngân hàng thì chuẩn mực này được áp dụng cho các hoạt\n<</C3>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính nhưng không phải điều chỉnh trước khi lập báo cáo tài chính. Ngày phát hành báo cáo tài chính: Là ngày, tháng, năm ghi trên báo cáo tài chính mà Giám đốc (hoặc người được ủy quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ"
+          },
+          "C7": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo tài chính. 05. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm bao gồm tất cả các sự kiện phát sinh đến ngày phát hành báo cáo tài chính. NỘI DUNG CHUẨN MỰC Ghi nhận và xác định Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm\n\nghi nhận những khoản dự phòng mới hoặc ghi nhận những khoản nợ phải thu, nợ phải trả mới. (b) Thông tin nhận được sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về một tài sản bị tổn thất trong kỳ kế toán năm, hoặc giá trị của khoản tổn thất được ghi nhận từ trước đối với tài sản này cần phải điều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong"
+          },
+          "C4": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] ều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về giá trị thuần có thể thực hiện được vào ngày kết thúc kỳ kế toán năm của hàng tồn kho. (c) Việc xác nhận sau ngày kết thúc kỳ kế toán năm về giá gốc của tài sản đã mua hoặc số tiền thu được"
+          },
+          "C6": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan trọng đối với người sử dụng báo cáo tài chính là phải biết là báo cáo tài chính không phản ánh các sự kiện phát sinh sau ngày phát hành. Trình bày về sự kiện tồn tại trong kỳ kế\n\ncơ sở xem xét những thông tin mới. 18. Trong một số trường hợp, doanh nghiệp phải trình bày trong báo cáo tài chính để phản ánh thông tin nhận được sau ngày kết thúc kỳ kế toán năm, ngay cả khi thông tin này không ảnh hưởng đến các số liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu"
+          },
+          "C2": {
+            "source": "100-2005-QD-BTC.pdf",
+            "text": "[Unknown] . Trường hợp như thế, doanh nghiệp phải xác định xem liệu có tồn tại nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm hay không thông qua việc xem xét tất cả các chứng cứ đã có, bao gồm cả ý kiến của các chuyên gia. Chứng cứ đưa ra xem xét phải tính đến bất cứ một dấu hiệu 26 bổ sung nào của các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm. Dựa trên cơ sở của các dấu hiệu đó: a) Khi chắc chắn xác định được nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm, thì"
+          },
+          "C3": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "chính riêng và báo cáo tài chính hợp nhất của các Ngân hàng. Bên cạnh đó cũng khuyến khích việc trình bày trên thuyết minh báo cáo tài chính những thông tin về kiểm soát khả năng thanh toán và kiểm soát rủi ro của các Ngân hàng. Đối với những tập đoàn có hoạt động ngân hàng thì chuẩn mực này được áp dụng cho các hoạt"
+          }
+        },
+        "context_tokens": 1152,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1358
+        ]
+      }
+    },
+    {
+      "id": "vas-events-01",
+      "reference": "Điều chỉnh số liệu BCTC để phản ánh sự kiện cần điều chỉnh.",
+      "final": "Theo VAS 23 (Chuẩn mực kế toán số 23 “Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm”), nếu một sự kiện phát sinh sau ngày kết thúc kỳ kế toán nhưng trước ngày phát hành báo cáo tài chính cung cấp thêm bằng chứng về điều kiện đã tồn tại cuối năm và thuộc nhóm cần điều chỉnh, doanh nghiệp phải điều chỉnh các số liệu đã được ghi nhận trong báo cáo tài chính để phản ánh sự kiện này. Điều này có nghĩa là doanh nghiệp sẽ thực hiện việc điều chỉnh trên bảng cân đối kế toán hoặc ghi nhận những khoản mục mà trước đó chưa được ghi nhận [C7].",
+      "persisted": true,
+      "ttft_seconds": 54.50026854197495,
+      "seconds": 79.73778870911337,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C7",
+          "doc_id": "12-2005-QD-BTC.doc",
+          "chunk_id": "48",
+          "snippet": "[Unknown] \n quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân t",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 1,
+      "evidence_in_cited_chunks": 1,
+      "marker_total": 1,
+      "trace": {
+        "mode": "full",
+        "question": "Sau ngày kết thúc năm nhưng trước ngày phát hành BCTC, một sự kiện cung cấp thêm bằng chứng về điều kiện đã tồn tại cuối năm và thuộc nhóm điều chỉnh. VAS 23 yêu cầu xử lý số liệu ra sao?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 14.136761458124965
+        },
+        "retrieved": [
+          {
+            "id": "623a5b9f-a318-5cb9-9f41-c410617f6292",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C1"
+          },
+          {
+            "id": "0bf73981-472a-53d4-90f9-aca64021b6b3",
+            "source": "100-2005-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "58bb8f3a-bb98-5eb0-bf4c-1801e01a551b",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C3"
+          },
+          {
+            "id": "7100d028-f1a6-5b63-8791-ced52c17d0ef",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C4"
+          },
+          {
+            "id": "d683a57d-1b8d-5445-b099-0c3a269c2258",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C5"
+          },
+          {
+            "id": "456cf08b-1a19-5e0d-8624-f8b93b469f54",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C6"
+          },
+          {
+            "id": "4069b3e8-5c84-51f3-92d0-8a3bd230f993",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C7"
+          }
+        ],
+        "context": "<<C1 src=\"12-2005-QD-BTC.doc#47\">>\n[Unknown] \n năm; giải trình về ngày phát hành báo cáo tài chính và các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm. Nếu các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm không phù hợp với nguyên tắc hoạt động liên tục thì doanh nghiệp không được lập báo cáo tài chính trên cơ sở hoạt động liên tục. 02. Chuẩn mực này áp dụng cho việc kế toán và trình bày thông tin về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: Là những sự kiện có ảnh hưởng tích cực hoặc tiêu cực đến báo cáo tài chính đã phát sinh trong khoảng thời gian từ sau ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Có hai loại sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: (a) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính cần phải điều chỉnh trước khi lập báo cáo tài chính. (b) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính nhưng không phải điều chỉnh trước khi lập báo cáo tài chính. Ngày phát hành báo cáo tài chính: Là ngày, tháng, năm ghi trên báo cáo tài chính mà Giám đốc (hoặc người được ủy quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo t\n<</C1>>\n\n<<C2 src=\"100-2005-QD-BTC.pdf#47\">>\n[Unknown] \n. Trường hợp như thế, doanh nghiệp phải xác định xem liệu có tồn tại nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm hay không thông qua việc xem xét tất cả các chứng cứ đã có, bao gồm cả ý kiến của các chuyên gia. Chứng cứ đưa ra xem xét phải tính đến bất cứ một dấu hiệu 26 bổ sung nào của các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm. Dựa trên cơ sở của các dấu hiệu đó: a) Khi chắc chắn xác định được nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm, thì doanh nghiệp phải ghi nhận một khoản dự phòng (nếu thoả mãn các điều kiện ghi nhận); và b) Khi chắc chắn không có một nghĩa vụ nợ nào tại ngày kết thúc kỳ kế toán năm, thì doanh nghiệp phải trình bày trong Bản thuyết minh báo cáo tài chính một khoản nợ tiềm tàng, trừ khi khả năng giảm sút các lợi ích kinh tế rất khó có thể xảy ra (như quy định tại đoạn 81). Sự kiện đã xảy ra 14. Một sự kiện đã xảy ra làm phát sinh nghĩa vụ nợ hiện tại được gọi là một sự kiện ràng buộc. Một sự kiện trở thành sự kiện ràng buộc, nếu doanh nghiệp không có sự lựa chọn nào khác ngoài việc thanh toán nghĩa vụ nợ gây ra bởi sự kiện đó. Điều này chỉ xảy ra: a) Khi việc thanh toán nghĩa vụ nợ này do pháp luật bắt buộc; hoặc b) Khi có nghĩa vụ nợ liên đới, khi sự kiện này (có thể là một hoạt động của doanh nghiệp) dẫn đến có ước tính đáng tin cậy để bên thứ ba chắc chắn là doanh nghiệp sẽ thanh toán khoản nợ phải trả đó. 15. Báo cáo tài chính chỉ liên quan đến tình trạng tài chính của doanh nghiệp tại thời điểm kết thúc kỳ báo cáo và không liên quan đến vấn đề tài chính có thể xảy ra trong tương lai. Vì vậy, không cần phải ghi nhận bất kỳ m\n<</C2>>\n\n<<C3 src=\"12-2005-QD-BTC.doc#31\">>\n[Unknown] \n tin trên là hữu ích. 64.Nếu các thay đổi về thuế suất hoặc luật thuế được ban hành sau ngày kết thúc niên độ kế toán, doanh nghiệp có thể trình bày bất kỳ ảnh hưởng quan trọng nào của các thay đổi này đối với tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả và thuế thu nhập hiện hành của doanh nghiệp (xem Chuẩn mực kế toán số 23 “Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm”)./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 22 TRÌNH BÀY BỔ SUNG BÁO CÁO TÀI CHÍNH CỦA CÁC NGÂN HÀNG VÀ TỔ CHỨC TÀI CHÍNH TƯƠNG TỰ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn việc trình bày bổ sung các thông tin cần thiết trong báo cáo tài chính của các Ngân hàng và tổ chức tài chính tương tự. 02. Chuẩn mực này áp dụng cho các Ngân hàng và Tổ chức tài chính tương tự (sau đây gọi chung là Ngân hàng) bao gồm các ngân hàng, tổ chức tín dụng, tổ chức tín dụng phi ngân hàng, các tổ chức tài chính tương tự có hoạt động chính là nhận tiền gửi, đi vay với mục đích để cho vay và đầu tư trong phạm vi hoạt động của ngân hàng theo quy định của Luật các Tổ chức tín dụng và các văn bản pháp luật khác về hoạt động ngân hàng. 03. Chuẩn mực này hướng dẫn việc trình bày những thông tin cần thiết trong báo cáo tài chính riêng và báo cáo tài chính hợp nhất của các Ngân hàng. Bên cạnh đó cũng khuyến khích việc trình bày trên thuyết minh báo cáo tài chính những thông tin về kiểm soát khả năng thanh toán và kiểm soát rủi ro của các Ngân hàng. Đối với những tập đoàn có hoạt động ngân hàng thì chuẩn mực này được áp dụng cho các hoạt\n<</C3>>\n\n<<C4 src=\"12-2005-QD-BTC.doc#49\">>\n[Unknown] \nều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về giá trị thuần có thể thực hiện được vào ngày kết thúc kỳ kế toán năm của hàng tồn kho. (c) Việc xác nhận sau ngày kết thúc kỳ kế toán năm về giá gốc của tài sản đã mua hoặc số tiền thu được từ việc bán tài sản trong kỳ kế toán năm. (d) Việc phát hiện những gian lận và sai sót chỉ ra rằng báo cáo tài chính không được chính xác. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 08. Doanh nghiệp không phải điều chỉnh các số liệu đã ghi nhận trong báo cáo tài chính về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh. 09. Ví dụ về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh như: Việc giảm giá trị thị trường của các khoản đầu tư vốn góp liên doanh, các khoản đầu tư vào công ty liên kết trong khoảng thời gian từ ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Sự giảm giá trị thị trường của các khoản đầu tư thường không liên quan đến giá trị các khoản đầu tư vào ngày kết thúc kỳ kế toán năm. Doanh nghiệp không phải điều chỉnh số liệu đã được ghi nhận trong Bảng cân đối kế toán đối với các khoản đầu tư, tuy nhiên có thể bổ sung giải trình theo quy định tại đoạn 19. Cổ tức 10. Nếu cổ tức của cổ đông được công bố sau ngày kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày\n<</C4>>\n\n<<C5 src=\"12-2005-QD-BTC.doc#52\">>\n[Unknown] \nết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điều chỉnh về: (a) Nội dung và số liệu của sự kiện; (b) ước tính ảnh hưởng về tài chính, hoặc lý do không thể ước tính được các ảnh hưởng này. 20. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh cần phải trình bày trên báo cáo tài chính, như: (a) Việc hợp nhất kinh doanh theo quy định của Chuẩn mực kế toán \"Hợp nhất kinh doanh\" hoặc việc thanh lý công ty con của tập đoàn; (b) Việc công bố kế hoạch ngừng hoạt động, việc thanh lý tài sản hoặc thanh toán các khoản nợ liên quan đến ngừng hoạt động; hoặc việc tham gia vào một hợp đồng ràng buộc để bán tài sản hoặc thanh toán các khoản nợ; (c) Mua sắm hoặc thanh lý tài sản có giá trị lớn; (d) Nhà xưởng sản xuất bị phá hủy vì hỏa hoạn, bão lụt; (e) Thực hiện tái cơ cấu chủ yếu; (f) Các giao dịch chủ yếu và tiềm năng của cổ phiếu thường; (g) Thay đổi bất thường, quan trọng về giá bán tài sản hoặc tỷ giá hối đoái. (h) Thay đổi về thuế có ảnh hưởng quan trọng đến tài sản, nợ thuế hiện hành hoặc thuế hoãn lại; (i) Tham gia những cam kết, thỏa thuận quan trọng hoặc những khoản nợ tiềm tàng; (j) Xuất hiện những vụ kiện tụng lớn./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 27 BÁO CÁO TÀI CHÍNH GIỮA NIÊN ĐỘ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC,ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY Đ�\n<</C5>>\n\n<<C6 src=\"12-2005-QD-BTC.doc#51\">>\n[Unknown] \n không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan trọng đối với người sử dụng báo cáo tài chính là phải biết là báo cáo tài chính không phản ánh các sự kiện phát sinh sau ngày phát hành. Trình bày về sự kiện tồn tại trong kỳ kế toán năm 17. Nếu doanh nghiệp nhận được thông tin sau ngày kết thúc kỳ kế toán năm về các sự kiện tồn tại trong kỳ kế toán năm, doanh nghiệp phải trình bày về các sự kiện này trên cơ sở xem xét những thông tin mới. 18. Trong một số trường hợp, doanh nghiệp phải trình bày trong báo cáo tài chính để phản ánh thông tin nhận được sau ngày kết thúc kỳ kế toán năm, ngay cả khi thông tin này không ảnh hưởng đến các số liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điề\n<</C6>>\n\n<<C7 src=\"12-2005-QD-BTC.doc#48\">>\n[Unknown] \n quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo tài chính. 05. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm bao gồm tất cả các sự kiện phát sinh đến ngày phát hành báo cáo tài chính. NỘI DUNG CHUẨN MỰC Ghi nhận và xác định Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh 06. Doanh nghiệp phải điều chỉnh các số liệu đã được ghi nhận trong báo cáo tài chính để phản ánh các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh. 07. Ví dụ về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh đòi hỏi doanh nghiệp phải điều chỉnh các số liệu đã ghi nhận trong Bảng cân đối kế toán hoặc ghi nhận những khoản mục mà trước đó chưa được ghi nhận, gồm: (a) Kết luận của Toà án sau ngày kết thúc kỳ kế toán năm, xác nhận doanh nghiệp có những nghĩa vụ hiện tại vào ngày kết thúc kỳ kế toán năm, đòi hỏi doanh nghiệp điều chỉnh khoản dự phòng đã được ghi nhận từ trước; ghi nhận những khoản dự phòng mới hoặc ghi nhận những khoản nợ phải thu, nợ phải trả mới. (b) Thông tin nhận được sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về một tài sản bị tổn thất trong kỳ kế toán năm, hoặc giá trị của khoản tổn thất được ghi nhận từ trước đối với tài sản này cần phải điều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằ\n<</C7>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n năm; giải trình về ngày phát hành báo cáo tài chính và các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm. Nếu các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm không phù hợp với nguyên tắc hoạt động liên tục thì doanh nghiệp không được lập báo cáo tài chính trên cơ sở hoạt động liên tục. 02. Chuẩn mực này áp dụng cho việc kế toán và trình bày thông tin về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: Là những sự kiện có ảnh hưởng tích cực hoặc tiêu cực đến báo cáo tài chính đã phát sinh trong khoảng thời gian từ sau ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Có hai loại sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: (a) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính cần phải điều chỉnh trước khi lập báo cáo tài chính. (b) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính nhưng không phải điều chỉnh trước khi lập báo cáo tài chính. Ngày phát hành báo cáo tài chính: Là ngày, tháng, năm ghi trên báo cáo tài chính mà Giám đốc (hoặc người được ủy quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo t"
+          },
+          "C2": {
+            "source": "100-2005-QD-BTC.pdf",
+            "text": "[Unknown] \n. Trường hợp như thế, doanh nghiệp phải xác định xem liệu có tồn tại nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm hay không thông qua việc xem xét tất cả các chứng cứ đã có, bao gồm cả ý kiến của các chuyên gia. Chứng cứ đưa ra xem xét phải tính đến bất cứ một dấu hiệu 26 bổ sung nào của các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm. Dựa trên cơ sở của các dấu hiệu đó: a) Khi chắc chắn xác định được nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm, thì doanh nghiệp phải ghi nhận một khoản dự phòng (nếu thoả mãn các điều kiện ghi nhận); và b) Khi chắc chắn không có một nghĩa vụ nợ nào tại ngày kết thúc kỳ kế toán năm, thì doanh nghiệp phải trình bày trong Bản thuyết minh báo cáo tài chính một khoản nợ tiềm tàng, trừ khi khả năng giảm sút các lợi ích kinh tế rất khó có thể xảy ra (như quy định tại đoạn 81). Sự kiện đã xảy ra 14. Một sự kiện đã xảy ra làm phát sinh nghĩa vụ nợ hiện tại được gọi là một sự kiện ràng buộc. Một sự kiện trở thành sự kiện ràng buộc, nếu doanh nghiệp không có sự lựa chọn nào khác ngoài việc thanh toán nghĩa vụ nợ gây ra bởi sự kiện đó. Điều này chỉ xảy ra: a) Khi việc thanh toán nghĩa vụ nợ này do pháp luật bắt buộc; hoặc b) Khi có nghĩa vụ nợ liên đới, khi sự kiện này (có thể là một hoạt động của doanh nghiệp) dẫn đến có ước tính đáng tin cậy để bên thứ ba chắc chắn là doanh nghiệp sẽ thanh toán khoản nợ phải trả đó. 15. Báo cáo tài chính chỉ liên quan đến tình trạng tài chính của doanh nghiệp tại thời điểm kết thúc kỳ báo cáo và không liên quan đến vấn đề tài chính có thể xảy ra trong tương lai. Vì vậy, không cần phải ghi nhận bất kỳ m"
+          },
+          "C3": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n tin trên là hữu ích. 64.Nếu các thay đổi về thuế suất hoặc luật thuế được ban hành sau ngày kết thúc niên độ kế toán, doanh nghiệp có thể trình bày bất kỳ ảnh hưởng quan trọng nào của các thay đổi này đối với tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả và thuế thu nhập hiện hành của doanh nghiệp (xem Chuẩn mực kế toán số 23 “Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm”)./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 22 TRÌNH BÀY BỔ SUNG BÁO CÁO TÀI CHÍNH CỦA CÁC NGÂN HÀNG VÀ TỔ CHỨC TÀI CHÍNH TƯƠNG TỰ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn việc trình bày bổ sung các thông tin cần thiết trong báo cáo tài chính của các Ngân hàng và tổ chức tài chính tương tự. 02. Chuẩn mực này áp dụng cho các Ngân hàng và Tổ chức tài chính tương tự (sau đây gọi chung là Ngân hàng) bao gồm các ngân hàng, tổ chức tín dụng, tổ chức tín dụng phi ngân hàng, các tổ chức tài chính tương tự có hoạt động chính là nhận tiền gửi, đi vay với mục đích để cho vay và đầu tư trong phạm vi hoạt động của ngân hàng theo quy định của Luật các Tổ chức tín dụng và các văn bản pháp luật khác về hoạt động ngân hàng. 03. Chuẩn mực này hướng dẫn việc trình bày những thông tin cần thiết trong báo cáo tài chính riêng và báo cáo tài chính hợp nhất của các Ngân hàng. Bên cạnh đó cũng khuyến khích việc trình bày trên thuyết minh báo cáo tài chính những thông tin về kiểm soát khả năng thanh toán và kiểm soát rủi ro của các Ngân hàng. Đối với những tập đoàn có hoạt động ngân hàng thì chuẩn mực này được áp dụng cho các hoạt"
+          },
+          "C4": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \nều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về giá trị thuần có thể thực hiện được vào ngày kết thúc kỳ kế toán năm của hàng tồn kho. (c) Việc xác nhận sau ngày kết thúc kỳ kế toán năm về giá gốc của tài sản đã mua hoặc số tiền thu được từ việc bán tài sản trong kỳ kế toán năm. (d) Việc phát hiện những gian lận và sai sót chỉ ra rằng báo cáo tài chính không được chính xác. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 08. Doanh nghiệp không phải điều chỉnh các số liệu đã ghi nhận trong báo cáo tài chính về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh. 09. Ví dụ về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh như: Việc giảm giá trị thị trường của các khoản đầu tư vốn góp liên doanh, các khoản đầu tư vào công ty liên kết trong khoảng thời gian từ ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Sự giảm giá trị thị trường của các khoản đầu tư thường không liên quan đến giá trị các khoản đầu tư vào ngày kết thúc kỳ kế toán năm. Doanh nghiệp không phải điều chỉnh số liệu đã được ghi nhận trong Bảng cân đối kế toán đối với các khoản đầu tư, tuy nhiên có thể bổ sung giải trình theo quy định tại đoạn 19. Cổ tức 10. Nếu cổ tức của cổ đông được công bố sau ngày kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày"
+          },
+          "C5": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \nết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điều chỉnh về: (a) Nội dung và số liệu của sự kiện; (b) ước tính ảnh hưởng về tài chính, hoặc lý do không thể ước tính được các ảnh hưởng này. 20. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh cần phải trình bày trên báo cáo tài chính, như: (a) Việc hợp nhất kinh doanh theo quy định của Chuẩn mực kế toán \"Hợp nhất kinh doanh\" hoặc việc thanh lý công ty con của tập đoàn; (b) Việc công bố kế hoạch ngừng hoạt động, việc thanh lý tài sản hoặc thanh toán các khoản nợ liên quan đến ngừng hoạt động; hoặc việc tham gia vào một hợp đồng ràng buộc để bán tài sản hoặc thanh toán các khoản nợ; (c) Mua sắm hoặc thanh lý tài sản có giá trị lớn; (d) Nhà xưởng sản xuất bị phá hủy vì hỏa hoạn, bão lụt; (e) Thực hiện tái cơ cấu chủ yếu; (f) Các giao dịch chủ yếu và tiềm năng của cổ phiếu thường; (g) Thay đổi bất thường, quan trọng về giá bán tài sản hoặc tỷ giá hối đoái. (h) Thay đổi về thuế có ảnh hưởng quan trọng đến tài sản, nợ thuế hiện hành hoặc thuế hoãn lại; (i) Tham gia những cam kết, thỏa thuận quan trọng hoặc những khoản nợ tiềm tàng; (j) Xuất hiện những vụ kiện tụng lớn./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 27 BÁO CÁO TÀI CHÍNH GIỮA NIÊN ĐỘ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC,ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY Đ�"
+          },
+          "C6": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan trọng đối với người sử dụng báo cáo tài chính là phải biết là báo cáo tài chính không phản ánh các sự kiện phát sinh sau ngày phát hành. Trình bày về sự kiện tồn tại trong kỳ kế toán năm 17. Nếu doanh nghiệp nhận được thông tin sau ngày kết thúc kỳ kế toán năm về các sự kiện tồn tại trong kỳ kế toán năm, doanh nghiệp phải trình bày về các sự kiện này trên cơ sở xem xét những thông tin mới. 18. Trong một số trường hợp, doanh nghiệp phải trình bày trong báo cáo tài chính để phản ánh thông tin nhận được sau ngày kết thúc kỳ kế toán năm, ngay cả khi thông tin này không ảnh hưởng đến các số liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điề"
+          },
+          "C7": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo tài chính. 05. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm bao gồm tất cả các sự kiện phát sinh đến ngày phát hành báo cáo tài chính. NỘI DUNG CHUẨN MỰC Ghi nhận và xác định Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh 06. Doanh nghiệp phải điều chỉnh các số liệu đã được ghi nhận trong báo cáo tài chính để phản ánh các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh. 07. Ví dụ về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh đòi hỏi doanh nghiệp phải điều chỉnh các số liệu đã ghi nhận trong Bảng cân đối kế toán hoặc ghi nhận những khoản mục mà trước đó chưa được ghi nhận, gồm: (a) Kết luận của Toà án sau ngày kết thúc kỳ kế toán năm, xác nhận doanh nghiệp có những nghĩa vụ hiện tại vào ngày kết thúc kỳ kế toán năm, đòi hỏi doanh nghiệp điều chỉnh khoản dự phòng đã được ghi nhận từ trước; ghi nhận những khoản dự phòng mới hoặc ghi nhận những khoản nợ phải thu, nợ phải trả mới. (b) Thông tin nhận được sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về một tài sản bị tổn thất trong kỳ kế toán năm, hoặc giá trị của khoản tổn thất được ghi nhận từ trước đối với tài sản này cần phải điều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằ"
+          }
+        },
+        "context_tokens": 3422,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          3628
+        ]
+      }
+    },
+    {
+      "id": "vas-events-02",
+      "reference": "Không điều chỉnh số liệu. Trình bày bản chất sự kiện và ước tính ảnh hưởng tài chính, hoặc nêu rằng không thể ước tính.",
+      "final": "Theo Chuẩn mực kế toán số 27 (VAS 27) về Báo cáo tài chính giữa niên độ và các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm, một sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu cần được trình bày như sau:\n\n- Nội dung và số liệu của sự kiện;\n- Ước tính ảnh hưởng về tài chính, hoặc lý do không thể ước tính được các ảnh hưởng này.\n\nĐiều này giúp đảm bảo người sử dụng báo cáo tài chính có đầy đủ thông tin để đưa ra quyết định kinh tế phù hợp. [C1]",
+      "persisted": true,
+      "ttft_seconds": 33.31066166609526,
+      "seconds": 56.99830225016922,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C1",
+          "doc_id": "12-2005-QD-BTC.doc",
+          "chunk_id": "52",
+          "snippet": "[Unknown] \nết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy ",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 2,
+      "marker_total": 3,
+      "trace": {
+        "mode": "full",
+        "question": "Theo VAS 23, một sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu cần được trình bày những gì?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 15.047267999965698
+        },
+        "retrieved": [
+          {
+            "id": "d683a57d-1b8d-5445-b099-0c3a269c2258",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C1"
+          },
+          {
+            "id": "456cf08b-1a19-5e0d-8624-f8b93b469f54",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C2"
+          },
+          {
+            "id": "623a5b9f-a318-5cb9-9f41-c410617f6292",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C3"
+          }
+        ],
+        "context": "<<C1 src=\"12-2005-QD-BTC.doc#52\">>\n[Unknown] \nết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điều chỉnh về: (a) Nội dung và số liệu của sự kiện; (b) ước tính ảnh hưởng về tài chính, hoặc lý do không thể ước tính được các ảnh hưởng này. 20. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh cần phải trình bày trên báo cáo tài chính, như: (a) Việc hợp nhất kinh doanh theo quy định của Chuẩn mực kế toán \"Hợp nhất kinh doanh\" hoặc việc thanh lý công ty con của tập đoàn; (b) Việc công bố kế hoạch ngừng hoạt động, việc thanh lý tài sản hoặc thanh toán các khoản nợ liên quan đến ngừng hoạt động; hoặc việc tham gia vào một hợp đồng ràng buộc để bán tài sản hoặc thanh toán các khoản nợ; (c) Mua sắm hoặc thanh lý tài sản có giá trị lớn; (d) Nhà xưởng sản xuất bị phá hủy vì hỏa hoạn, bão lụt; (e) Thực hiện tái cơ cấu chủ yếu; (f) Các giao dịch chủ yếu và tiềm năng của cổ phiếu thường; (g) Thay đổi bất thường, quan trọng về giá bán tài sản hoặc tỷ giá hối đoái. (h) Thay đổi về thuế có ảnh hưởng quan trọng đến tài sản, nợ thuế hiện hành hoặc thuế hoãn lại; (i) Tham gia những cam kết, thỏa thuận quan trọng hoặc những khoản nợ tiềm tàng; (j) Xuất hiện những vụ kiện tụng lớn./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 27 BÁO CÁO TÀI CHÍNH GIỮA NIÊN ĐỘ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC,ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY Đ�\n<</C1>>\n\n<<C2 src=\"12-2005-QD-BTC.doc#51\">>\n[Unknown] \n không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan trọng đối với người sử dụng báo cáo tài chính là phải biết là báo cáo tài chính không phản ánh các sự kiện phát sinh sau ngày phát hành. Trình bày về sự kiện tồn tại trong kỳ kế toán năm 17. Nếu doanh nghiệp nhận được thông tin sau ngày kết thúc kỳ kế toán năm về các sự kiện tồn tại trong kỳ kế toán năm, doanh nghiệp phải trình bày về các sự kiện này trên cơ sở xem xét những thông tin mới. 18. Trong một số trường hợp, doanh nghiệp phải trình bày trong báo cáo tài chính để phản ánh thông tin nhận được sau ngày kết thúc kỳ kế toán năm, ngay cả khi thông tin này không ảnh hưởng đến các số liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điề\n<</C2>>\n\n<<C3 src=\"12-2005-QD-BTC.doc#47\">>\n[Unknown] \n năm; giải trình về ngày phát hành báo cáo tài chính và các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm. Nếu các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm không phù hợp với nguyên tắc hoạt động liên tục thì doanh nghiệp không được lập báo cáo tài chính trên cơ sở hoạt động liên tục. 02. Chuẩn mực này áp dụng cho việc kế toán và trình bày thông tin về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: Là những sự kiện có ảnh hưởng tích cực hoặc tiêu cực đến báo cáo tài chính đã phát sinh trong khoảng thời gian từ sau ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Có hai loại sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: (a) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính cần phải điều chỉnh trước khi lập báo cáo tài chính. (b) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính nhưng không phải điều chỉnh trước khi lập báo cáo tài chính. Ngày phát hành báo cáo tài chính: Là ngày, tháng, năm ghi trên báo cáo tài chính mà Giám đốc (hoặc người được ủy quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo t\n<</C3>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \nết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điều chỉnh về: (a) Nội dung và số liệu của sự kiện; (b) ước tính ảnh hưởng về tài chính, hoặc lý do không thể ước tính được các ảnh hưởng này. 20. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh cần phải trình bày trên báo cáo tài chính, như: (a) Việc hợp nhất kinh doanh theo quy định của Chuẩn mực kế toán \"Hợp nhất kinh doanh\" hoặc việc thanh lý công ty con của tập đoàn; (b) Việc công bố kế hoạch ngừng hoạt động, việc thanh lý tài sản hoặc thanh toán các khoản nợ liên quan đến ngừng hoạt động; hoặc việc tham gia vào một hợp đồng ràng buộc để bán tài sản hoặc thanh toán các khoản nợ; (c) Mua sắm hoặc thanh lý tài sản có giá trị lớn; (d) Nhà xưởng sản xuất bị phá hủy vì hỏa hoạn, bão lụt; (e) Thực hiện tái cơ cấu chủ yếu; (f) Các giao dịch chủ yếu và tiềm năng của cổ phiếu thường; (g) Thay đổi bất thường, quan trọng về giá bán tài sản hoặc tỷ giá hối đoái. (h) Thay đổi về thuế có ảnh hưởng quan trọng đến tài sản, nợ thuế hiện hành hoặc thuế hoãn lại; (i) Tham gia những cam kết, thỏa thuận quan trọng hoặc những khoản nợ tiềm tàng; (j) Xuất hiện những vụ kiện tụng lớn./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 27 BÁO CÁO TÀI CHÍNH GIỮA NIÊN ĐỘ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC,ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY Đ�"
+          },
+          "C2": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan trọng đối với người sử dụng báo cáo tài chính là phải biết là báo cáo tài chính không phản ánh các sự kiện phát sinh sau ngày phát hành. Trình bày về sự kiện tồn tại trong kỳ kế toán năm 17. Nếu doanh nghiệp nhận được thông tin sau ngày kết thúc kỳ kế toán năm về các sự kiện tồn tại trong kỳ kế toán năm, doanh nghiệp phải trình bày về các sự kiện này trên cơ sở xem xét những thông tin mới. 18. Trong một số trường hợp, doanh nghiệp phải trình bày trong báo cáo tài chính để phản ánh thông tin nhận được sau ngày kết thúc kỳ kế toán năm, ngay cả khi thông tin này không ảnh hưởng đến các số liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điề"
+          },
+          "C3": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n năm; giải trình về ngày phát hành báo cáo tài chính và các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm. Nếu các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm không phù hợp với nguyên tắc hoạt động liên tục thì doanh nghiệp không được lập báo cáo tài chính trên cơ sở hoạt động liên tục. 02. Chuẩn mực này áp dụng cho việc kế toán và trình bày thông tin về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: Là những sự kiện có ảnh hưởng tích cực hoặc tiêu cực đến báo cáo tài chính đã phát sinh trong khoảng thời gian từ sau ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Có hai loại sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: (a) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính cần phải điều chỉnh trước khi lập báo cáo tài chính. (b) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính nhưng không phải điều chỉnh trước khi lập báo cáo tài chính. Ngày phát hành báo cáo tài chính: Là ngày, tháng, năm ghi trên báo cáo tài chính mà Giám đốc (hoặc người được ủy quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo t"
+          }
+        },
+        "context_tokens": 1443,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1649
+        ]
+      }
+    },
+    {
+      "id": "vas-events-02",
+      "reference": "Không điều chỉnh số liệu. Trình bày bản chất sự kiện và ước tính ảnh hưởng tài chính, hoặc nêu rằng không thể ước tính.",
+      "final": "Theo VAS 23, nếu sự kiện sau kỳ thuộc loại không cần điều chỉnh nhưng là trọng yếu, doanh nghiệp phải trình bày các sự kiện này trong báo cáo tài chính. Việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên thông tin từ báo cáo tài chính [C2].",
+      "persisted": true,
+      "ttft_seconds": 27.01232070894912,
+      "seconds": 40.85371050005779,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C2",
+          "doc_id": "12-2005-QD-BTC.doc",
+          "chunk_id": "51",
+          "snippet": "[Unknown] không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trì",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 3,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Theo VAS 23, một sự kiện sau kỳ thuộc loại không điều chỉnh nhưng trọng yếu cần được trình bày những gì?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 15.949976333184168
+        },
+        "retrieved": [
+          {
+            "id": "d683a57d-1b8d-5445-b099-0c3a269c2258",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C1"
+          },
+          {
+            "id": "456cf08b-1a19-5e0d-8624-f8b93b469f54",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C2"
+          },
+          {
+            "id": "623a5b9f-a318-5cb9-9f41-c410617f6292",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C3"
+          }
+        ],
+        "context": "<<C3 src=\"12-2005-QD-BTC.doc#47\">>\ntrong chuẩn mực này được hiểu như sau: Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: Là những sự kiện có ảnh hưởng tích cực hoặc tiêu cực đến báo cáo tài chính đã phát sinh trong khoảng thời gian từ sau ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Có hai loại sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: (a) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp\n\nđiều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính nhưng không phải điều chỉnh trước khi lập báo cáo tài chính. Ngày phát hành báo cáo tài chính: Là ngày, tháng, năm ghi trên báo cáo tài chính mà Giám đốc (hoặc người được ủy quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ\n<</C3>>\n\n<<C1 src=\"12-2005-QD-BTC.doc#52\">>\nkỳ kế toán năm không cần điều chỉnh cần phải trình bày trên báo cáo tài chính, như: (a) Việc hợp nhất kinh doanh theo quy định của Chuẩn mực kế toán \"Hợp nhất kinh doanh\" hoặc việc thanh lý công ty con của tập đoàn; (b) Việc công bố kế hoạch ngừng hoạt động, việc thanh lý tài sản hoặc thanh toán các khoản nợ liên quan đến ngừng hoạt động; hoặc việc tham gia vào một hợp đồng ràng buộc để bán tài sản hoặc thanh toán các khoản nợ; (c) Mua sắm hoặc thanh lý tài sản có giá trị lớn; (d) Nhà xưởng sản xuất bị\n\nhoặc tỷ giá hối đoái. (h) Thay đổi về thuế có ảnh hưởng quan trọng đến tài sản, nợ thuế hiện hành hoặc thuế hoãn lại; (i) Tham gia những cam kết, thỏa thuận quan trọng hoặc những khoản nợ tiềm tàng; (j) Xuất hiện những vụ kiện tụng lớn./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 27 BÁO CÁO TÀI CHÍNH GIỮA NIÊN ĐỘ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC,ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY Đ�\n<</C1>>\n\n<<C2 src=\"12-2005-QD-BTC.doc#51\">>\n[Unknown] không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành,\n\nsố liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo\n<</C2>>",
+        "prompt_chunks": {
+          "C3": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "trong chuẩn mực này được hiểu như sau: Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: Là những sự kiện có ảnh hưởng tích cực hoặc tiêu cực đến báo cáo tài chính đã phát sinh trong khoảng thời gian từ sau ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Có hai loại sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm: (a) Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp\n\nđiều chỉnh: Là những sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về các sự việc đã tồn tại trong năm tài chính nhưng không phải điều chỉnh trước khi lập báo cáo tài chính. Ngày phát hành báo cáo tài chính: Là ngày, tháng, năm ghi trên báo cáo tài chính mà Giám đốc (hoặc người được ủy quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ"
+          },
+          "C1": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "kỳ kế toán năm không cần điều chỉnh cần phải trình bày trên báo cáo tài chính, như: (a) Việc hợp nhất kinh doanh theo quy định của Chuẩn mực kế toán \"Hợp nhất kinh doanh\" hoặc việc thanh lý công ty con của tập đoàn; (b) Việc công bố kế hoạch ngừng hoạt động, việc thanh lý tài sản hoặc thanh toán các khoản nợ liên quan đến ngừng hoạt động; hoặc việc tham gia vào một hợp đồng ràng buộc để bán tài sản hoặc thanh toán các khoản nợ; (c) Mua sắm hoặc thanh lý tài sản có giá trị lớn; (d) Nhà xưởng sản xuất bị\n\nhoặc tỷ giá hối đoái. (h) Thay đổi về thuế có ảnh hưởng quan trọng đến tài sản, nợ thuế hiện hành hoặc thuế hoãn lại; (i) Tham gia những cam kết, thỏa thuận quan trọng hoặc những khoản nợ tiềm tàng; (j) Xuất hiện những vụ kiện tụng lớn./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 27 BÁO CÁO TÀI CHÍNH GIỮA NIÊN ĐỘ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC,ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY Đ�"
+          },
+          "C2": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành,\n\nsố liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo"
+          }
+        },
+        "context_tokens": 909,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1115
+        ]
+      }
+    },
+    {
+      "id": "vas-regime-01",
+      "reference": "Áp dụng cho năm tài chính bắt đầu từ hoặc sau 01/01/2026. Những nội dung cổ phần hóa doanh nghiệp nhà nước được liệt kê tại Điều 31 khoản 2 tiếp tục áp dụng cho tới khi có văn bản thay thế.",
+      "final": "Theo Thông tư số 99/2025/TT-BTC ngày 27 tháng 10 năm 2025, thời điểm bắt đầu áp dụng cho các doanh nghiệp chưa được nêu rõ trong đoạn trích. Tuy nhiên, theo quy định chung, thông tư này sẽ có hiệu lực sau một khoảng thời gian nhất định kể từ ngày ký ban hành để cho phép các đơn vị chuẩn bị và thích ứng với những thay đổi về kế toán.\n\nThông tư 99/2025/TT-BTC hướng dẫn chế độ kế toán doanh nghiệp vẫn tiếp tục thực hiện cho đến khi có văn bản thay thế [C2]. Điều này có nghĩa là Thông tư số 200/2",
+      "persisted": true,
+      "ttft_seconds": 27.938138584140688,
+      "seconds": 54.08564770896919,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C2",
+          "doc_id": "99-2025-TT-BTC-part-01.pdf",
+          "chunk_id": "50",
+          "snippet": "[Unknown] /TT-BTC ngày 22/12/2014 của Bộ Tài chính và Thông tư số 195/2012/TT-BTC ngày 15/11/2012 hướng dẫn kế toán áp dụng cho đơn vị chủ đầu tư. 2. Các nội dung liên quan đến kế toán cổ phần hóa doa",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 2,
+      "marker_total": 3,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Thông tư 99/2025/TT-BTC bắt đầu áp dụng cho năm tài chính nào và có thay thế toàn bộ hướng dẫn cổ phần hóa theo Thông tư 200 ngay không?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 15.692585207987577
+        },
+        "retrieved": [
+          {
+            "id": "8d8867e6-8c82-5a0b-bd1b-f8c36911541d",
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "1da8d80f-447d-5060-9180-2f309d92e63b",
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "key": "C2"
+          }
+        ],
+        "context": "<<C2 src=\"99-2025-TT-BTC-part-01.pdf#50\">>\n[Unknown] /TT-BTC ngày 22/12/2014 của Bộ Tài chính và Thông tư số 195/2012/TT-BTC ngày 15/11/2012 hướng dẫn kế toán áp dụng cho đơn vị chủ đầu tư. 2. Các nội dung liên quan đến kế toán cổ phần hóa doanh nghiệp Nhà nước hướng dẫn tại các khoản 3.11, khoản 3.12 Điều 21; khoản 3.3 Điều 35; điểm h, i khoản 3 Điều 38; điểm c khoản 5 Điều 40; điểm c khoản 3.1, điểm d khoản 3.2, điểm e khoản 3.3, điểm d khoản 3.4 Điều 45; điểm k, l, m khoản 3 Điều 47; điểm l khoản 3 Điều 54; khoản 3.2, khoản 3.9 Điều 57; điểm đ\n\nđiểm d khoản 3 Điều 94 Thông tư số 200/2014/TT-BTC ngày 22/12/2014 của Bộ Tài chính hướng dẫn chế độ kế toán doanh nghiệp vẫn tiếp tục thực hiện cho đến khi có văn bản thay thế. CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 55 3. Các doanh nghiệp vừa và nhỏ, cơ sở ngoài công lập, các đơn vị kế toán khác được lựa chọn áp dụng Thông tư này để kế toán phù hợp với đặc điểm hoạt động sản xuất kinh doanh và yêu cầu quản lý của đơn vị mình. Khi áp dụng Thông tư này, các đơn vị phải thực hiện nhất quán tối thiểu trong\n<</C2>>\n\n<<C1 src=\"99-2025-TT-BTC-part-01.pdf#0\">>\n[Unknown] Người ký: CỔNG THÔNG TIN ĐIỆN TỬ CHÍNH PHỦ Email: thongtinchinhphu@chinhphu.vn Cơ quan: VĂN PHÒNG CHÍNH PHỦ Thời gian ký: 13.11.2025 09:11:05 +07:00 CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 23 BỘ TÀI CHÍNH BỘ TÀI CHÍNH CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM Độc lập - Tự do - Hạnh phúc Số: 99/2025/TT-BTC Hà Nội, ngày 27 tháng 10 năm 2025 THÔNG TƯ Hướng dẫn Chế độ kế toán doanh nghiệp Căn cứ Luật Kế toán ngày 20 tháng 11 năm 2015; Căn cứ Luật sửa đổi, bổ sung một số điều của Luật Chứng khoán, Luật Kế toán, Luật Kiểm toán độc lập, Luật Ngân sách nhà\n\nsố điều của Nghị định số 29/2025/NĐ-CP ngày 24 tháng 02 năm 2025 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Tài chính; Theo đề nghị của Cục trưởng Cục Quản lý, giám sát kế toán, kiểm toán; Bộ trưởng Bộ Tài chính ban hành Thông tư hướng dẫn Chế độ kế toán doanh nghiệp. Chương I QUY ĐỊNH CHUNG Điều 1. Phạm vi điều chỉnh Thông tư này hướng dẫn về chứng từ kế toán, tài khoản kế toán, ghi sổ kế toán, lập và trình bày Báo cáo tài chính của doanh nghiệp. Việc xác định nghĩa v\n<</C1>>",
+        "prompt_chunks": {
+          "C2": {
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "text": "[Unknown] /TT-BTC ngày 22/12/2014 của Bộ Tài chính và Thông tư số 195/2012/TT-BTC ngày 15/11/2012 hướng dẫn kế toán áp dụng cho đơn vị chủ đầu tư. 2. Các nội dung liên quan đến kế toán cổ phần hóa doanh nghiệp Nhà nước hướng dẫn tại các khoản 3.11, khoản 3.12 Điều 21; khoản 3.3 Điều 35; điểm h, i khoản 3 Điều 38; điểm c khoản 5 Điều 40; điểm c khoản 3.1, điểm d khoản 3.2, điểm e khoản 3.3, điểm d khoản 3.4 Điều 45; điểm k, l, m khoản 3 Điều 47; điểm l khoản 3 Điều 54; khoản 3.2, khoản 3.9 Điều 57; điểm đ\n\nđiểm d khoản 3 Điều 94 Thông tư số 200/2014/TT-BTC ngày 22/12/2014 của Bộ Tài chính hướng dẫn chế độ kế toán doanh nghiệp vẫn tiếp tục thực hiện cho đến khi có văn bản thay thế. CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 55 3. Các doanh nghiệp vừa và nhỏ, cơ sở ngoài công lập, các đơn vị kế toán khác được lựa chọn áp dụng Thông tư này để kế toán phù hợp với đặc điểm hoạt động sản xuất kinh doanh và yêu cầu quản lý của đơn vị mình. Khi áp dụng Thông tư này, các đơn vị phải thực hiện nhất quán tối thiểu trong"
+          },
+          "C1": {
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "text": "[Unknown] Người ký: CỔNG THÔNG TIN ĐIỆN TỬ CHÍNH PHỦ Email: thongtinchinhphu@chinhphu.vn Cơ quan: VĂN PHÒNG CHÍNH PHỦ Thời gian ký: 13.11.2025 09:11:05 +07:00 CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 23 BỘ TÀI CHÍNH BỘ TÀI CHÍNH CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM Độc lập - Tự do - Hạnh phúc Số: 99/2025/TT-BTC Hà Nội, ngày 27 tháng 10 năm 2025 THÔNG TƯ Hướng dẫn Chế độ kế toán doanh nghiệp Căn cứ Luật Kế toán ngày 20 tháng 11 năm 2015; Căn cứ Luật sửa đổi, bổ sung một số điều của Luật Chứng khoán, Luật Kế toán, Luật Kiểm toán độc lập, Luật Ngân sách nhà\n\nsố điều của Nghị định số 29/2025/NĐ-CP ngày 24 tháng 02 năm 2025 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Tài chính; Theo đề nghị của Cục trưởng Cục Quản lý, giám sát kế toán, kiểm toán; Bộ trưởng Bộ Tài chính ban hành Thông tư hướng dẫn Chế độ kế toán doanh nghiệp. Chương I QUY ĐỊNH CHUNG Điều 1. Phạm vi điều chỉnh Thông tư này hướng dẫn về chứng từ kế toán, tài khoản kế toán, ghi sổ kế toán, lập và trình bày Báo cáo tài chính của doanh nghiệp. Việc xác định nghĩa v"
+          }
+        },
+        "context_tokens": 888,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1094
+        ]
+      }
+    },
+    {
+      "id": "vas-regime-01",
+      "reference": "Áp dụng cho năm tài chính bắt đầu từ hoặc sau 01/01/2026. Những nội dung cổ phần hóa doanh nghiệp nhà nước được liệt kê tại Điều 31 khoản 2 tiếp tục áp dụng cho tới khi có văn bản thay thế.",
+      "final": "Theo Thông tư số 99/2025/TT-BTC, chưa có thông tin cụ thể về thời điểm bắt đầu áp dụng cho năm tài chính nào. Về việc thay thế hướng dẫn cổ phần hóa theo Thông tư số 200/2014/TT-BTC, các nội dung liên quan đến kế toán cổ phần hóa doanh nghiệp Nhà nước vẫn tiếp tục thực hiện cho đến khi có văn bản thay thế [C2].",
+      "persisted": true,
+      "ttft_seconds": 29.58700987510383,
+      "seconds": 46.29991366690956,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C2",
+          "doc_id": "99-2025-TT-BTC-part-01.pdf",
+          "chunk_id": "50",
+          "snippet": "[Unknown] \n/TT-BTC ngày 22/12/2014 của Bộ Tài chính và Thông tư số 195/2012/TT-BTC ngày 15/11/2012 hướng dẫn kế toán áp dụng cho đơn vị chủ đầu tư. 2. Các nội dung liên quan đến kế toán cổ phần hóa do",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 2,
+      "marker_total": 3,
+      "trace": {
+        "mode": "full",
+        "question": "Thông tư 99/2025/TT-BTC bắt đầu áp dụng cho năm tài chính nào và có thay thế toàn bộ hướng dẫn cổ phần hóa theo Thông tư 200 ngay không?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 16.352606792002916
+        },
+        "retrieved": [
+          {
+            "id": "8d8867e6-8c82-5a0b-bd1b-f8c36911541d",
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "1da8d80f-447d-5060-9180-2f309d92e63b",
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "key": "C2"
+          }
+        ],
+        "context": "<<C1 src=\"99-2025-TT-BTC-part-01.pdf#0\">>\n[Unknown] \nNgười ký: CỔNG THÔNG TIN ĐIỆN TỬ CHÍNH PHỦ Email: thongtinchinhphu@chinhphu.vn Cơ quan: VĂN PHÒNG CHÍNH PHỦ Thời gian ký: 13.11.2025 09:11:05 +07:00 CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 23 BỘ TÀI CHÍNH BỘ TÀI CHÍNH CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM Độc lập - Tự do - Hạnh phúc Số: 99/2025/TT-BTC Hà Nội, ngày 27 tháng 10 năm 2025 THÔNG TƯ Hướng dẫn Chế độ kế toán doanh nghiệp Căn cứ Luật Kế toán ngày 20 tháng 11 năm 2015; Căn cứ Luật sửa đổi, bổ sung một số điều của Luật Chứng khoán, Luật Kế toán, Luật Kiểm toán độc lập, Luật Ngân sách nhà nước, Luật Quản lý, sử dụng tài sản công, Luật Quản lý thuế, Luật Thuế thu nhập cá nhân, Luật Dự trữ quốc gia, Luật Xử lý vi phạm hành chính ngày 29 tháng 11 năm 2024; Căn cứ Nghị định số 29/2025/NĐ-CP ngày 24 tháng 02 năm 2025 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Tài chính; Căn cứ Nghị định số 166/2025/NĐ-CP ngày 30 tháng 6 năm 2025 của Chính phủ về sửa đổi, bổ sung một số điều của Nghị định số 29/2025/NĐ-CP ngày 24 tháng 02 năm 2025 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Tài chính; Theo đề nghị của Cục trưởng Cục Quản lý, giám sát kế toán, kiểm toán; Bộ trưởng Bộ Tài chính ban hành Thông tư hướng dẫn Chế độ kế toán doanh nghiệp. Chương I QUY ĐỊNH CHUNG Điều 1. Phạm vi điều chỉnh Thông tư này hướng dẫn về chứng từ kế toán, tài khoản kế toán, ghi sổ kế toán, lập và trình bày Báo cáo tài chính của doanh nghiệp. Việc xác định nghĩa v\n<</C1>>\n\n<<C2 src=\"99-2025-TT-BTC-part-01.pdf#50\">>\n[Unknown] \n/TT-BTC ngày 22/12/2014 của Bộ Tài chính và Thông tư số 195/2012/TT-BTC ngày 15/11/2012 hướng dẫn kế toán áp dụng cho đơn vị chủ đầu tư. 2. Các nội dung liên quan đến kế toán cổ phần hóa doanh nghiệp Nhà nước hướng dẫn tại các khoản 3.11, khoản 3.12 Điều 21; khoản 3.3 Điều 35; điểm h, i khoản 3 Điều 38; điểm c khoản 5 Điều 40; điểm c khoản 3.1, điểm d khoản 3.2, điểm e khoản 3.3, điểm d khoản 3.4 Điều 45; điểm k, l, m khoản 3 Điều 47; điểm l khoản 3 Điều 54; khoản 3.2, khoản 3.9 Điều 57; điểm đ khoản 3 Điều 62; điểm p khoản 3 Điều 63; khoản 3.13 Điều 67; Điều 71; điểm g khoản 3 Điều 74; điểm d khoản 3 Điều 77; khoản 3.15, khoản 3.16 Điều 92; điểm m khoản 3 Điều 93; điểm d khoản 3 Điều 94 Thông tư số 200/2014/TT-BTC ngày 22/12/2014 của Bộ Tài chính hướng dẫn chế độ kế toán doanh nghiệp vẫn tiếp tục thực hiện cho đến khi có văn bản thay thế. CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 55 3. Các doanh nghiệp vừa và nhỏ, cơ sở ngoài công lập, các đơn vị kế toán khác được lựa chọn áp dụng Thông tư này để kế toán phù hợp với đặc điểm hoạt động sản xuất kinh doanh và yêu cầu quản lý của đơn vị mình. Khi áp dụng Thông tư này, các đơn vị phải thực hiện nhất quán tối thiểu trong một kỳ kế toán năm. Khi doanh nghiệp thay đổi chế độ kế toán áp dụng thì phải trình bày lại số liệu, thông tin so sánh tương tự như khi thay đổi chính sách kế toán đồng thời giải trình lý do và ảnh hưởng của sự thay đổi đó trong phần thuyết minh Báo cáo tài chính theo quy định. 4. Các Bộ, ngành, Ủy ban nhân dân\n<</C2>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "text": "[Unknown] \nNgười ký: CỔNG THÔNG TIN ĐIỆN TỬ CHÍNH PHỦ Email: thongtinchinhphu@chinhphu.vn Cơ quan: VĂN PHÒNG CHÍNH PHỦ Thời gian ký: 13.11.2025 09:11:05 +07:00 CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 23 BỘ TÀI CHÍNH BỘ TÀI CHÍNH CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM Độc lập - Tự do - Hạnh phúc Số: 99/2025/TT-BTC Hà Nội, ngày 27 tháng 10 năm 2025 THÔNG TƯ Hướng dẫn Chế độ kế toán doanh nghiệp Căn cứ Luật Kế toán ngày 20 tháng 11 năm 2015; Căn cứ Luật sửa đổi, bổ sung một số điều của Luật Chứng khoán, Luật Kế toán, Luật Kiểm toán độc lập, Luật Ngân sách nhà nước, Luật Quản lý, sử dụng tài sản công, Luật Quản lý thuế, Luật Thuế thu nhập cá nhân, Luật Dự trữ quốc gia, Luật Xử lý vi phạm hành chính ngày 29 tháng 11 năm 2024; Căn cứ Nghị định số 29/2025/NĐ-CP ngày 24 tháng 02 năm 2025 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Tài chính; Căn cứ Nghị định số 166/2025/NĐ-CP ngày 30 tháng 6 năm 2025 của Chính phủ về sửa đổi, bổ sung một số điều của Nghị định số 29/2025/NĐ-CP ngày 24 tháng 02 năm 2025 của Chính phủ quy định chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Bộ Tài chính; Theo đề nghị của Cục trưởng Cục Quản lý, giám sát kế toán, kiểm toán; Bộ trưởng Bộ Tài chính ban hành Thông tư hướng dẫn Chế độ kế toán doanh nghiệp. Chương I QUY ĐỊNH CHUNG Điều 1. Phạm vi điều chỉnh Thông tư này hướng dẫn về chứng từ kế toán, tài khoản kế toán, ghi sổ kế toán, lập và trình bày Báo cáo tài chính của doanh nghiệp. Việc xác định nghĩa v"
+          },
+          "C2": {
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "text": "[Unknown] \n/TT-BTC ngày 22/12/2014 của Bộ Tài chính và Thông tư số 195/2012/TT-BTC ngày 15/11/2012 hướng dẫn kế toán áp dụng cho đơn vị chủ đầu tư. 2. Các nội dung liên quan đến kế toán cổ phần hóa doanh nghiệp Nhà nước hướng dẫn tại các khoản 3.11, khoản 3.12 Điều 21; khoản 3.3 Điều 35; điểm h, i khoản 3 Điều 38; điểm c khoản 5 Điều 40; điểm c khoản 3.1, điểm d khoản 3.2, điểm e khoản 3.3, điểm d khoản 3.4 Điều 45; điểm k, l, m khoản 3 Điều 47; điểm l khoản 3 Điều 54; khoản 3.2, khoản 3.9 Điều 57; điểm đ khoản 3 Điều 62; điểm p khoản 3 Điều 63; khoản 3.13 Điều 67; Điều 71; điểm g khoản 3 Điều 74; điểm d khoản 3 Điều 77; khoản 3.15, khoản 3.16 Điều 92; điểm m khoản 3 Điều 93; điểm d khoản 3 Điều 94 Thông tư số 200/2014/TT-BTC ngày 22/12/2014 của Bộ Tài chính hướng dẫn chế độ kế toán doanh nghiệp vẫn tiếp tục thực hiện cho đến khi có văn bản thay thế. CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 55 3. Các doanh nghiệp vừa và nhỏ, cơ sở ngoài công lập, các đơn vị kế toán khác được lựa chọn áp dụng Thông tư này để kế toán phù hợp với đặc điểm hoạt động sản xuất kinh doanh và yêu cầu quản lý của đơn vị mình. Khi áp dụng Thông tư này, các đơn vị phải thực hiện nhất quán tối thiểu trong một kỳ kế toán năm. Khi doanh nghiệp thay đổi chế độ kế toán áp dụng thì phải trình bày lại số liệu, thông tin so sánh tương tự như khi thay đổi chính sách kế toán đồng thời giải trình lý do và ảnh hưởng của sự thay đổi đó trong phần thuyết minh Báo cáo tài chính theo quy định. 4. Các Bộ, ngành, Ủy ban nhân dân"
+          }
+        },
+        "context_tokens": 1204,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1410
+        ]
+      }
+    },
+    {
+      "id": "abstain-inventory-01",
+      "reference": "Chưa thể xác định số tiền dự phòng. Cần giá trị thuần có thể thực hiện được, hoặc các dữ liệu phù hợp để ước tính giá trị này.",
+      "final": "Dựa trên thông tin cung cấp trong câu hỏi và các chuẩn mực kế toán được trích dẫn, không có đủ thông tin để xác định chính xác số tiền dự phòng giảm giá cho lô hàng này theo VAS 02. Để xác định số tiền dự phòng giảm giá, cần phải xem xét đến giá bán dự kiến hoặc chi phí hoàn thiện, tiêu thụ liên quan đến lô hàng đó.\n\nNếu không có thông tin về giá bán dự kiến hay chi phí hoàn thiện, tiêu thụ, doanh nghiệp sẽ không thể ước tính được giá trị hợp lý nhất của tài sản và từ đó xác định số tiền cần trích lập cho dự phòng giảm giá. [C1]",
+      "persisted": true,
+      "ttft_seconds": 35.21715037501417,
+      "seconds": 60.651893415953964,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C1",
+          "doc_id": "100-2005-QD-BTC.pdf",
+          "chunk_id": "58",
+          "snippet": "[Unknown] \n chi phí để thanh toán một khoản dự phòng dự tính được bên khác bồi hoàn thì khoản bồi hoàn này chỉ được ghi nhận khi doanh nghiệp chắc chắn sẽ nhận được khoản bồi hoàn đó. Khoản bồi hoàn n",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "full",
+        "question": "Theo VAS 02, một lô hàng có giá gốc 120 triệu. Không có thông tin giá bán dự kiến hoặc chi phí hoàn thiện, tiêu thụ. Hãy xác định chính xác số tiền dự phòng giảm giá.",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 15.979304207954556
+        },
+        "retrieved": [
+          {
+            "id": "b620bdf4-932f-5720-9f36-c80b5c8bde61",
+            "source": "100-2005-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "c0460e52-6118-5a43-a94c-4e161838d503",
+            "source": "100-2005-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "a94fde15-2918-5ac9-9db4-381b56913aff",
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "key": "C3"
+          }
+        ],
+        "context": "<<C1 src=\"100-2005-QD-BTC.pdf#58\">>\n[Unknown] \n chi phí để thanh toán một khoản dự phòng dự tính được bên khác bồi hoàn thì khoản bồi hoàn này chỉ được ghi nhận khi doanh nghiệp chắc chắn sẽ nhận được khoản bồi hoàn đó. Khoản bồi hoàn này phải được ghi nhận như một tài sản riêng biệt. Giá trị ghi nhận của khoản bồi hoàn không được vượt quá giá trị khoản dự phòng. 50. Trong Báo cáo kết quả hoạt động kinh doanh, chi phí liên quan đến khoản dự phòng có thể được trình bày theo giá trị sau khi trừ giá trị khoản bồi hoàn được ghi nhận. 31 51. Trong một số trường hợp, doanh nghiệp có thể tìm kiếm một bên thứ ba để thanh toán một phần hay toàn bộ chi phí cho khoản dự phòng (ví dụ, thông qua các hợp đồng bảo hiểm, các điều khoản bồi thường hoặc các giấy bảo hành của nhà cung cấp). Bên thứ ba có thể thanh toán trực tiếp hoặc hoàn trả lại các khoản doanh nghiệp đã thanh toán. 52. Hầu hết các trường hợp, doanh nghiệp đều phải chịu và phải thanh toán toàn bộ các nghĩa vụ nợ nếu bên thứ ba không có khả năng bồi hoàn do bất kỳ nguyên nhân nào. Trường hợp này, phải ghi nhận khoản dự phòng cho toàn bộ giá trị của khoản nợ, và phải ghi nhận khoản bồi hoàn đã dự tính là tài sản khi chắc chắn sẽ nhận được khoản bồi hoàn đó nếu doanh nghiệp thanh toán khoản nợ. 53. Có trường hợp, doanh nghiệp không phải chịu các khoản chi phí chưa rõ ràng nếu bên thứ ba không thực hiện thanh toán. Trường hợp doanh nghiệp không phải chịu các khoản chi phí thì các khoản chi phí này không được đưa vào khoản dự phòng. 54. Theo quy định trong đoạn 25, một khoản nợ khi doanh nghiệp phải chịu nghĩa vụ pháp lý chung hoặc riêng sẽ được ghi nhận là nợ tiềm tàng trong phạm vi dự tính nghĩa vụ sẽ được bên thứ ba thanh toán. Thay đổi các khoản dự phòng 55. Các khoản dự phòng phải được xem xét lại và điều chỉnh tại ngày kết thúc kỳ kế toán năm để phản á\n<</C1>>\n\n<<C2 src=\"100-2005-QD-BTC.pdf#55\">>\n[Unknown] \n Khoản dự phòng phải được ghi nhận trước thuế, vì các ảnh hưởng về thuế của khoản dự phòng và những thay đổi trong các kết quả đó đã được quy định trong Chuẩn mực kế toán số 17 “Thuế thu nhập doanh nghiệp”. Rủi ro và các yếu tố không chắc chắn 38. Rủi ro và các yếu tố không chắc chắn tồn tại xung quanh các sự kiện và các trường hợp phải được xem xét khi xác định giá trị ước tính hợp lý nhất cho một khoản dự phòng. 39. Rủi ro thể hiện sự giảm sút kết quả. Việc điều chỉnh rủi ro có thể làm tăng giá trị các khoản nợ đã được ghi nhận. Doanh nghiệp cần phải thận trọng khi đưa ra những đánh giá trong các điều kiện không chắc chắn để không làm sai lệch tăng thu nhập hay tài sản và cũng không làm sai lệch giảm chi phí và các khoản nợ. Tuy nhiên, tình trạng không chắc chắn không có nghĩa là tạo ra các khoản dự phòng quá mức hoặc khai khống các khoản nợ một cách cố ý. Ví dụ: Nếu các khoản chi phí dự tính cho một rủi ro nào đó được ước tính trên cơ sở thận trọng, thì không nên chủ quan xem kết quả đó là có khả năng xảy ra hơn các trường hợp thực tế khác. Doanh nghiệp cần phải chú ý để tránh các bước đánh giá trùng lặp đối với rủi ro và sự không chắc chắn dẫn đến làm tăng các khoản dự phòng. 40. Việc thuyết minh yếu tố không chắc chắn đối với giá trị của các khoản chi trả được quy định tại đoạn 80 (b). Giá trị hiện tại 41. Nếu ảnh hưởng về giá trị thời gian của tiền là trọng yếu, thì giá trị của một khoản dự phòng cần được xác định là giá trị hiện tại của khoản chi phí dự tính để thanh toán nghĩa vụ nợ. 42. Phụ thuộc vào giá trị thời gian của tiền, các khoản dự phòng liên quan đến các luồng tiền ra phát sinh ngay sau ngày kết thúc kỳ kế toán năm có giá trị thực cao hơn các khoản dự phòng có cùng giá trị liên quan đến các luồng tiền ra phát\n<</C2>>\n\n<<C3 src=\"99-2025-TT-BTC-part-01.pdf#40\">>\n[Unknown] \nứng giả định hoạt động liên tục: a) Việc trích lập dự phòng hoặc đánh giá tổn thất tài sản được ghi giảm trực tiếp vào giá trị ghi sổ của tài sản, không thực hiện trích lập dự phòng trên Tài khoản 229 - Dự phòng tổn thất tài sản; b) Việc tính khấu hao hoặc ghi nhận tổn thất của TSCĐ, bất động sản đầu tư được ghi giảm trực tiếp vào giá trị ghi sổ của tài sản, không sử dụng Tài khoản 214 - Hao mòn tài sản cố định để phản ánh hao mòn lũy kế. 8. Khi giả định hoạt động liên tục không còn phù hợp, doanh nghiệp phải xử lý một số vấn đề tài chính sau: - Thực hiện trích trước vào chi phí để xác định kết quả kinh doanh đối với các khoản lỗ dự kiến phát sinh trong tương lai nếu khả năng phát sinh khoản lỗ là tương đối chắc chắn và giá trị khoản lỗ được ước tính một cách đáng tin cậy; Ghi nhận nghĩa vụ hiện tại đối với các khoản phải trả kể cả trong trường hợp chưa có đầy đủ hồ sơ tài liệu (như biên bản nghiệm thu khối lượng của nhà thầu,...) nhưng chắc chắn phải thanh toán; - Đối với khoản chênh lệch đánh giá lại tài sản luỹ kế thuộc phần vốn chủ sở hữu được kết chuyển vào thu nhập khác (nếu lãi) hoặc chi phí khác (nếu lỗ); - Đối với khoản chênh lệch tỷ giá đang phản ánh lũy kế trên Báo cáo tình hình tài chính, doanh nghiệp kết chuyển toàn bộ vào doanh thu hoạt động tài chính (nếu lãi) hoặc chi phí tài chính (nếu lỗ); - Các khoản chi phí chờ phân bổ chưa phân bổ hết được ghi giảm toàn bộ để tính vào chi phí sản xuất kinh doanh liên quan trong kỳ tùy theo từng nghiệp vụ cụ thể tương tự như việc ghi nhận của doanh nghiệp đang hoạt động liên tục trong kỳ; CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 49 - Công ty mẹ dừng ghi nhận lợi thế thương mại tr\n<</C3>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "100-2005-QD-BTC.pdf",
+            "text": "[Unknown] \n chi phí để thanh toán một khoản dự phòng dự tính được bên khác bồi hoàn thì khoản bồi hoàn này chỉ được ghi nhận khi doanh nghiệp chắc chắn sẽ nhận được khoản bồi hoàn đó. Khoản bồi hoàn này phải được ghi nhận như một tài sản riêng biệt. Giá trị ghi nhận của khoản bồi hoàn không được vượt quá giá trị khoản dự phòng. 50. Trong Báo cáo kết quả hoạt động kinh doanh, chi phí liên quan đến khoản dự phòng có thể được trình bày theo giá trị sau khi trừ giá trị khoản bồi hoàn được ghi nhận. 31 51. Trong một số trường hợp, doanh nghiệp có thể tìm kiếm một bên thứ ba để thanh toán một phần hay toàn bộ chi phí cho khoản dự phòng (ví dụ, thông qua các hợp đồng bảo hiểm, các điều khoản bồi thường hoặc các giấy bảo hành của nhà cung cấp). Bên thứ ba có thể thanh toán trực tiếp hoặc hoàn trả lại các khoản doanh nghiệp đã thanh toán. 52. Hầu hết các trường hợp, doanh nghiệp đều phải chịu và phải thanh toán toàn bộ các nghĩa vụ nợ nếu bên thứ ba không có khả năng bồi hoàn do bất kỳ nguyên nhân nào. Trường hợp này, phải ghi nhận khoản dự phòng cho toàn bộ giá trị của khoản nợ, và phải ghi nhận khoản bồi hoàn đã dự tính là tài sản khi chắc chắn sẽ nhận được khoản bồi hoàn đó nếu doanh nghiệp thanh toán khoản nợ. 53. Có trường hợp, doanh nghiệp không phải chịu các khoản chi phí chưa rõ ràng nếu bên thứ ba không thực hiện thanh toán. Trường hợp doanh nghiệp không phải chịu các khoản chi phí thì các khoản chi phí này không được đưa vào khoản dự phòng. 54. Theo quy định trong đoạn 25, một khoản nợ khi doanh nghiệp phải chịu nghĩa vụ pháp lý chung hoặc riêng sẽ được ghi nhận là nợ tiềm tàng trong phạm vi dự tính nghĩa vụ sẽ được bên thứ ba thanh toán. Thay đổi các khoản dự phòng 55. Các khoản dự phòng phải được xem xét lại và điều chỉnh tại ngày kết thúc kỳ kế toán năm để phản á"
+          },
+          "C2": {
+            "source": "100-2005-QD-BTC.pdf",
+            "text": "[Unknown] \n Khoản dự phòng phải được ghi nhận trước thuế, vì các ảnh hưởng về thuế của khoản dự phòng và những thay đổi trong các kết quả đó đã được quy định trong Chuẩn mực kế toán số 17 “Thuế thu nhập doanh nghiệp”. Rủi ro và các yếu tố không chắc chắn 38. Rủi ro và các yếu tố không chắc chắn tồn tại xung quanh các sự kiện và các trường hợp phải được xem xét khi xác định giá trị ước tính hợp lý nhất cho một khoản dự phòng. 39. Rủi ro thể hiện sự giảm sút kết quả. Việc điều chỉnh rủi ro có thể làm tăng giá trị các khoản nợ đã được ghi nhận. Doanh nghiệp cần phải thận trọng khi đưa ra những đánh giá trong các điều kiện không chắc chắn để không làm sai lệch tăng thu nhập hay tài sản và cũng không làm sai lệch giảm chi phí và các khoản nợ. Tuy nhiên, tình trạng không chắc chắn không có nghĩa là tạo ra các khoản dự phòng quá mức hoặc khai khống các khoản nợ một cách cố ý. Ví dụ: Nếu các khoản chi phí dự tính cho một rủi ro nào đó được ước tính trên cơ sở thận trọng, thì không nên chủ quan xem kết quả đó là có khả năng xảy ra hơn các trường hợp thực tế khác. Doanh nghiệp cần phải chú ý để tránh các bước đánh giá trùng lặp đối với rủi ro và sự không chắc chắn dẫn đến làm tăng các khoản dự phòng. 40. Việc thuyết minh yếu tố không chắc chắn đối với giá trị của các khoản chi trả được quy định tại đoạn 80 (b). Giá trị hiện tại 41. Nếu ảnh hưởng về giá trị thời gian của tiền là trọng yếu, thì giá trị của một khoản dự phòng cần được xác định là giá trị hiện tại của khoản chi phí dự tính để thanh toán nghĩa vụ nợ. 42. Phụ thuộc vào giá trị thời gian của tiền, các khoản dự phòng liên quan đến các luồng tiền ra phát sinh ngay sau ngày kết thúc kỳ kế toán năm có giá trị thực cao hơn các khoản dự phòng có cùng giá trị liên quan đến các luồng tiền ra phát"
+          },
+          "C3": {
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "text": "[Unknown] \nứng giả định hoạt động liên tục: a) Việc trích lập dự phòng hoặc đánh giá tổn thất tài sản được ghi giảm trực tiếp vào giá trị ghi sổ của tài sản, không thực hiện trích lập dự phòng trên Tài khoản 229 - Dự phòng tổn thất tài sản; b) Việc tính khấu hao hoặc ghi nhận tổn thất của TSCĐ, bất động sản đầu tư được ghi giảm trực tiếp vào giá trị ghi sổ của tài sản, không sử dụng Tài khoản 214 - Hao mòn tài sản cố định để phản ánh hao mòn lũy kế. 8. Khi giả định hoạt động liên tục không còn phù hợp, doanh nghiệp phải xử lý một số vấn đề tài chính sau: - Thực hiện trích trước vào chi phí để xác định kết quả kinh doanh đối với các khoản lỗ dự kiến phát sinh trong tương lai nếu khả năng phát sinh khoản lỗ là tương đối chắc chắn và giá trị khoản lỗ được ước tính một cách đáng tin cậy; Ghi nhận nghĩa vụ hiện tại đối với các khoản phải trả kể cả trong trường hợp chưa có đầy đủ hồ sơ tài liệu (như biên bản nghiệm thu khối lượng của nhà thầu,...) nhưng chắc chắn phải thanh toán; - Đối với khoản chênh lệch đánh giá lại tài sản luỹ kế thuộc phần vốn chủ sở hữu được kết chuyển vào thu nhập khác (nếu lãi) hoặc chi phí khác (nếu lỗ); - Đối với khoản chênh lệch tỷ giá đang phản ánh lũy kế trên Báo cáo tình hình tài chính, doanh nghiệp kết chuyển toàn bộ vào doanh thu hoạt động tài chính (nếu lãi) hoặc chi phí tài chính (nếu lỗ); - Các khoản chi phí chờ phân bổ chưa phân bổ hết được ghi giảm toàn bộ để tính vào chi phí sản xuất kinh doanh liên quan trong kỳ tùy theo từng nghiệp vụ cụ thể tương tự như việc ghi nhận của doanh nghiệp đang hoạt động liên tục trong kỳ; CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 49 - Công ty mẹ dừng ghi nhận lợi thế thương mại tr"
+          }
+        },
+        "context_tokens": 1546,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1752
+        ]
+      }
+    },
+    {
+      "id": "abstain-inventory-01",
+      "reference": "Chưa thể xác định số tiền dự phòng. Cần giá trị thuần có thể thực hiện được, hoặc các dữ liệu phù hợp để ước tính giá trị này.",
+      "final": "Theo VAS 02, để xác định số tiền dự phòng giảm giá cho một lô hàng, cần phải xem xét các yếu tố như khả năng bán được hàng hóa với lợi nhuận và chi phí liên quan đến việc hoàn thiện, tiêu thụ hoặc bán hàng hóa đó. Tuy nhiên, trong trường hợp này không có thông tin về giá bán dự kiến hay chi phí hoàn thiện, tiêu thụ nên không thể xác định chính xác số tiền dự phòng giảm giá.\n\nBạn cần cung cấp thêm thông tin để đánh giá đúng mức độ rủi ro và ước tính giá trị hợp lý nhất cho khoản dự phòng. [C2]",
+      "persisted": true,
+      "ttft_seconds": 26.066345874918625,
+      "seconds": 48.985666166990995,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C2",
+          "doc_id": "100-2005-QD-BTC.pdf",
+          "chunk_id": "55",
+          "snippet": "tố không chắc chắn 38. Rủi ro và các yếu tố không chắc chắn tồn tại xung quanh các sự kiện và các trường hợp phải được xem xét khi xác định giá trị ước tính hợp lý nhất cho một khoản dự phòng. 39. Rủi",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Theo VAS 02, một lô hàng có giá gốc 120 triệu. Không có thông tin giá bán dự kiến hoặc chi phí hoàn thiện, tiêu thụ. Hãy xác định chính xác số tiền dự phòng giảm giá.",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 15.420853167073801
+        },
+        "retrieved": [
+          {
+            "id": "b620bdf4-932f-5720-9f36-c80b5c8bde61",
+            "source": "100-2005-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "c0460e52-6118-5a43-a94c-4e161838d503",
+            "source": "100-2005-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "a94fde15-2918-5ac9-9db4-381b56913aff",
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "key": "C3"
+          }
+        ],
+        "context": "<<C3 src=\"99-2025-TT-BTC-part-01.pdf#40\">>\nlũy kế. 8. Khi giả định hoạt động liên tục không còn phù hợp, doanh nghiệp phải xử lý một số vấn đề tài chính sau: - Thực hiện trích trước vào chi phí để xác định kết quả kinh doanh đối với các khoản lỗ dự kiến phát sinh trong tương lai nếu khả năng phát sinh khoản lỗ là tương đối chắc chắn và giá trị khoản lỗ được ước tính một cách đáng tin cậy; Ghi nhận nghĩa vụ hiện tại đối với các khoản phải trả kể cả trong trường hợp chưa có đầy đủ hồ sơ tài liệu (như biên bản nghiệm thu khối lượng\n\nkhác (nếu lỗ); - Đối với khoản chênh lệch tỷ giá đang phản ánh lũy kế trên Báo cáo tình hình tài chính, doanh nghiệp kết chuyển toàn bộ vào doanh thu hoạt động tài chính (nếu lãi) hoặc chi phí tài chính (nếu lỗ); - Các khoản chi phí chờ phân bổ chưa phân bổ hết được ghi giảm toàn bộ để tính vào chi phí sản xuất kinh doanh liên quan trong kỳ tùy theo từng nghiệp vụ cụ thể tương tự như việc ghi nhận của doanh nghiệp đang hoạt động liên tục trong kỳ; CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 49 - Công ty mẹ dừng\n<</C3>>\n\n<<C1 src=\"100-2005-QD-BTC.pdf#58\">>\nriêng biệt. Giá trị ghi nhận của khoản bồi hoàn không được vượt quá giá trị khoản dự phòng. 50. Trong Báo cáo kết quả hoạt động kinh doanh, chi phí liên quan đến khoản dự phòng có thể được trình bày theo giá trị sau khi trừ giá trị khoản bồi hoàn được ghi nhận. 31 51. Trong một số trường hợp, doanh nghiệp có thể tìm kiếm một bên thứ ba để thanh toán một phần hay toàn bộ chi phí cho khoản dự phòng (ví dụ, thông qua các hợp đồng bảo hiểm, các điều khoản bồi thường hoặc các giấy bảo hành của nhà cung cấp).\n\nsẽ nhận được khoản bồi hoàn đó nếu doanh nghiệp thanh toán khoản nợ. 53. Có trường hợp, doanh nghiệp không phải chịu các khoản chi phí chưa rõ ràng nếu bên thứ ba không thực hiện thanh toán. Trường hợp doanh nghiệp không phải chịu các khoản chi phí thì các khoản chi phí này không được đưa vào khoản dự phòng. 54. Theo quy định trong đoạn 25, một khoản nợ khi doanh nghiệp phải chịu nghĩa vụ pháp lý chung hoặc riêng sẽ được ghi nhận là nợ tiềm tàng trong phạm vi dự tính nghĩa vụ sẽ được bên thứ ba thanh toán. Thay đổi các\n<</C1>>\n\n<<C2 src=\"100-2005-QD-BTC.pdf#55\">>\ntố không chắc chắn 38. Rủi ro và các yếu tố không chắc chắn tồn tại xung quanh các sự kiện và các trường hợp phải được xem xét khi xác định giá trị ước tính hợp lý nhất cho một khoản dự phòng. 39. Rủi ro thể hiện sự giảm sút kết quả. Việc điều chỉnh rủi ro có thể làm tăng giá trị các khoản nợ đã được ghi nhận. Doanh nghiệp cần phải thận trọng khi đưa ra những đánh giá trong các điều kiện không chắc chắn để không làm sai lệch tăng thu nhập hay tài sản và cũng không làm sai lệch giảm chi\n\nNếu ảnh hưởng về giá trị thời gian của tiền là trọng yếu, thì giá trị của một khoản dự phòng cần được xác định là giá trị hiện tại của khoản chi phí dự tính để thanh toán nghĩa vụ nợ. 42. Phụ thuộc vào giá trị thời gian của tiền, các khoản dự phòng liên quan đến các luồng tiền ra phát sinh ngay sau ngày kết thúc kỳ kế toán năm có giá trị thực cao hơn các khoản dự phòng có cùng giá trị liên quan đến các luồng tiền ra phát\n<</C2>>",
+        "prompt_chunks": {
+          "C3": {
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "text": "lũy kế. 8. Khi giả định hoạt động liên tục không còn phù hợp, doanh nghiệp phải xử lý một số vấn đề tài chính sau: - Thực hiện trích trước vào chi phí để xác định kết quả kinh doanh đối với các khoản lỗ dự kiến phát sinh trong tương lai nếu khả năng phát sinh khoản lỗ là tương đối chắc chắn và giá trị khoản lỗ được ước tính một cách đáng tin cậy; Ghi nhận nghĩa vụ hiện tại đối với các khoản phải trả kể cả trong trường hợp chưa có đầy đủ hồ sơ tài liệu (như biên bản nghiệm thu khối lượng\n\nkhác (nếu lỗ); - Đối với khoản chênh lệch tỷ giá đang phản ánh lũy kế trên Báo cáo tình hình tài chính, doanh nghiệp kết chuyển toàn bộ vào doanh thu hoạt động tài chính (nếu lãi) hoặc chi phí tài chính (nếu lỗ); - Các khoản chi phí chờ phân bổ chưa phân bổ hết được ghi giảm toàn bộ để tính vào chi phí sản xuất kinh doanh liên quan trong kỳ tùy theo từng nghiệp vụ cụ thể tương tự như việc ghi nhận của doanh nghiệp đang hoạt động liên tục trong kỳ; CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 49 - Công ty mẹ dừng"
+          },
+          "C1": {
+            "source": "100-2005-QD-BTC.pdf",
+            "text": "riêng biệt. Giá trị ghi nhận của khoản bồi hoàn không được vượt quá giá trị khoản dự phòng. 50. Trong Báo cáo kết quả hoạt động kinh doanh, chi phí liên quan đến khoản dự phòng có thể được trình bày theo giá trị sau khi trừ giá trị khoản bồi hoàn được ghi nhận. 31 51. Trong một số trường hợp, doanh nghiệp có thể tìm kiếm một bên thứ ba để thanh toán một phần hay toàn bộ chi phí cho khoản dự phòng (ví dụ, thông qua các hợp đồng bảo hiểm, các điều khoản bồi thường hoặc các giấy bảo hành của nhà cung cấp).\n\nsẽ nhận được khoản bồi hoàn đó nếu doanh nghiệp thanh toán khoản nợ. 53. Có trường hợp, doanh nghiệp không phải chịu các khoản chi phí chưa rõ ràng nếu bên thứ ba không thực hiện thanh toán. Trường hợp doanh nghiệp không phải chịu các khoản chi phí thì các khoản chi phí này không được đưa vào khoản dự phòng. 54. Theo quy định trong đoạn 25, một khoản nợ khi doanh nghiệp phải chịu nghĩa vụ pháp lý chung hoặc riêng sẽ được ghi nhận là nợ tiềm tàng trong phạm vi dự tính nghĩa vụ sẽ được bên thứ ba thanh toán. Thay đổi các"
+          },
+          "C2": {
+            "source": "100-2005-QD-BTC.pdf",
+            "text": "tố không chắc chắn 38. Rủi ro và các yếu tố không chắc chắn tồn tại xung quanh các sự kiện và các trường hợp phải được xem xét khi xác định giá trị ước tính hợp lý nhất cho một khoản dự phòng. 39. Rủi ro thể hiện sự giảm sút kết quả. Việc điều chỉnh rủi ro có thể làm tăng giá trị các khoản nợ đã được ghi nhận. Doanh nghiệp cần phải thận trọng khi đưa ra những đánh giá trong các điều kiện không chắc chắn để không làm sai lệch tăng thu nhập hay tài sản và cũng không làm sai lệch giảm chi\n\nNếu ảnh hưởng về giá trị thời gian của tiền là trọng yếu, thì giá trị của một khoản dự phòng cần được xác định là giá trị hiện tại của khoản chi phí dự tính để thanh toán nghĩa vụ nợ. 42. Phụ thuộc vào giá trị thời gian của tiền, các khoản dự phòng liên quan đến các luồng tiền ra phát sinh ngay sau ngày kết thúc kỳ kế toán năm có giá trị thực cao hơn các khoản dự phòng có cùng giá trị liên quan đến các luồng tiền ra phát"
+          }
+        },
+        "context_tokens": 919,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1125
+        ]
+      }
+    }
+  ],
+  "rerank_limit": 8,
+  "max_tokens": 160
+}

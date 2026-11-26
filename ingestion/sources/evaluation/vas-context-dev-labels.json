@@ -1,0 +1,9 @@
+{
+  "vas-inventory-01": ["thì phải tính theo giá trị thuần có thể thực hiện được"],
+  "vas-inventory-02": ["trên cơ sở từng mặt hàng tồn kho", "giá trị thuần có thể thực hiện được của hàng tồn kho nhỏ hơn giá gốc"],
+  "vas-revenue-01": ["đồng thời thỏa mãn tất cả năm", "Xác định được chi phí liên quan đến giao dịch bán hàng"],
+  "vas-events-01": ["Doanh nghiệp phải điều chỉnh các số liệu đã được ghi nhận"],
+  "vas-events-02": ["Doanh nghiệp không phải điều chỉnh các số liệu đã ghi nhận", "Nội dung và số liệu của sự kiện", "ước tính ảnh hưởng về tài chính, hoặc lý do không thể ước tính"],
+  "vas-regime-01": ["năm tài chính bắt đầu từ hoặc sau ngày 01/01/2026", "kế toán cổ phần hóa doanh nghiệp Nhà nước", "vẫn tiếp tục thực hiện cho đến khi có văn bản thay thế"],
+  "abstain-inventory-01": ["Là giá bán ước tính của hàng tồn kho", "chi phí ước tính để hoàn thành sản phẩm và chi phí ước tính cần thiết cho việc tiêu thụ chúng"]
+}

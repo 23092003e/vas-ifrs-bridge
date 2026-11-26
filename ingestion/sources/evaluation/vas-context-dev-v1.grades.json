@@ -1,0 +1,139 @@
+{
+  "method": "assistant grading with shuffled configuration labels",
+  "strict_pass": "all required points with no material error",
+  "n": 7,
+  "summary": {
+    "preview": 1,
+    "full": 1,
+    "prefix_512": 0,
+    "passages_512": 0
+  },
+  "grades": {
+    "vas-inventory-01": {
+      "preview": {
+        "correct": false,
+        "reason": "No result despite sufficient data."
+      },
+      "passages_512": {
+        "correct": false,
+        "reason": "Starts an incorrect addition."
+      },
+      "full": {
+        "correct": false,
+        "reason": "Gives 95 million but does not state the lower-of rule and ends mid-calculation."
+      },
+      "prefix_512": {
+        "correct": false,
+        "reason": "Gives 95 million but states NRV as an unconditional valuation rule."
+      }
+    },
+    "vas-inventory-02": {
+      "passages_512": {
+        "correct": false,
+        "reason": "Suggests using the aggregate inventory."
+      },
+      "full": {
+        "correct": false,
+        "reason": "Asks for amounts rather than stating the item-level rule."
+      },
+      "prefix_512": {
+        "correct": false,
+        "reason": "Does not identify the item-level rule."
+      },
+      "preview": {
+        "correct": false,
+        "reason": "Does not answer whether it is by item or aggregate."
+      }
+    },
+    "vas-revenue-01": {
+      "preview": {
+        "correct": false,
+        "reason": "Does not give the decision."
+      },
+      "passages_512": {
+        "correct": false,
+        "reason": "Abstains unnecessarily."
+      },
+      "full": {
+        "correct": true,
+        "reason": "Correctly rejects recognition because transaction costs cannot be determined."
+      },
+      "prefix_512": {
+        "correct": false,
+        "reason": "Starts identifying the cost requirement but does not finish the conclusion."
+      }
+    },
+    "vas-events-01": {
+      "preview": {
+        "correct": false,
+        "reason": "Does not say to adjust the financial statements."
+      },
+      "full": {
+        "correct": false,
+        "reason": "Suggests an invented deduction from liabilities."
+      },
+      "passages_512": {
+        "correct": false,
+        "reason": "Abstains despite the stated event classification."
+      },
+      "prefix_512": {
+        "correct": false,
+        "reason": "Invents an inventory increase instead of the general adjustment rule."
+      }
+    },
+    "vas-events-02": {
+      "preview": {
+        "correct": false,
+        "reason": "Invents disclosure requirements."
+      },
+      "full": {
+        "correct": false,
+        "reason": "Distinguishes adjusting events but omits the disclosure content."
+      },
+      "passages_512": {
+        "correct": false,
+        "reason": "Gives comparative information instead of event nature and effect."
+      },
+      "prefix_512": {
+        "correct": false,
+        "reason": "Gives comparative balances instead of event nature and effect."
+      }
+    },
+    "vas-regime-01": {
+      "full": {
+        "correct": false,
+        "reason": "Correct date, but omits the TT200 exception while claiming replacement."
+      },
+      "preview": {
+        "correct": false,
+        "reason": "Incorrect effective date."
+      },
+      "passages_512": {
+        "correct": false,
+        "reason": "Correct date, but omits the TT200 exception."
+      },
+      "prefix_512": {
+        "correct": false,
+        "reason": "Correct date and acknowledges an exception, but does not say which retained guidance continues or when it ends."
+      }
+    },
+    "abstain-inventory-01": {
+      "full": {
+        "correct": false,
+        "reason": "Discusses NRV but does not state that an exact amount cannot be calculated."
+      },
+      "passages_512": {
+        "correct": false,
+        "reason": "Invents a 12 million provision."
+      },
+      "preview": {
+        "correct": true,
+        "reason": "Correctly declines to calculate and asks for the missing inputs."
+      },
+      "prefix_512": {
+        "correct": false,
+        "reason": "Starts listing missing inputs and truncates without the conclusion."
+      }
+    }
+  }
+}

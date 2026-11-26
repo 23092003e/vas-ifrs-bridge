@@ -1,0 +1,1012 @@
+{
+  "dataset_sha256": "61e01419d28f306d0ef647bb47177600c3ff6b06183e93563097aa92ae429309",
+  "graph_nodes": 124,
+  "results": [
+    {
+      "id": "vas-api-n01",
+      "reference": "Cộng các loại thuế không được hoàn lại vào chi phí mua và trừ chiết khấu thương mại khỏi chi phí mua.",
+      "final": "Theo VAS 02, khi tính chi phí mua hàng tồn kho, các khoản thuế không được hoàn lại sẽ được bao gồm trong giá gốc của hàng tồn kho [C2]. Tuy nhiên, chiết khấu thương mại nếu có, thường được trừ đi từ tổng giá mua để xác định chi phí mua cuối cùng của hàng tồn kho. Việc xử lý cụ thể về chiết khấu thương mại không được đề cập rõ ràng trong đoạn trích dẫn nhưng theo thông lệ kế toán chung, chiết khấu thương mại sẽ làm giảm chi phí mua [C2].",
+      "persisted": true,
+      "ttft_seconds": 27.294843832962215,
+      "seconds": 47.771603082772344,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C2",
+          "doc_id": "149-2001-QD-BTC.pdf",
+          "chunk_id": "2",
+          "snippet": "[Unknown] \nên tắc giá gốc trừ khi có chuẩn mực kế toán khác quy định cho phép áp dụng phương pháp kế toán khác cho hàng tồn kho. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Hàng tồn kho: ",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 1,
+      "evidence_in_cited_chunks": 1,
+      "marker_total": 2,
+      "trace": {
+        "mode": "full",
+        "question": "Theo VAS 02, khi tính chi phí mua hàng tồn kho, xử lý thuế không được hoàn lại và chiết khấu thương mại như thế nào?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 13.531504207989201
+        },
+        "retrieved": [
+          {
+            "id": "08a0f6a7-e82a-5c17-ae29-f31a0a3db8a3",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "6575b3d7-f15b-59e1-b0b3-8063243c0861",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#6\">>\n[Unknown] \ni điểm cuối kỳ hoặc gần cuối kỳ còn tồn kho. 17. Phương pháp nhập sau, xuất trước áp dụng dựa trên giả định là hàng tồn kho được mua sau hoặc sản xuất sau thì được xuất trước, và hàng tồn kho còn lại cuối kỳ là hàng tồn kho được mua hoặc sản xuất trước đó. Theo phương pháp này thì giá trị hàng xuất kho được tính theo giá của lô hàng nhập sau hoặc gần sau cùng, giá trị của hàng tồn kho được tính theo giá của hàng nhập kho đầu kỳ hoặc gần đầu kỳ còn tồn kho. GIÁ TRỊ THUẦN CÓ THỂ THỰC HIỆN ĐƯỢC VÀ LẬP DỰ PHÒNG GIẢM GIÁ HÀNG TỒN KHO 18. Giá trị hàng tồn kho không thu hồi đủ khi hàng tồn kho bị hư hỏng, lỗi thời, giá bán bị giảm, hoặc chi phí hoàn thiện, chi phí để bán hàng tăng lên. Việc ghi giảm giá gốc hàng tồn kho cho bằng với giá trị thuần có thể thực hiện được là phù hợp với nguyên tắc tài sản không được phản ánh lớn hơn giá trị thực hiện ước tính từ việc bán hay sử dụng chúng. 19. Cuối kỳ kế toán năm, khi giá trị thuần có thể thực hiện được của hàng tồn kho nhỏ hơn giá gốc thì phải lập dự phòng giảm giá hàng tồn kho. Số dự phòng giảm giá hàng tồn kho được lập là số chênh lệch giữa giá gốc của hàng tồn kho lớn hơn giá trị thuần có thể thực hiện được của chúng. Việc lập dự phòng giảm giá hàng tồn kho được thực hiện trên cơ sở từng mặt hàng tồn kho. Đối với dịch vụ cung cấp dở dang, việc lập dự phòng giảm giá hàng tồn kho được tính theo từng loại dịch vụ có mức giá riêng biệt. 20. Việc ước tính giá trị thuần có thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp liên quan đến các sự kiện diễn ra sau ngày kết thúc năm tài chính, mà\n<</C1>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#2\">>\n[Unknown] \nên tắc giá gốc trừ khi có chuẩn mực kế toán khác quy định cho phép áp dụng phương pháp kế toán khác cho hàng tồn kho. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Hàng tồn kho: Là những tài sản: (a) Được giữ để bán trong kỳ sản xuất, kinh doanh bình thường; (b) Đang trong quá trình sản xuất, kinh doanh dở dang; (c) Nguyên liệu, vật liệu, công cụ, dụng cụ để sử dụng trong quá trình sản xuất, kinh doanh hoặc cung cấp dịch vụ. Hàng tồn kho bao gồm: - Hàng hóa mua về để bán: Hàng hóa tồn kho, hàng mua đang đi trên đường, hàng gửi đi bán, hàng hóa gửi đi gia công chế biến; - Thành phẩm tồn kho và thành phẩm gửi đi bán; - Sản phẩm dở dang: Sản phẩm chưa hoàn thành và sản phẩm hoàn thành chưa làm thủ tục nhập kho thành phẩm; - Nguyên liệu, vật liệu, công cụ, dụng cụ tồn kho, gửi đi gia công chế biến và đã mua đang đi trên đường; - Chi phí dịch vụ dở dang. Giá trị thuần có thể thực hiện được: Là giá bán ước tính của hàng tồn kho trong kỳ sản xuất, kinh doanh bình thường trừ (-) chi phí ước tính để hoàn thành sản phẩm và chi phí ước tính cần thiết cho việc tiêu thụ chúng. Giá hiện hành: Là khoản tiền phải trả để mua một loại hàng tồn kho tương tự tại ngày lập bảng cân đối kế toán. NỘI DUNG CHUẨN MỰC XÁC ĐỊNH GIÁ TRỊ HÀNG TỒN KHO 04. Hàng tồn kho được tính theo giá gốc. Trường hợp giá trị thuần có thể thực hiện được thấp hơn giá gốc thì phải tính theo giá trị thuần có thể thực hiện được. GIÁ GỐC HÀNG TỒN KHO 05. Giá gốc hàng tồn kho bao gồm: Chi phí mua, chi phí chế biến và các chi phí liên quan trực tiếp khác phát sinh để có được hàng tồn kho ở địa điểm và trạng thái hiện tại. Chi phí mua 06. Chi phí mua của hàng tồn kho bao gồm giá mua, các loại thuế không được hoàn lại, chi phí vận chuyển, bốc xếp, bảo quản trong quá trình mua hàng và các chi phí kh\n<</C2>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \ni điểm cuối kỳ hoặc gần cuối kỳ còn tồn kho. 17. Phương pháp nhập sau, xuất trước áp dụng dựa trên giả định là hàng tồn kho được mua sau hoặc sản xuất sau thì được xuất trước, và hàng tồn kho còn lại cuối kỳ là hàng tồn kho được mua hoặc sản xuất trước đó. Theo phương pháp này thì giá trị hàng xuất kho được tính theo giá của lô hàng nhập sau hoặc gần sau cùng, giá trị của hàng tồn kho được tính theo giá của hàng nhập kho đầu kỳ hoặc gần đầu kỳ còn tồn kho. GIÁ TRỊ THUẦN CÓ THỂ THỰC HIỆN ĐƯỢC VÀ LẬP DỰ PHÒNG GIẢM GIÁ HÀNG TỒN KHO 18. Giá trị hàng tồn kho không thu hồi đủ khi hàng tồn kho bị hư hỏng, lỗi thời, giá bán bị giảm, hoặc chi phí hoàn thiện, chi phí để bán hàng tăng lên. Việc ghi giảm giá gốc hàng tồn kho cho bằng với giá trị thuần có thể thực hiện được là phù hợp với nguyên tắc tài sản không được phản ánh lớn hơn giá trị thực hiện ước tính từ việc bán hay sử dụng chúng. 19. Cuối kỳ kế toán năm, khi giá trị thuần có thể thực hiện được của hàng tồn kho nhỏ hơn giá gốc thì phải lập dự phòng giảm giá hàng tồn kho. Số dự phòng giảm giá hàng tồn kho được lập là số chênh lệch giữa giá gốc của hàng tồn kho lớn hơn giá trị thuần có thể thực hiện được của chúng. Việc lập dự phòng giảm giá hàng tồn kho được thực hiện trên cơ sở từng mặt hàng tồn kho. Đối với dịch vụ cung cấp dở dang, việc lập dự phòng giảm giá hàng tồn kho được tính theo từng loại dịch vụ có mức giá riêng biệt. 20. Việc ước tính giá trị thuần có thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp liên quan đến các sự kiện diễn ra sau ngày kết thúc năm tài chính, mà"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nên tắc giá gốc trừ khi có chuẩn mực kế toán khác quy định cho phép áp dụng phương pháp kế toán khác cho hàng tồn kho. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Hàng tồn kho: Là những tài sản: (a) Được giữ để bán trong kỳ sản xuất, kinh doanh bình thường; (b) Đang trong quá trình sản xuất, kinh doanh dở dang; (c) Nguyên liệu, vật liệu, công cụ, dụng cụ để sử dụng trong quá trình sản xuất, kinh doanh hoặc cung cấp dịch vụ. Hàng tồn kho bao gồm: - Hàng hóa mua về để bán: Hàng hóa tồn kho, hàng mua đang đi trên đường, hàng gửi đi bán, hàng hóa gửi đi gia công chế biến; - Thành phẩm tồn kho và thành phẩm gửi đi bán; - Sản phẩm dở dang: Sản phẩm chưa hoàn thành và sản phẩm hoàn thành chưa làm thủ tục nhập kho thành phẩm; - Nguyên liệu, vật liệu, công cụ, dụng cụ tồn kho, gửi đi gia công chế biến và đã mua đang đi trên đường; - Chi phí dịch vụ dở dang. Giá trị thuần có thể thực hiện được: Là giá bán ước tính của hàng tồn kho trong kỳ sản xuất, kinh doanh bình thường trừ (-) chi phí ước tính để hoàn thành sản phẩm và chi phí ước tính cần thiết cho việc tiêu thụ chúng. Giá hiện hành: Là khoản tiền phải trả để mua một loại hàng tồn kho tương tự tại ngày lập bảng cân đối kế toán. NỘI DUNG CHUẨN MỰC XÁC ĐỊNH GIÁ TRỊ HÀNG TỒN KHO 04. Hàng tồn kho được tính theo giá gốc. Trường hợp giá trị thuần có thể thực hiện được thấp hơn giá gốc thì phải tính theo giá trị thuần có thể thực hiện được. GIÁ GỐC HÀNG TỒN KHO 05. Giá gốc hàng tồn kho bao gồm: Chi phí mua, chi phí chế biến và các chi phí liên quan trực tiếp khác phát sinh để có được hàng tồn kho ở địa điểm và trạng thái hiện tại. Chi phí mua 06. Chi phí mua của hàng tồn kho bao gồm giá mua, các loại thuế không được hoàn lại, chi phí vận chuyển, bốc xếp, bảo quản trong quá trình mua hàng và các chi phí kh"
+          }
+        },
+        "context_tokens": 1054,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1260
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n01",
+      "reference": "Cộng các loại thuế không được hoàn lại vào chi phí mua và trừ chiết khấu thương mại khỏi chi phí mua.",
+      "final": "Theo VAS 02, chi phí mua của hàng tồn kho bao gồm giá mua, các loại thuế không được hoàn lại và chi phí vận chuyển, bốc xếp, bảo quản trong quá trình mua hàng [C1]. Điều này có nghĩa là thuế không được hoàn lại sẽ được tính vào giá gốc của hàng tồn kho.\n\nChiết khấu thương mại nếu được hưởng thì thường làm giảm giá mua. Tuy nhiên, VAS 02 không đề cập cụ thể đến cách xử lý chiết khấu thương mại trong phần trích dẫn trên [C1]. Vì vậy, cần tham khảo thêm các chuẩn mực kế toán khác hoặc hướng dẫn cụ thể hơn để xác định cách xử lý chiết khấu thương mại.",
+      "persisted": true,
+      "ttft_seconds": 25.84901470807381,
+      "seconds": 51.22822695807554,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C1",
+          "doc_id": "149-2001-QD-BTC.pdf",
+          "chunk_id": "6",
+          "snippet": "đầu kỳ còn tồn kho. GIÁ TRỊ THUẦN CÓ THỂ THỰC HIỆN ĐƯỢC VÀ LẬP DỰ PHÒNG GIẢM GIÁ HÀNG TỒN KHO 18. Giá trị hàng tồn kho không thu hồi đủ khi hàng tồn kho bị hư hỏng, lỗi thời, giá bán bị giảm, hoặc chi",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 1,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Theo VAS 02, khi tính chi phí mua hàng tồn kho, xử lý thuế không được hoàn lại và chiết khấu thương mại như thế nào?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 16.377680624835193
+        },
+        "retrieved": [
+          {
+            "id": "08a0f6a7-e82a-5c17-ae29-f31a0a3db8a3",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "6575b3d7-f15b-59e1-b0b3-8063243c0861",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          }
+        ],
+        "context": "<<C2 src=\"149-2001-QD-BTC.pdf#2\">>\n[Unknown] ên tắc giá gốc trừ khi có chuẩn mực kế toán khác quy định cho phép áp dụng phương pháp kế toán khác cho hàng tồn kho. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Hàng tồn kho: Là những tài sản: (a) Được giữ để bán trong kỳ sản xuất, kinh doanh bình thường; (b) Đang trong quá trình sản xuất, kinh doanh dở dang; (c) Nguyên liệu, vật liệu, công cụ, dụng cụ để sử dụng trong quá trình sản xuất, kinh doanh hoặc cung cấp dịch vụ. Hàng tồn kho bao gồm: - Hàng hóa mua về để bán: Hàng hóa tồn\n\nvà sản phẩm hoàn thành chưa làm thủ tục nhập kho thành phẩm; - Nguyên liệu, vật liệu, công cụ, dụng cụ tồn kho, gửi đi gia công chế biến và đã mua đang đi trên đường; - Chi phí dịch vụ dở dang. Giá trị thuần có thể thực hiện được: Là giá bán ước tính của hàng tồn kho trong kỳ sản xuất, kinh doanh bình thường trừ (-) chi phí ước tính để hoàn thành sản phẩm và chi phí ước tính cần thiết cho việc tiêu thụ chúng. Giá hiện hành: Là khoản tiền phải trả để mua một loại hàng tồn kho tương tự tại\n\ngốc thì phải tính theo giá trị thuần có thể thực hiện được. GIÁ GỐC HÀNG TỒN KHO 05. Giá gốc hàng tồn kho bao gồm: Chi phí mua, chi phí chế biến và các chi phí liên quan trực tiếp khác phát sinh để có được hàng tồn kho ở địa điểm và trạng thái hiện tại. Chi phí mua 06. Chi phí mua của hàng tồn kho bao gồm giá mua, các loại thuế không được hoàn lại, chi phí vận chuyển, bốc xếp, bảo quản trong quá trình mua hàng và các chi phí kh\n<</C2>>\n\n<<C1 src=\"149-2001-QD-BTC.pdf#6\">>\nđầu kỳ còn tồn kho. GIÁ TRỊ THUẦN CÓ THỂ THỰC HIỆN ĐƯỢC VÀ LẬP DỰ PHÒNG GIẢM GIÁ HÀNG TỒN KHO 18. Giá trị hàng tồn kho không thu hồi đủ khi hàng tồn kho bị hư hỏng, lỗi thời, giá bán bị giảm, hoặc chi phí hoàn thiện, chi phí để bán hàng tăng lên. Việc ghi giảm giá gốc hàng tồn kho cho bằng với giá trị thuần có thể thực hiện được là phù hợp với nguyên tắc tài sản không được phản ánh lớn hơn giá trị thực hiện ước tính từ việc bán hay sử dụng chúng. 19. Cuối kỳ kế toán năm, khi\n\nphòng giảm giá hàng tồn kho được tính theo từng loại dịch vụ có mức giá riêng biệt. 20. Việc ước tính giá trị thuần có thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp liên quan đến các sự kiện diễn ra sau ngày kết thúc năm tài chính, mà\n<</C1>>",
+        "prompt_chunks": {
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] ên tắc giá gốc trừ khi có chuẩn mực kế toán khác quy định cho phép áp dụng phương pháp kế toán khác cho hàng tồn kho. 03. Các thuật ngữ trong chuẩn mực này được hiểu như sau: Hàng tồn kho: Là những tài sản: (a) Được giữ để bán trong kỳ sản xuất, kinh doanh bình thường; (b) Đang trong quá trình sản xuất, kinh doanh dở dang; (c) Nguyên liệu, vật liệu, công cụ, dụng cụ để sử dụng trong quá trình sản xuất, kinh doanh hoặc cung cấp dịch vụ. Hàng tồn kho bao gồm: - Hàng hóa mua về để bán: Hàng hóa tồn\n\nvà sản phẩm hoàn thành chưa làm thủ tục nhập kho thành phẩm; - Nguyên liệu, vật liệu, công cụ, dụng cụ tồn kho, gửi đi gia công chế biến và đã mua đang đi trên đường; - Chi phí dịch vụ dở dang. Giá trị thuần có thể thực hiện được: Là giá bán ước tính của hàng tồn kho trong kỳ sản xuất, kinh doanh bình thường trừ (-) chi phí ước tính để hoàn thành sản phẩm và chi phí ước tính cần thiết cho việc tiêu thụ chúng. Giá hiện hành: Là khoản tiền phải trả để mua một loại hàng tồn kho tương tự tại\n\ngốc thì phải tính theo giá trị thuần có thể thực hiện được. GIÁ GỐC HÀNG TỒN KHO 05. Giá gốc hàng tồn kho bao gồm: Chi phí mua, chi phí chế biến và các chi phí liên quan trực tiếp khác phát sinh để có được hàng tồn kho ở địa điểm và trạng thái hiện tại. Chi phí mua 06. Chi phí mua của hàng tồn kho bao gồm giá mua, các loại thuế không được hoàn lại, chi phí vận chuyển, bốc xếp, bảo quản trong quá trình mua hàng và các chi phí kh"
+          },
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "đầu kỳ còn tồn kho. GIÁ TRỊ THUẦN CÓ THỂ THỰC HIỆN ĐƯỢC VÀ LẬP DỰ PHÒNG GIẢM GIÁ HÀNG TỒN KHO 18. Giá trị hàng tồn kho không thu hồi đủ khi hàng tồn kho bị hư hỏng, lỗi thời, giá bán bị giảm, hoặc chi phí hoàn thiện, chi phí để bán hàng tăng lên. Việc ghi giảm giá gốc hàng tồn kho cho bằng với giá trị thuần có thể thực hiện được là phù hợp với nguyên tắc tài sản không được phản ánh lớn hơn giá trị thực hiện ước tính từ việc bán hay sử dụng chúng. 19. Cuối kỳ kế toán năm, khi\n\nphòng giảm giá hàng tồn kho được tính theo từng loại dịch vụ có mức giá riêng biệt. 20. Việc ước tính giá trị thuần có thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp liên quan đến các sự kiện diễn ra sau ngày kết thúc năm tài chính, mà"
+          }
+        },
+        "context_tokens": 729,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          935
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n02",
+      "reference": "Phân bổ theo công suất bình thường, ghi phần không phân bổ vào chi phí sản xuất kinh doanh trong kỳ.",
+      "final": "Khi mức sản phẩm thực tế sản xuất ra thấp hơn công suất bình thường, chi phí sản xuất chung cố định chỉ được phân bổ vào chi phí chế biến cho mỗi đơn vị sản phẩm theo mức công suất bình thường [C1]. Phần chi phí sản xuất chung cố định không thể phân bổ sẽ được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ [C1].",
+      "persisted": true,
+      "ttft_seconds": 25.563658708008006,
+      "seconds": 40.45191362500191,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C1",
+          "doc_id": "149-2001-QD-BTC.pdf",
+          "chunk_id": "4",
+          "snippet": "[Unknown] ực tế phát sinh. - Trường hợp mức sản phẩm thực tế sản xuất ra thấp hơn công suất bình thường thì chi phí sản xuất chung cố định chỉ được phân bổ vào chi phí chế biến cho mỗi đơn vị sản phẩm",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 2,
+      "marker_total": 2,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Theo VAS 02, sản lượng thực tế thấp hơn công suất bình thường. Chi phí sản xuất chung cố định được phân bổ theo cơ sở nào và phần không phân bổ xử lý ra sao?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 13.482884458033368
+        },
+        "retrieved": [
+          {
+            "id": "ad596f33-f6d1-55af-bb63-77d2037d391d",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "b1ea12f9-cc7e-509a-849c-f9ee7c92977f",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "c8737b2e-3a48-5305-a610-8b641a53511f",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C3"
+          },
+          {
+            "id": "25c76486-9cfc-5fbe-afb7-9fe93495c8d2",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C4"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#4\">>\n[Unknown] ực tế phát sinh. - Trường hợp mức sản phẩm thực tế sản xuất ra thấp hơn công suất bình thường thì chi phí sản xuất chung cố định chỉ được phân bổ vào chi phí chế biến cho mỗi đơn vị sản phẩm theo mức công suất bình thường. Khoản chi phí sản xuất chung không phân bổ được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Chi phí sản xuất chung biến đổi được phân bổ hết vào chi phí chế biến cho mỗi đơn vị sản phẩm theo chi phí thực tế phát sinh. 09. Trường hợp một quy trình sản xuất ra\n\nphẩm theo tiêu thức phù hợp và nhất quán giữa các kỳ kế toán. Trường hợp có sản phẩm phụ, thì giá trị sản phẩm phụ được tính theo giá trị thuần có thể thực hiện được và giá trị này được trừ (-) khỏi chi phí chế biến đã tập hợp chung cho sản phẩm chính. Chi phí liên quan trực tiếp khác 10. Chi phí liên quan trực tiếp khác tính vào giá gốc hàng tồn kho bao gồm các khoản chi phí khác ngoài chi phí mua và chi phí chế biến hàng tồn kho. Ví dụ, trong giá gốc thành phẩm có thể bao gồm chi\n\nvật liệu, chi phí nhân công và các chi phí sản xuất, kinh doanh khác phát sinh trên mức bình thường; (b) Chi phí bảo quản hàng tồn kho trừ các khoản chi phí bảo quản hàng tồn kho cần thiết cho quá trình sản xuất tiếp theo và chi phí bảo quản quy định ở đoạn 06; (c) Chi phí bán hàng; (d) Chi phí quản lý doanh nghiệp. Chi phí cung cấp dịch vụ 12. Chi phí cung cấp dịch vụ bao gồm chi phí nhân viên và các chi phí khác liên quan trực tiếp đến việc cung cấp dịch vụ, như chi phí giám sát và\n<</C1>>\n\n<<C4 src=\"12-2005-QD-BTC.doc#77\">>\n[Unknown] đích lập báo cáo tài chính hợp nhất mà không được ghi vào báo cáo tài chính riêng của công ty mẹ hoặc công ty con. 21. Việc phân bổ chi phí đã quy định trong các Chuẩn mực kế toán khác: Chuẩn mực số 02 “Hàng tồn kho” hướng dẫn việc tính và phân bổ chi phí mua vào hàng tồn kho; Chuẩn mực số 15 “Hợp đồng xây dựng” hướng dẫn việc tính và phân bổ chi phí vào các hợp đồng xây dựng. Các hướng dẫn này được sử dụng cho việc tính và phân bổ chi phí vào các bộ phận. 22. Doanh thu, chi\n\nsở phân bổ doanh thu và chi phí vào các bộ phận. XÁC ĐỊNH CÁC BỘ PHẬN PHẢI BÁO CÁO Báo cáo chính yếu và thứ yếu 24. Tính chất rủi ro và lợi ích kinh tế của một doanh nghiệp là căn cứ chủ yếu để xác định báo cáo bộ phận chính yếu (báo cáo đối với bộ phận chính yếu) được lập theo lĩnh vực kinh doanh hay khu vực địa lý. Nếu rủi ro và tỷ suất sinh lời của doanh nghiệp bị tác động chủ yếu bởi những khác biệt về sản phẩm và dịch vụ mà doanh nghiệp đó sản xuất ra thì báo\n<</C4>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#38\">>\nđến việc đưa tài sản vào sử dụng; (b) Các chi phí không hợp lý như: nguyên liệu, vật liệu lãng phí, chi phí lao động, các khoản chi phí khác sử dụng vượt quá mức bình thường; (c) Chi phí đào tạo nhân viên để vận hành tài sản. GHI NHẬN CHI PHÍ 46. Chi phí liên quan đến tài sản vô hình phải được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ hoặc chi phí trả trước, trừ trường hợp: (a) Chi phí hình thành một phần nguyên giá TSCĐ vô hình và thỏa mãn định nghĩa và tiêu chuẩn ghi nhận TSCĐ vô hình\n<</C2>>\n\n<<C3 src=\"12-2005-QD-BTC.doc#76\">>\nnhững điều chỉnh giá trị ghi sổ khi mua tài sản và nợ phải trả bộ phận, khoản điều chỉnh của doanh nghiệp mua trong giao dịch hợp nhất kinh doanh phục vụ cho mục đích lập báo cáo tài chính hợp nhất mà không được ghi vào báo cáo tài chính riêng của công ty mẹ hoặc công ty con. 21. Việc phân bổ chi phí đã quy định trong các Chuẩn mực kế toán khác: Chuẩn mực số 02 “Hàng tồn kho” hướng dẫn việc tính và phân bổ chi phí\n<</C3>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] ực tế phát sinh. - Trường hợp mức sản phẩm thực tế sản xuất ra thấp hơn công suất bình thường thì chi phí sản xuất chung cố định chỉ được phân bổ vào chi phí chế biến cho mỗi đơn vị sản phẩm theo mức công suất bình thường. Khoản chi phí sản xuất chung không phân bổ được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Chi phí sản xuất chung biến đổi được phân bổ hết vào chi phí chế biến cho mỗi đơn vị sản phẩm theo chi phí thực tế phát sinh. 09. Trường hợp một quy trình sản xuất ra\n\nphẩm theo tiêu thức phù hợp và nhất quán giữa các kỳ kế toán. Trường hợp có sản phẩm phụ, thì giá trị sản phẩm phụ được tính theo giá trị thuần có thể thực hiện được và giá trị này được trừ (-) khỏi chi phí chế biến đã tập hợp chung cho sản phẩm chính. Chi phí liên quan trực tiếp khác 10. Chi phí liên quan trực tiếp khác tính vào giá gốc hàng tồn kho bao gồm các khoản chi phí khác ngoài chi phí mua và chi phí chế biến hàng tồn kho. Ví dụ, trong giá gốc thành phẩm có thể bao gồm chi\n\nvật liệu, chi phí nhân công và các chi phí sản xuất, kinh doanh khác phát sinh trên mức bình thường; (b) Chi phí bảo quản hàng tồn kho trừ các khoản chi phí bảo quản hàng tồn kho cần thiết cho quá trình sản xuất tiếp theo và chi phí bảo quản quy định ở đoạn 06; (c) Chi phí bán hàng; (d) Chi phí quản lý doanh nghiệp. Chi phí cung cấp dịch vụ 12. Chi phí cung cấp dịch vụ bao gồm chi phí nhân viên và các chi phí khác liên quan trực tiếp đến việc cung cấp dịch vụ, như chi phí giám sát và"
+          },
+          "C4": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] đích lập báo cáo tài chính hợp nhất mà không được ghi vào báo cáo tài chính riêng của công ty mẹ hoặc công ty con. 21. Việc phân bổ chi phí đã quy định trong các Chuẩn mực kế toán khác: Chuẩn mực số 02 “Hàng tồn kho” hướng dẫn việc tính và phân bổ chi phí mua vào hàng tồn kho; Chuẩn mực số 15 “Hợp đồng xây dựng” hướng dẫn việc tính và phân bổ chi phí vào các hợp đồng xây dựng. Các hướng dẫn này được sử dụng cho việc tính và phân bổ chi phí vào các bộ phận. 22. Doanh thu, chi\n\nsở phân bổ doanh thu và chi phí vào các bộ phận. XÁC ĐỊNH CÁC BỘ PHẬN PHẢI BÁO CÁO Báo cáo chính yếu và thứ yếu 24. Tính chất rủi ro và lợi ích kinh tế của một doanh nghiệp là căn cứ chủ yếu để xác định báo cáo bộ phận chính yếu (báo cáo đối với bộ phận chính yếu) được lập theo lĩnh vực kinh doanh hay khu vực địa lý. Nếu rủi ro và tỷ suất sinh lời của doanh nghiệp bị tác động chủ yếu bởi những khác biệt về sản phẩm và dịch vụ mà doanh nghiệp đó sản xuất ra thì báo"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "đến việc đưa tài sản vào sử dụng; (b) Các chi phí không hợp lý như: nguyên liệu, vật liệu lãng phí, chi phí lao động, các khoản chi phí khác sử dụng vượt quá mức bình thường; (c) Chi phí đào tạo nhân viên để vận hành tài sản. GHI NHẬN CHI PHÍ 46. Chi phí liên quan đến tài sản vô hình phải được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ hoặc chi phí trả trước, trừ trường hợp: (a) Chi phí hình thành một phần nguyên giá TSCĐ vô hình và thỏa mãn định nghĩa và tiêu chuẩn ghi nhận TSCĐ vô hình"
+          },
+          "C3": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "những điều chỉnh giá trị ghi sổ khi mua tài sản và nợ phải trả bộ phận, khoản điều chỉnh của doanh nghiệp mua trong giao dịch hợp nhất kinh doanh phục vụ cho mục đích lập báo cáo tài chính hợp nhất mà không được ghi vào báo cáo tài chính riêng của công ty mẹ hoặc công ty con. 21. Việc phân bổ chi phí đã quy định trong các Chuẩn mực kế toán khác: Chuẩn mực số 02 “Hàng tồn kho” hướng dẫn việc tính và phân bổ chi phí"
+          }
+        },
+        "context_tokens": 1070,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1276
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n02",
+      "reference": "Phân bổ theo công suất bình thường, ghi phần không phân bổ vào chi phí sản xuất kinh doanh trong kỳ.",
+      "final": "Khi mức sản phẩm thực tế sản xuất ra thấp hơn công suất bình thường, chi phí sản xuất chung cố định chỉ được phân bổ vào chi phí chế biến cho mỗi đơn vị sản phẩm theo mức công suất bình thường [C1]. Phần chi phí sản xuất chung cố định không thể phân bổ sẽ được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ.",
+      "persisted": true,
+      "ttft_seconds": 35.99030733318068,
+      "seconds": 49.47512170812115,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C1",
+          "doc_id": "149-2001-QD-BTC.pdf",
+          "chunk_id": "4",
+          "snippet": "[Unknown] \nực tế phát sinh. - Trường hợp mức sản phẩm thực tế sản xuất ra thấp hơn công suất bình thường thì chi phí sản xuất chung cố định chỉ được phân bổ vào chi phí chế biến cho mỗi đơn vị sản phẩ",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 2,
+      "marker_total": 2,
+      "trace": {
+        "mode": "full",
+        "question": "Theo VAS 02, sản lượng thực tế thấp hơn công suất bình thường. Chi phí sản xuất chung cố định được phân bổ theo cơ sở nào và phần không phân bổ xử lý ra sao?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 13.083266166970134
+        },
+        "retrieved": [
+          {
+            "id": "ad596f33-f6d1-55af-bb63-77d2037d391d",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "b1ea12f9-cc7e-509a-849c-f9ee7c92977f",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "c8737b2e-3a48-5305-a610-8b641a53511f",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C3"
+          },
+          {
+            "id": "25c76486-9cfc-5fbe-afb7-9fe93495c8d2",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C4"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#4\">>\n[Unknown] \nực tế phát sinh. - Trường hợp mức sản phẩm thực tế sản xuất ra thấp hơn công suất bình thường thì chi phí sản xuất chung cố định chỉ được phân bổ vào chi phí chế biến cho mỗi đơn vị sản phẩm theo mức công suất bình thường. Khoản chi phí sản xuất chung không phân bổ được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Chi phí sản xuất chung biến đổi được phân bổ hết vào chi phí chế biến cho mỗi đơn vị sản phẩm theo chi phí thực tế phát sinh. 09. Trường hợp một quy trình sản xuất ra nhiều loại sản phẩm trong cùng một khoảng thời gian mà chi phí chế biến của mỗi loại sản phẩm không được phản ánh một cách tách biệt, thì chi phí chế biến được phân bổ cho các loại sản phẩm theo tiêu thức phù hợp và nhất quán giữa các kỳ kế toán. Trường hợp có sản phẩm phụ, thì giá trị sản phẩm phụ được tính theo giá trị thuần có thể thực hiện được và giá trị này được trừ (-) khỏi chi phí chế biến đã tập hợp chung cho sản phẩm chính. Chi phí liên quan trực tiếp khác 10. Chi phí liên quan trực tiếp khác tính vào giá gốc hàng tồn kho bao gồm các khoản chi phí khác ngoài chi phí mua và chi phí chế biến hàng tồn kho. Ví dụ, trong giá gốc thành phẩm có thể bao gồm chi phí thiết kế sản phẩm cho một đơn đặt hàng cụ thể. Chi phí không tính vào giá gốc hàng tồn kho 11. Chi phí không được tính vào giá gốc hàng tồn kho, gồm: (a) Chi phí nguyên liệu, vật liệu, chi phí nhân công và các chi phí sản xuất, kinh doanh khác phát sinh trên mức bình thường; (b) Chi phí bảo quản hàng tồn kho trừ các khoản chi phí bảo quản hàng tồn kho cần thiết cho quá trình sản xuất tiếp theo và chi phí bảo quản quy định ở đoạn 06; (c) Chi phí bán hàng; (d) Chi phí quản lý doanh nghiệp. Chi phí cung cấp dịch vụ 12. Chi phí cung cấp dịch vụ bao gồm chi phí nhân viên và các chi phí khác liên quan trực tiếp đến việc cung cấp dịch vụ, như chi phí giám sát và các chi phí chung có liên quan. Chi phí nhân viên, chi phí khác liên quan đến bán\n<</C1>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#38\">>\n[Unknown] \n nhà xưởng, thiết bị). 45. Các chi phí sau đây không được tính vào nguyên giá TSCĐ vô hình được tạo ra từ nội bộ doanh nghiệp: (a) Chi phí bán hàng, chi phí quản lý doanh nghiệp và chí phí sản xuất chung không liên quan trực tiếp đến việc đưa tài sản vào sử dụng; (b) Các chi phí không hợp lý như: nguyên liệu, vật liệu lãng phí, chi phí lao động, các khoản chi phí khác sử dụng vượt quá mức bình thường; (c) Chi phí đào tạo nhân viên để vận hành tài sản. GHI NHẬN CHI PHÍ 46. Chi phí liên quan đến tài sản vô hình phải được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ hoặc chi phí trả trước, trừ trường hợp: (a) Chi phí hình thành một phần nguyên giá TSCĐ vô hình và thỏa mãn định nghĩa và tiêu chuẩn ghi nhận TSCĐ vô hình (Quy định từ đoạn 16 đến đoạn 44). (b) Tài sản vô hình hình thành trong quá trình sáp nhập doanh nghiệp có tính chất mua lại nhưng không đáp ứng được định nghĩa và tiêu chuẩn ghi nhận là TSCĐ vô hình thì những chi phí đó (nằm trong chi phí mua tài sản) hình thành một bộ phận của lợi thế thương mại (kể cả trường hợp lợi thế thương mại có giá trị âm) vào ngày quyết định sáp nhập doanh nghiệp. 47. Chi phí phát sinh đem lại lợi ích kinh tế trong tương lai cho doanh nghiệp nhưng không được ghi nhận là TSCĐ vô hình thì được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ, trừ các chi phí được quy định trong đoạn 48. 48. Chi phí phát sinh đem lại lợi ích kinh tế trong tương lai cho doanh nghiệp gồm chi phí thành lập doanh nghiệp, chi phí đào tạo nhân viên và chi phí quảng cáo phát sinh trong giai đoạn trước hoạt động của doanh nghiệp mới thành lập, chi phí cho giai đoạn nghiên cứu, chi phí chuyển dịch địa điểm được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ hoặc được phân bổ dần vào chi phí sản xuất, kinh doanh trong thời gian tối đa không quá\n<</C2>>\n\n<<C3 src=\"12-2005-QD-BTC.doc#76\">>\n[Unknown] \nộng sản xuất, kinh doanh của bộ phận được phân bổ hoặc khấu hao tính vào chi phí của bộ phận thì tài sản đó cũng được tính trong tài sản của bộ phận. Tài sản bộ phận không bao gồm các tài sản được sử dụng chung trong doanh nghiệp hoặc dùng cho trụ sở chính. Tài sản bộ phận còn bao gồm các tài sản sử dụng cho hoạt động sản xuất, kinh doanh chung cho hai hay nhiều bộ phận và được tính trực tiếp hoặc phân bổ cho từng bộ phận, bao gồm cả lợi thế thương mại. 19. Nợ phải trả bộ phận gồm: Khoản phải trả thương mại, khoản phải trả khác, chi phí phải trả, các khoản ứng trước của khách hàng. Nợ phải trả bộ phận không bao gồm các khoản đi vay, nợ thuê tài chính và nợ phải trả khác cho mục đích tài trợ chứ không phải cho mục đính sản xuất, kinh doanh. Trường hợp chi phí lãi vay tính trong kết quả kinh doanh bộ phận thì nợ phải trả chịu lãi liên quan được tính trong nợ phải trả bộ phận. Nợ phải trả bộ phận mà hoạt động chủ yếu của bộ phận đó không phải là hoạt động tài chính do không bao gồm các khoản vay và các khoản có tính chất vay. Kết quả bộ phận thể hiện lãi, lỗ từ hoạt động kinh doanh chứ không phải từ hoạt động tài chính. Các khoản nợ thông thường do trụ sở chính đi vay không thể tính trực tiếp hoặc phân bổ vào nợ phải trả chịu lãi của bộ phận đó. 20. Việc tính toán, xác định giá trị tài sản và nợ phải trả bộ phận bao gồm cả những điều chỉnh giá trị ghi sổ khi mua tài sản và nợ phải trả bộ phận, khoản điều chỉnh của doanh nghiệp mua trong giao dịch hợp nhất kinh doanh phục vụ cho mục đích lập báo cáo tài chính hợp nhất mà không được ghi vào báo cáo tài chính riêng của công ty mẹ hoặc công ty con. 21. Việc phân bổ chi phí đã quy định trong các Chuẩn mực kế toán khác: Chuẩn mực số 02 “Hàng tồn kho” hướng dẫn việc tính và phân bổ chi phí\n<</C3>>\n\n<<C4 src=\"12-2005-QD-BTC.doc#77\">>\n[Unknown] \n đích lập báo cáo tài chính hợp nhất mà không được ghi vào báo cáo tài chính riêng của công ty mẹ hoặc công ty con. 21. Việc phân bổ chi phí đã quy định trong các Chuẩn mực kế toán khác: Chuẩn mực số 02 “Hàng tồn kho” hướng dẫn việc tính và phân bổ chi phí mua vào hàng tồn kho; Chuẩn mực số 15 “Hợp đồng xây dựng” hướng dẫn việc tính và phân bổ chi phí vào các hợp đồng xây dựng. Các hướng dẫn này được sử dụng cho việc tính và phân bổ chi phí vào các bộ phận. 22. Doanh thu, chi phí, tài sản và nợ phải trả bộ phận phải được xác định trước khi loại trừ số dư và các giao dịch nội bộ của quá trình hợp nhất báo cáo tài chính, trừ khi số dư và các giao dịch đó được thực hiện thuộc nhóm doanh nghiệp của bộ phận riêng lẻ. 23. Chính sách kế toán được sử dụng để lập và trình bày báo cáo tài chính của doanh nghiệp cũng là chính sách kế toán cơ bản để lập báo cáo bộ phận. Ngoài ra, chính sách kế toán để lập báo cáo bộ phận còn bao gồm các chính sách liên quan trực tiếp đến việc lập báo cáo bộ phận, như các nhân tố xác định bộ phận phải báo cáo, phương pháp định giá các giao dịch liên bộ phận, cơ sở phân bổ doanh thu và chi phí vào các bộ phận. XÁC ĐỊNH CÁC BỘ PHẬN PHẢI BÁO CÁO Báo cáo chính yếu và thứ yếu 24. Tính chất rủi ro và lợi ích kinh tế của một doanh nghiệp là căn cứ chủ yếu để xác định báo cáo bộ phận chính yếu (báo cáo đối với bộ phận chính yếu) được lập theo lĩnh vực kinh doanh hay khu vực địa lý. Nếu rủi ro và tỷ suất sinh lời của doanh nghiệp bị tác động chủ yếu bởi những khác biệt về sản phẩm và dịch vụ mà doanh nghiệp đó sản xuất ra thì báo cáo chính yếu phải căn cứ vào thông tin về lĩnh vực kinh doanh và báo cáo thứ yếu (b\n<</C4>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nực tế phát sinh. - Trường hợp mức sản phẩm thực tế sản xuất ra thấp hơn công suất bình thường thì chi phí sản xuất chung cố định chỉ được phân bổ vào chi phí chế biến cho mỗi đơn vị sản phẩm theo mức công suất bình thường. Khoản chi phí sản xuất chung không phân bổ được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Chi phí sản xuất chung biến đổi được phân bổ hết vào chi phí chế biến cho mỗi đơn vị sản phẩm theo chi phí thực tế phát sinh. 09. Trường hợp một quy trình sản xuất ra nhiều loại sản phẩm trong cùng một khoảng thời gian mà chi phí chế biến của mỗi loại sản phẩm không được phản ánh một cách tách biệt, thì chi phí chế biến được phân bổ cho các loại sản phẩm theo tiêu thức phù hợp và nhất quán giữa các kỳ kế toán. Trường hợp có sản phẩm phụ, thì giá trị sản phẩm phụ được tính theo giá trị thuần có thể thực hiện được và giá trị này được trừ (-) khỏi chi phí chế biến đã tập hợp chung cho sản phẩm chính. Chi phí liên quan trực tiếp khác 10. Chi phí liên quan trực tiếp khác tính vào giá gốc hàng tồn kho bao gồm các khoản chi phí khác ngoài chi phí mua và chi phí chế biến hàng tồn kho. Ví dụ, trong giá gốc thành phẩm có thể bao gồm chi phí thiết kế sản phẩm cho một đơn đặt hàng cụ thể. Chi phí không tính vào giá gốc hàng tồn kho 11. Chi phí không được tính vào giá gốc hàng tồn kho, gồm: (a) Chi phí nguyên liệu, vật liệu, chi phí nhân công và các chi phí sản xuất, kinh doanh khác phát sinh trên mức bình thường; (b) Chi phí bảo quản hàng tồn kho trừ các khoản chi phí bảo quản hàng tồn kho cần thiết cho quá trình sản xuất tiếp theo và chi phí bảo quản quy định ở đoạn 06; (c) Chi phí bán hàng; (d) Chi phí quản lý doanh nghiệp. Chi phí cung cấp dịch vụ 12. Chi phí cung cấp dịch vụ bao gồm chi phí nhân viên và các chi phí khác liên quan trực tiếp đến việc cung cấp dịch vụ, như chi phí giám sát và các chi phí chung có liên quan. Chi phí nhân viên, chi phí khác liên quan đến bán"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n nhà xưởng, thiết bị). 45. Các chi phí sau đây không được tính vào nguyên giá TSCĐ vô hình được tạo ra từ nội bộ doanh nghiệp: (a) Chi phí bán hàng, chi phí quản lý doanh nghiệp và chí phí sản xuất chung không liên quan trực tiếp đến việc đưa tài sản vào sử dụng; (b) Các chi phí không hợp lý như: nguyên liệu, vật liệu lãng phí, chi phí lao động, các khoản chi phí khác sử dụng vượt quá mức bình thường; (c) Chi phí đào tạo nhân viên để vận hành tài sản. GHI NHẬN CHI PHÍ 46. Chi phí liên quan đến tài sản vô hình phải được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ hoặc chi phí trả trước, trừ trường hợp: (a) Chi phí hình thành một phần nguyên giá TSCĐ vô hình và thỏa mãn định nghĩa và tiêu chuẩn ghi nhận TSCĐ vô hình (Quy định từ đoạn 16 đến đoạn 44). (b) Tài sản vô hình hình thành trong quá trình sáp nhập doanh nghiệp có tính chất mua lại nhưng không đáp ứng được định nghĩa và tiêu chuẩn ghi nhận là TSCĐ vô hình thì những chi phí đó (nằm trong chi phí mua tài sản) hình thành một bộ phận của lợi thế thương mại (kể cả trường hợp lợi thế thương mại có giá trị âm) vào ngày quyết định sáp nhập doanh nghiệp. 47. Chi phí phát sinh đem lại lợi ích kinh tế trong tương lai cho doanh nghiệp nhưng không được ghi nhận là TSCĐ vô hình thì được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ, trừ các chi phí được quy định trong đoạn 48. 48. Chi phí phát sinh đem lại lợi ích kinh tế trong tương lai cho doanh nghiệp gồm chi phí thành lập doanh nghiệp, chi phí đào tạo nhân viên và chi phí quảng cáo phát sinh trong giai đoạn trước hoạt động của doanh nghiệp mới thành lập, chi phí cho giai đoạn nghiên cứu, chi phí chuyển dịch địa điểm được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ hoặc được phân bổ dần vào chi phí sản xuất, kinh doanh trong thời gian tối đa không quá"
+          },
+          "C3": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \nộng sản xuất, kinh doanh của bộ phận được phân bổ hoặc khấu hao tính vào chi phí của bộ phận thì tài sản đó cũng được tính trong tài sản của bộ phận. Tài sản bộ phận không bao gồm các tài sản được sử dụng chung trong doanh nghiệp hoặc dùng cho trụ sở chính. Tài sản bộ phận còn bao gồm các tài sản sử dụng cho hoạt động sản xuất, kinh doanh chung cho hai hay nhiều bộ phận và được tính trực tiếp hoặc phân bổ cho từng bộ phận, bao gồm cả lợi thế thương mại. 19. Nợ phải trả bộ phận gồm: Khoản phải trả thương mại, khoản phải trả khác, chi phí phải trả, các khoản ứng trước của khách hàng. Nợ phải trả bộ phận không bao gồm các khoản đi vay, nợ thuê tài chính và nợ phải trả khác cho mục đích tài trợ chứ không phải cho mục đính sản xuất, kinh doanh. Trường hợp chi phí lãi vay tính trong kết quả kinh doanh bộ phận thì nợ phải trả chịu lãi liên quan được tính trong nợ phải trả bộ phận. Nợ phải trả bộ phận mà hoạt động chủ yếu của bộ phận đó không phải là hoạt động tài chính do không bao gồm các khoản vay và các khoản có tính chất vay. Kết quả bộ phận thể hiện lãi, lỗ từ hoạt động kinh doanh chứ không phải từ hoạt động tài chính. Các khoản nợ thông thường do trụ sở chính đi vay không thể tính trực tiếp hoặc phân bổ vào nợ phải trả chịu lãi của bộ phận đó. 20. Việc tính toán, xác định giá trị tài sản và nợ phải trả bộ phận bao gồm cả những điều chỉnh giá trị ghi sổ khi mua tài sản và nợ phải trả bộ phận, khoản điều chỉnh của doanh nghiệp mua trong giao dịch hợp nhất kinh doanh phục vụ cho mục đích lập báo cáo tài chính hợp nhất mà không được ghi vào báo cáo tài chính riêng của công ty mẹ hoặc công ty con. 21. Việc phân bổ chi phí đã quy định trong các Chuẩn mực kế toán khác: Chuẩn mực số 02 “Hàng tồn kho” hướng dẫn việc tính và phân bổ chi phí"
+          },
+          "C4": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n đích lập báo cáo tài chính hợp nhất mà không được ghi vào báo cáo tài chính riêng của công ty mẹ hoặc công ty con. 21. Việc phân bổ chi phí đã quy định trong các Chuẩn mực kế toán khác: Chuẩn mực số 02 “Hàng tồn kho” hướng dẫn việc tính và phân bổ chi phí mua vào hàng tồn kho; Chuẩn mực số 15 “Hợp đồng xây dựng” hướng dẫn việc tính và phân bổ chi phí vào các hợp đồng xây dựng. Các hướng dẫn này được sử dụng cho việc tính và phân bổ chi phí vào các bộ phận. 22. Doanh thu, chi phí, tài sản và nợ phải trả bộ phận phải được xác định trước khi loại trừ số dư và các giao dịch nội bộ của quá trình hợp nhất báo cáo tài chính, trừ khi số dư và các giao dịch đó được thực hiện thuộc nhóm doanh nghiệp của bộ phận riêng lẻ. 23. Chính sách kế toán được sử dụng để lập và trình bày báo cáo tài chính của doanh nghiệp cũng là chính sách kế toán cơ bản để lập báo cáo bộ phận. Ngoài ra, chính sách kế toán để lập báo cáo bộ phận còn bao gồm các chính sách liên quan trực tiếp đến việc lập báo cáo bộ phận, như các nhân tố xác định bộ phận phải báo cáo, phương pháp định giá các giao dịch liên bộ phận, cơ sở phân bổ doanh thu và chi phí vào các bộ phận. XÁC ĐỊNH CÁC BỘ PHẬN PHẢI BÁO CÁO Báo cáo chính yếu và thứ yếu 24. Tính chất rủi ro và lợi ích kinh tế của một doanh nghiệp là căn cứ chủ yếu để xác định báo cáo bộ phận chính yếu (báo cáo đối với bộ phận chính yếu) được lập theo lĩnh vực kinh doanh hay khu vực địa lý. Nếu rủi ro và tỷ suất sinh lời của doanh nghiệp bị tác động chủ yếu bởi những khác biệt về sản phẩm và dịch vụ mà doanh nghiệp đó sản xuất ra thì báo cáo chính yếu phải căn cứ vào thông tin về lĩnh vực kinh doanh và báo cáo thứ yếu (b"
+          }
+        },
+        "context_tokens": 2082,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          2288
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n03",
+      "reference": "Dùng giá bán ước tính cho phần vượt số lượng cần cho hợp đồng.",
+      "final": "Theo VAS 02, khi lượng hàng tồn kho lớn hơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho và số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính [C1].",
+      "persisted": true,
+      "ttft_seconds": 30.154873833060265,
+      "seconds": 41.9087564998772,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C1",
+          "doc_id": "149-2001-QD-BTC.pdf",
+          "chunk_id": "7",
+          "snippet": "[Unknown] \n thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp li",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 2,
+      "marker_total": 2,
+      "trace": {
+        "mode": "full",
+        "question": "Theo VAS 02, nếu hàng dự trữ vượt quá số hàng cần để thực hiện hợp đồng bán hàng không thể hủy, lấy cơ sở nào để ước tính giá trị thuần của phần vượt?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 13.315924583002925
+        },
+        "retrieved": [
+          {
+            "id": "8097fce2-2499-5259-993c-20c1c060a317",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "b1d5a768-0c83-5f18-9e0c-96f9cd07f1fc",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "54e63ea3-a0c2-541b-8870-4524eb29840a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#7\">>\n[Unknown] \n thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp liên quan đến các sự kiện diễn ra sau ngày kết thúc năm tài chính, mà các sự kiện này được xác nhận với các điều kiện hiện có ở thời điểm ước tính. 21. Khi ước tính giá trị thuần có thể thực hiện được phải tính đến mục đích của việc dự trữ hàng tồn kho. Ví dụ, giá trị thuần có thể thực hiện được của lượng hàng tồn kho dự trữ để đảm bảo cho các hợp đồng bán hàng hoặc cung cấp dịch vụ không thể hủy bỏ phải dựa vào giá trị trong hợp đồng. Nếu số hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính. 22. Nguyên liệu, vật liệu và công cụ, dụng cụ dự trữ để sử dụng cho mục đích sản xuất sản phẩm không được đánh giá thấp hơn giá gốc nếu sản phẩm do chúng góp phần cấu tạo nên sẽ được bán bằng hoặc cao hơn giá thành sản xuất của sản phẩm. Khi có sự giảm giá của nguyên liệu, vật liệu, công cụ, dụng cụ mà giá thành sản xuất sản phẩm cao hơn giá trị thuần có thể thực hiện được, thì nguyên liệu, vật liệu, công cụ, dụng cụ tồn kho được đánh giá giảm xuống bằng với giá trị thuần có thể thực hiện được của chúng. 23. Cuối kỳ kế toán năm tiếp theo phải thực hiện đánh giá mới về giá trị thuần có thể thực hiện được của hàng tồn kho cuối năm đó. Trường hợp cuối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho gi\n<</C1>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#10\">>\n[Unknown] \n�n kho cuối kỳ tính theo phương pháp bình quân gia quyền nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho tính theo phương pháp nhập trước, xuất trước và phương pháp bình quân gia quyền); hoặc (b) Giá trị hiện hành của hàng tồn kho cuối kỳ tại ngày lập bảng cân đối kế toán (nếu giá trị hiện hành của hàng tồn kho tại ngày lập bảng cân đối kế toán nhỏ hơn giá trị thuần có thể thực hiện được); hoặc với giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo giá trị hiện hành tại ngày lập bảng cân đối kế toán). 29. Trình bày chi phí về hàng tồn kho trên báo cáo kết quả sản xuất, kinh doanh được phân loại chi phí theo chức năng. Phân loại chi phí theo chức năng là hàng tồn kho được trình bày trong khoản mục \"Giá vốn hàng bán\" trong báo cáo kết quả kinh doanh, gồm giá gốc của hàng tồn kho đã bán, khoản dự phòng giảm giá hàng tồn kho, các khoản hao hụt mất mát của hàng tồn kho sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, chi phí sản xuất chung không được phân bổ. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 03TÀI SẢN CỐ ĐỊNH HỮU HÌNH (Ban hành và công bố theo Quyết định số 149/2001/QĐ-BTC ngày 31 tháng 12 năm 2001 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn các nguyên tắc và phương pháp kế toán đối với tài sản cố định (TSCĐ) hữu hình, gồm: Tiêu chuẩ\n<</C2>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#8\">>\n[Unknown] \nối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho, giá gốc của hàng tồn kho đã bán được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ phù hợp với doanh thu liên quan đến chúng được ghi nhận. Tất cả các khoản chênh lệch giữa khoản dự phòng giảm giá hàng tồn kho phải lập ở cuối niên độ kế toán năm nay lớn hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, các khoản hao hụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, và chi phí sản xuất chung không phân bổ, được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Trường hợp khoản dự phòng giảm giá hàng tồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc phù hợp giữa chi phí và doanh thu. 26. Trường hợp một số loại hàng tồn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do\n<</C3>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n thể thực hiện được của hàng tồn kho phải dựa trên bằng chứng tin cậy thu thập được tại thời điểm ước tính. Việc ước tính này phải tính đến sự biến động của giá cả hoặc chi phí trực tiếp liên quan đến các sự kiện diễn ra sau ngày kết thúc năm tài chính, mà các sự kiện này được xác nhận với các điều kiện hiện có ở thời điểm ước tính. 21. Khi ước tính giá trị thuần có thể thực hiện được phải tính đến mục đích của việc dự trữ hàng tồn kho. Ví dụ, giá trị thuần có thể thực hiện được của lượng hàng tồn kho dự trữ để đảm bảo cho các hợp đồng bán hàng hoặc cung cấp dịch vụ không thể hủy bỏ phải dựa vào giá trị trong hợp đồng. Nếu số hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính. 22. Nguyên liệu, vật liệu và công cụ, dụng cụ dự trữ để sử dụng cho mục đích sản xuất sản phẩm không được đánh giá thấp hơn giá gốc nếu sản phẩm do chúng góp phần cấu tạo nên sẽ được bán bằng hoặc cao hơn giá thành sản xuất của sản phẩm. Khi có sự giảm giá của nguyên liệu, vật liệu, công cụ, dụng cụ mà giá thành sản xuất sản phẩm cao hơn giá trị thuần có thể thực hiện được, thì nguyên liệu, vật liệu, công cụ, dụng cụ tồn kho được đánh giá giảm xuống bằng với giá trị thuần có thể thực hiện được của chúng. 23. Cuối kỳ kế toán năm tiếp theo phải thực hiện đánh giá mới về giá trị thuần có thể thực hiện được của hàng tồn kho cuối năm đó. Trường hợp cuối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho gi"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n�n kho cuối kỳ tính theo phương pháp bình quân gia quyền nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho tính theo phương pháp nhập trước, xuất trước và phương pháp bình quân gia quyền); hoặc (b) Giá trị hiện hành của hàng tồn kho cuối kỳ tại ngày lập bảng cân đối kế toán (nếu giá trị hiện hành của hàng tồn kho tại ngày lập bảng cân đối kế toán nhỏ hơn giá trị thuần có thể thực hiện được); hoặc với giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo giá trị hiện hành tại ngày lập bảng cân đối kế toán). 29. Trình bày chi phí về hàng tồn kho trên báo cáo kết quả sản xuất, kinh doanh được phân loại chi phí theo chức năng. Phân loại chi phí theo chức năng là hàng tồn kho được trình bày trong khoản mục \"Giá vốn hàng bán\" trong báo cáo kết quả kinh doanh, gồm giá gốc của hàng tồn kho đã bán, khoản dự phòng giảm giá hàng tồn kho, các khoản hao hụt mất mát của hàng tồn kho sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, chi phí sản xuất chung không được phân bổ. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 03TÀI SẢN CỐ ĐỊNH HỮU HÌNH (Ban hành và công bố theo Quyết định số 149/2001/QĐ-BTC ngày 31 tháng 12 năm 2001 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn các nguyên tắc và phương pháp kế toán đối với tài sản cố định (TSCĐ) hữu hình, gồm: Tiêu chuẩ"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được). GHI NHẬN CHI PHÍ 24. Khi bán hàng tồn kho, giá gốc của hàng tồn kho đã bán được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ phù hợp với doanh thu liên quan đến chúng được ghi nhận. Tất cả các khoản chênh lệch giữa khoản dự phòng giảm giá hàng tồn kho phải lập ở cuối niên độ kế toán năm nay lớn hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, các khoản hao hụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, và chi phí sản xuất chung không phân bổ, được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Trường hợp khoản dự phòng giảm giá hàng tồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán vào chi phí trong kỳ phải đảm bảo nguyên tắc phù hợp giữa chi phí và doanh thu. 26. Trường hợp một số loại hàng tồn kho được sử dụng để sản xuất ra tài sản cố định hoặc sử dụng như nhà xưởng, máy móc, thiết bị tự sản xuất thì giá gốc hàng tồn kho này được hạch toán vào giá trị tài sản cố định. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 27. Trong báo cáo tài chính, do"
+          }
+        },
+        "context_tokens": 1551,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1757
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n03",
+      "reference": "Dùng giá bán ước tính cho phần vượt số lượng cần cho hợp đồng.",
+      "final": "Nếu số lượng hàng tồn kho lớn hơn số lượng hàng cần cho hợp đồng không thể hủy bỏ thì giá trị thuần có thể thực hiện được của phần chênh lệch (phần vượt) sẽ dựa trên cơ sở giá bán ước tính. [C1]",
+      "persisted": true,
+      "ttft_seconds": 33.50719854212366,
+      "seconds": 43.5160133340396,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C1",
+          "doc_id": "149-2001-QD-BTC.pdf",
+          "chunk_id": "7",
+          "snippet": "Ví dụ, giá trị thuần có thể thực hiện được của lượng hàng tồn kho dự trữ để đảm bảo cho các hợp đồng bán hàng hoặc cung cấp dịch vụ không thể hủy bỏ phải dựa vào giá trị trong hợp đồng. Nếu số hàng đa",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 2,
+      "marker_total": 2,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Theo VAS 02, nếu hàng dự trữ vượt quá số hàng cần để thực hiện hợp đồng bán hàng không thể hủy, lấy cơ sở nào để ước tính giá trị thuần của phần vượt?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 22.363772957818583
+        },
+        "retrieved": [
+          {
+            "id": "8097fce2-2499-5259-993c-20c1c060a317",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "b1d5a768-0c83-5f18-9e0c-96f9cd07f1fc",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "54e63ea3-a0c2-541b-8870-4524eb29840a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#7\">>\nVí dụ, giá trị thuần có thể thực hiện được của lượng hàng tồn kho dự trữ để đảm bảo cho các hợp đồng bán hàng hoặc cung cấp dịch vụ không thể hủy bỏ phải dựa vào giá trị trong hợp đồng. Nếu số hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính. 22. Nguyên liệu, vật liệu và công cụ, dụng cụ dự trữ để sử dụng cho mục\n\nthể thực hiện được của chúng. 23. Cuối kỳ kế toán năm tiếp theo phải thực hiện đánh giá mới về giá trị thuần có thể thực hiện được của hàng tồn kho cuối năm đó. Trường hợp cuối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho gi\n<</C1>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#10\">>\n[Unknown] �n kho cuối kỳ tính theo phương pháp bình quân gia quyền nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho tính theo phương pháp nhập trước, xuất trước và phương pháp bình quân gia quyền); hoặc (b) Giá trị hiện hành của hàng tồn kho cuối\n\nchi phí về hàng tồn kho trên báo cáo kết quả sản xuất, kinh doanh được phân loại chi phí theo chức năng. Phân loại chi phí theo chức năng là hàng tồn kho được trình bày trong khoản mục \"Giá vốn hàng bán\" trong báo cáo kết quả kinh doanh, gồm giá gốc của hàng tồn kho đã bán, khoản dự phòng giảm giá hàng tồn kho, các khoản hao hụt mất mát của hàng tồn kho sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, chi phí sản xuất chung không được phân bổ. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN\n<</C2>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#8\">>\n[Unknown] ối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được).\n\nhụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, và chi phí sản xuất chung không phân bổ, được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Trường hợp khoản dự phòng giảm giá hàng tồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán\n<</C3>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "Ví dụ, giá trị thuần có thể thực hiện được của lượng hàng tồn kho dự trữ để đảm bảo cho các hợp đồng bán hàng hoặc cung cấp dịch vụ không thể hủy bỏ phải dựa vào giá trị trong hợp đồng. Nếu số hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng thì giá trị thuần có thể thực hiện được của số chênh lệch giữa hàng đang tồn kho lớn hơn số hàng cần cho hợp đồng được đánh giá trên cơ sở giá bán ước tính. 22. Nguyên liệu, vật liệu và công cụ, dụng cụ dự trữ để sử dụng cho mục\n\nthể thực hiện được của chúng. 23. Cuối kỳ kế toán năm tiếp theo phải thực hiện đánh giá mới về giá trị thuần có thể thực hiện được của hàng tồn kho cuối năm đó. Trường hợp cuối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho gi"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] �n kho cuối kỳ tính theo phương pháp bình quân gia quyền nhỏ hơn giá trị hàng tồn kho cuối kỳ tính theo phương pháp nhập trước, xuất trước và giá trị thuần có thể thực hiện được); hoặc Với giá trị hàng tồn kho cuối kỳ được tính theo giá trị thuần có thể thực hiện được (nếu giá trị hàng tồn kho cuối kỳ tính theo giá trị thuần có thể thực hiện được nhỏ hơn giá trị hàng tồn kho tính theo phương pháp nhập trước, xuất trước và phương pháp bình quân gia quyền); hoặc (b) Giá trị hiện hành của hàng tồn kho cuối\n\nchi phí về hàng tồn kho trên báo cáo kết quả sản xuất, kinh doanh được phân loại chi phí theo chức năng. Phân loại chi phí theo chức năng là hàng tồn kho được trình bày trong khoản mục \"Giá vốn hàng bán\" trong báo cáo kết quả kinh doanh, gồm giá gốc của hàng tồn kho đã bán, khoản dự phòng giảm giá hàng tồn kho, các khoản hao hụt mất mát của hàng tồn kho sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, chi phí sản xuất chung không được phân bổ. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] ối kỳ kế toán năm nay, nếu khoản dự phòng giảm giá hàng tồn kho phải lập thấp hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối kỳ kế toán năm trước thì số chênh lệch lớn hơn phải được hoàn nhập (Theo quy định ở đoạn 24) để đảm bảo cho giá trị của hàng tồn kho phản ánh trên báo cáo tài chính là theo giá gốc (nếu giá gốc nhỏ hơn giá trị thuần có thể thực hiện được) hoặc theo giá trị thuần có thể thực hiện được (nếu giá gốc lớn hơn giá trị thuần có thể thực hiện được).\n\nhụt, mất mát của hàng tồn kho, sau khi trừ (-) phần bồi thường do trách nhiệm cá nhân gây ra, và chi phí sản xuất chung không phân bổ, được ghi nhận là chi phí sản xuất, kinh doanh trong kỳ. Trường hợp khoản dự phòng giảm giá hàng tồn kho được lập ở cuối niên độ kế toán năm nay nhỏ hơn khoản dự phòng giảm giá hàng tồn kho đã lập ở cuối niên độ kế toán năm trước, thì số chênh lệch lớn hơn phải được hoàn nhập ghi giảm chi phí sản xuất, kinh doanh. 25. Ghi nhận giá trị hàng tồn kho đã bán"
+          }
+        },
+        "context_tokens": 880,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1086
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n04",
+      "reference": "Không. VAS 03 yêu cầu thời gian sử dụng ước tính trên một năm.",
+      "final": "Theo VAS 03, để ghi nhận một tài sản cố định hữu hình (TSCĐ), cần phải thỏa mãn bốn tiêu chuẩn sau: \n\n1. Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó;\n2. Nguyên giá tài sản phải được xác định một cách đáng tin cậy;\n3. Thời gian sử dụng ước tính trên 1 năm; \n4. Có đủ tiêu chuẩn giá trị theo quy định hiện hành.\n\nTrong trường hợp máy chỉ được sử dụng đúng một năm, điều kiện thứ ba (thời gian sử dụng ước tính trên 1 năm) không được thỏa mãn. Do đó, VAS 03 không cho phép ghi nhận",
+      "persisted": true,
+      "ttft_seconds": 32.269182374933735,
+      "seconds": 62.462891875067726,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 1,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 1,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Một máy được sử dụng đúng một năm và đáp ứng các tiêu chuẩn khác. VAS 03 có cho ghi nhận máy là TSCĐ hữu hình chỉ dựa trên thời gian sử dụng đó không?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 17.468659875215963
+        },
+        "retrieved": [
+          {
+            "id": "fe00a45d-5195-5d80-b610-3ba389f5576c",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "35917791-e515-5ab6-9ce4-944c713c4df8",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "688ee30b-328a-5638-af92-e482c577814d",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          },
+          {
+            "id": "d575974b-7a89-5e88-b8dd-8ec81b5a717c",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C4"
+          },
+          {
+            "id": "a849b858-f83b-5eb9-9f4d-1177d589a22d",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C5"
+          },
+          {
+            "id": "0a03bda2-301e-5f80-b737-7b7fc6e47d82",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C6"
+          }
+        ],
+        "context": "<<C4 src=\"149-2001-QD-BTC.pdf#12\">>\ntất cả bốn (4) tiêu chuẩn ghi nhận sau: (a) Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó; (b) Nguyên giá tài sản phải được xác định một cách đáng tin cậy; (c) Thời gian sử dụng ước tính trên 1 năm; (d) Có đủ tiêu chuẩn giá trị theo quy đị\n<</C4>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#13\">>\n[Unknown] : (a) Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó; (b) Nguyên giá tài sản phải được xác định một cách đáng tin cậy; (c) Thời gian sử dụng ước tính trên 1 năm; (d) Có đủ tiêu chuẩn giá trị theo quy định hiện hành. 07. Kế toán TSCĐ hữu hình được phân loại theo nhóm tài sản có cùng tính chất và mục đích sử dụng trong hoạt động sản xuất, kinh doanh của doanh nghiệp, gồm: (a) Nhà cửa, vật kiến trúc; (b) Máy móc, thiết bị; (c) Phương tiện vận tải, thiết bị truyền dẫn;\n\nkể đến báo cáo kết quả hoạt động kinh doanh của doanh nghiệp. 09. Khi xác định tiêu chuẩn thứ nhất (quy định tại mục a đoạn 06) của mỗi TSCĐ hữu hình, doanh nghiệp phải xác định mức độ chắc chắn của việc thu được lợi ích kinh tế trong tương lai, dựa trên các bằng chứng hiện có tại thời điểm ghi nhận ban đầu và phải chịu mọi rủi ro liên quan. Những tài sản sử dụng cho mục đích đảm bảo an toàn sản xuất, kinh doanh hoặc bảo vệ môi trường mặc dù không trực tiếp đem lại lợi ích kinh tế như các TSCĐ\n<</C3>>\n\n<<C6 src=\"149-2001-QD-BTC.pdf#14\">>\n[Unknown] lại lợi ích kinh tế như các TSCĐ khác nhưng chúng lại cần thiết cho doanh nghiệp trong việc đạt được các lợi ích kinh tế nhiều hơn từ các tài sản khác. Tuy nhiên, các tài sản này chỉ được ghi nhận là TSCĐ hữu hình nếu nguyên giá của chúng và các tài sản có liên quan không vượt quá tổng giá trị có thể thu hồi từ các tài sản đó và các tài sản khác có liên quan. Ví dụ, một nhà máy hóa chất có thể phải lắp đặt các thiết bị và thực hiện quy trình chứa và bảo quản hóa chất mới\n<</C6>>\n\n<<C5 src=\"149-2001-QD-BTC.pdf#23\">>\n[Unknown] áo cáo tài chính. Ví dụ: Thời gian sử dụng hữu ích có thể được kéo dài thêm do việc cải thiện trạng thái của tài sản vượt trên trạng thái tiêu chuẩn ban đầu của nó, hoặc các thay đổi về kỹ thuật hay thay đổi nhu cầu về sản phẩm do một máy móc sản xuất ra có thể làm giảm thời gian sử dụng hữu ích của nó. 35. Chế độ sửa chữa và bảo dưỡng TSCĐ hữu hình có thể kéo dài thời gian sử dụng hữu ích thực tế hoặc làm tăng giá trị thanh lý ước tính của tài sản nhưng doanh nghiệp\n<</C5>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#15\">>\nTrường hợp này được áp dụng khi từng bộ phận cấu thành tài sản có thời gian sử dụng hữu ích khác nhau, hoặc góp phần tạo ra lợi ích kinh tế cho doanh nghiệp theo những tiêu chuẩn quy định khác nhau nên được sử dụng các tỷ lệ và các phương pháp khấu hao khác nhau. Ví dụ, một thân máy bay và động cơ của nó cần được hạch toán thành hai TSCĐ hữu hình riêng biệt, có tỷ lệ khấu hao khác nhau, nếu chúng có thời gian sử dụng hữu ích khác nhau. XÁC ĐỊNH GIÁ TRỊ BAN ĐẦU 13. TSCĐ hữu hình phải được\n<</C2>>\n\n<<C1 src=\"149-2001-QD-BTC.pdf#20\">>\n[Unknown] ều lần trong suốt thời gian sử dụng hữu ích của ngôi nhà đó thì các khoản chi phí phát sinh trong việc thay thế hay khôi phục máy điều hòa được hạch toán thành một tài sản độc lập và giá trị máy điều hoà khi được thay thế sẽ được ghi giảm. XÁC ĐỊNH GIÁ TRỊ SAU GHI NHẬN BAN ĐẦU 28. Sau khi ghi nhận ban đầu, trong quá trình sử dụng, TSCĐ hữu hình được xác định theo nguyên giá, khấu hao luỹ kế và giá trị còn lại. Trường hợp TSCĐ hữu hình được đánh giá lại theo quy định của Nhà nước thì\n<</C1>>",
+        "prompt_chunks": {
+          "C4": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "tất cả bốn (4) tiêu chuẩn ghi nhận sau: (a) Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó; (b) Nguyên giá tài sản phải được xác định một cách đáng tin cậy; (c) Thời gian sử dụng ước tính trên 1 năm; (d) Có đủ tiêu chuẩn giá trị theo quy đị"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] : (a) Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó; (b) Nguyên giá tài sản phải được xác định một cách đáng tin cậy; (c) Thời gian sử dụng ước tính trên 1 năm; (d) Có đủ tiêu chuẩn giá trị theo quy định hiện hành. 07. Kế toán TSCĐ hữu hình được phân loại theo nhóm tài sản có cùng tính chất và mục đích sử dụng trong hoạt động sản xuất, kinh doanh của doanh nghiệp, gồm: (a) Nhà cửa, vật kiến trúc; (b) Máy móc, thiết bị; (c) Phương tiện vận tải, thiết bị truyền dẫn;\n\nkể đến báo cáo kết quả hoạt động kinh doanh của doanh nghiệp. 09. Khi xác định tiêu chuẩn thứ nhất (quy định tại mục a đoạn 06) của mỗi TSCĐ hữu hình, doanh nghiệp phải xác định mức độ chắc chắn của việc thu được lợi ích kinh tế trong tương lai, dựa trên các bằng chứng hiện có tại thời điểm ghi nhận ban đầu và phải chịu mọi rủi ro liên quan. Những tài sản sử dụng cho mục đích đảm bảo an toàn sản xuất, kinh doanh hoặc bảo vệ môi trường mặc dù không trực tiếp đem lại lợi ích kinh tế như các TSCĐ"
+          },
+          "C6": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] lại lợi ích kinh tế như các TSCĐ khác nhưng chúng lại cần thiết cho doanh nghiệp trong việc đạt được các lợi ích kinh tế nhiều hơn từ các tài sản khác. Tuy nhiên, các tài sản này chỉ được ghi nhận là TSCĐ hữu hình nếu nguyên giá của chúng và các tài sản có liên quan không vượt quá tổng giá trị có thể thu hồi từ các tài sản đó và các tài sản khác có liên quan. Ví dụ, một nhà máy hóa chất có thể phải lắp đặt các thiết bị và thực hiện quy trình chứa và bảo quản hóa chất mới"
+          },
+          "C5": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] áo cáo tài chính. Ví dụ: Thời gian sử dụng hữu ích có thể được kéo dài thêm do việc cải thiện trạng thái của tài sản vượt trên trạng thái tiêu chuẩn ban đầu của nó, hoặc các thay đổi về kỹ thuật hay thay đổi nhu cầu về sản phẩm do một máy móc sản xuất ra có thể làm giảm thời gian sử dụng hữu ích của nó. 35. Chế độ sửa chữa và bảo dưỡng TSCĐ hữu hình có thể kéo dài thời gian sử dụng hữu ích thực tế hoặc làm tăng giá trị thanh lý ước tính của tài sản nhưng doanh nghiệp"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "Trường hợp này được áp dụng khi từng bộ phận cấu thành tài sản có thời gian sử dụng hữu ích khác nhau, hoặc góp phần tạo ra lợi ích kinh tế cho doanh nghiệp theo những tiêu chuẩn quy định khác nhau nên được sử dụng các tỷ lệ và các phương pháp khấu hao khác nhau. Ví dụ, một thân máy bay và động cơ của nó cần được hạch toán thành hai TSCĐ hữu hình riêng biệt, có tỷ lệ khấu hao khác nhau, nếu chúng có thời gian sử dụng hữu ích khác nhau. XÁC ĐỊNH GIÁ TRỊ BAN ĐẦU 13. TSCĐ hữu hình phải được"
+          },
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] ều lần trong suốt thời gian sử dụng hữu ích của ngôi nhà đó thì các khoản chi phí phát sinh trong việc thay thế hay khôi phục máy điều hòa được hạch toán thành một tài sản độc lập và giá trị máy điều hoà khi được thay thế sẽ được ghi giảm. XÁC ĐỊNH GIÁ TRỊ SAU GHI NHẬN BAN ĐẦU 28. Sau khi ghi nhận ban đầu, trong quá trình sử dụng, TSCĐ hữu hình được xác định theo nguyên giá, khấu hao luỹ kế và giá trị còn lại. Trường hợp TSCĐ hữu hình được đánh giá lại theo quy định của Nhà nước thì"
+          }
+        },
+        "context_tokens": 1118,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1324
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n04",
+      "reference": "Không. VAS 03 yêu cầu thời gian sử dụng ước tính trên một năm.",
+      "final": "Theo VAS 03, để một tài sản được ghi nhận là TSCĐ hữu hình, nó phải thỏa mãn đồng thời bốn tiêu chuẩn sau:\n\n1. Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó.\n2. Nguyên giá tài sản phải được xác định một cách đáng tin cậy.\n3. Thời gian sử dụng ước tính trên 1 năm.\n4. Có đủ tiêu chuẩn giá trị theo quy định hiện hành.\n\nDựa vào câu hỏi của bạn, máy chỉ được sử dụng đúng một năm nên không thỏa mãn điều kiện thứ ba (thời gian sử dụng ước tính trên 1 năm). Do đó, mặc dù máy đáp ứng các tiêu chuẩn khác,",
+      "persisted": true,
+      "ttft_seconds": 57.73256091703661,
+      "seconds": 87.06730170897208,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 1,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 1,
+      "trace": {
+        "mode": "full",
+        "question": "Một máy được sử dụng đúng một năm và đáp ứng các tiêu chuẩn khác. VAS 03 có cho ghi nhận máy là TSCĐ hữu hình chỉ dựa trên thời gian sử dụng đó không?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 18.78101629111916
+        },
+        "retrieved": [
+          {
+            "id": "fe00a45d-5195-5d80-b610-3ba389f5576c",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "35917791-e515-5ab6-9ce4-944c713c4df8",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "688ee30b-328a-5638-af92-e482c577814d",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          },
+          {
+            "id": "d575974b-7a89-5e88-b8dd-8ec81b5a717c",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C4"
+          },
+          {
+            "id": "a849b858-f83b-5eb9-9f4d-1177d589a22d",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C5"
+          },
+          {
+            "id": "0a03bda2-301e-5f80-b737-7b7fc6e47d82",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C6"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#20\">>\n[Unknown] \nều lần trong suốt thời gian sử dụng hữu ích của ngôi nhà đó thì các khoản chi phí phát sinh trong việc thay thế hay khôi phục máy điều hòa được hạch toán thành một tài sản độc lập và giá trị máy điều hoà khi được thay thế sẽ được ghi giảm. XÁC ĐỊNH GIÁ TRỊ SAU GHI NHẬN BAN ĐẦU 28. Sau khi ghi nhận ban đầu, trong quá trình sử dụng, TSCĐ hữu hình được xác định theo nguyên giá, khấu hao luỹ kế và giá trị còn lại. Trường hợp TSCĐ hữu hình được đánh giá lại theo quy định của Nhà nước thì nguyên giá, khấu hao luỹ kế và giá trị còn lại phải được điều chỉnh theo kết quả đánh giá lại. Chênh lệch do đánh giá lại TSCĐ hữu hình được xử lý và kế toán theo quy định của Nhà nước. KHẤU HAO 29. Giá trị phải khấu hao của TSCĐ hữu hình được phân bổ một cách có hệ thống trong thời gian sử dụng hữu ích của chúng. Phương pháp khấu hao phải phù hợp với lợi ích kinh tế mà tài sản đem lại cho doanh nghiệp. Số khấu hao của từng kỳ được hạch toán vào chi phí sản xuất, kinh doanh trong kỳ, trừ khi chúng được tính vào giá trị của các tài sản khác, như: Khấu hao TSCĐ hữu hình dùng cho các hoạt động trong giai đoạn triển khai là một bộ phận chi phí cấu thành nguyên giá TSCĐ vô hình (theo quy định của chuẩn mực TSCĐ vô hình), hoặc chi phí khấu hao TSCĐ hữu hình dùng cho quá trình tự xây dựng hoặc tự chế các tài sản khác. 30. Lợi ích kinh tế do TSCĐ hữu hình đem lại được doanh nghiệp khai thác dần bằng cách sử dụng các tài sản đó. Tuy nhiên, các nhân tố khác, như: Sự lạc hậu về kỹ thuật, sự hao mòn của tài sản do chúng không được sử dụng thường dẫn đến sự suy giảm lợi ích kinh tế mà doanh nghiệp ước tính các tài sản đó sẽ đem lại. Do đó, khi xác định thời g\n<</C1>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#15\">>\n[Unknown] \núng nhiều hơn một năm. Nếu phụ tùng và thiết bị bảo trì chỉ được dùng gắn liền với TSCĐ hữu hình và việc sử dụng chúng là không thường xuyên thì chúng được hạch toán là TSCĐ hữu hình riêng biệt và được khấu hao trong thời gian ít hơn thời gian sử dụng hữu ích của TSCĐ hữu hình liên quan. 12. Trong từng trường hợp cụ thể, có thể phân bổ tổng chi phí của tài sản cho các bộ phận cấu thành của nó và hạch toán riêng biệt cho mỗi bộ phận cấu thành. Trường hợp này được áp dụng khi từng bộ phận cấu thành tài sản có thời gian sử dụng hữu ích khác nhau, hoặc góp phần tạo ra lợi ích kinh tế cho doanh nghiệp theo những tiêu chuẩn quy định khác nhau nên được sử dụng các tỷ lệ và các phương pháp khấu hao khác nhau. Ví dụ, một thân máy bay và động cơ của nó cần được hạch toán thành hai TSCĐ hữu hình riêng biệt, có tỷ lệ khấu hao khác nhau, nếu chúng có thời gian sử dụng hữu ích khác nhau. XÁC ĐỊNH GIÁ TRỊ BAN ĐẦU 13. TSCĐ hữu hình phải được xác định giá trị ban đầu theo nguyên giá. XÁC ĐỊNH NGUYÊN GIÁ TSCĐ HỮU HÌNH TRONG TỪNG TRƯỜNG HỢP TSCĐ hữu hình mua sắm 14. Nguyên giá TSCĐ hữu hình mua sắm bao gồm giá mua (trừ (-) các khoản được chiết khấu thương mại hoặc giảm giá), các khoản thuế (không bao gồm các khoản thuế được hoàn lại) và các chi phí liên quan trực tiếp đến việc đưa tài sản vào trạng thái sẵn sàng sử dụng, như: Chi phí chuẩn bị mặt bằng; Chi phí vận chuyển và bốc xếp ban đầu; Chi phí lắp đặt, chạy thử (trừ (-) các khoản thu hồi về sản phẩm, phế liệu do chạy thử); Chi phí chuyên gia và các chi phí liên quan trực tiếp khác. Đối với TSCĐ hữu hình hình thành do đầu tư xây dựng theo phương thức giao thầu, nguyên giá là gi\n<</C2>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#13\">>\n[Unknown] \n: (a) Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó; (b) Nguyên giá tài sản phải được xác định một cách đáng tin cậy; (c) Thời gian sử dụng ước tính trên 1 năm; (d) Có đủ tiêu chuẩn giá trị theo quy định hiện hành. 07. Kế toán TSCĐ hữu hình được phân loại theo nhóm tài sản có cùng tính chất và mục đích sử dụng trong hoạt động sản xuất, kinh doanh của doanh nghiệp, gồm: (a) Nhà cửa, vật kiến trúc; (b) Máy móc, thiết bị; (c) Phương tiện vận tải, thiết bị truyền dẫn; (d) Thiết bị, dụng cụ quản lý; (e) Vườn cây lâu năm, súc vật làm việc và cho sản phẩm; (f) TSCĐ hữu hình khác. 08. TSCĐ hữu hình thường là bộ phận chủ yếu trong tổng số tài sản và đóng vai trò quan trọng trong việc thể hiện tình hình tài chính của doanh nghiệp, vì vậy, việc xác định một tài sản có được ghi nhận là TSCĐ hữu hình hay là một khoản chi phí sản xuất, kinh doanh trong kỳ sẽ có ảnh hưởng đáng kể đến báo cáo kết quả hoạt động kinh doanh của doanh nghiệp. 09. Khi xác định tiêu chuẩn thứ nhất (quy định tại mục a đoạn 06) của mỗi TSCĐ hữu hình, doanh nghiệp phải xác định mức độ chắc chắn của việc thu được lợi ích kinh tế trong tương lai, dựa trên các bằng chứng hiện có tại thời điểm ghi nhận ban đầu và phải chịu mọi rủi ro liên quan. Những tài sản sử dụng cho mục đích đảm bảo an toàn sản xuất, kinh doanh hoặc bảo vệ môi trường mặc dù không trực tiếp đem lại lợi ích kinh tế như các TSCĐ khác nhưng chúng lại cần thiết cho doanh nghiệp trong việc đạt được các lợi ích kinh tế nhiều hơn từ các tài sản khác. Tuy nhiên, các tài sản này chỉ được ghi nhận là TSCĐ hữu hình nếu nguyên giá của chúng và các tài sản có liên quan không vượt qu\n<</C3>>\n\n<<C4 src=\"149-2001-QD-BTC.pdf#12\">>\n[Unknown] \nệp phải bỏ ra để có được TSCĐ hữu hình tính đến thời điểm đưa tài sản đó vào trạng thái sẵn sàng sử dụng. Khấu hao: Là sự phân bổ một cách có hệ thống giá trị phải khấu hao của TSCĐ hữu hình trong suốt thời gian sử dụng hữu ích của tài sản đó. Giá trị phải khấu hao: Là nguyên giá của TSCĐ hữu hình ghi trên báo cáo tài chính, trừ (-) giá trị thanh lý ước tính của tài sản đó. Thời gian sử dụng hữu ích: Là thời gian mà TSCĐ hữu hình phát huy được tác dụng cho sản xuất, kinh doanh, được tính bằng: (a) Thời gian mà doanh nghiệp dự tính sử dụng TSCĐ hữu hình, hoặc: (b) Số lượng sản phẩm, hoặc các đơn vị tính tương tự mà doanh nghiệp dự tính thu được từ việc sử dụng tài sản. Giá trị thanh lý: Là giá trị ước tính thu được khi hết thời gian sử dụng hữu ích của tài sản, sau khi trừ (-) chi phí thanh lý ước tính. Giá trị hợp lý: Là giá trị tài sản có thể được trao đổi giữa các bên có đầy đủ hiểu biết trong sự trao đổi ngang giá. Giá trị còn lại: Là nguyên giá của TSCĐ hữu hình sau khi trừ (-) số khấu hao luỹ kế của tài sản đó. Giá trị có thể thu hồi: Là giá trị ước tính thu được trong tương lai từ việc sử dụng tài sản, bao gồm cả giá trị thanh lý của chúng. NỘI DUNG CHUẨN MỰC GHI NHẬN TSCĐ HỮU HÌNH 06. Tiêu chuẩn ghi nhận TSCĐ hữu hình: Các tài sản được ghi nhận là TSCĐ hữu hình phải thỏa mãn đồng thời tất cả bốn (4) tiêu chuẩn ghi nhận sau: (a) Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó; (b) Nguyên giá tài sản phải được xác định một cách đáng tin cậy; (c) Thời gian sử dụng ước tính trên 1 năm; (d) Có đủ tiêu chuẩn giá trị theo quy đị\n<</C4>>\n\n<<C5 src=\"149-2001-QD-BTC.pdf#23\">>\n[Unknown] \náo cáo tài chính. Ví dụ: Thời gian sử dụng hữu ích có thể được kéo dài thêm do việc cải thiện trạng thái của tài sản vượt trên trạng thái tiêu chuẩn ban đầu của nó, hoặc các thay đổi về kỹ thuật hay thay đổi nhu cầu về sản phẩm do một máy móc sản xuất ra có thể làm giảm thời gian sử dụng hữu ích của nó. 35. Chế độ sửa chữa và bảo dưỡng TSCĐ hữu hình có thể kéo dài thời gian sử dụng hữu ích thực tế hoặc làm tăng giá trị thanh lý ước tính của tài sản nhưng doanh nghiệp không được thay đổi mức khấu hao của tài sản. XEM XÉT LẠI PHƯƠNG PHÁP KHẤU HAO 36. Phương pháp khấu hao TSCĐ hữu hình phải được xem xét lại theo định kỳ, thường là cuối năm tài chính, nếu có sự thay đổi đáng kể trong cách thức sử dụng tài sản để đem lại lợi ích cho doanh nghiệp thì được thay đổi phương pháp khấu hao và mức khấu hao tính cho năm hiện hành và các năm tiếp theo. NHƯỢNG BÁN VÀ THANH LÝ TSCĐ HỮU HÌNH 37. TSCĐ hữu hình được ghi giảm khi thanh lý, nhượng bán. 38. Lãi hay lỗ phát sinh do thanh lý, nhượng bán TSCĐ hữu hình được xác định bằng số chênh lệch giữa thu nhập với chi phí thanh lý, nhượng bán cộng (+) giá trị còn lại của TSCĐ hữu hình. Số lãi, lỗ này được ghi nhận là một khoản thu nhập hay chi phí trên báo cáo kết quả hoạt động kinh doanh trong kỳ. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 39. Trong báo cáo tài chính, doanh nghiệp phải trình bày theo từng loại TSCĐ hữu hình về những thông tin sau: (a) Phương pháp xác định nguyên giá TSCĐ hữu hình; (b) Phương pháp khấu hao; Thời gian sử dụng hữu ích hoặc tỷ lệ khấu hao; (c) Nguyên giá, khấu hao luỹ kế và giá trị còn lại vào đầu năm và cuối kỳ; (d) Bản Thuyết minh báo cáo\n<</C5>>\n\n<<C6 src=\"149-2001-QD-BTC.pdf#14\">>\n[Unknown] \n lại lợi ích kinh tế như các TSCĐ khác nhưng chúng lại cần thiết cho doanh nghiệp trong việc đạt được các lợi ích kinh tế nhiều hơn từ các tài sản khác. Tuy nhiên, các tài sản này chỉ được ghi nhận là TSCĐ hữu hình nếu nguyên giá của chúng và các tài sản có liên quan không vượt quá tổng giá trị có thể thu hồi từ các tài sản đó và các tài sản khác có liên quan. Ví dụ, một nhà máy hóa chất có thể phải lắp đặt các thiết bị và thực hiện quy trình chứa và bảo quản hóa chất mới để tuân thủ yêu cầu về bảo vệ môi trường đối với việc sản xuất và lưu trữ hóa chất độc. Các tài sản lắp đặt liên quan đi kèm chỉ được hạch toán là TSCĐ hữu hình nếu không có chúng doanh nghiệp sẽ không thể hoạt động và bán sản phẩm hóa chất của mình. 10. Tiêu chuẩn thứ hai (quy định tại mục b đoạn 06) cho việc ghi nhận TSCĐ hữu hình thường đã được thỏa mãn vì nguyên giá tài sản được xác định thông qua mua sắm, trao đổi, hoặc tự xây dựng. 11. Khi xác định các bộ phận cấu thành TSCĐ hữu hình, doanh nghiệp phải áp dụng các tiêu chuẩn TSCĐ hữu hình cho từng trường hợp cụ thể. Doanh nghiệp có thể hợp nhất các bộ phận riêng biệt không chủ yếu, như khuôn đúc, công cụ, khuôn dập và áp dụng các tiêu chuẩn TSCĐ hữu hình vào tổng giá trị đó. Các phụ tùng và thiết bị phụ trợ thường được coi là tài sản lưu động và được hạch toán vào chi phí khi sử dụng. Các phụ tùng chủ yếu và các thiết bị bảo trì được xác định là TSCĐ hữu hình khi doanh nghiệp ước tính thời gian sử dụng chúng nhiều hơn một năm. Nếu phụ tùng và thiết bị bảo trì chỉ được dùng gắn liền với TSCĐ hữu hình và việc sử dụng chúng là không thường xuyên thì chúng được hạch toán là TSCĐ hữu hình riêng biệt và được khấu hao trong thời gian ít hơn thời gian sử dụng\n<</C6>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nều lần trong suốt thời gian sử dụng hữu ích của ngôi nhà đó thì các khoản chi phí phát sinh trong việc thay thế hay khôi phục máy điều hòa được hạch toán thành một tài sản độc lập và giá trị máy điều hoà khi được thay thế sẽ được ghi giảm. XÁC ĐỊNH GIÁ TRỊ SAU GHI NHẬN BAN ĐẦU 28. Sau khi ghi nhận ban đầu, trong quá trình sử dụng, TSCĐ hữu hình được xác định theo nguyên giá, khấu hao luỹ kế và giá trị còn lại. Trường hợp TSCĐ hữu hình được đánh giá lại theo quy định của Nhà nước thì nguyên giá, khấu hao luỹ kế và giá trị còn lại phải được điều chỉnh theo kết quả đánh giá lại. Chênh lệch do đánh giá lại TSCĐ hữu hình được xử lý và kế toán theo quy định của Nhà nước. KHẤU HAO 29. Giá trị phải khấu hao của TSCĐ hữu hình được phân bổ một cách có hệ thống trong thời gian sử dụng hữu ích của chúng. Phương pháp khấu hao phải phù hợp với lợi ích kinh tế mà tài sản đem lại cho doanh nghiệp. Số khấu hao của từng kỳ được hạch toán vào chi phí sản xuất, kinh doanh trong kỳ, trừ khi chúng được tính vào giá trị của các tài sản khác, như: Khấu hao TSCĐ hữu hình dùng cho các hoạt động trong giai đoạn triển khai là một bộ phận chi phí cấu thành nguyên giá TSCĐ vô hình (theo quy định của chuẩn mực TSCĐ vô hình), hoặc chi phí khấu hao TSCĐ hữu hình dùng cho quá trình tự xây dựng hoặc tự chế các tài sản khác. 30. Lợi ích kinh tế do TSCĐ hữu hình đem lại được doanh nghiệp khai thác dần bằng cách sử dụng các tài sản đó. Tuy nhiên, các nhân tố khác, như: Sự lạc hậu về kỹ thuật, sự hao mòn của tài sản do chúng không được sử dụng thường dẫn đến sự suy giảm lợi ích kinh tế mà doanh nghiệp ước tính các tài sản đó sẽ đem lại. Do đó, khi xác định thời g"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \núng nhiều hơn một năm. Nếu phụ tùng và thiết bị bảo trì chỉ được dùng gắn liền với TSCĐ hữu hình và việc sử dụng chúng là không thường xuyên thì chúng được hạch toán là TSCĐ hữu hình riêng biệt và được khấu hao trong thời gian ít hơn thời gian sử dụng hữu ích của TSCĐ hữu hình liên quan. 12. Trong từng trường hợp cụ thể, có thể phân bổ tổng chi phí của tài sản cho các bộ phận cấu thành của nó và hạch toán riêng biệt cho mỗi bộ phận cấu thành. Trường hợp này được áp dụng khi từng bộ phận cấu thành tài sản có thời gian sử dụng hữu ích khác nhau, hoặc góp phần tạo ra lợi ích kinh tế cho doanh nghiệp theo những tiêu chuẩn quy định khác nhau nên được sử dụng các tỷ lệ và các phương pháp khấu hao khác nhau. Ví dụ, một thân máy bay và động cơ của nó cần được hạch toán thành hai TSCĐ hữu hình riêng biệt, có tỷ lệ khấu hao khác nhau, nếu chúng có thời gian sử dụng hữu ích khác nhau. XÁC ĐỊNH GIÁ TRỊ BAN ĐẦU 13. TSCĐ hữu hình phải được xác định giá trị ban đầu theo nguyên giá. XÁC ĐỊNH NGUYÊN GIÁ TSCĐ HỮU HÌNH TRONG TỪNG TRƯỜNG HỢP TSCĐ hữu hình mua sắm 14. Nguyên giá TSCĐ hữu hình mua sắm bao gồm giá mua (trừ (-) các khoản được chiết khấu thương mại hoặc giảm giá), các khoản thuế (không bao gồm các khoản thuế được hoàn lại) và các chi phí liên quan trực tiếp đến việc đưa tài sản vào trạng thái sẵn sàng sử dụng, như: Chi phí chuẩn bị mặt bằng; Chi phí vận chuyển và bốc xếp ban đầu; Chi phí lắp đặt, chạy thử (trừ (-) các khoản thu hồi về sản phẩm, phế liệu do chạy thử); Chi phí chuyên gia và các chi phí liên quan trực tiếp khác. Đối với TSCĐ hữu hình hình thành do đầu tư xây dựng theo phương thức giao thầu, nguyên giá là gi"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n: (a) Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó; (b) Nguyên giá tài sản phải được xác định một cách đáng tin cậy; (c) Thời gian sử dụng ước tính trên 1 năm; (d) Có đủ tiêu chuẩn giá trị theo quy định hiện hành. 07. Kế toán TSCĐ hữu hình được phân loại theo nhóm tài sản có cùng tính chất và mục đích sử dụng trong hoạt động sản xuất, kinh doanh của doanh nghiệp, gồm: (a) Nhà cửa, vật kiến trúc; (b) Máy móc, thiết bị; (c) Phương tiện vận tải, thiết bị truyền dẫn; (d) Thiết bị, dụng cụ quản lý; (e) Vườn cây lâu năm, súc vật làm việc và cho sản phẩm; (f) TSCĐ hữu hình khác. 08. TSCĐ hữu hình thường là bộ phận chủ yếu trong tổng số tài sản và đóng vai trò quan trọng trong việc thể hiện tình hình tài chính của doanh nghiệp, vì vậy, việc xác định một tài sản có được ghi nhận là TSCĐ hữu hình hay là một khoản chi phí sản xuất, kinh doanh trong kỳ sẽ có ảnh hưởng đáng kể đến báo cáo kết quả hoạt động kinh doanh của doanh nghiệp. 09. Khi xác định tiêu chuẩn thứ nhất (quy định tại mục a đoạn 06) của mỗi TSCĐ hữu hình, doanh nghiệp phải xác định mức độ chắc chắn của việc thu được lợi ích kinh tế trong tương lai, dựa trên các bằng chứng hiện có tại thời điểm ghi nhận ban đầu và phải chịu mọi rủi ro liên quan. Những tài sản sử dụng cho mục đích đảm bảo an toàn sản xuất, kinh doanh hoặc bảo vệ môi trường mặc dù không trực tiếp đem lại lợi ích kinh tế như các TSCĐ khác nhưng chúng lại cần thiết cho doanh nghiệp trong việc đạt được các lợi ích kinh tế nhiều hơn từ các tài sản khác. Tuy nhiên, các tài sản này chỉ được ghi nhận là TSCĐ hữu hình nếu nguyên giá của chúng và các tài sản có liên quan không vượt qu"
+          },
+          "C4": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nệp phải bỏ ra để có được TSCĐ hữu hình tính đến thời điểm đưa tài sản đó vào trạng thái sẵn sàng sử dụng. Khấu hao: Là sự phân bổ một cách có hệ thống giá trị phải khấu hao của TSCĐ hữu hình trong suốt thời gian sử dụng hữu ích của tài sản đó. Giá trị phải khấu hao: Là nguyên giá của TSCĐ hữu hình ghi trên báo cáo tài chính, trừ (-) giá trị thanh lý ước tính của tài sản đó. Thời gian sử dụng hữu ích: Là thời gian mà TSCĐ hữu hình phát huy được tác dụng cho sản xuất, kinh doanh, được tính bằng: (a) Thời gian mà doanh nghiệp dự tính sử dụng TSCĐ hữu hình, hoặc: (b) Số lượng sản phẩm, hoặc các đơn vị tính tương tự mà doanh nghiệp dự tính thu được từ việc sử dụng tài sản. Giá trị thanh lý: Là giá trị ước tính thu được khi hết thời gian sử dụng hữu ích của tài sản, sau khi trừ (-) chi phí thanh lý ước tính. Giá trị hợp lý: Là giá trị tài sản có thể được trao đổi giữa các bên có đầy đủ hiểu biết trong sự trao đổi ngang giá. Giá trị còn lại: Là nguyên giá của TSCĐ hữu hình sau khi trừ (-) số khấu hao luỹ kế của tài sản đó. Giá trị có thể thu hồi: Là giá trị ước tính thu được trong tương lai từ việc sử dụng tài sản, bao gồm cả giá trị thanh lý của chúng. NỘI DUNG CHUẨN MỰC GHI NHẬN TSCĐ HỮU HÌNH 06. Tiêu chuẩn ghi nhận TSCĐ hữu hình: Các tài sản được ghi nhận là TSCĐ hữu hình phải thỏa mãn đồng thời tất cả bốn (4) tiêu chuẩn ghi nhận sau: (a) Chắc chắn thu được lợi ích kinh tế trong tương lai từ việc sử dụng tài sản đó; (b) Nguyên giá tài sản phải được xác định một cách đáng tin cậy; (c) Thời gian sử dụng ước tính trên 1 năm; (d) Có đủ tiêu chuẩn giá trị theo quy đị"
+          },
+          "C5": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \náo cáo tài chính. Ví dụ: Thời gian sử dụng hữu ích có thể được kéo dài thêm do việc cải thiện trạng thái của tài sản vượt trên trạng thái tiêu chuẩn ban đầu của nó, hoặc các thay đổi về kỹ thuật hay thay đổi nhu cầu về sản phẩm do một máy móc sản xuất ra có thể làm giảm thời gian sử dụng hữu ích của nó. 35. Chế độ sửa chữa và bảo dưỡng TSCĐ hữu hình có thể kéo dài thời gian sử dụng hữu ích thực tế hoặc làm tăng giá trị thanh lý ước tính của tài sản nhưng doanh nghiệp không được thay đổi mức khấu hao của tài sản. XEM XÉT LẠI PHƯƠNG PHÁP KHẤU HAO 36. Phương pháp khấu hao TSCĐ hữu hình phải được xem xét lại theo định kỳ, thường là cuối năm tài chính, nếu có sự thay đổi đáng kể trong cách thức sử dụng tài sản để đem lại lợi ích cho doanh nghiệp thì được thay đổi phương pháp khấu hao và mức khấu hao tính cho năm hiện hành và các năm tiếp theo. NHƯỢNG BÁN VÀ THANH LÝ TSCĐ HỮU HÌNH 37. TSCĐ hữu hình được ghi giảm khi thanh lý, nhượng bán. 38. Lãi hay lỗ phát sinh do thanh lý, nhượng bán TSCĐ hữu hình được xác định bằng số chênh lệch giữa thu nhập với chi phí thanh lý, nhượng bán cộng (+) giá trị còn lại của TSCĐ hữu hình. Số lãi, lỗ này được ghi nhận là một khoản thu nhập hay chi phí trên báo cáo kết quả hoạt động kinh doanh trong kỳ. TRÌNH BÀY BÁO CÁO TÀI CHÍNH 39. Trong báo cáo tài chính, doanh nghiệp phải trình bày theo từng loại TSCĐ hữu hình về những thông tin sau: (a) Phương pháp xác định nguyên giá TSCĐ hữu hình; (b) Phương pháp khấu hao; Thời gian sử dụng hữu ích hoặc tỷ lệ khấu hao; (c) Nguyên giá, khấu hao luỹ kế và giá trị còn lại vào đầu năm và cuối kỳ; (d) Bản Thuyết minh báo cáo"
+          },
+          "C6": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n lại lợi ích kinh tế như các TSCĐ khác nhưng chúng lại cần thiết cho doanh nghiệp trong việc đạt được các lợi ích kinh tế nhiều hơn từ các tài sản khác. Tuy nhiên, các tài sản này chỉ được ghi nhận là TSCĐ hữu hình nếu nguyên giá của chúng và các tài sản có liên quan không vượt quá tổng giá trị có thể thu hồi từ các tài sản đó và các tài sản khác có liên quan. Ví dụ, một nhà máy hóa chất có thể phải lắp đặt các thiết bị và thực hiện quy trình chứa và bảo quản hóa chất mới để tuân thủ yêu cầu về bảo vệ môi trường đối với việc sản xuất và lưu trữ hóa chất độc. Các tài sản lắp đặt liên quan đi kèm chỉ được hạch toán là TSCĐ hữu hình nếu không có chúng doanh nghiệp sẽ không thể hoạt động và bán sản phẩm hóa chất của mình. 10. Tiêu chuẩn thứ hai (quy định tại mục b đoạn 06) cho việc ghi nhận TSCĐ hữu hình thường đã được thỏa mãn vì nguyên giá tài sản được xác định thông qua mua sắm, trao đổi, hoặc tự xây dựng. 11. Khi xác định các bộ phận cấu thành TSCĐ hữu hình, doanh nghiệp phải áp dụng các tiêu chuẩn TSCĐ hữu hình cho từng trường hợp cụ thể. Doanh nghiệp có thể hợp nhất các bộ phận riêng biệt không chủ yếu, như khuôn đúc, công cụ, khuôn dập và áp dụng các tiêu chuẩn TSCĐ hữu hình vào tổng giá trị đó. Các phụ tùng và thiết bị phụ trợ thường được coi là tài sản lưu động và được hạch toán vào chi phí khi sử dụng. Các phụ tùng chủ yếu và các thiết bị bảo trì được xác định là TSCĐ hữu hình khi doanh nghiệp ước tính thời gian sử dụng chúng nhiều hơn một năm. Nếu phụ tùng và thiết bị bảo trì chỉ được dùng gắn liền với TSCĐ hữu hình và việc sử dụng chúng là không thường xuyên thì chúng được hạch toán là TSCĐ hữu hình riêng biệt và được khấu hao trong thời gian ít hơn thời gian sử dụng"
+          }
+        },
+        "context_tokens": 3098,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          3304
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n05",
+      "reference": "Phương pháp tỷ lệ hoàn thành, ghi nhận theo tỷ lệ phần công việc đã hoàn thành.",
+      "final": "Theo VAS 14, doanh thu từ dịch vụ thực hiện trong nhiều kỳ kế toán thường được xác định theo phương pháp tỷ lệ hoàn thành. Phương pháp này cho phép doanh thu được ghi nhận trong kỳ kế toán dựa trên tỷ lệ phần công việc đã hoàn thành vào ngày lập Bảng Cân đối kế toán của kỳ đó.\n\nCụ thể, tại đoạn 17 của VAS 14 quy định: Trường hợp giao dịch về cung cấp dịch vụ thực hiện trong nhiều kỳ kế toán thì việc xác định doanh thu của dịch vụ trong từng kỳ thường được thực hiện theo phương pháp tỷ lệ hoàn thành. Theo phương pháp này, doanh thu được ghi nhận trong kỳ kế toán được xác định theo tỷ lệ",
+      "persisted": true,
+      "ttft_seconds": 53.13903383305296,
+      "seconds": 81.56091212504543,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "full",
+        "question": "Theo VAS 14, doanh thu dịch vụ thực hiện trong nhiều kỳ thường được xác định theo phương pháp gì?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 15.887316833017394
+        },
+        "retrieved": [
+          {
+            "id": "5a8a9c3a-34aa-5784-9d0d-142217c6765a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "217c1093-06da-524a-8da5-c4f5815c192d",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "48963c1a-802e-532d-a443-62e454cbd966",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          },
+          {
+            "id": "aeb3ce05-dd55-568b-8df8-0bc0b32840df",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C4"
+          },
+          {
+            "id": "74416853-43aa-5416-9ba0-30678189296f",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C5"
+          },
+          {
+            "id": "0db0eaf7-414c-5ea5-bb1d-d5ad36e5beb6",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C6"
+          }
+        ],
+        "context": "<<C1 src=\"149-2001-QD-BTC.pdf#54\">>\n[Unknown] \n phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được ghi nhận tương ứng với chi phí đã ghi nhận và có thể thu hồi. 23. Trong giai đoạn đầu của một giao dịch về cung cấp dịch vụ, khi chưa xác định được kết quả một cách chắc chắn thì doanh thu được ghi nhận bằng chi phí đã ghi nhận và có thể thu hồi được. Nếu chi phí liên quan đến dịch vụ đó chắc chắn không thu hồi được thì không ghi nhận doanh thu, và chi phí đã phát sinh được hạch toán vào chi phí để xác định kết quả kinh doanh trong kỳ. Khi có bằng chứng tin cậy về các chi phí đã phát sinh sẽ thu hồi được thì doanh thu được ghi nhận theo quy định tại đoạn 16. DOANH THU TỪ TIỀN LÃI, TIỀN BẢN QUYỀN, CỔ TỨC VÀ LỢI NHUẬN ĐƯỢC CHIA 24. Doanh thu phát sinh từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia của doanh nghiệp được ghi nhận khi thỏa mãn đồng thời hai (2) điều kiện sau: (a) Có khả năng thu được lợi ích kinh tế từ giao dịch đó; (b) Doanh thu được xác định tương đối chắc chắn. 25. Doanh thu từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia được ghi nhận trên cơ sở: (a) Tiền lãi được ghi nhận trên cơ sở thời gian và lãi suất thực tế từng kỳ; (b) Tiền bản quyền được ghi nhận trên cơ sở dồn tích phù hợp với hợp đồng; (c) Cổ tức và lợi nhuận được chia được ghi nhận khi cổ đông được quyền nhận cổ tức hoặc các bên tham gia góp vốn được quyền nhận lợi nhuận từ việc góp vốn. 26. Lãi suất thực tế là tỷ lệ lãi dùng để quy đổi các khoản tiền nhận được trong tương lai trong suố\n<</C1>>\n\n<<C2 src=\"149-2001-QD-BTC.pdf#52\">>\n[Unknown] \n khoản nợ phải trả tại thời điểm nhận tiền trước của khách hàng. Khoản nợ phải trả về số tiền nhận trước của khách hàng chỉ được ghi nhận là doanh thu khi đồng thời thỏa mãn năm (5) điều kiện quy định ở đoạn 10. DOANH THU CUNG CẤP DỊCH VỤ 16. Doanh thu của giao dịch về cung cấp dịch vụ được ghi nhận khi kết quả của giao dịch đó được xác định một cách đáng tin cậy. Trường hợp giao dịch về cung cấp dịch vụ liên quan đến nhiều kỳ thì doanh thu được ghi nhận trong kỳ theo kết quả phần công việc đã hoàn thành vào ngày lập Bảng Cân đối kế toán của kỳ đó. Kết quả của giao dịch cung cấp dịch vụ được xác định khi thỏa mãn tất cả bốn (4) điều kiện sau: (a) Doanh thu được xác định tương đối chắc chắn; (b) Có khả năng thu được lợi ích kinh tế từ giao dịch cung cấp dịch vụ đó; (c) Xác định được phần công việc đã hoàn thành vào ngày lập Bảng Cân đối kế toán; (d) Xác định được chi phí phát sinh cho giao dịch và chi phí để hoàn thành giao dịch cung cấp dịch vụ đó. 17. Trường hợp giao dịch về cung cấp dịch vụ thực hiện trong nhiều kỳ kế toán thì việc xác định doanh thu của dịch vụ trong từng kỳ thường được thực hiện theo phương pháp tỷ lệ hoàn thành. Theo phương pháp này, doanh thu được ghi nhận trong kỳ kế toán được xác định theo tỷ lệ phần công việc đã hoàn thành. 18. Doanh thu cung cấp dịch vụ chỉ được ghi nhận khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Khi không thể thu hồi được khoản doanh thu đã ghi nhận thì phải hạch toán vào chi phí mà không được ghi giảm doanh thu. Khi không chắc chắn thu hồi được một khoản mà trước đó đã ghi vào doanh thu (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được b\n<</C2>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#51\">>\n[Unknown] \nanh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản thanh toán. 14. Doanh thu bán hàng được ghi nhận chỉ khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Trường hợp lợi ích kinh tế từ giao dịch bán hàng còn phụ thuộc yếu tố không chắc chắn thì chỉ ghi nhận doanh thu khi yếu tố không chắc chắn này đã xử lý xong (ví dụ, khi doanh nghiệp không chắc chắn là Chính phủ nước sở tại có chấp nhận chuyển tiền bán hàng ở nước ngoài về hay không). Nếu doanh thu đã được ghi nhận trong trường hợp chưa thu được tiền thì khi xác định khoản tiền nợ phải thu này là không thu được thì phải hạch toán vào chi phí sản xuất, kinh doanh trong kỳ mà không được ghi giảm doanh thu. Khi xác định khoản phải thu là không chắc chắn thu được (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Các khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được bù đắp bằng nguồn dự phòng nợ phải thu khó đòi. 15. Doanh thu và chi phí liên quan tới cùng một giao dịch phải được ghi nhận đồng thời theo nguyên tắc phù hợp. Các chi phí, bao gồm cả chi phí phát sinh sau ngày giao hàng (như chi phí bảo hành và chi phí khác), thường được xác định chắc chắn khi các điều kiện ghi nhận doanh thu được thỏa mãn. Các khoản tiền nhận trước của khách hàng không được ghi nhận là doanh thu mà được ghi nhận là một khoản nợ phải trả tại thời điểm nhận tiền trước của khách hàng. Khoản nợ phải trả về số tiền nhận trước của khách hàng chỉ được ghi nhận là doanh thu khi đồng thời thỏa mãn năm (5) điều kiện quy định ở đoạn 10. DOANH THU CUNG CẤP DỊCH VỤ 16. Doanh thu của\n<</C3>>\n\n<<C4 src=\"149-2001-QD-BTC.pdf#49\">>\n[Unknown] \n không xác định được giá trị hợp lý của hàng hóa hoặc dịch vụ nhận về thì doanh thu được xác định bằng giá trị hợp lý của hàng hóa hoặc dịch vụ đem trao đổi, sau khi điều chỉnh các khoản tiền hoặc tương đương tiền trả thêm hoặc thu thêm. NHẬN BIẾT GIAO DỊCH 09. Tiêu chuẩn nhận biết giao dịch trong chuẩn mực này được áp dụng riêng biệt cho từng giao dịch. Trong một số trường hợp, các tiêu chuẩn nhận biết giao dịch cần áp dụng tách biệt cho từng bộ phận của một giao dịch đơn lẻ để phản ánh bản chất của giao dịch đó. Ví dụ, khi trong giá bán một sản phẩm có một khoản đã định trước cho việc cung cấp dịch vụ sau bán hàng thì khoản doanh thu từ việc cung cấp dịch vụ sau bán hàng sẽ được dời lại cho đến khi doanh nghiệp thực hiện dịch vụ đó. Tiêu chuẩn nhận biết giao dịch còn được áp dụng cho hai hay nhiều giao dịch đồng thời có quan hệ với nhau về mặt thương mại. Trường hợp này phải xem xét chúng trong mối quan hệ tổng thể. Ví dụ, doanh nghiệp thực hiện việc bán hàng và đồng thời ký một hợp đồng khác để mua lại chính các hàng hóa đó sau một thời gian thì phải đồng thời xem xét cả hai hợp đồng và doanh thu không được ghi nhận. DOANH THU BÁN HÀNG 10. Doanh thu bán hàng được ghi nhận khi đồng thời thỏa mãn tất cả năm (5) điều kiện sau: (a) Doanh nghiệp đã chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu sản phẩm hoặc hàng hóa cho người mua; (b) Doanh nghiệp không còn nắm giữ quyền quản lý hàng hóa như người sở hữu hàng hóa hoặc quyền kiểm soát hàng hóa; (c) Doanh thu được xác định tương đối chắc chắn; (d) Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng; (e) Xác định được chi phí liên quan đến giao dịch bán hàng. 11. Doanh nghiệp phải xác định\n<</C4>>\n\n<<C5 src=\"149-2001-QD-BTC.pdf#48\">>\n[Unknown] \ný thu hộ tiền bán hàng cho đơn vị chủ hàng, thì doanh thu của người nhận đại lý chỉ là tiền hoa hồng được hưởng). Các khoản góp vốn của cổ đông hoặc chủ sở hữu làm tăng vốn chủ sở hữu nhưng không là doanh thu. XÁC ĐỊNH DOANH THU 05. Doanh thu được xác định theo giá trị hợp lý của các khoản đã thu hoặc sẽ thu được. 06. Doanh thu phát sinh từ giao dịch được xác định bởi thỏa thuận giữa doanh nghiệp với bên mua hoặc bên sử dụng tài sản. Nó được xác định bằng giá trị hợp lý của các khoản đã thu được hoặc sẽ thu được sau khi trừ (-) các khoản chiết khấu thương mại, chiết khấu thanh toán, giảm giá hàng bán và giá trị hàng bán bị trả lại. 07. Đối với các khoản tiền hoặc tương đương tiền không được nhận ngay thì doanh thu được xác định bằng cách quy đổi giá trị danh nghĩa của các khoản sẽ thu được trong tương lai về giá trị thực tế tại thời điểm ghi nhận doanh thu theo tỷ lệ lãi suất hiện hành. Giá trị thực tế tại thời điểm ghi nhận doanh thu có thể nhỏ hơn giá trị danh nghĩa sẽ thu được trong tương lai. 08. Khi hàng hóa hoặc dịch vụ được trao đổi để lấy hàng hóa hoặc dịch vụ tương tự về bản chất và giá trị thì việc trao đổi đó không được coi là một giao dịch tạo ra doanh thu. Khi hàng hóa hoặc dịch vụ được trao đổi để lấy hàng hóa hoặc dịch vụ khác không tương tự thì việc trao đổi đó được coi là một giao dịch tạo ra doanh thu. Trường hợp này doanh thu được xác định bằng giá trị hợp lý của hàng hóa hoặc dịch vụ nhận về, sau khi điều chỉnh các khoản tiền hoặc tương đương tiền trả thêm hoặc thu thêm. Khi không xác định được giá trị hợp lý của hàng hóa hoặc dịch vụ nhận về thì doanh thu được xác định bằng giá trị hợp lý của hàng hóa hoặc dịch vụ đem trao đổi, sau khi điều chỉnh các khoản tiền hoặc tương đương tiền trả thêm hoặc thu thêm. NHẬN BIẾT GIAO D�\n<</C5>>\n\n<<C6 src=\"149-2001-QD-BTC.pdf#53\">>\n[Unknown] \n không được ghi giảm doanh thu. Khi không chắc chắn thu hồi được một khoản mà trước đó đã ghi vào doanh thu (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được bù đắp bằng nguồn dự phòng nợ phải thu khó đòi. 19. Doanh nghiệp có thể ước tính doanh thu cung cấp dịch vụ khi thỏa thuận được với bên đối tác giao dịch những điều kiện sau: (a) Trách nhiệm và quyền của mỗi bên trong việc cung cấp hoặc nhận dịch vụ; (b) Giá thanh toán; (c) Thời hạn và phương thức thanh toán. Để ước tính doanh thu cung cấp dịch vụ, doanh nghiệp phải có hệ thống kế hoạch tài chính và kế toán phù hợp. Khi cần thiết, doanh nghiệp có quyền xem xét và sửa đổi cách ước tính doanh thu trong quá trình cung cấp dịch vụ. 20. Phần công việc đã hoàn thành được xác định theo một trong ba phương pháp sau, tuỳ thuộc vào bản chất của dịch vụ: (a) Đánh giá phần công việc đã hoàn thành; (b) So sánh tỷ lệ (%) giữa khối lượng công việc đã hoàn thành với tổng khối lượng công việc phải hoàn thành; (c) Tỷ lệ (%) chi phí đã phát sinh so với tổng chi phí ước tính để hoàn thành toàn bộ giao dịch cung cấp dịch vụ. Phần công việc đã hoàn thành không phụ thuộc vào các khoản thanh toán định kỳ hay các khoản ứng trước của khách hàng. 21. Trường hợp dịch vụ được thực hiện bằng nhiều hoạt động khác nhau mà không tách biệt được, và được thực hiện trong nhiều kỳ kế toán nhất định thì doanh thu từng kỳ được ghi nhận theo phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được g\n<</C6>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được ghi nhận tương ứng với chi phí đã ghi nhận và có thể thu hồi. 23. Trong giai đoạn đầu của một giao dịch về cung cấp dịch vụ, khi chưa xác định được kết quả một cách chắc chắn thì doanh thu được ghi nhận bằng chi phí đã ghi nhận và có thể thu hồi được. Nếu chi phí liên quan đến dịch vụ đó chắc chắn không thu hồi được thì không ghi nhận doanh thu, và chi phí đã phát sinh được hạch toán vào chi phí để xác định kết quả kinh doanh trong kỳ. Khi có bằng chứng tin cậy về các chi phí đã phát sinh sẽ thu hồi được thì doanh thu được ghi nhận theo quy định tại đoạn 16. DOANH THU TỪ TIỀN LÃI, TIỀN BẢN QUYỀN, CỔ TỨC VÀ LỢI NHUẬN ĐƯỢC CHIA 24. Doanh thu phát sinh từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia của doanh nghiệp được ghi nhận khi thỏa mãn đồng thời hai (2) điều kiện sau: (a) Có khả năng thu được lợi ích kinh tế từ giao dịch đó; (b) Doanh thu được xác định tương đối chắc chắn. 25. Doanh thu từ tiền lãi, tiền bản quyền, cổ tức và lợi nhuận được chia được ghi nhận trên cơ sở: (a) Tiền lãi được ghi nhận trên cơ sở thời gian và lãi suất thực tế từng kỳ; (b) Tiền bản quyền được ghi nhận trên cơ sở dồn tích phù hợp với hợp đồng; (c) Cổ tức và lợi nhuận được chia được ghi nhận khi cổ đông được quyền nhận cổ tức hoặc các bên tham gia góp vốn được quyền nhận lợi nhuận từ việc góp vốn. 26. Lãi suất thực tế là tỷ lệ lãi dùng để quy đổi các khoản tiền nhận được trong tương lai trong suố"
+          },
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n khoản nợ phải trả tại thời điểm nhận tiền trước của khách hàng. Khoản nợ phải trả về số tiền nhận trước của khách hàng chỉ được ghi nhận là doanh thu khi đồng thời thỏa mãn năm (5) điều kiện quy định ở đoạn 10. DOANH THU CUNG CẤP DỊCH VỤ 16. Doanh thu của giao dịch về cung cấp dịch vụ được ghi nhận khi kết quả của giao dịch đó được xác định một cách đáng tin cậy. Trường hợp giao dịch về cung cấp dịch vụ liên quan đến nhiều kỳ thì doanh thu được ghi nhận trong kỳ theo kết quả phần công việc đã hoàn thành vào ngày lập Bảng Cân đối kế toán của kỳ đó. Kết quả của giao dịch cung cấp dịch vụ được xác định khi thỏa mãn tất cả bốn (4) điều kiện sau: (a) Doanh thu được xác định tương đối chắc chắn; (b) Có khả năng thu được lợi ích kinh tế từ giao dịch cung cấp dịch vụ đó; (c) Xác định được phần công việc đã hoàn thành vào ngày lập Bảng Cân đối kế toán; (d) Xác định được chi phí phát sinh cho giao dịch và chi phí để hoàn thành giao dịch cung cấp dịch vụ đó. 17. Trường hợp giao dịch về cung cấp dịch vụ thực hiện trong nhiều kỳ kế toán thì việc xác định doanh thu của dịch vụ trong từng kỳ thường được thực hiện theo phương pháp tỷ lệ hoàn thành. Theo phương pháp này, doanh thu được ghi nhận trong kỳ kế toán được xác định theo tỷ lệ phần công việc đã hoàn thành. 18. Doanh thu cung cấp dịch vụ chỉ được ghi nhận khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Khi không thể thu hồi được khoản doanh thu đã ghi nhận thì phải hạch toán vào chi phí mà không được ghi giảm doanh thu. Khi không chắc chắn thu hồi được một khoản mà trước đó đã ghi vào doanh thu (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được b"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \nanh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản thanh toán. 14. Doanh thu bán hàng được ghi nhận chỉ khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Trường hợp lợi ích kinh tế từ giao dịch bán hàng còn phụ thuộc yếu tố không chắc chắn thì chỉ ghi nhận doanh thu khi yếu tố không chắc chắn này đã xử lý xong (ví dụ, khi doanh nghiệp không chắc chắn là Chính phủ nước sở tại có chấp nhận chuyển tiền bán hàng ở nước ngoài về hay không). Nếu doanh thu đã được ghi nhận trong trường hợp chưa thu được tiền thì khi xác định khoản tiền nợ phải thu này là không thu được thì phải hạch toán vào chi phí sản xuất, kinh doanh trong kỳ mà không được ghi giảm doanh thu. Khi xác định khoản phải thu là không chắc chắn thu được (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Các khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được bù đắp bằng nguồn dự phòng nợ phải thu khó đòi. 15. Doanh thu và chi phí liên quan tới cùng một giao dịch phải được ghi nhận đồng thời theo nguyên tắc phù hợp. Các chi phí, bao gồm cả chi phí phát sinh sau ngày giao hàng (như chi phí bảo hành và chi phí khác), thường được xác định chắc chắn khi các điều kiện ghi nhận doanh thu được thỏa mãn. Các khoản tiền nhận trước của khách hàng không được ghi nhận là doanh thu mà được ghi nhận là một khoản nợ phải trả tại thời điểm nhận tiền trước của khách hàng. Khoản nợ phải trả về số tiền nhận trước của khách hàng chỉ được ghi nhận là doanh thu khi đồng thời thỏa mãn năm (5) điều kiện quy định ở đoạn 10. DOANH THU CUNG CẤP DỊCH VỤ 16. Doanh thu của"
+          },
+          "C4": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n không xác định được giá trị hợp lý của hàng hóa hoặc dịch vụ nhận về thì doanh thu được xác định bằng giá trị hợp lý của hàng hóa hoặc dịch vụ đem trao đổi, sau khi điều chỉnh các khoản tiền hoặc tương đương tiền trả thêm hoặc thu thêm. NHẬN BIẾT GIAO DỊCH 09. Tiêu chuẩn nhận biết giao dịch trong chuẩn mực này được áp dụng riêng biệt cho từng giao dịch. Trong một số trường hợp, các tiêu chuẩn nhận biết giao dịch cần áp dụng tách biệt cho từng bộ phận của một giao dịch đơn lẻ để phản ánh bản chất của giao dịch đó. Ví dụ, khi trong giá bán một sản phẩm có một khoản đã định trước cho việc cung cấp dịch vụ sau bán hàng thì khoản doanh thu từ việc cung cấp dịch vụ sau bán hàng sẽ được dời lại cho đến khi doanh nghiệp thực hiện dịch vụ đó. Tiêu chuẩn nhận biết giao dịch còn được áp dụng cho hai hay nhiều giao dịch đồng thời có quan hệ với nhau về mặt thương mại. Trường hợp này phải xem xét chúng trong mối quan hệ tổng thể. Ví dụ, doanh nghiệp thực hiện việc bán hàng và đồng thời ký một hợp đồng khác để mua lại chính các hàng hóa đó sau một thời gian thì phải đồng thời xem xét cả hai hợp đồng và doanh thu không được ghi nhận. DOANH THU BÁN HÀNG 10. Doanh thu bán hàng được ghi nhận khi đồng thời thỏa mãn tất cả năm (5) điều kiện sau: (a) Doanh nghiệp đã chuyển giao phần lớn rủi ro và lợi ích gắn liền với quyền sở hữu sản phẩm hoặc hàng hóa cho người mua; (b) Doanh nghiệp không còn nắm giữ quyền quản lý hàng hóa như người sở hữu hàng hóa hoặc quyền kiểm soát hàng hóa; (c) Doanh thu được xác định tương đối chắc chắn; (d) Doanh nghiệp đã thu được hoặc sẽ thu được lợi ích kinh tế từ giao dịch bán hàng; (e) Xác định được chi phí liên quan đến giao dịch bán hàng. 11. Doanh nghiệp phải xác định"
+          },
+          "C5": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \ný thu hộ tiền bán hàng cho đơn vị chủ hàng, thì doanh thu của người nhận đại lý chỉ là tiền hoa hồng được hưởng). Các khoản góp vốn của cổ đông hoặc chủ sở hữu làm tăng vốn chủ sở hữu nhưng không là doanh thu. XÁC ĐỊNH DOANH THU 05. Doanh thu được xác định theo giá trị hợp lý của các khoản đã thu hoặc sẽ thu được. 06. Doanh thu phát sinh từ giao dịch được xác định bởi thỏa thuận giữa doanh nghiệp với bên mua hoặc bên sử dụng tài sản. Nó được xác định bằng giá trị hợp lý của các khoản đã thu được hoặc sẽ thu được sau khi trừ (-) các khoản chiết khấu thương mại, chiết khấu thanh toán, giảm giá hàng bán và giá trị hàng bán bị trả lại. 07. Đối với các khoản tiền hoặc tương đương tiền không được nhận ngay thì doanh thu được xác định bằng cách quy đổi giá trị danh nghĩa của các khoản sẽ thu được trong tương lai về giá trị thực tế tại thời điểm ghi nhận doanh thu theo tỷ lệ lãi suất hiện hành. Giá trị thực tế tại thời điểm ghi nhận doanh thu có thể nhỏ hơn giá trị danh nghĩa sẽ thu được trong tương lai. 08. Khi hàng hóa hoặc dịch vụ được trao đổi để lấy hàng hóa hoặc dịch vụ tương tự về bản chất và giá trị thì việc trao đổi đó không được coi là một giao dịch tạo ra doanh thu. Khi hàng hóa hoặc dịch vụ được trao đổi để lấy hàng hóa hoặc dịch vụ khác không tương tự thì việc trao đổi đó được coi là một giao dịch tạo ra doanh thu. Trường hợp này doanh thu được xác định bằng giá trị hợp lý của hàng hóa hoặc dịch vụ nhận về, sau khi điều chỉnh các khoản tiền hoặc tương đương tiền trả thêm hoặc thu thêm. Khi không xác định được giá trị hợp lý của hàng hóa hoặc dịch vụ nhận về thì doanh thu được xác định bằng giá trị hợp lý của hàng hóa hoặc dịch vụ đem trao đổi, sau khi điều chỉnh các khoản tiền hoặc tương đương tiền trả thêm hoặc thu thêm. NHẬN BIẾT GIAO D�"
+          },
+          "C6": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] \n không được ghi giảm doanh thu. Khi không chắc chắn thu hồi được một khoản mà trước đó đã ghi vào doanh thu (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được bù đắp bằng nguồn dự phòng nợ phải thu khó đòi. 19. Doanh nghiệp có thể ước tính doanh thu cung cấp dịch vụ khi thỏa thuận được với bên đối tác giao dịch những điều kiện sau: (a) Trách nhiệm và quyền của mỗi bên trong việc cung cấp hoặc nhận dịch vụ; (b) Giá thanh toán; (c) Thời hạn và phương thức thanh toán. Để ước tính doanh thu cung cấp dịch vụ, doanh nghiệp phải có hệ thống kế hoạch tài chính và kế toán phù hợp. Khi cần thiết, doanh nghiệp có quyền xem xét và sửa đổi cách ước tính doanh thu trong quá trình cung cấp dịch vụ. 20. Phần công việc đã hoàn thành được xác định theo một trong ba phương pháp sau, tuỳ thuộc vào bản chất của dịch vụ: (a) Đánh giá phần công việc đã hoàn thành; (b) So sánh tỷ lệ (%) giữa khối lượng công việc đã hoàn thành với tổng khối lượng công việc phải hoàn thành; (c) Tỷ lệ (%) chi phí đã phát sinh so với tổng chi phí ước tính để hoàn thành toàn bộ giao dịch cung cấp dịch vụ. Phần công việc đã hoàn thành không phụ thuộc vào các khoản thanh toán định kỳ hay các khoản ứng trước của khách hàng. 21. Trường hợp dịch vụ được thực hiện bằng nhiều hoạt động khác nhau mà không tách biệt được, và được thực hiện trong nhiều kỳ kế toán nhất định thì doanh thu từng kỳ được ghi nhận theo phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được g"
+          }
+        },
+        "context_tokens": 3112,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          3318
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n05",
+      "reference": "Phương pháp tỷ lệ hoàn thành, ghi nhận theo tỷ lệ phần công việc đã hoàn thành.",
+      "final": "Theo VAS 14, doanh thu dịch vụ thực hiện trong nhiều kỳ thường được xác định theo phương pháp tỷ lệ hoàn thành (phương pháp này cho phép doanh thu được ghi nhận trong kỳ kế toán dựa trên tỷ lệ phần công việc đã hoàn thành). [C2]",
+      "persisted": true,
+      "ttft_seconds": 26.371398707851768,
+      "seconds": 37.3104276668746,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C2",
+          "doc_id": "149-2001-QD-BTC.pdf",
+          "chunk_id": "52",
+          "snippet": "cho giao dịch và chi phí để hoàn thành giao dịch cung cấp dịch vụ đó. 17. Trường hợp giao dịch về cung cấp dịch vụ thực hiện trong nhiều kỳ kế toán thì việc xác định doanh thu của dịch vụ trong từng k",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 2,
+      "marker_total": 2,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Theo VAS 14, doanh thu dịch vụ thực hiện trong nhiều kỳ thường được xác định theo phương pháp gì?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 13.00862208288163
+        },
+        "retrieved": [
+          {
+            "id": "5a8a9c3a-34aa-5784-9d0d-142217c6765a",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C1"
+          },
+          {
+            "id": "217c1093-06da-524a-8da5-c4f5815c192d",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C2"
+          },
+          {
+            "id": "48963c1a-802e-532d-a443-62e454cbd966",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C3"
+          },
+          {
+            "id": "aeb3ce05-dd55-568b-8df8-0bc0b32840df",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C4"
+          },
+          {
+            "id": "74416853-43aa-5416-9ba0-30678189296f",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C5"
+          },
+          {
+            "id": "0db0eaf7-414c-5ea5-bb1d-d5ad36e5beb6",
+            "source": "149-2001-QD-BTC.pdf",
+            "key": "C6"
+          }
+        ],
+        "context": "<<C2 src=\"149-2001-QD-BTC.pdf#52\">>\ncho giao dịch và chi phí để hoàn thành giao dịch cung cấp dịch vụ đó. 17. Trường hợp giao dịch về cung cấp dịch vụ thực hiện trong nhiều kỳ kế toán thì việc xác định doanh thu của dịch vụ trong từng kỳ thường được thực hiện theo phương pháp tỷ lệ hoàn thành. Theo phương pháp này, doanh thu được ghi nhận trong kỳ kế toán được xác định theo tỷ lệ phần công việc đã hoàn thành. 18. Doanh thu cung cấp dịch vụ chỉ được ghi nhận khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Khi không thể\n<</C2>>\n\n<<C6 src=\"149-2001-QD-BTC.pdf#53\">>\n(a) Trách nhiệm và quyền của mỗi bên trong việc cung cấp hoặc nhận dịch vụ; (b) Giá thanh toán; (c) Thời hạn và phương thức thanh toán. Để ước tính doanh thu cung cấp dịch vụ, doanh nghiệp phải có hệ thống kế hoạch tài chính và kế toán phù hợp. Khi cần thiết, doanh nghiệp có quyền xem xét và sửa đổi cách ước tính doanh thu trong quá trình cung cấp dịch vụ. 20. Phần công việc đã hoàn thành được xác định theo một trong ba phương pháp sau, tuỳ thuộc vào bản chất của dịch vụ: (a) Đánh giá phần công việc đã hoàn thành;\n\nhoàn thành toàn bộ giao dịch cung cấp dịch vụ. Phần công việc đã hoàn thành không phụ thuộc vào các khoản thanh toán định kỳ hay các khoản ứng trước của khách hàng. 21. Trường hợp dịch vụ được thực hiện bằng nhiều hoạt động khác nhau mà không tách biệt được, và được thực hiện trong nhiều kỳ kế toán nhất định thì doanh thu từng kỳ được ghi nhận theo phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của\n<</C6>>\n\n<<C1 src=\"149-2001-QD-BTC.pdf#54\">>\n[Unknown] phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được ghi nhận tương ứng với chi phí đã ghi nhận và có thể thu hồi. 23. Trong giai đoạn đầu của một giao dịch về cung cấp dịch vụ, khi chưa xác định được kết quả một cách chắc chắn thì doanh thu được ghi nhận bằng chi phí đã ghi nhận và\n<</C1>>\n\n<<C4 src=\"149-2001-QD-BTC.pdf#49\">>\nsẽ được dời lại cho đến khi doanh nghiệp thực hiện dịch vụ đó. Tiêu chuẩn nhận biết giao dịch còn được áp dụng cho hai hay nhiều giao dịch đồng thời có quan hệ với nhau về mặt thương mại. Trường hợp này phải xem xét chúng trong mối quan hệ tổng thể. Ví dụ, doanh nghiệp thực hiện việc bán hàng và đồng thời ký một hợp đồng khác để mua lại chính các hàng hóa đó sau một thời gian thì phải đồng thời xem xét cả hai hợp đồng và doanh thu không được ghi nhận. DOANH THU BÁN HÀNG 10. Doanh thu bán hàng được\n<</C4>>\n\n<<C3 src=\"149-2001-QD-BTC.pdf#51\">>\n[Unknown] anh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản thanh toán. 14. Doanh thu bán hàng được ghi nhận chỉ khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Trường hợp lợi ích kinh tế từ giao dịch bán hàng còn phụ thuộc yếu tố không chắc chắn thì chỉ ghi nhận doanh thu khi\n\nthu là không chắc chắn thu được (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Các khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được bù đắp bằng nguồn dự phòng nợ phải thu khó đòi. 15. Doanh thu và chi phí liên quan tới cùng một giao dịch phải được ghi nhận đồng thời theo nguyên tắc phù hợp. Các chi phí, bao gồm cả chi phí phát sinh sau ngày giao hàng (như chi phí bảo hành và chi phí khác), thường được xác định chắc chắn\n<</C3>>",
+        "prompt_chunks": {
+          "C2": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "cho giao dịch và chi phí để hoàn thành giao dịch cung cấp dịch vụ đó. 17. Trường hợp giao dịch về cung cấp dịch vụ thực hiện trong nhiều kỳ kế toán thì việc xác định doanh thu của dịch vụ trong từng kỳ thường được thực hiện theo phương pháp tỷ lệ hoàn thành. Theo phương pháp này, doanh thu được ghi nhận trong kỳ kế toán được xác định theo tỷ lệ phần công việc đã hoàn thành. 18. Doanh thu cung cấp dịch vụ chỉ được ghi nhận khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Khi không thể"
+          },
+          "C6": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "(a) Trách nhiệm và quyền của mỗi bên trong việc cung cấp hoặc nhận dịch vụ; (b) Giá thanh toán; (c) Thời hạn và phương thức thanh toán. Để ước tính doanh thu cung cấp dịch vụ, doanh nghiệp phải có hệ thống kế hoạch tài chính và kế toán phù hợp. Khi cần thiết, doanh nghiệp có quyền xem xét và sửa đổi cách ước tính doanh thu trong quá trình cung cấp dịch vụ. 20. Phần công việc đã hoàn thành được xác định theo một trong ba phương pháp sau, tuỳ thuộc vào bản chất của dịch vụ: (a) Đánh giá phần công việc đã hoàn thành;\n\nhoàn thành toàn bộ giao dịch cung cấp dịch vụ. Phần công việc đã hoàn thành không phụ thuộc vào các khoản thanh toán định kỳ hay các khoản ứng trước của khách hàng. 21. Trường hợp dịch vụ được thực hiện bằng nhiều hoạt động khác nhau mà không tách biệt được, và được thực hiện trong nhiều kỳ kế toán nhất định thì doanh thu từng kỳ được ghi nhận theo phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của"
+          },
+          "C1": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] phương pháp bình quân. Khi có một hoạt động cơ bản so với các hoạt động khác thì việc ghi nhận doanh thu được thực hiện theo hoạt động cơ bản đó. 22. Khi kết quả của một giao dịch về cung cấp dịch vụ không thể xác định được chắc chắn thì doanh thu được ghi nhận tương ứng với chi phí đã ghi nhận và có thể thu hồi. 23. Trong giai đoạn đầu của một giao dịch về cung cấp dịch vụ, khi chưa xác định được kết quả một cách chắc chắn thì doanh thu được ghi nhận bằng chi phí đã ghi nhận và"
+          },
+          "C4": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "sẽ được dời lại cho đến khi doanh nghiệp thực hiện dịch vụ đó. Tiêu chuẩn nhận biết giao dịch còn được áp dụng cho hai hay nhiều giao dịch đồng thời có quan hệ với nhau về mặt thương mại. Trường hợp này phải xem xét chúng trong mối quan hệ tổng thể. Ví dụ, doanh nghiệp thực hiện việc bán hàng và đồng thời ký một hợp đồng khác để mua lại chính các hàng hóa đó sau một thời gian thì phải đồng thời xem xét cả hai hợp đồng và doanh thu không được ghi nhận. DOANH THU BÁN HÀNG 10. Doanh thu bán hàng được"
+          },
+          "C3": {
+            "source": "149-2001-QD-BTC.pdf",
+            "text": "[Unknown] anh nghiệp chỉ còn phải chịu một phần nhỏ rủi ro gắn liền với quyền sở hữu hàng hóa thì việc bán hàng được xác định và doanh thu được ghi nhận. Ví dụ doanh nghiệp còn nắm giữ giấy tờ về quyền sở hữu hàng hóa chỉ để đảm bảo sẽ nhận được đủ các khoản thanh toán. 14. Doanh thu bán hàng được ghi nhận chỉ khi đảm bảo là doanh nghiệp nhận được lợi ích kinh tế từ giao dịch. Trường hợp lợi ích kinh tế từ giao dịch bán hàng còn phụ thuộc yếu tố không chắc chắn thì chỉ ghi nhận doanh thu khi\n\nthu là không chắc chắn thu được (Nợ phải thu khó đòi) thì phải lập dự phòng nợ phải thu khó đòi mà không ghi giảm doanh thu. Các khoản nợ phải thu khó đòi khi xác định thực sự là không đòi được thì được bù đắp bằng nguồn dự phòng nợ phải thu khó đòi. 15. Doanh thu và chi phí liên quan tới cùng một giao dịch phải được ghi nhận đồng thời theo nguyên tắc phù hợp. Các chi phí, bao gồm cả chi phí phát sinh sau ngày giao hàng (như chi phí bảo hành và chi phí khác), thường được xác định chắc chắn"
+          }
+        },
+        "context_tokens": 1118,
+        "body_budget": 1024,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          1324
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n06",
+      "reference": "Không ghi nhận là nợ phải trả tại ngày kết thúc kỳ, trình bày trong Bản thuyết minh báo cáo tài chính.",
+      "final": "Theo VAS 23, nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày phát hành báo cáo tài chính, khoản cổ tức này không cần ghi nhận như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. Thay vào đó, doanh nghiệp cần trình bày thông tin về sự kiện này trong phần chú giải hoặc phần trình bày bổ sung của báo cáo tài chính [C1][C6].",
+      "persisted": true,
+      "ttft_seconds": 23.17857858305797,
+      "seconds": 39.27385037508793,
+      "errors": [],
+      "citations": [
+        {
+          "type": "citation",
+          "key": "C1",
+          "doc_id": "12-2005-QD-BTC.doc",
+          "chunk_id": "50",
+          "snippet": "[Unknown] kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được cô",
+          "standard_code": null
+        },
+        {
+          "type": "citation",
+          "key": "C6",
+          "doc_id": "12-2005-QD-BTC.doc",
+          "chunk_id": "49",
+          "snippet": "không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trư",
+          "standard_code": null
+        }
+      ],
+      "unresolved_keys": [],
+      "evidence_in_context": 0,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "adaptive",
+        "question": "Cổ tức công bố sau ngày kết thúc kỳ kế toán năm nhưng trước khi phát hành BCTC. VAS 23 yêu cầu ghi nhận nợ phải trả tại ngày kết thúc kỳ hay trình bày ở đâu?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 13.924355166964233
+        },
+        "retrieved": [
+          {
+            "id": "fb9b56a2-f129-5563-9070-4560b4fadb58",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C1"
+          },
+          {
+            "id": "58bb8f3a-bb98-5eb0-bf4c-1801e01a551b",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C2"
+          },
+          {
+            "id": "456cf08b-1a19-5e0d-8624-f8b93b469f54",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C3"
+          },
+          {
+            "id": "761b0466-8491-5ba8-9ef5-722c24aa924d",
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "key": "C4"
+          },
+          {
+            "id": "0bf73981-472a-53d4-90f9-aca64021b6b3",
+            "source": "100-2005-QD-BTC.pdf",
+            "key": "C5"
+          },
+          {
+            "id": "7100d028-f1a6-5b63-8791-ced52c17d0ef",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C6"
+          },
+          {
+            "id": "4069b3e8-5c84-51f3-92d0-8a3bd230f993",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C7"
+          }
+        ],
+        "context": "<<C1 src=\"12-2005-QD-BTC.doc#50\">>\n[Unknown] kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày phát hành báo cáo tài chính, thì khoản cổ tức này không phải\n<</C1>>\n\n<<C6 src=\"12-2005-QD-BTC.doc#49\">>\nkhông phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày\n<</C6>>\n\n<<C3 src=\"12-2005-QD-BTC.doc#51\">>\nkỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan\n\ndụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điề\n<</C3>>\n\n<<C7 src=\"12-2005-QD-BTC.doc#48\">>\n[Unknown] quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo tài chính. 05. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán\n<</C7>>\n\n<<C2 src=\"12-2005-QD-BTC.doc#31\">>\nthu nhập hoãn lại và thuế thu nhập hoãn lại phải trả và thuế thu nhập hiện hành của doanh nghiệp (xem Chuẩn mực kế toán số 23 “Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm”)./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 22 TRÌNH BÀY BỔ SUNG BÁO CÁO TÀI CHÍNH CỦA CÁC NGÂN HÀNG VÀ TỔ CHỨC TÀI CHÍNH\n<</C2>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày phát hành báo cáo tài chính, thì khoản cổ tức này không phải"
+          },
+          "C6": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày"
+          },
+          "C3": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan\n\ndụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điề"
+          },
+          "C7": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo tài chính. 05. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán"
+          },
+          "C2": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả và thuế thu nhập hiện hành của doanh nghiệp (xem Chuẩn mực kế toán số 23 “Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm”)./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 22 TRÌNH BÀY BỔ SUNG BÁO CÁO TÀI CHÍNH CỦA CÁC NGÂN HÀNG VÀ TỔ CHỨC TÀI CHÍNH"
+          }
+        },
+        "context_tokens": 619,
+        "body_budget": 512,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          825
+        ]
+      }
+    },
+    {
+      "id": "vas-api-n06",
+      "reference": "Không ghi nhận là nợ phải trả tại ngày kết thúc kỳ, trình bày trong Bản thuyết minh báo cáo tài chính.",
+      "final": "Theo VAS 23, nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày phát hành báo cáo tài chính, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. Thay vào đó, khoản cổ tức này cần được trình bày trong Bản thuyết minh báo cáo tài chính theo quy định.\n\nCụ thể, VAS 23 yêu cầu doanh nghiệp giải trình các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm mà không cần điều chỉnh số liệu đã ghi nhận. Trong trường hợp cổ tức công bố sau ngày kết thúc kỳ nhưng trước khi phát hành báo cáo tài chính, thông tin này",
+      "persisted": true,
+      "ttft_seconds": 54.13749233307317,
+      "seconds": 82.05960766691715,
+      "errors": [],
+      "citations": [],
+      "unresolved_keys": [],
+      "evidence_in_context": 2,
+      "evidence_in_cited_chunks": 0,
+      "marker_total": 2,
+      "trace": {
+        "mode": "full",
+        "question": "Cổ tức công bố sau ngày kết thúc kỳ kế toán năm nhưng trước khi phát hành BCTC. VAS 23 yêu cầu ghi nhận nợ phải trả tại ngày kết thúc kỳ hay trình bày ở đâu?",
+        "graph_calls": 0,
+        "rerank": {
+          "candidates": 40,
+          "sent_to_tei": 8,
+          "scores": 8,
+          "seconds": 13.89761258312501
+        },
+        "retrieved": [
+          {
+            "id": "fb9b56a2-f129-5563-9070-4560b4fadb58",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C1"
+          },
+          {
+            "id": "58bb8f3a-bb98-5eb0-bf4c-1801e01a551b",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C2"
+          },
+          {
+            "id": "456cf08b-1a19-5e0d-8624-f8b93b469f54",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C3"
+          },
+          {
+            "id": "761b0466-8491-5ba8-9ef5-722c24aa924d",
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "key": "C4"
+          },
+          {
+            "id": "0bf73981-472a-53d4-90f9-aca64021b6b3",
+            "source": "100-2005-QD-BTC.pdf",
+            "key": "C5"
+          },
+          {
+            "id": "7100d028-f1a6-5b63-8791-ced52c17d0ef",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C6"
+          },
+          {
+            "id": "4069b3e8-5c84-51f3-92d0-8a3bd230f993",
+            "source": "12-2005-QD-BTC.doc",
+            "key": "C7"
+          }
+        ],
+        "context": "<<C1 src=\"12-2005-QD-BTC.doc#50\">>\n[Unknown] \n kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày phát hành báo cáo tài chính, thì khoản cổ tức này không phải ghi nhận là nợ phải trả trên Bảng cân đối kế toán mà được trình bày trong Bản thuyết minh báo cáo tài chính theo quy định tại Chuẩn mực kế toán số 21 “Trình bày báo cáo tài chính”. Hoạt động liên tục 12. Nếu Ban Giám đốc xác nhận sau ngày kết thúc kỳ kế toán năm có dự kiến giải thể doanh nghiệp, ngừng sản xuất kinh doanh, thu hẹp đáng kể quy mô hoạt động hoặc phá sản thì doanh nghiệp không được lập báo cáo tài chính trên cơ sở nguyên tắc hoạt động liên tục. 13. Nếu kết quả kinh doanh bị giảm sút và tình hình tài chính xấu đi sau ngày kết thúc kỳ kế toán năm thì phải xem xét nguyên tắc hoạt động liên tục có còn phù hợp để lập báo cáo tài chính hay không. Nếu nguyên tắc hoạt động liên tục không còn phù hợp để lập báo cáo tài chính nữa thì doanh nghiệp phải thay đổi căn bản cơ sở kế toán chứ không phải chỉ điều chỉnh số liệu đã ghi nhận theo cơ sở kế toán ban đầu. 14. Chuẩn mực kế toán số 21 \"Trình bày báo cáo tài chính\" quy định phải giải trình trong trường hợp: a - Báo cáo tài chính không được lập trên cơ sở nguyên tắc hoạt động liên tục. b - Ban Giám đốc nhận thấy có vấn đề không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm.\n<</C1>>\n\n<<C2 src=\"12-2005-QD-BTC.doc#31\">>\n[Unknown] \n tin trên là hữu ích. 64.Nếu các thay đổi về thuế suất hoặc luật thuế được ban hành sau ngày kết thúc niên độ kế toán, doanh nghiệp có thể trình bày bất kỳ ảnh hưởng quan trọng nào của các thay đổi này đối với tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả và thuế thu nhập hiện hành của doanh nghiệp (xem Chuẩn mực kế toán số 23 “Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm”)./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 22 TRÌNH BÀY BỔ SUNG BÁO CÁO TÀI CHÍNH CỦA CÁC NGÂN HÀNG VÀ TỔ CHỨC TÀI CHÍNH TƯƠNG TỰ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn việc trình bày bổ sung các thông tin cần thiết trong báo cáo tài chính của các Ngân hàng và tổ chức tài chính tương tự. 02. Chuẩn mực này áp dụng cho các Ngân hàng và Tổ chức tài chính tương tự (sau đây gọi chung là Ngân hàng) bao gồm các ngân hàng, tổ chức tín dụng, tổ chức tín dụng phi ngân hàng, các tổ chức tài chính tương tự có hoạt động chính là nhận tiền gửi, đi vay với mục đích để cho vay và đầu tư trong phạm vi hoạt động của ngân hàng theo quy định của Luật các Tổ chức tín dụng và các văn bản pháp luật khác về hoạt động ngân hàng. 03. Chuẩn mực này hướng dẫn việc trình bày những thông tin cần thiết trong báo cáo tài chính riêng và báo cáo tài chính hợp nhất của các Ngân hàng. Bên cạnh đó cũng khuyến khích việc trình bày trên thuyết minh báo cáo tài chính những thông tin về kiểm soát khả năng thanh toán và kiểm soát rủi ro của các Ngân hàng. Đối với những tập đoàn có hoạt động ngân hàng thì chuẩn mực này được áp dụng cho các hoạt\n<</C2>>\n\n<<C3 src=\"12-2005-QD-BTC.doc#51\">>\n[Unknown] \n không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan trọng đối với người sử dụng báo cáo tài chính là phải biết là báo cáo tài chính không phản ánh các sự kiện phát sinh sau ngày phát hành. Trình bày về sự kiện tồn tại trong kỳ kế toán năm 17. Nếu doanh nghiệp nhận được thông tin sau ngày kết thúc kỳ kế toán năm về các sự kiện tồn tại trong kỳ kế toán năm, doanh nghiệp phải trình bày về các sự kiện này trên cơ sở xem xét những thông tin mới. 18. Trong một số trường hợp, doanh nghiệp phải trình bày trong báo cáo tài chính để phản ánh thông tin nhận được sau ngày kết thúc kỳ kế toán năm, ngay cả khi thông tin này không ảnh hưởng đến các số liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điề\n<</C3>>\n\n<<C4 src=\"99-2025-TT-BTC-part-01.pdf#24\">>\n[Unknown] \n� kế toán cũ đến thời điểm thay đổi kỳ kế toán được trình bày trong cột “Kỳ này”. Cột “Kỳ trước” trình bày là số liệu tương ứng trong kỳ kế toán trước hoặc số liệu của 12 tháng trên Báo cáo tài chính của năm tài chính liền trước. 4. Doanh nghiệp phải thuyết minh rõ: a) Lý do phải thay đổi ngày kết thúc kỳ kế toán năm; b) Các số liệu tương ứng để so sánh được trình bày trong Báo cáo kết quả hoạt động kinh doanh, Báo cáo lưu chuyển tiền tệ và phần Thuyết minh Báo cáo tài chính có liên quan, trường hợp số liệu “Kỳ trước” trên Báo cáo kết quả hoạt động kinh doanh và Báo cáo lưu chuyển tiền tệ kỳ này là của 12 tháng năm tài chính liền trước thì doanh nghiệp phải thuyết minh về tính không thể so sánh được giữa thông tin của kỳ báo cáo và thông tin kỳ so sánh theo quy định của Chuẩn mực kế toán Việt Nam số 21 - Trình bày Báo cáo tài chính. Điều 22. Nguyên tắc lập và trình bày Báo cáo tài chính khi chuyển đổi loại hình doanh nghiệp Khi chuyển đổi loại hình, doanh nghiệp phải tiến hành khóa sổ kế toán, lập Báo cáo tài chính theo quy định của pháp luật. Trong kỳ kế toán đầu tiên sau khi CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 39 chuyển đổi loại hình doanh nghiệp, doanh nghiệp phải ghi sổ kế toán và trình bày Báo cáo tài chính theo nguyên tắc sau: 1. Đối với sổ kế toán phản ánh tài sản, nợ phải trả và vốn chủ sở hữu: Toàn bộ số dư tài sản, nợ phải trả và vốn chủ sở hữu trên sổ kế toán của doanh nghiệp cũ trước khi chuyển đổi được ghi nhận là số dư đầu kỳ trên sổ kế toán của doanh nghiệp mới. 2. Đối với Báo cáo tình hình tài chính: Toàn bộ số dư tài sản, nợ phải trả và vốn chủ sở hữu kế thừa của doanh nghiệp cũ trước khi chuyển đổi được ghi\n<</C4>>\n\n<<C5 src=\"100-2005-QD-BTC.pdf#47\">>\n[Unknown] \n. Trường hợp như thế, doanh nghiệp phải xác định xem liệu có tồn tại nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm hay không thông qua việc xem xét tất cả các chứng cứ đã có, bao gồm cả ý kiến của các chuyên gia. Chứng cứ đưa ra xem xét phải tính đến bất cứ một dấu hiệu 26 bổ sung nào của các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm. Dựa trên cơ sở của các dấu hiệu đó: a) Khi chắc chắn xác định được nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm, thì doanh nghiệp phải ghi nhận một khoản dự phòng (nếu thoả mãn các điều kiện ghi nhận); và b) Khi chắc chắn không có một nghĩa vụ nợ nào tại ngày kết thúc kỳ kế toán năm, thì doanh nghiệp phải trình bày trong Bản thuyết minh báo cáo tài chính một khoản nợ tiềm tàng, trừ khi khả năng giảm sút các lợi ích kinh tế rất khó có thể xảy ra (như quy định tại đoạn 81). Sự kiện đã xảy ra 14. Một sự kiện đã xảy ra làm phát sinh nghĩa vụ nợ hiện tại được gọi là một sự kiện ràng buộc. Một sự kiện trở thành sự kiện ràng buộc, nếu doanh nghiệp không có sự lựa chọn nào khác ngoài việc thanh toán nghĩa vụ nợ gây ra bởi sự kiện đó. Điều này chỉ xảy ra: a) Khi việc thanh toán nghĩa vụ nợ này do pháp luật bắt buộc; hoặc b) Khi có nghĩa vụ nợ liên đới, khi sự kiện này (có thể là một hoạt động của doanh nghiệp) dẫn đến có ước tính đáng tin cậy để bên thứ ba chắc chắn là doanh nghiệp sẽ thanh toán khoản nợ phải trả đó. 15. Báo cáo tài chính chỉ liên quan đến tình trạng tài chính của doanh nghiệp tại thời điểm kết thúc kỳ báo cáo và không liên quan đến vấn đề tài chính có thể xảy ra trong tương lai. Vì vậy, không cần phải ghi nhận bất kỳ m\n<</C5>>\n\n<<C6 src=\"12-2005-QD-BTC.doc#49\">>\n[Unknown] \nều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về giá trị thuần có thể thực hiện được vào ngày kết thúc kỳ kế toán năm của hàng tồn kho. (c) Việc xác nhận sau ngày kết thúc kỳ kế toán năm về giá gốc của tài sản đã mua hoặc số tiền thu được từ việc bán tài sản trong kỳ kế toán năm. (d) Việc phát hiện những gian lận và sai sót chỉ ra rằng báo cáo tài chính không được chính xác. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 08. Doanh nghiệp không phải điều chỉnh các số liệu đã ghi nhận trong báo cáo tài chính về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh. 09. Ví dụ về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh như: Việc giảm giá trị thị trường của các khoản đầu tư vốn góp liên doanh, các khoản đầu tư vào công ty liên kết trong khoảng thời gian từ ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Sự giảm giá trị thị trường của các khoản đầu tư thường không liên quan đến giá trị các khoản đầu tư vào ngày kết thúc kỳ kế toán năm. Doanh nghiệp không phải điều chỉnh số liệu đã được ghi nhận trong Bảng cân đối kế toán đối với các khoản đầu tư, tuy nhiên có thể bổ sung giải trình theo quy định tại đoạn 19. Cổ tức 10. Nếu cổ tức của cổ đông được công bố sau ngày kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày\n<</C6>>\n\n<<C7 src=\"12-2005-QD-BTC.doc#48\">>\n[Unknown] \n quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo tài chính. 05. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm bao gồm tất cả các sự kiện phát sinh đến ngày phát hành báo cáo tài chính. NỘI DUNG CHUẨN MỰC Ghi nhận và xác định Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh 06. Doanh nghiệp phải điều chỉnh các số liệu đã được ghi nhận trong báo cáo tài chính để phản ánh các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh. 07. Ví dụ về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh đòi hỏi doanh nghiệp phải điều chỉnh các số liệu đã ghi nhận trong Bảng cân đối kế toán hoặc ghi nhận những khoản mục mà trước đó chưa được ghi nhận, gồm: (a) Kết luận của Toà án sau ngày kết thúc kỳ kế toán năm, xác nhận doanh nghiệp có những nghĩa vụ hiện tại vào ngày kết thúc kỳ kế toán năm, đòi hỏi doanh nghiệp điều chỉnh khoản dự phòng đã được ghi nhận từ trước; ghi nhận những khoản dự phòng mới hoặc ghi nhận những khoản nợ phải thu, nợ phải trả mới. (b) Thông tin nhận được sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về một tài sản bị tổn thất trong kỳ kế toán năm, hoặc giá trị của khoản tổn thất được ghi nhận từ trước đối với tài sản này cần phải điều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằ\n<</C7>>",
+        "prompt_chunks": {
+          "C1": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày phát hành báo cáo tài chính, thì khoản cổ tức này không phải ghi nhận là nợ phải trả trên Bảng cân đối kế toán mà được trình bày trong Bản thuyết minh báo cáo tài chính theo quy định tại Chuẩn mực kế toán số 21 “Trình bày báo cáo tài chính”. Hoạt động liên tục 12. Nếu Ban Giám đốc xác nhận sau ngày kết thúc kỳ kế toán năm có dự kiến giải thể doanh nghiệp, ngừng sản xuất kinh doanh, thu hẹp đáng kể quy mô hoạt động hoặc phá sản thì doanh nghiệp không được lập báo cáo tài chính trên cơ sở nguyên tắc hoạt động liên tục. 13. Nếu kết quả kinh doanh bị giảm sút và tình hình tài chính xấu đi sau ngày kết thúc kỳ kế toán năm thì phải xem xét nguyên tắc hoạt động liên tục có còn phù hợp để lập báo cáo tài chính hay không. Nếu nguyên tắc hoạt động liên tục không còn phù hợp để lập báo cáo tài chính nữa thì doanh nghiệp phải thay đổi căn bản cơ sở kế toán chứ không phải chỉ điều chỉnh số liệu đã ghi nhận theo cơ sở kế toán ban đầu. 14. Chuẩn mực kế toán số 21 \"Trình bày báo cáo tài chính\" quy định phải giải trình trong trường hợp: a - Báo cáo tài chính không được lập trên cơ sở nguyên tắc hoạt động liên tục. b - Ban Giám đốc nhận thấy có vấn đề không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm."
+          },
+          "C2": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n tin trên là hữu ích. 64.Nếu các thay đổi về thuế suất hoặc luật thuế được ban hành sau ngày kết thúc niên độ kế toán, doanh nghiệp có thể trình bày bất kỳ ảnh hưởng quan trọng nào của các thay đổi này đối với tài sản thuế thu nhập hoãn lại và thuế thu nhập hoãn lại phải trả và thuế thu nhập hiện hành của doanh nghiệp (xem Chuẩn mực kế toán số 23 “Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm”)./. HỆ THỐNG CHUẨN MỰC KẾ TOÁN VIỆT NAM CHUẨN MỰC SỐ 22 TRÌNH BÀY BỔ SUNG BÁO CÁO TÀI CHÍNH CỦA CÁC NGÂN HÀNG VÀ TỔ CHỨC TÀI CHÍNH TƯƠNG TỰ (Ban hành và công bố theo Quyết định số 12/2005/QĐ-BTC ngày 15 tháng 02 năm 2005 của Bộ trưởng Bộ Tài chính) QUY ĐỊNH CHUNG 01. Mục đích của chuẩn mực này là quy định và hướng dẫn việc trình bày bổ sung các thông tin cần thiết trong báo cáo tài chính của các Ngân hàng và tổ chức tài chính tương tự. 02. Chuẩn mực này áp dụng cho các Ngân hàng và Tổ chức tài chính tương tự (sau đây gọi chung là Ngân hàng) bao gồm các ngân hàng, tổ chức tín dụng, tổ chức tín dụng phi ngân hàng, các tổ chức tài chính tương tự có hoạt động chính là nhận tiền gửi, đi vay với mục đích để cho vay và đầu tư trong phạm vi hoạt động của ngân hàng theo quy định của Luật các Tổ chức tín dụng và các văn bản pháp luật khác về hoạt động ngân hàng. 03. Chuẩn mực này hướng dẫn việc trình bày những thông tin cần thiết trong báo cáo tài chính riêng và báo cáo tài chính hợp nhất của các Ngân hàng. Bên cạnh đó cũng khuyến khích việc trình bày trên thuyết minh báo cáo tài chính những thông tin về kiểm soát khả năng thanh toán và kiểm soát rủi ro của các Ngân hàng. Đối với những tập đoàn có hoạt động ngân hàng thì chuẩn mực này được áp dụng cho các hoạt"
+          },
+          "C3": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n không chắc chắn trọng yếu liên quan đến các sự kiện hoặc điều kiện dẫn đến những nghi ngờ về khả năng hoạt động liên tục của doanh nghiệp. Những sự kiện hoặc điều kiện quy định phải giải trình này có thể phát sinh sau ngày kết thúc kỳ kế toán năm. Trình bày báo cáo tài chính Ngày phát hành báo cáo tài chính 15. Doanh nghiệp phải trình bày ngày phát hành báo cáo tài chính và người quyết định phát hành. Nếu chủ sở hữu doanh nghiệp hoặc người khác có thẩm quyền yêu cầu sửa đổi báo cáo tài chính trước khi phát hành, doanh nghiệp phải trình bày việc này. 16. Điều quan trọng đối với người sử dụng báo cáo tài chính là phải biết là báo cáo tài chính không phản ánh các sự kiện phát sinh sau ngày phát hành. Trình bày về sự kiện tồn tại trong kỳ kế toán năm 17. Nếu doanh nghiệp nhận được thông tin sau ngày kết thúc kỳ kế toán năm về các sự kiện tồn tại trong kỳ kế toán năm, doanh nghiệp phải trình bày về các sự kiện này trên cơ sở xem xét những thông tin mới. 18. Trong một số trường hợp, doanh nghiệp phải trình bày trong báo cáo tài chính để phản ánh thông tin nhận được sau ngày kết thúc kỳ kế toán năm, ngay cả khi thông tin này không ảnh hưởng đến các số liệu đã trình bày trong báo cáo tài chính. Ví dụ: Sau ngày kết thúc kỳ kế toán năm có bằng chứng về việc sẽ xảy ra một khoản nợ tiềm tàng đã tồn tại trong kỳ kế toán năm. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 19. Nếu các sự kiện không cần điều chỉnh phát sinh sau ngày kết thúc kỳ kế toán năm là trọng yếu, việc không trình bày các sự kiện này có thể ảnh hưởng đến quyết định kinh tế của người sử dụng khi dựa trên các thông tin của báo cáo tài chính. Vì vậy doanh nghiệp phải trình bày đối với các sự kiện trọng yếu không cần điề"
+          },
+          "C4": {
+            "source": "99-2025-TT-BTC-part-01.pdf",
+            "text": "[Unknown] \n� kế toán cũ đến thời điểm thay đổi kỳ kế toán được trình bày trong cột “Kỳ này”. Cột “Kỳ trước” trình bày là số liệu tương ứng trong kỳ kế toán trước hoặc số liệu của 12 tháng trên Báo cáo tài chính của năm tài chính liền trước. 4. Doanh nghiệp phải thuyết minh rõ: a) Lý do phải thay đổi ngày kết thúc kỳ kế toán năm; b) Các số liệu tương ứng để so sánh được trình bày trong Báo cáo kết quả hoạt động kinh doanh, Báo cáo lưu chuyển tiền tệ và phần Thuyết minh Báo cáo tài chính có liên quan, trường hợp số liệu “Kỳ trước” trên Báo cáo kết quả hoạt động kinh doanh và Báo cáo lưu chuyển tiền tệ kỳ này là của 12 tháng năm tài chính liền trước thì doanh nghiệp phải thuyết minh về tính không thể so sánh được giữa thông tin của kỳ báo cáo và thông tin kỳ so sánh theo quy định của Chuẩn mực kế toán Việt Nam số 21 - Trình bày Báo cáo tài chính. Điều 22. Nguyên tắc lập và trình bày Báo cáo tài chính khi chuyển đổi loại hình doanh nghiệp Khi chuyển đổi loại hình, doanh nghiệp phải tiến hành khóa sổ kế toán, lập Báo cáo tài chính theo quy định của pháp luật. Trong kỳ kế toán đầu tiên sau khi CÔNG BÁO/Số 1563 + 1564/Ngày 16-11-2025 39 chuyển đổi loại hình doanh nghiệp, doanh nghiệp phải ghi sổ kế toán và trình bày Báo cáo tài chính theo nguyên tắc sau: 1. Đối với sổ kế toán phản ánh tài sản, nợ phải trả và vốn chủ sở hữu: Toàn bộ số dư tài sản, nợ phải trả và vốn chủ sở hữu trên sổ kế toán của doanh nghiệp cũ trước khi chuyển đổi được ghi nhận là số dư đầu kỳ trên sổ kế toán của doanh nghiệp mới. 2. Đối với Báo cáo tình hình tài chính: Toàn bộ số dư tài sản, nợ phải trả và vốn chủ sở hữu kế thừa của doanh nghiệp cũ trước khi chuyển đổi được ghi"
+          },
+          "C5": {
+            "source": "100-2005-QD-BTC.pdf",
+            "text": "[Unknown] \n. Trường hợp như thế, doanh nghiệp phải xác định xem liệu có tồn tại nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm hay không thông qua việc xem xét tất cả các chứng cứ đã có, bao gồm cả ý kiến của các chuyên gia. Chứng cứ đưa ra xem xét phải tính đến bất cứ một dấu hiệu 26 bổ sung nào của các sự kiện xảy ra sau ngày kết thúc kỳ kế toán năm. Dựa trên cơ sở của các dấu hiệu đó: a) Khi chắc chắn xác định được nghĩa vụ nợ tại ngày kết thúc kỳ kế toán năm, thì doanh nghiệp phải ghi nhận một khoản dự phòng (nếu thoả mãn các điều kiện ghi nhận); và b) Khi chắc chắn không có một nghĩa vụ nợ nào tại ngày kết thúc kỳ kế toán năm, thì doanh nghiệp phải trình bày trong Bản thuyết minh báo cáo tài chính một khoản nợ tiềm tàng, trừ khi khả năng giảm sút các lợi ích kinh tế rất khó có thể xảy ra (như quy định tại đoạn 81). Sự kiện đã xảy ra 14. Một sự kiện đã xảy ra làm phát sinh nghĩa vụ nợ hiện tại được gọi là một sự kiện ràng buộc. Một sự kiện trở thành sự kiện ràng buộc, nếu doanh nghiệp không có sự lựa chọn nào khác ngoài việc thanh toán nghĩa vụ nợ gây ra bởi sự kiện đó. Điều này chỉ xảy ra: a) Khi việc thanh toán nghĩa vụ nợ này do pháp luật bắt buộc; hoặc b) Khi có nghĩa vụ nợ liên đới, khi sự kiện này (có thể là một hoạt động của doanh nghiệp) dẫn đến có ước tính đáng tin cậy để bên thứ ba chắc chắn là doanh nghiệp sẽ thanh toán khoản nợ phải trả đó. 15. Báo cáo tài chính chỉ liên quan đến tình trạng tài chính của doanh nghiệp tại thời điểm kết thúc kỳ báo cáo và không liên quan đến vấn đề tài chính có thể xảy ra trong tương lai. Vì vậy, không cần phải ghi nhận bất kỳ m"
+          },
+          "C6": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \nều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về giá trị thuần có thể thực hiện được vào ngày kết thúc kỳ kế toán năm của hàng tồn kho. (c) Việc xác nhận sau ngày kết thúc kỳ kế toán năm về giá gốc của tài sản đã mua hoặc số tiền thu được từ việc bán tài sản trong kỳ kế toán năm. (d) Việc phát hiện những gian lận và sai sót chỉ ra rằng báo cáo tài chính không được chính xác. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh 08. Doanh nghiệp không phải điều chỉnh các số liệu đã ghi nhận trong báo cáo tài chính về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh. 09. Ví dụ về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm không cần điều chỉnh như: Việc giảm giá trị thị trường của các khoản đầu tư vốn góp liên doanh, các khoản đầu tư vào công ty liên kết trong khoảng thời gian từ ngày kết thúc kỳ kế toán năm đến ngày phát hành báo cáo tài chính. Sự giảm giá trị thị trường của các khoản đầu tư thường không liên quan đến giá trị các khoản đầu tư vào ngày kết thúc kỳ kế toán năm. Doanh nghiệp không phải điều chỉnh số liệu đã được ghi nhận trong Bảng cân đối kế toán đối với các khoản đầu tư, tuy nhiên có thể bổ sung giải trình theo quy định tại đoạn 19. Cổ tức 10. Nếu cổ tức của cổ đông được công bố sau ngày kết thúc kỳ kế toán năm, doanh nghiệp không phải ghi nhận các khoản cổ tức này như là các khoản nợ phải trả trên Bảng cân đối kế toán tại ngày kết thúc kỳ kế toán năm. 11. Nếu cổ tức được công bố sau ngày kết thúc kỳ kế toán năm nhưng trước ngày"
+          },
+          "C7": {
+            "source": "12-2005-QD-BTC.doc",
+            "text": "[Unknown] \n quyền) của đơn vị kế toán ký duyệt báo cáo tài chính để gửi ra bên ngoài doanh nghiệp. 04. Qui trình phát hành báo cáo tài chính phụ thuộc vào cơ cấu quản lý, yêu cầu và thủ tục cần tuân thủ về lập, soát xét, kiểm tra và phát hành báo cáo tài chính. 05. Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm bao gồm tất cả các sự kiện phát sinh đến ngày phát hành báo cáo tài chính. NỘI DUNG CHUẨN MỰC Ghi nhận và xác định Các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh 06. Doanh nghiệp phải điều chỉnh các số liệu đã được ghi nhận trong báo cáo tài chính để phản ánh các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh. 07. Ví dụ về các sự kiện phát sinh sau ngày kết thúc kỳ kế toán năm cần điều chỉnh đòi hỏi doanh nghiệp phải điều chỉnh các số liệu đã ghi nhận trong Bảng cân đối kế toán hoặc ghi nhận những khoản mục mà trước đó chưa được ghi nhận, gồm: (a) Kết luận của Toà án sau ngày kết thúc kỳ kế toán năm, xác nhận doanh nghiệp có những nghĩa vụ hiện tại vào ngày kết thúc kỳ kế toán năm, đòi hỏi doanh nghiệp điều chỉnh khoản dự phòng đã được ghi nhận từ trước; ghi nhận những khoản dự phòng mới hoặc ghi nhận những khoản nợ phải thu, nợ phải trả mới. (b) Thông tin nhận được sau ngày kết thúc kỳ kế toán năm cung cấp bằng chứng về một tài sản bị tổn thất trong kỳ kế toán năm, hoặc giá trị của khoản tổn thất được ghi nhận từ trước đối với tài sản này cần phải điều chỉnh, ví dụ như: i - Khách hàng bị phá sản sau ngày kết thúc kỳ kế toán năm đã chứng minh khoản phải thu của khách hàng trên Bảng cân đối kế toán cần phải điều chỉnh thành khoản lỗ trong năm. ii - Hàng tồn kho được bán sau ngày kết thúc kỳ kế toán năm cung cấp bằ"
+          }
+        },
+        "context_tokens": 3411,
+        "body_budget": null,
+        "uncompressed_fallback": false,
+        "system_prompt_tokens": [
+          3617
+        ]
+      }
+    }
+  ],
+  "rerank_limit": 8,
+  "max_tokens": 160
+}

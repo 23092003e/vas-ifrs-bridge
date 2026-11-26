@@ -1,0 +1,71 @@
+{
+  "vas_standard_headings_verified_previously": 26,
+  "ifrs_foundation_catalog_entries_verified_previously": 174,
+  "official_ifrs_full_text_used": false,
+  "eu_annex_use": "Human locator verification. The retrieval index contains original short factual summaries.",
+  "source_files": {
+    "vas/234-2003-QD-BTC.html": {
+      "sha256": "81f742cbe55a2f6b65ded2427194ced33ed1432aef83ef2b865642a3f4ba91f8",
+      "pilot_cards": [
+        "S01",
+        "S03",
+        "S06"
+      ]
+    },
+    "vas/165-2002-QD-BTC-vcci-unicode.html": {
+      "sha256": "263f10bb7c83517b1ab543dcf6af93bc9cf139409c664939eaf16fef9e05100e",
+      "pilot_cards": [
+        "S02",
+        "S04",
+        "S05"
+      ]
+    },
+    "vas/149-2001-QD-BTC.pdf": {
+      "sha256": "b110b2bb9c2d24d7eaacedaf2413c74c6e4999fae6db84b3c38432a17595d85a",
+      "pilot_cards": [
+        "S18"
+      ]
+    },
+    "ifrs/eu-2023-1803-consolidated-2026-03-08.en.html": {
+      "sha256": "2817145e467ceb5f85c843deca85f539ca452fd6585a6159fe5b7bd64173f597",
+      "pilot_cards": [
+        "S07",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16",
+        "S17"
+      ]
+    },
+    "ifrs/issued-2026-catalog.html": {
+      "sha256": "9bc12857619b78d087082fee5c42d2aed5413e8f600f25b38d4d53b7fc93d326",
+      "pilot_cards": []
+    }
+  },
+  "retrieval_cards": 18,
+  "retrieval_standard_counts": {
+    "VAS": 7,
+    "IFRS/IAS": 11
+  },
+  "test_cards_referenced": 13,
+  "test_counts": {
+    "vas": 5,
+    "ifrs": 5,
+    "compare": 5,
+    "abstain": 5
+  },
+  "language_counts": {
+    "vi": 10,
+    "en": 10
+  },
+  "splits": {
+    "train": 64,
+    "dev": 16,
+    "test": 20
+  }
+}

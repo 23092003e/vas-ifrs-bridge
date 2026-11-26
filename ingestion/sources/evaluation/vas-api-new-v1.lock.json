@@ -1,0 +1,8 @@
+{
+  "dataset_sha256": "61e01419d28f306d0ef647bb47177600c3ff6b06183e93563097aa92ae429309",
+  "source_sha256": {
+    "vas/149-2001-QD-BTC.pdf": "b110b2bb9c2d24d7eaacedaf2413c74c6e4999fae6db84b3c38432a17595d85a",
+    "vas/12-2005-QD-BTC.doc": "25817e4abe2d9cc416d9fc92dba9bf65cba0667000961c53c4f56fff703bee43"
+  },
+  "review": "source-checked by assistant; independent review pending"
+}

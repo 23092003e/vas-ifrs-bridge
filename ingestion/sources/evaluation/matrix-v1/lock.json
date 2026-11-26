@@ -1,0 +1,9 @@
+{
+  "sha256": {
+    "corpus.jsonl": "803c9550851db95ddba845c9908d02ff52c7027856b80cbd03b7c38d439f5b4c",
+    "train.jsonl": "5c444e0e1125cf3dac3af1b12637d1bff497a519eb282a34e2b02c13639fe17c",
+    "dev.jsonl": "333f9725a8b30e2cb9cab2a60489119b92c035b36f0a391543e7ab80cdab0824",
+    "test.jsonl": "6ccb57a92c8743e588b47351f0212517bd668d91a66391da436078eaed16f098",
+    "run_matrix.py": "575186f2b7f105ffb4533fd52db49782509be83fbff9ffcb96a142c4a5b7d973"
+  }
+}

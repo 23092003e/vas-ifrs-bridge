@@ -1,0 +1,106 @@
+[
+  {
+    "id": "H01",
+    "group": "freeform",
+    "seconds": 17.09708712482825,
+    "expected": "Both generally indicate significant influence at 20%, subject to the applicable rebuttal.",
+    "gold": [
+      "S03",
+      "S14"
+    ],
+    "docs": {
+      "C1": "S03",
+      "C2": "S14",
+      "C3": "S06",
+      "C4": "S16",
+      "C5": "S18",
+      "C6": "S01",
+      "C7": "S12",
+      "C8": "S05",
+      "C9": "S15",
+      "C10": "S11"
+    },
+    "raw": "VAS 07 and IAS 28 both require that an investor owning less than half of an investee's voting rights typically implies significant influence unless there is clear evidence to the contrary. However, they differ slightly in how this is interpreted:\n\n**VAS 07:**\n- **Degree of Influence:** Significant influence\n- **Explanation:** According to VAS 07, if an investor owns less than 20% of the voting rights but has no contrary evidence, it is presumed to have significant influence over the investee. This interpretation aligns more closely with the concept of significant influence as defined by IAS 28, which states that holding at least one-fifth of voting power generally indicates significant influence unless clearly rebutted.\n\n**IAS 28:**\n- **Degree of Influence:** Significant influence\n- **",
+    "evidence_present": true,
+    "final": "VAS 07 and IAS 28 both require that an investor owning less than half of an investee's voting rights typically implies significant influence unless there is clear evidence to the contrary. However, they differ slightly in how this is interpreted:\n\n**VAS 07:**\n- **Degree of Influence:** Significant influence\n- **Explanation:** According to VAS 07, if an investor owns less than 20% of the voting rights but has no contrary evidence, it is presumed to have significant influence over the investee. This interpretation aligns more closely with the concept of significant influence as defined by IAS 28, which states that holding at least one-fifth of voting power generally indicates significant influence unless clearly rebutted.\n\n**IAS 28:**\n- **Degree of Influence:** Significant influence\n- **",
+    "citations": []
+  },
+  {
+    "id": "H02",
+    "group": "freeform",
+    "seconds": 15.967945875134319,
+    "expected": "VAS duy trì nguyên giá và hao mòn, IAS 40 theo mô hình giá trị hợp lý ghi biến động vào lãi/lỗ; hai cách khác nhau.",
+    "gold": [
+      "S01",
+      "S12"
+    ],
+    "docs": {
+      "C1": "S01",
+      "C2": "S12",
+      "C3": "S02",
+      "C4": "S16",
+      "C5": "S17",
+      "C6": "S04",
+      "C7": "S03",
+      "C8": "S18",
+      "C9": "S09",
+      "C10": "S11"
+    },
+    "raw": "Tôi có thể cung cấp thông tin về so sánh giữa VAS 05 và IAS 40 trong trường hợp này:\n\nVAS 05: Bất động sản đầu tư được theo dõi dựa trên nguyên giá và hao mòn sau ghi nhận. Thay đổi giữa bất động sản đầu tư và nhóm khác cần có thay đổi mục đích sử dụng.\n\nIAS 40: Investment property normally follows the entity’s chosen cost or fair-value policy, subject to specified exceptions. Under the fair-value model, the movement in fair value goes to profit or loss for the period.\n\nTrong trường hợp này, nếu doanh nghiệp sử dụng mô hình giá trị hợp lý của IAS 40 cho bất động sản đầu tư, thì việc ghi nhận sau ghi nhận sẽ không giống nhau",
+    "evidence_present": true,
+    "final": "Tôi có thể cung cấp thông tin về so sánh giữa VAS 05 và IAS 40 trong trường hợp này:\n\nVAS 05: Bất động sản đầu tư được theo dõi dựa trên nguyên giá và hao mòn sau ghi nhận. Thay đổi giữa bất động sản đầu tư và nhóm khác cần có thay đổi mục đích sử dụng.\n\nIAS 40: Investment property normally follows the entity’s chosen cost or fair-value policy, subject to specified exceptions. Under the fair-value model, the movement in fair value goes to profit or loss for the period.\n\nTrong trường hợp này, nếu doanh nghiệp sử dụng mô hình giá trị hợp lý của IAS 40 cho bất động sản đầu tư, thì việc ghi nhận sau ghi nhận sẽ không giống nhau",
+    "citations": []
+  },
+  {
+    "id": "H03",
+    "group": "freeform",
+    "seconds": 15.84010195871815,
+    "expected": "Both use the closing rate for the monetary payable and the rate when fair value was measured for the nonmonetary asset.",
+    "gold": [
+      "S04",
+      "S10"
+    ],
+    "docs": {
+      "C1": "S04",
+      "C2": "S10",
+      "C3": "S18",
+      "C4": "S09",
+      "C5": "S07",
+      "C6": "S03",
+      "C7": "S15",
+      "C8": "S13",
+      "C9": "S06",
+      "C10": "S05"
+    },
+    "raw": "### Comparison\n\n#### Overview\nVAS 10 and IAS 21 both deal with foreign-currency transactions but differ significantly in their treatment of revaluation of foreign-currency monetary balances and non-monetary balances measured at fair value.\n\n#### Comparison Table\n\n| Aspect (Khía cạnh) | VAS Treatment | IFRS Treatment | Impact (Tác động) |\n|---|---|---|---|\n| Revaluation of PPE | Not permitted | Permitted (Revaluation Model) | Higher asset values under IFRS |\n| Non-monetary balance at fair value | At period end, translate foreign-currency monetary balances at the closing rate. Keep the transaction-date rate for nonmonetary balances at historical cost; for fair-value measurement use the exchange rate on the measurement date. | At period end, translate foreign-c",
+    "evidence_present": true,
+    "final": "### Comparison\n\n#### Overview\nVAS 10 and IAS 21 both deal with foreign-currency transactions but differ significantly in their treatment of revaluation of foreign-currency monetary balances and non-monetary balances measured at fair value.\n\n#### Comparison Table\n\n| Aspect (Khía cạnh) | VAS Treatment | IFRS Treatment | Impact (Tác động) |\n|---|---|---|---|\n| Revaluation of PPE | Not permitted | Permitted (Revaluation Model) | Higher asset values under IFRS |\n| Non-monetary balance at fair value | At period end, translate foreign-currency monetary balances at the closing rate. Keep the transaction-date rate for nonmonetary balances at historical cost; for fair-value measurement use the exchange rate on the measurement date. | At period end, translate foreign-c",
+    "citations": []
+  },
+  {
+    "id": "H04",
+    "group": "freeform",
+    "seconds": 11.489444334059954,
+    "expected": "Cả hai loại trừ số dư cho vay và nợ vay nội bộ khi hợp nhất.",
+    "gold": [
+      "S06",
+      "S13"
+    ],
+    "docs": {
+      "C1": "S06",
+      "C2": "S07",
+      "C3": "S04",
+      "C4": "S15",
+      "C5": "S03",
+      "C6": "S13",
+      "C7": "S02",
+      "C8": "S05",
+      "C9": "S08",
+      "C10": "S01"
+    },
+    "raw": "Tôi không thể cung cấp thông tin chi tiết về cách xử lý này vì nó không nằm trong phạm vi của VAS 25 hay IFRS 10. Tuy nhiên, tôi có thể chia sẻ rằng việc xử lý các khoản nợ và tiền phải trả trong báo cáo hợp nhất sẽ phụ thuộc vào các quy định cụ thể của từng chuẩn mực kế toán. Tôi đề nghị bạn tham khảo các tài liệu chính thức của VAS 25 và IFRS 10 để có cái nhìn rõ ràng hơn về cách tiếp cận này.",
+    "evidence_present": true,
+    "final": "Tôi không thể cung cấp thông tin chi tiết về cách xử lý này vì nó không nằm trong phạm vi của VAS 25 hay IFRS 10. Tuy nhiên, tôi có thể chia sẻ rằng việc xử lý các khoản nợ và tiền phải trả trong báo cáo hợp nhất sẽ phụ thuộc vào các quy định cụ thể của từng chuẩn mực kế toán. Tôi đề nghị bạn tham khảo các tài liệu chính thức của VAS 25 và IFRS 10 để có cái nhìn rõ ràng hơn về cách tiếp cận này.",
+    "citations": []
+  }
+]

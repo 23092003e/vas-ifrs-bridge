@@ -1,0 +1,4 @@
+b08a00e114a1033d00450865f36d2e628eeda77167092f9a935c2b5874dfa217  ingestion/sources/evaluation/compare-v4/verify_claims.py
+a504d3bd9a52480618d2a2b142cb6fd9b40b65a23d90243e3775d7f4a16d1274  ingestion/sources/evaluation/compare-v2/run.py
+8c0ed4cacb55a6d16c6e316610220ab1bd6d385a03eba5bc52fa8bc332b60f90  apps/backend/app/agents/ifrs_compare_agent.py
+0e2d7f43957c6832968b328fbafe82cbd8e92ef6bc276027af412b308a7e0671  apps/backend/app/prompts/system/ifrs_compare_grounded.j2

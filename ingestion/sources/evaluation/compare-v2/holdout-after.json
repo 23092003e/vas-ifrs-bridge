@@ -1,0 +1,108 @@
+[
+  {
+    "id": "H01",
+    "group": "freeform",
+    "seconds": 5.330706124659628,
+    "expected": "Both generally indicate significant influence at 20%, subject to the applicable rebuttal.",
+    "gold": [
+      "S03",
+      "S14"
+    ],
+    "docs": {
+      "C1": "S03",
+      "C2": "S14"
+    },
+    "raw": "VAS: An investor owning exactly one fifth of an investee's voting rights implies significant influence under VAS 07 [C1].\nIAS 28: An investor owning exactly one fifth of an investee's voting rights also implies significant influence under IAS 28 [C2].",
+    "evidence_present": true,
+    "final": "**VAS** — An investor owning exactly one fifth of an investee's voting rights implies significant influence under VAS 07 [C1].\n\n**IFRS** — An investor owning exactly one fifth of an investee's voting rights also implies significant influence under IAS 28 [C2].",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S03",
+        "chunk_id": "S03",
+        "snippet": "[VAS 07] \nTừ 20% quyền biểu quyết, thông thường nhà đầu tư có ảnh hưởng đáng kể, trừ khi quy định hoặc thỏa thuận khác. Báo cáo riêng của nhà đầu tư phản ánh công ty liên kết theo phương pháp giá gốc.",
+        "standard_code": "VAS 07"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S14",
+        "chunk_id": "S14",
+        "snippet": "[IAS 28] \nHolding at least one fifth of voting power generally indicates significant influence unless clearly rebutted. An equity-accounted investment begins at cost, then reflects the investor’s shar",
+        "standard_code": "IAS 28"
+      }
+    ]
+  },
+  {
+    "id": "H02",
+    "group": "freeform",
+    "seconds": 1.5777146248146892,
+    "expected": "VAS duy trì nguyên giá và hao mòn, IAS 40 theo mô hình giá trị hợp lý ghi biến động vào lãi/lỗ; hai cách khác nhau.",
+    "gold": [
+      "S01",
+      "S12"
+    ],
+    "docs": {
+      "C1": "S01",
+      "C2": "S12"
+    },
+    "raw": "VAS: Có [C1], IFRS: Có [C2]",
+    "evidence_present": true,
+    "final": "Chưa đủ căn cứ để đưa ra kết luận đối chiếu có thể kiểm chứng.",
+    "citations": []
+  },
+  {
+    "id": "H03",
+    "group": "freeform",
+    "seconds": 4.698673832695931,
+    "expected": "Both use the closing rate for the monetary payable and the rate when fair value was measured for the nonmonetary asset.",
+    "gold": [
+      "S04",
+      "S10"
+    ],
+    "docs": {
+      "C1": "S04",
+      "C2": "S10"
+    },
+    "raw": "VAS applies the closing rate for the foreign-currency trade payable balance.\nIAS applies the historical cost rate for the nonmonetary asset balance.\nThe closing rate [C1] applies to both balances.\nVAS uses the historical cost rate [C2] for the nonmonetary asset balance.",
+    "evidence_present": true,
+    "final": "The available sources did not support a comparison with verifiable citations.",
+    "citations": []
+  },
+  {
+    "id": "H04",
+    "group": "freeform",
+    "seconds": 7.544481582939625,
+    "expected": "Cả hai loại trừ số dư cho vay và nợ vay nội bộ khi hợp nhất.",
+    "gold": [
+      "S06",
+      "S13"
+    ],
+    "docs": {
+      "C1": "S06",
+      "C2": "S13"
+    },
+    "raw": "VAS: [VAS 25] Khi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế.\nIFRS: [IFRS 10] Consolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions in full.",
+    "evidence_present": true,
+    "final": "**VAS** — [C1] Khi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế.\n\n**IFRS** — [C2] Consolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions in full.",
+    "citations": [
+      {
+        "type": "citation",
+        "key": "C1",
+        "doc_id": "S06",
+        "chunk_id": "S06",
+        "snippet": "[VAS 25] \nKhi hợp nhất, phần doanh thu, chi phí, số dư và giao dịch nội bộ phải được loại bỏ. Báo cáo hợp nhất phản ánh tập đoàn như một thực thể kinh tế.",
+        "standard_code": "VAS 25"
+      },
+      {
+        "type": "citation",
+        "key": "C2",
+        "doc_id": "S13",
+        "chunk_id": "S13",
+        "snippet": "[IFRS 10] \nConsolidated reporting combines like items and removes intragroup balances and transactions, including income and expenses. Eliminate results embedded in assets from intragroup transactions",
+        "standard_code": "IFRS 10"
+      }
+    ]
+  }
+]

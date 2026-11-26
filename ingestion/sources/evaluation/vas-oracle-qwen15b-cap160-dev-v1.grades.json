@@ -1,0 +1,43 @@
+{
+  "method": "assistant grading against the same accounting rubric",
+  "n": 7,
+  "correct": 2,
+  "at_token_limit": 2,
+  "grades": {
+    "vas-inventory-01": {
+      "correct": true,
+      "reason": "Correct amount and lower-of rule. The invented expansion of VAS is an unrelated factual error.",
+      "at_token_limit": false
+    },
+    "vas-inventory-02": {
+      "correct": false,
+      "reason": "Incorrectly uses aggregate inventory and stops before the limit.",
+      "at_token_limit": false
+    },
+    "vas-revenue-01": {
+      "correct": false,
+      "reason": "Lists the cost requirement but still truncates before the decision on the scenario.",
+      "at_token_limit": true
+    },
+    "vas-events-01": {
+      "correct": true,
+      "reason": "Correct treatment was already present at 80 tokens.",
+      "at_token_limit": false
+    },
+    "vas-events-02": {
+      "correct": false,
+      "reason": "Both disclosures are correct but no explicit statement about leaving amounts unadjusted.",
+      "at_token_limit": false
+    },
+    "vas-regime-01": {
+      "correct": false,
+      "reason": "Correct date and general exception; does not identify retained provisions and their until-replaced condition.",
+      "at_token_limit": false
+    },
+    "abstain-inventory-01": {
+      "correct": false,
+      "reason": "Gives formula and reiterates missing data, but truncates without explicitly declining to compute the amount.",
+      "at_token_limit": true
+    }
+  }
+}

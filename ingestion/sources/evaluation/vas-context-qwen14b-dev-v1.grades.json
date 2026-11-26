@@ -1,0 +1,178 @@
+{
+  "method": "assistant grading of shuffled context labels",
+  "n": 7,
+  "summary": {
+    "preview": {
+      "correct": 4,
+      "correct_with_markers": 0
+    },
+    "full": {
+      "correct": 4,
+      "correct_with_markers": 3
+    },
+    "prefix_512": {
+      "correct": 4,
+      "correct_with_markers": 0
+    },
+    "passages_512": {
+      "correct": 4,
+      "correct_with_markers": 1
+    }
+  },
+  "grades": {
+    "vas-inventory-01": {
+      "full": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correct amount and rule."
+      },
+      "passages_512": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correct amount and rule; ends mid-calculation."
+      },
+      "preview": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correct lower-of rule and result."
+      },
+      "prefix_512": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correct amount and lower-of rule."
+      }
+    },
+    "vas-inventory-02": {
+      "prefix_512": {
+        "correct": false,
+        "all_markers": true,
+        "reason": "Correct granularity; omits threshold."
+      },
+      "full": {
+        "correct": false,
+        "all_markers": true,
+        "reason": "Correct granularity; omits threshold."
+      },
+      "passages_512": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Correct granularity; omits threshold."
+      },
+      "preview": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Switches language and incorrectly says the standard is unclear, despite mentioning common practice."
+      }
+    },
+    "vas-revenue-01": {
+      "passages_512": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correct no-recognition decision and missing cost condition."
+      },
+      "full": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correct no-recognition decision and missing cost condition."
+      },
+      "preview": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Core decision and cost condition are correct before truncation."
+      },
+      "prefix_512": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correct no-recognition decision and missing cost condition."
+      }
+    },
+    "vas-events-01": {
+      "prefix_512": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correct adjustment."
+      },
+      "full": {
+        "correct": true,
+        "all_markers": true,
+        "reason": "Correct adjustment before truncating."
+      },
+      "preview": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correct adjustment."
+      },
+      "passages_512": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correct adjustment."
+      }
+    },
+    "vas-events-02": {
+      "full": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Omits financial estimate or why unavailable."
+      },
+      "prefix_512": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Omits financial estimate or why unavailable."
+      },
+      "passages_512": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Omits financial estimate or why unavailable."
+      },
+      "preview": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Gives an unsupported disclosure about why the event is non-adjusting and omits required details."
+      }
+    },
+    "vas-regime-01": {
+      "prefix_512": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Correct date; misses transition exception."
+      },
+      "preview": {
+        "correct": false,
+        "all_markers": false,
+        "reason": "Unnecessary abstention."
+      },
+      "passages_512": {
+        "correct": false,
+        "all_markers": true,
+        "reason": "Correct date; claims transition is unclear."
+      },
+      "full": {
+        "correct": false,
+        "all_markers": true,
+        "reason": "Correct date and notes an exception, but truncates before its scope and duration."
+      }
+    },
+    "abstain-inventory-01": {
+      "prefix_512": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correctly abstains and states missing inputs."
+      },
+      "preview": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correctly abstains and states missing inputs."
+      },
+      "full": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correctly abstains and states missing inputs."
+      },
+      "passages_512": {
+        "correct": true,
+        "all_markers": false,
+        "reason": "Correctly abstains and states missing inputs."
+      }
+    }
+  }
+}

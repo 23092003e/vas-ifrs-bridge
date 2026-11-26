@@ -1,0 +1,102 @@
+{
+  "method": "Assistant grading with the two context labels masked. Mandatory domain points and no material contradictions; no independent review.",
+  "n": 6,
+  "summary": {
+    "full": {
+      "correct": 4,
+      "correct_with_all_context_markers": 4,
+      "correct_with_all_cited_markers": 2
+    },
+    "adaptive": {
+      "correct": 4,
+      "correct_with_all_context_markers": 4,
+      "correct_with_all_cited_markers": 3
+    }
+  },
+  "grades": {
+    "vas-api-n01": {
+      "full": {
+        "correct": false,
+        "reason": "Nêu đúng hai hướng xử lý nhưng diễn giải việc trừ chiết khấu như thông lệ, không khẳng định đây là quy tắc VAS 02.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "adaptive": {
+        "correct": false,
+        "reason": "Cộng thuế đúng và nêu hướng giảm giá mua, nhưng để ngỏ cách xử lý chiết khấu thay vì khẳng định phải trừ.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      }
+    },
+    "vas-api-n02": {
+      "adaptive": {
+        "correct": true,
+        "reason": "Nêu đúng cơ sở phân bổ và ghi phần không phân bổ vào chi phí sản xuất, kinh doanh trong kỳ.",
+        "all_context_markers": true,
+        "all_cited_markers": true
+      },
+      "full": {
+        "correct": true,
+        "reason": "Phân bổ theo công suất bình thường và ghi phần không phân bổ vào chi phí sản xuất, kinh doanh trong kỳ.",
+        "all_context_markers": true,
+        "all_cited_markers": true
+      }
+    },
+    "vas-api-n03": {
+      "full": {
+        "correct": true,
+        "reason": "Đúng cơ sở giá bán ước tính và giới hạn ở số hàng vượt hợp đồng.",
+        "all_context_markers": true,
+        "all_cited_markers": true
+      },
+      "adaptive": {
+        "correct": true,
+        "reason": "Đúng giá bán ước tính cho phần vượt nhu cầu của hợp đồng không thể hủy.",
+        "all_context_markers": true,
+        "all_cited_markers": true
+      }
+    },
+    "vas-api-n04": {
+      "adaptive": {
+        "correct": true,
+        "reason": "Nêu đúng ngưỡng trên một năm và kết luận VAS 03 không cho phép ghi nhận.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": false,
+        "reason": "Nêu đúng ngưỡng và xác định không đạt điều kiện nhưng dừng trước quyết định ghi nhận.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    },
+    "vas-api-n05": {
+      "full": {
+        "correct": true,
+        "reason": "Nêu tên phương pháp và giải thích theo tỷ lệ phần công việc đã hoàn thành trước khi bị cắt ở đoạn lặp.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      },
+      "adaptive": {
+        "correct": true,
+        "reason": "Nêu đúng phương pháp tỷ lệ hoàn thành và cách ghi nhận theo phần công việc hoàn thành.",
+        "all_context_markers": true,
+        "all_cited_markers": true
+      }
+    },
+    "vas-api-n06": {
+      "adaptive": {
+        "correct": false,
+        "reason": "Không ghi nhận nợ là đúng; cho phép trình bày bổ sung chung thay vì xác định Bản thuyết minh BCTC là nơi trình bày.",
+        "all_context_markers": false,
+        "all_cited_markers": false
+      },
+      "full": {
+        "correct": true,
+        "reason": "Nêu đúng cả việc không ghi nhận nợ và nơi trình bày là Bản thuyết minh BCTC.",
+        "all_context_markers": true,
+        "all_cited_markers": false
+      }
+    }
+  }
+}
