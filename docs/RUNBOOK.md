@@ -6,7 +6,6 @@
 cp apps/backend/.env.example apps/backend/.env
 cp apps/frontend/.env.local.example apps/frontend/.env.local
 docker compose -f infra/docker/docker-compose.dev.yml up --build
-docker compose -f infra/docker/docker-compose.dev.yml exec backend alembic upgrade head
 docker compose -f infra/docker/docker-compose.dev.yml exec ollama ollama pull bge-m3
 docker compose -f infra/docker/docker-compose.dev.yml exec ollama ollama pull qwen2.5:14b-instruct
 ```
@@ -26,6 +25,35 @@ docker compose -f infra/docker/docker-compose.dev.yml down
 ```
 
 Do not use `down -v` unless PostgreSQL, Qdrant, Redis, and Ollama volumes are intentionally disposable.
+
+The development Compose backend applies Alembic migrations after PostgreSQL becomes healthy and before starting Uvicorn.
+
+TEI runs only when the `reranker` profile is enabled. The backend still supports the existing retrieval-score fallback when TEI is unavailable.
+
+```bash
+docker compose -f infra/docker/docker-compose.dev.yml --profile reranker up -d tei
+```
+
+## GL smoke test
+
+Use the FastAPI PostgreSQL database for GL workflow records. Apply the Alembic schema there. The Supabase migrations provision the separate Auth and PostgREST schema used for sign-in and tenant claims.
+
+On a disposable test database, run the migration forward, back to the previous revision, and forward again. The downgrade deletes the GL workflow data introduced by revision `0003`, so only run this sequence on a test database.
+
+```bash
+cd apps/backend
+uv sync --frozen --no-default-groups --extra dev
+export DATABASE_URL=postgresql+asyncpg://gl_test:gl_test@127.0.0.1:5432/gl_test
+export APP_ENV=test DEV_AUTH_BYPASS=false
+uv run --no-sync alembic upgrade head
+uv run --no-sync alembic downgrade 0002
+uv run --no-sync alembic upgrade head
+GL_INTEGRATION_TEST=1 uv run --no-sync pytest tests/integration/test_gl_workflow.py -q
+```
+
+For a browser smoke test, sign in as an accountant, upload a CSV or XLSX, complete any unmapped accounts, enter a balanced journal with a rationale, approve it, and export the adjusted trial balance. Confirm the source and adjustment totals against the fixture. Journals and reports are stored in Postgres, so they survive backend restarts. Reuse the same upload `Idempotency-Key` or draft/report request ID when retrying a lost response. Reuse the ID with the original payload.
+
+The GL export is a signed debit-minus-credit reconciliation grouped by mapped account. It lists the approved journal IDs and reports the source imbalance. Statutory statements and estimates for leases, ECL and deferred tax require additional source data and accounting review.
 
 ## Database migrations
 

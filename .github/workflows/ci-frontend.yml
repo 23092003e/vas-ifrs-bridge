@@ -1,9 +1,17 @@
 name: CI Frontend
 on:
   push:
-    paths: ['apps/frontend/**']
+    paths:
+      - 'apps/frontend/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/ci-frontend.yml'
   pull_request:
-    paths: ['apps/frontend/**']
+    paths:
+      - 'apps/frontend/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/ci-frontend.yml'
 
 jobs:
   lint-test:
@@ -14,5 +22,11 @@ jobs:
         with: { version: 11.1.3 }
       - uses: actions/setup-node@v4
         with: { node-version: '22', cache: 'pnpm' }
-      - run: pnpm install
+      - run: pnpm install --frozen-lockfile
       - run: cd apps/frontend && pnpm lint && pnpm test
+      - name: Build production frontend
+        working-directory: apps/frontend
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-build-placeholder
+        run: pnpm build

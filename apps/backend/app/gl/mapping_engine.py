@@ -13,13 +13,25 @@ logger = logging.getLogger(__name__)
 
 
 async def map_accounts(
-    accounts: list[dict[str, Any]], tenant_id: str | None = None
+    accounts: list[dict[str, Any]],
+    tenant_id: str | None = None,
+    *,
+    tenant_rules: dict[str, str] | None = None,
+    use_llm: bool = True,
 ) -> list[dict[str, Any]]:
     """
     Apply rule-based mapping; fall back to LLM for unmatched codes.
     Returns list of mapped dictionaries with keys:
     [src_account_code, src_account_name, target_standard, target_account_code, target_account_name, confidence, rationale]
     """
+    if tenant_rules is None and tenant_id is not None:
+        from app.db.repos.gl import tenant_mapping_rules
+        from app.db.session import AsyncSessionLocal
+
+        async with AsyncSessionLocal() as db:
+            tenant_rules = await tenant_mapping_rules(db, tenant_id)
+    tenant_rules = tenant_rules or {}
+
     # 1. Load standard VAS Chart of Accounts
     vas_coa = load_coa("VAS")
 
@@ -31,6 +43,21 @@ async def map_accounts(
         code = str(acct.get("account_code", "")).strip()
         name = str(acct.get("account_name", "")).strip()
         if not code:
+            continue
+
+        if target := tenant_rules.get(code):
+            results.append(
+                {
+                    "src_account_code": code,
+                    "src_account_name": name,
+                    "target_standard": "IFRS",
+                    "target_account_code": target,
+                    "target_account_name": target,
+                    "confidence": 1.0,
+                    "source": "manual",
+                    "rationale": "Tenant mapping rule",
+                }
+            )
             continue
 
         # Check standard code directly or by prefix (e.g. 1111 -> 111, 1121 -> 112)
@@ -51,6 +78,7 @@ async def map_accounts(
                     "target_account_code": meta["ifrs_equivalent"].upper().replace(" ", "_"),
                     "target_account_name": meta["ifrs_equivalent"],
                     "confidence": 0.95,
+                    "source": "vas_coa",
                     "rationale": f"Matched standard account code prefix '{matched_prefix}' ({meta['name_vi']})",
                 }
             )
@@ -58,10 +86,25 @@ async def map_accounts(
             unmatched.append(acct)
 
     # 3. Fall back to LLM for any unmatched accounts
-    if unmatched:
+    if unmatched and use_llm:
         logger.info("GL mapping: calling LLM fallback for %d unmatched accounts", len(unmatched))
         llm_results = await _map_with_llm(unmatched)
         results.extend(llm_results)
+
+    elif unmatched:
+        results.extend(
+            {
+                "src_account_code": str(acct["account_code"]).strip(),
+                "src_account_name": acct.get("account_name", ""),
+                "target_standard": "IFRS",
+                "target_account_code": None,
+                "target_account_name": None,
+                "confidence": 0.0,
+                "source": "unmapped",
+                "rationale": "A tenant mapping rule is required",
+            }
+            for acct in unmatched
+        )
 
     return results
 

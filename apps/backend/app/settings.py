@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     anthropic_api_key: str = "sk-ant-placeholder"  # optional, not required for Phase 1
     ollama_base_url: str = "http://localhost:11434"
     tei_url: str = "http://localhost:8080"
+    compare_mode: Literal["generated", "evidence"] = "generated"
     redis_url: str = "redis://localhost:6379/0"
     gcs_bucket_docs: str = "vifb-docs-dev"
     gcs_bucket_exports: str = "vifb-exports-dev"

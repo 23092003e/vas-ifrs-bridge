@@ -9,6 +9,7 @@ from typing import Any
 
 from app.agents.base import AgentBase
 from app.agents.citation_validator import CitationValidator
+from app.core.errors import QdrantUnavailableError
 from app.rag.citation import build_citation_list, wrap_chunks_for_prompt
 from app.rag.retriever import RetrievedChunk, retrieve
 
@@ -203,7 +204,7 @@ class RetrievalAgent(AgentBase):
                             for r in records:
                                 retrieved_ids.add(str(r.id))
                                 payload = r.payload or {}
-                                text = payload.get("text_preview", "") or payload.get("text", "")
+                                text = payload.get("text") or payload.get("text_preview", "")
                                 doc_id = payload.get("doc_id", "")
 
                                 if doc_id + text[:100] in existing_doc_text_prefixes:
@@ -244,9 +245,7 @@ class RetrievalAgent(AgentBase):
 
                                     for p in points:
                                         payload = p.payload or {}
-                                        text = payload.get("text_preview", "") or payload.get(
-                                            "text", ""
-                                        )
+                                        text = payload.get("text") or payload.get("text_preview", "")
                                         if (
                                             text_preview == text[:200]
                                             or text[:200].startswith(text_preview)
@@ -271,6 +270,9 @@ class RetrievalAgent(AgentBase):
             except Exception as e:  # noqa: BLE001 - base retrieval remains usable
                 logger.error("Failed to connect or query Qdrant for graph expansion: %s", e)
 
+        if not merged_raw and results and all(isinstance(res, BaseException) for res in results):
+            raise QdrantUnavailableError("All knowledge retrieval requests failed")
+
         # Rerank merged chunks
         reranked: list[dict[str, Any]]
         try:
@@ -294,6 +296,15 @@ class RetrievalAgent(AgentBase):
             )
             for i, c in enumerate(reranked)
         ]
+
+        if not chunks:
+            answer = (
+                "No relevant source was found for this question."
+                if lang == "en"
+                else "Không tìm thấy nguồn phù hợp để trả lời câu hỏi này."
+            )
+            yield f"data: {json.dumps({'type': 'final', 'content': answer})}\n\n"
+            return
 
         context_block, citation_map = wrap_chunks_for_prompt(chunks)
         from app.prompts.composer import render
@@ -323,7 +334,9 @@ class RetrievalAgent(AgentBase):
             fixed: list[str] = []
             async for token in _stream_llm(fix_prompt, system, model_hint, messages):
                 fixed.append(token)
-            cleaned = "".join(fixed)
+            _, _, cleaned_retry = _validator.validate("".join(fixed), citation_map)
+            if cleaned_retry.strip():
+                cleaned = cleaned_retry
 
         # 4. Emit citations
         for cite in build_citation_list(cleaned, citation_map):

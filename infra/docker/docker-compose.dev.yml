@@ -1,6 +1,10 @@
 services:
   backend:
     build: ../../apps/backend
+    command:
+      - sh
+      - -ec
+      - alembic upgrade head && exec uvicorn app.main:app --host 0.0.0.0 --port 8000
     ports: ["8000:8000"]
     env_file:
       - path: ../../apps/backend/.env
@@ -71,6 +75,7 @@ services:
     volumes: [ollama_data:/root/.ollama]
 
   tei:
+    profiles: [reranker]
     image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.5
     platform: linux/amd64
     ports: ["8080:80"]
@@ -83,4 +88,3 @@ volumes:
   qdrant_data:
   redis_data:
   ollama_data:
-  tei_data:

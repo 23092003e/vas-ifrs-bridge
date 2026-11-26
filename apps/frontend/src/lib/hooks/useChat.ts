@@ -2,8 +2,8 @@
 
 import {
 	applyStreamEvent,
-	consumeSseBuffer,
 	parseConversationMessages,
+	readChatStream,
 } from "@/lib/chat/events";
 import type { Message, SSEEvent } from "@/types/api";
 import { useParams, useRouter } from "next/navigation";
@@ -88,7 +88,7 @@ export function useChat() {
 		return () => controller.abort();
 	}, [conversationId]);
 
-	useEffect(() => () => abortRef.current?.abort(), []);
+	useEffect(() => () => abortRef.current?.abort(), [conversationId]);
 
 	const sendMessage = useCallback(
 		async (content: string, opts: SendOptions = {}) => {
@@ -115,6 +115,7 @@ export function useChat() {
 			setLoading(true);
 
 			const handleEvent = (event: SSEEvent) => {
+				if (controller.signal.aborted) return;
 				setMessages((previous) =>
 					previous.map((message) =>
 						message.id === assistantId
@@ -152,22 +153,7 @@ export function useChat() {
 					throw new Error(await responseError(response));
 				}
 
-				const reader = response.body.getReader();
-				const decoder = new TextDecoder();
-				let buffer = "";
-
-				while (true) {
-					const { done, value } = await reader.read();
-					if (done) break;
-					buffer += decoder.decode(value, { stream: true });
-					const consumed = consumeSseBuffer(buffer);
-					buffer = consumed.rest;
-					for (const event of consumed.events) handleEvent(event);
-				}
-
-				buffer += decoder.decode();
-				const consumed = consumeSseBuffer(buffer, true);
-				for (const event of consumed.events) handleEvent(event);
+				await readChatStream(response.body, handleEvent);
 			} catch (error) {
 				if (controller.signal.aborted) return;
 				setMessages((previous) =>
@@ -175,7 +161,8 @@ export function useChat() {
 						message.id === assistantId
 							? {
 									...message,
-									content: `Error: ${errorMessage(error)}`,
+									content: `Lỗi: ${errorMessage(error)}`,
+									citations: [],
 									loading: false,
 								}
 							: message,
@@ -212,7 +199,14 @@ export function useChat() {
 		setLoading(false);
 		setMessages((previous) =>
 			previous.map((message) =>
-				message.loading ? { ...message, loading: false } : message,
+				message.loading
+					? {
+							...message,
+							content: "Đã dừng phản hồi.",
+							citations: [],
+							loading: false,
+						}
+					: message,
 			),
 		);
 	}, []);

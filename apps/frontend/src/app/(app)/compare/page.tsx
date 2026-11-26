@@ -7,8 +7,8 @@ import {
 	StandardSelector,
 	TopicPresets,
 } from "@/components/compare";
-import { applyStreamEvent, consumeSseBuffer } from "@/lib/chat/events";
-import type { Message, SSEEvent } from "@/types/api";
+import { applyStreamEvent, readChatStream } from "@/lib/chat/events";
+import type { Message } from "@/types/api";
 import type { RelationItem, StandardsData } from "@/types/compare";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -33,6 +33,7 @@ export default function ComparePage() {
 	const [error, setError] = useState<string | null>(null);
 
 	const abortRef = useRef<AbortController | null>(null);
+	useEffect(() => () => abortRef.current?.abort(), []);
 
 	// Load standards catalog on mount
 	useEffect(() => {
@@ -76,7 +77,18 @@ export default function ComparePage() {
 	};
 
 	const handleReset = () => {
-		abortRef.current?.abort();
+		if (abortRef.current && comparisonMessage.loading) {
+			abortRef.current.abort();
+			abortRef.current = null;
+			setError("Đã dừng đối chiếu.");
+			setComparisonMessage((prev) => ({
+				...prev,
+				content: "",
+				citations: [],
+				loading: false,
+			}));
+			return;
+		}
 		setSelectedVas("VAS-14");
 		setSelectedIfrs("IFRS-15");
 		setFocusQuery("");
@@ -134,26 +146,11 @@ export default function ComparePage() {
 				throw new Error("Không nhận được luồng dữ liệu phản hồi.");
 			}
 
-			const reader = res.body.getReader();
-			const decoder = new TextDecoder();
-			let buffer = "";
-
-			const handleEvent = (event: SSEEvent) => {
-				setComparisonMessage((prev) => applyStreamEvent(prev, event));
-			};
-
-			while (true) {
-				const { done, value } = await reader.read();
-				if (done) break;
-				buffer += decoder.decode(value, { stream: true });
-				const consumed = consumeSseBuffer(buffer);
-				buffer = consumed.rest;
-				for (const ev of consumed.events) handleEvent(ev);
-			}
-
-			buffer += decoder.decode();
-			const finalConsumed = consumeSseBuffer(buffer, true);
-			for (const ev of finalConsumed.events) handleEvent(ev);
+			await readChatStream(res.body, (event) => {
+				if (!controller.signal.aborted) {
+					setComparisonMessage((prev) => applyStreamEvent(prev, event));
+				}
+			});
 		} catch (err: unknown) {
 			if (controller.signal.aborted) return;
 			const msg = err instanceof Error ? err.message : String(err);
@@ -161,6 +158,8 @@ export default function ComparePage() {
 			setError(msg);
 			setComparisonMessage((prev) => ({
 				...prev,
+				content: "",
+				citations: [],
 				loading: false,
 			}));
 		} finally {

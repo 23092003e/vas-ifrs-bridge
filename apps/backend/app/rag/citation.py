@@ -5,8 +5,9 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-# Matches [C1], [C2], ... [C99]
-_CITATION_RE = re.compile(r"\[C(\d+)\]")
+# Keep standalone and grouped markers aligned with the chat and compare renderers.
+_CITATION_GROUP_RE = re.compile(r"\[(C\d+(?:[,\s]+C\d+)*)\]")
+_CITATION_KEY_RE = re.compile(r"C\d+")
 
 # Wrapping template injected into system prompt context block
 CHUNK_WRAP_TEMPLATE = '<<C{n} src="{doc_id}#{chunk_id}">>\\n{text}\\n<</C{n}>>'
@@ -70,13 +71,7 @@ def wrap_chunks_for_prompt(chunks: list) -> tuple[str, dict[str, Citation]]:
 
 def extract_used_keys(text: str) -> set[str]:
     """Return all [Cn] citation keys found in LLM answer text."""
-    keys = set()
-    import re
-    for bracket_match in re.finditer(r"\[([^\]]+)\]", text):
-        inner = bracket_match.group(1)
-        for m in re.finditer(r"C(\d+)", inner):
-            keys.add(f"C{m.group(1)}")
-    return keys
+    return {key for group in _CITATION_GROUP_RE.findall(text) for key in _CITATION_KEY_RE.findall(group)}
 
 
 def validate_citations(answer: str, citation_map: dict[str, Citation]) -> tuple[bool, list[str]]:
@@ -85,26 +80,30 @@ def validate_citations(answer: str, citation_map: dict[str, Citation]) -> tuple[
     Returns (is_valid, list_of_unresolved_keys).
     """
     used = extract_used_keys(answer)
-    unresolved = [k for k in used if k not in citation_map]
+    unresolved = sorted(used - citation_map.keys())
     return len(unresolved) == 0, unresolved
 
 
 def strip_unresolved_citations(answer: str, unresolved: list[str]) -> str:
     """Remove unresolved [Cn] markers from answer text."""
-    for key in unresolved:
-        answer = answer.replace(f"[{key}]", "")
-    return answer.strip()
+    invalid = set(unresolved)
+
+    def clean_group(match: re.Match[str]) -> str:
+        keys = _CITATION_KEY_RE.findall(match[1])
+        kept = [key for key in keys if key not in invalid]
+        if len(kept) == len(keys):
+            return match[0]
+        return f"[{', '.join(kept)}]" if kept else ""
+
+    return _CITATION_GROUP_RE.sub(clean_group, answer).strip()
 
 
 def build_citation_list(answer: str, citation_map: dict[str, Citation]) -> list[Citation]:
     """Return Citation objects for every [Cn] key found in answer (in order)."""
     seen: set[str] = set()
     result: list[Citation] = []
-    import re
-    for bracket_match in re.finditer(r"\[([^\]]+)\]", answer):
-        inner = bracket_match.group(1)
-        for m in re.finditer(r"C(\d+)", inner):
-            key = f"C{m.group(1)}"
+    for group in _CITATION_GROUP_RE.findall(answer):
+        for key in _CITATION_KEY_RE.findall(group):
             if key in citation_map and key not in seen:
                 result.append(citation_map[key])
                 seen.add(key)

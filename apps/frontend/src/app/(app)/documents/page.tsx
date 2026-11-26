@@ -192,7 +192,7 @@ export default function DocumentsPage() {
 						ref={fileInputRef}
 						onChange={handleFileChange}
 						style={{ display: "none" }}
-						accept=".pdf,.docx,.xlsx,.xls,.txt,.md,.csv"
+						accept=".pdf,.docx,.xlsx,.txt,.md,.csv"
 					/>
 					<button
 						type="button"

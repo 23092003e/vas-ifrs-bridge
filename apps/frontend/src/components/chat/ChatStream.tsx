@@ -397,6 +397,7 @@ export default function ChatStream() {
 									type="button"
 									className="composer-send"
 									onClick={abort}
+									aria-label="Dừng phản hồi"
 									style={{
 										background: "var(--danger)",
 										color: "#fff",

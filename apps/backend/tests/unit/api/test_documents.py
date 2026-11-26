@@ -90,8 +90,12 @@ async def test_upload_stops_and_removes_partial_file_when_size_limit_is_exceeded
 
 
 @pytest.mark.asyncio
-async def test_upload_rejects_unsupported_file_extension() -> None:
-    upload = UploadFile(filename="payload.exe", file=BytesIO(b"binary"))
+@pytest.mark.parametrize("filename", ["payload.exe", "legacy.xls"])
+async def test_upload_rejects_unsupported_file_extension(
+    filename: str, tmp_path: Any, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.chdir(tmp_path)
+    upload = UploadFile(filename=filename, file=BytesIO(b"binary"))
 
     with pytest.raises(HTTPException) as exc_info:
         await documents.upload_document(upload, _request(), _Db(), _BackgroundTasks())

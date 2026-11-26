@@ -19,7 +19,8 @@ ROUTE_ROLE_MAP: dict[tuple[str, str], str] = {
     ("*", "/v1/admin/audit"): "auditor",
     ("POST", "/v1/reports/generate"): "accountant",
     ("POST", "/v1/adjustments"): "accountant",
-    ("POST", "/v1/gl/upload"): "accountant",
+    ("POST", "/v1/gl"): "accountant",
+    ("GET", "/v1/reports"): "auditor",
     ("PUT", "/v1/mappings"): "accountant",
     ("POST", "/v1/documents/upload"): "accountant",
 }

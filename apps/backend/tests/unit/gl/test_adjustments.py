@@ -76,3 +76,58 @@ async def test_generate_entries_rejects_unbalanced_amounts(
     with pytest.raises(UnbalancedJEError):
         await generate_entries([{"account_code": "111"}])
 
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "entry",
+    [
+        {"debit_account": "Cash", "credit_account": "Payables", "amount": "Infinity"},
+        {"debit_account": "Cash", "credit_account": "", "amount": "10"},
+        {
+            "debit_account": "Cash",
+            "credit_account": "Payables",
+            "debit_amount": "10.001",
+            "credit_amount": "10.004",
+        },
+    ],
+)
+async def test_generate_entries_rejects_invalid_posting(monkeypatch, entry):
+    import json
+
+    from app.core.errors import UnbalancedJEError
+
+    class Agent:
+        async def arun(self, **_):
+            yield "data: " + json.dumps({"type": "token", "delta": json.dumps([entry])})
+
+    monkeypatch.setattr("app.agents.adjustment_agent.AdjustmentAgent", Agent)
+    with pytest.raises((ValueError, UnbalancedJEError)):
+        await generate_entries([])
+
+
+@pytest.mark.asyncio
+async def test_generate_entries_preserves_split_allocations(monkeypatch):
+    import json
+
+    class Agent:
+        async def arun(self, **_):
+            payload = {
+                "adjustments": [
+                    {
+                        "entries": [
+                            {"account": "A", "type": "debit", "amount": "0.10"},
+                            {"account": "B", "type": "debit", "amount": "0.20"},
+                            {"account": "C", "type": "credit", "amount": "0.30"},
+                        ]
+                    }
+                ]
+            }
+            yield "data: " + json.dumps({"type": "token", "delta": json.dumps(payload)})
+
+    monkeypatch.setattr("app.agents.adjustment_agent.AdjustmentAgent", Agent)
+    (entry,) = await generate_entries([])
+    assert [(line["account"], str(line["amount"])) for line in entry["lines"]] == [
+        ("A", "0.10"),
+        ("B", "0.20"),
+        ("C", "0.30"),
+    ]

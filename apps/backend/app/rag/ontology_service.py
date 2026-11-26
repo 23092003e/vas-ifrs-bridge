@@ -135,7 +135,7 @@ def expand_query(query: str, matched_topics: list[dict]) -> str:
         expansion_terms.add(std)
         expansion_terms.add(std.replace("-", " "))
 
-    unique_terms = [t for t in expansion_terms if t.lower() not in query.lower()]
+    unique_terms = sorted(t for t in expansion_terms if t.lower() not in query.lower())
     if unique_terms:
         expanded_query = query + " " + " ".join(unique_terms)
         return expanded_query

@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import inspect
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Self
+from unittest.mock import AsyncMock
 
 import pytest
 
@@ -35,7 +37,12 @@ async def test_ingestion_fetches_document_with_tenant_scope(
 ) -> None:
     assert "tenant_id" in inspect.signature(jobs.ingest_document).parameters
     session = _Session()
-    monkeypatch.setattr(jobs, "AsyncSessionLocal", lambda: session)
+
+    @asynccontextmanager
+    async def locked_session(document_id: str):
+        yield session
+
+    monkeypatch.setattr(jobs, "_ingestion_session", locked_session)
 
     await jobs.ingest_document(
         document_id="89bc0df4-cdf0-49f8-a0c8-4191aaf1912b",
@@ -44,6 +51,40 @@ async def test_ingestion_fetches_document_with_tenant_scope(
     )
 
     assert "documents.tenant_id" in str(session.statements[0].whereclause)
+
+
+@pytest.mark.asyncio
+async def test_recovery_only_replays_locally_available_files_and_continues_after_error(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
+) -> None:
+    first, second = tmp_path / "first.txt", tmp_path / "second.txt"
+    first.touch()
+    second.touch()
+    rows = [("missing", str(tmp_path / "missing.txt"), "A"),
+            ("first", str(first), "A"), ("second", str(second), "B")]
+
+    @asynccontextmanager
+    async def session():
+        class Result:
+            async def execute(self, statement):
+                assert "documents.status IN" in str(statement)
+                return self
+
+            def all(self):
+                return rows
+
+        yield Result()
+
+    ingest = AsyncMock(side_effect=[RuntimeError("fixture"), None])
+    monkeypatch.setattr(jobs, "AsyncSessionLocal", session)
+    monkeypatch.setattr(jobs, "ingest_document", ingest)
+
+    await jobs.recover_ingestion()
+
+    assert [(call.args, call.kwargs) for call in ingest.await_args_list] == [
+        (("first", str(first), "A"), {"recovering": True}),
+        (("second", str(second), "B"), {"recovering": True}),
+    ]
 
 
 def test_ingestion_point_ids_are_idempotent() -> None:

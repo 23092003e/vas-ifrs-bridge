@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 MAX_UPLOAD_SIZE_BYTES = 25 * 1024 * 1024
 UPLOAD_CHUNK_SIZE_BYTES = 1024 * 1024
-ALLOWED_DOCUMENT_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".xls", ".txt", ".md", ".csv"}
+ALLOWED_DOCUMENT_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".txt", ".md", ".csv"}
 
 
 def _validate_filename(filename: str | None) -> str:

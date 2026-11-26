@@ -75,6 +75,33 @@ export function consumeSseBuffer(
 	return { events, rest };
 }
 
+export async function readChatStream(
+	body: ReadableStream<Uint8Array>,
+	onEvent: (event: SSEEvent) => void,
+): Promise<void> {
+	const reader = body.getReader();
+	const decoder = new TextDecoder();
+	let buffer = "";
+	try {
+		while (true) {
+			const { value, done } = await reader.read();
+			buffer += decoder.decode(value, { stream: !done });
+			const { events, rest } = consumeSseBuffer(buffer, done);
+			buffer = rest;
+			for (const event of events) {
+				if (event.type === "error") throw new Error(event.message);
+				onEvent(event);
+				if (event.type === "final") return;
+			}
+			if (done)
+				throw new Error("Luồng phản hồi chưa hoàn tất. Vui lòng thử lại.");
+		}
+	} finally {
+		void reader.cancel().catch(() => {});
+		reader.releaseLock();
+	}
+}
+
 function parseCitation(value: unknown): Citation | null {
 	const parsed = parseEvent(
 		isRecord(value) ? { ...value, type: "citation" } : value,
@@ -146,7 +173,7 @@ export function applyStreamEvent(message: Message, event: SSEEvent): Message {
 	if (event.type === "final") {
 		return {
 			...message,
-			content: event.content || message.content,
+			content: event.content,
 			loading: false,
 		};
 	}

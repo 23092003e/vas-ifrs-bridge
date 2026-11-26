@@ -327,7 +327,6 @@ export function StandardSelector({
 				<button
 					type="button"
 					onClick={onReset}
-					disabled={loading}
 					style={{
 						padding: "8px 16px",
 						fontSize: "0.78rem",
@@ -336,10 +335,10 @@ export function StandardSelector({
 						background: "transparent",
 						border: "1px solid var(--border)",
 						borderRadius: 6,
-						cursor: loading ? "not-allowed" : "pointer",
+						cursor: "pointer",
 					}}
 				>
-					Đặt lại
+					{loading ? "Dừng đối chiếu" : "Đặt lại"}
 				</button>
 				<button
 					type="button"

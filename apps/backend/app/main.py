@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager, suppress
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
@@ -21,11 +24,34 @@ from app.core.tenant import TenantResolverMiddleware
 from app.core.tracing import TracingMiddleware
 from app.core.usage_limiter import UsageLimiterMiddleware
 from app.db.session import AsyncSessionLocal
+from app.ingestion.jobs import recover_ingestion
 from app.observability.metrics import request_count
 from app.settings import settings
 
 logger = logging.getLogger(__name__)
-app = FastAPI(title="VAS-IFRS Knowledge Engine", version="0.1.0")
+
+
+async def _recover_uploads() -> None:
+    while True:
+        try:
+            await recover_ingestion()
+        except Exception:
+            logger.exception("Ingestion recovery scan failed")
+        await asyncio.sleep(30)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    recovery = asyncio.create_task(_recover_uploads())
+    try:
+        yield
+    finally:
+        recovery.cancel()
+        with suppress(asyncio.CancelledError):
+            await recovery
+
+
+app = FastAPI(title="VAS-IFRS Knowledge Engine", version="0.1.0", lifespan=lifespan)
 
 class DbSessionMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: Any) -> Response:
@@ -46,6 +72,15 @@ class MetricsMiddleware(BaseHTTPMiddleware):
         ).inc()
         return response
 
+# Middleware stack — Starlette uses LIFO: last added runs first on inbound.
+# Desired inbound order: Metrics → Tracing → CORS → Auth → DbSession → Tenant → RBAC → UsageLimiter → Audit
+# So we add in REVERSE order:
+app.add_middleware(AuditMiddleware)
+app.add_middleware(UsageLimiterMiddleware)
+app.add_middleware(RBACMiddleware)
+app.add_middleware(TenantResolverMiddleware)
+app.add_middleware(DbSessionMiddleware)
+app.add_middleware(AuthMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
@@ -53,16 +88,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Middleware stack — Starlette uses LIFO: last added runs first on inbound.
-# Desired inbound order: Metrics → Tracing → Auth → DbSession → Tenant → RBAC → UsageLimiter → Audit
-# So we add in REVERSE order:
-app.add_middleware(AuditMiddleware)            # 8th inbound (needs user/tenant set)
-app.add_middleware(UsageLimiterMiddleware)     # 7th inbound
-app.add_middleware(RBACMiddleware)             # 6th inbound
-app.add_middleware(TenantResolverMiddleware)   # 5th inbound (needs db + user)
-app.add_middleware(DbSessionMiddleware)        # 4th inbound
-app.add_middleware(AuthMiddleware)             # 3rd inbound
 app.add_middleware(TracingMiddleware)          # 2nd inbound (request_id)
 app.add_middleware(MetricsMiddleware)          # 1st inbound, includes middleware responses
 

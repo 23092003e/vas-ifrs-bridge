@@ -12,6 +12,7 @@ from sqlalchemy import delete, func, select, update
 from sqlalchemy.orm import selectinload
 
 from app.agents.orchestrator import Orchestrator
+from app.core.errors import QdrantUnavailableError
 from app.core.tenant import TenantCtx
 from app.db.models import Conversation
 from app.db.models import Message as DbMessage
@@ -148,6 +149,10 @@ async def chat_stream(
             }
             yield f"data: {json.dumps(final_payload)}\n\n".encode()
 
+        except QdrantUnavailableError:
+            logger.warning("Chat stream could not retrieve knowledge", exc_info=True)
+            err = json.dumps({"type": "error", "message": "Knowledge retrieval is temporarily unavailable"})
+            yield f"data: {err}\n\n".encode()
         except Exception as exc:
             logger.exception("Chat stream failed", exc_info=exc)
             err = json.dumps({"type": "error", "message": "Unable to complete chat stream"})

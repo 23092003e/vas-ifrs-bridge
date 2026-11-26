@@ -117,6 +117,10 @@ class GLUpload(Base):
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )
 
+    content_sha256: Mapped[str | None] = mapped_column(String(64))
+    accounts: Mapped[list[dict] | None] = mapped_column(JSONB)
+    mapping_snapshot: Mapped[list[dict] | None] = mapped_column(JSONB)
+
     tenant: Mapped[Tenant] = relationship(back_populates="gl_uploads")
     adjustments: Mapped[list[AdjustmentEntry]] = relationship(back_populates="gl_upload")
 
@@ -142,7 +146,35 @@ class AdjustmentEntry(Base):
     approved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
+    lines: Mapped[list[dict] | None] = mapped_column(JSONB)
+    created_by: Mapped[str | None] = mapped_column(String(255))
+
     gl_upload: Mapped[GLUpload] = relationship(back_populates="adjustments")
+
+
+class GLMappingRule(Base):
+    __tablename__ = "gl_mapping_rules"
+
+    tenant_id: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("tenants.id"), primary_key=True
+    )
+    vas_code: Mapped[str] = mapped_column(String(50), primary_key=True)
+    ifrs_code: Mapped[str] = mapped_column(String(100), nullable=False)
+
+
+class GLReport(Base):
+    __tablename__ = "gl_reports"
+
+    id: Mapped[str] = mapped_column(UUID(as_uuid=False), primary_key=True, default=_uuid)
+    tenant_id: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("tenants.id"), nullable=False, index=True
+    )
+    upload_id: Mapped[str] = mapped_column(
+        UUID(as_uuid=False), ForeignKey("gl_uploads.id"), nullable=False
+    )
+    created_by: Mapped[str] = mapped_column(String(255), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    snapshot: Mapped[dict] = mapped_column(JSONB, nullable=False)
 
 
 class AuditLog(Base):

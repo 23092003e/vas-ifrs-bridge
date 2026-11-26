@@ -2,7 +2,7 @@ import { createServerSupabaseClient } from "../supabase/server";
 
 const DEVELOPMENT_BACKEND_URL = "http://localhost:8000";
 
-export function getBackendUrl(path: string): string {
+export function getBackendUrl(path: string, query?: URLSearchParams): string {
 	const configured = process.env.BACKEND_URL;
 	if (!configured && process.env.NODE_ENV === "production") {
 		throw new Error("BACKEND_URL is required in production");
@@ -14,7 +14,7 @@ export function getBackendUrl(path: string): string {
 	}
 
 	base.pathname = `${base.pathname.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
-	base.search = "";
+	base.search = query?.toString() ?? "";
 	base.hash = "";
 	return base.toString();
 }
@@ -28,7 +28,7 @@ function jsonError(detail: string, status: number) {
 
 export async function authenticatedBackendFetch(
 	path: string,
-	init: RequestInit = {},
+	init: RequestInit & { duplex?: "half"; query?: URLSearchParams } = {},
 ): Promise<Response> {
 	const supabase = await createServerSupabaseClient();
 	const {
@@ -47,12 +47,13 @@ export async function authenticatedBackendFetch(
 		return jsonError("Unauthorized", 401);
 	}
 
-	const headers = new Headers(init.headers);
+	const { query, ...requestInit } = init;
+	const headers = new Headers(requestInit.headers);
 	headers.set("Authorization", `Bearer ${session.access_token}`);
 
 	try {
-		return await fetch(getBackendUrl(path), {
-			...init,
+		return await fetch(getBackendUrl(path, query), {
+			...requestInit,
 			headers,
 			cache: "no-store",
 		});

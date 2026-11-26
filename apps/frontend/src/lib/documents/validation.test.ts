@@ -9,6 +9,13 @@ import {
 describe("validateDocumentFile", () => {
 	it("accepts formats supported by the backend", () => {
 		expect(validateDocumentFile({ name: "policy.MD", size: 100 })).toBeNull();
+		expect(validateDocumentFile({ name: "sheet.xlsx", size: 100 })).toBeNull();
+	});
+
+	it("rejects legacy XLS workbooks", () => {
+		expect(validateDocumentFile({ name: "sheet.XLS", size: 100 })).toContain(
+			"không được hỗ trợ",
+		);
 	});
 
 	it("rejects HTML and oversized files", () => {

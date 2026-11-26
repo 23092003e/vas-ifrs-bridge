@@ -18,11 +18,39 @@ on:
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: gl_test
+          POSTGRES_PASSWORD: gl_test
+          POSTGRES_DB: gl_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U gl_test -d gl_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: apps/backend
+    env:
+      APP_ENV: test
+      DEV_AUTH_BYPASS: 'false'
+      DATABASE_URL: postgresql+asyncpg://gl_test:gl_test@127.0.0.1:5432/gl_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: '3.11' }
       - run: pip install uv==0.11.15
-      - run: cd apps/backend && uv sync --frozen --extra dev
-      - run: cd apps/backend && uv run ruff check . && uv run mypy .
-      - run: cd apps/backend && uv run pytest
+      - run: uv sync --frozen --no-default-groups --extra dev
+      - run: uv run --no-sync ruff check . && uv run --no-sync mypy .
+      - run: uv run --no-sync pytest tests/unit
+      - name: Verify migration and GL workflow on PostgreSQL
+        env:
+          GL_INTEGRATION_TEST: '1'
+        run: |
+          uv run --no-sync alembic upgrade head
+          uv run --no-sync alembic downgrade 0002
+          uv run --no-sync alembic upgrade head
+          uv run --no-sync pytest tests/integration/test_gl_workflow.py

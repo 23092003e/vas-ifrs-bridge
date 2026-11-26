@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vas-ifrs-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 26m
 spec:
   ingressClassName: nginx
   tls:

@@ -4,12 +4,17 @@ from __future__ import annotations
 
 import logging
 import uuid
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 import anyio
+from qdrant_client.http.exceptions import UnexpectedResponse
 from qdrant_client.models import Distance, PointStruct, VectorParams
+from sqlalchemy import select, text
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models import Document
-from app.db.session import AsyncSessionLocal
+from app.db.session import AsyncSessionLocal, engine
 from app.ingestion.normalizer import normalize
 from app.ingestion.parsers.docx import parse_docx
 from app.ingestion.parsers.html import parse_html
@@ -41,10 +46,53 @@ async def _parse_document(filename: str, local_path: str) -> str:
     return normalize(text)
 
 
-async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> None:
-    """Full ingestion pipeline: parse -> chunk -> embed -> Qdrant upsert."""
+@asynccontextmanager
+async def _ingestion_session(document_id: str) -> AsyncIterator[AsyncSession | None]:
+    lock_id = uuid.UUID(document_id).int >> 65
+    async with engine.connect() as connection:
+        acquired = await connection.scalar(text("SELECT pg_try_advisory_lock(:key)"), {"key": lock_id})
+        if not acquired:
+            yield None
+            return
+        try:
+            # Keep one physical connection checked out across status commits.
+            await connection.commit()
+            async with AsyncSession(bind=connection, expire_on_commit=False) as db:
+                yield db
+        finally:
+            with anyio.CancelScope(shield=True):
+                try:
+                    await connection.rollback()
+                    await connection.execute(text("SELECT pg_advisory_unlock(:key)"), {"key": lock_id})
+                except BaseException:
+                    await connection.invalidate()
+                    raise
+
+
+async def recover_ingestion() -> None:
+    """Resume interrupted uploads whose source file is available to this process."""
     async with AsyncSessionLocal() as db:
-        from sqlalchemy import select
+        documents = (await db.execute(
+            select(Document.id, Document.gcs_path, Document.tenant_id)
+            .where(Document.status.in_(("pending", "processing")))
+            .order_by(Document.created_at)
+        )).all()
+    for document_id, local_path, tenant_id in documents:
+        if not await anyio.Path(local_path).is_file():
+            continue
+        try:
+            await ingest_document(document_id, local_path, tenant_id, recovering=True)
+        except Exception:
+            logger.exception("Could not recover ingestion for document %s", document_id)
+
+
+async def ingest_document(
+    document_id: str, local_path: str, tenant_id: str, *, recovering: bool = False,
+) -> None:
+    """Full ingestion pipeline: parse -> chunk -> embed -> Qdrant upsert."""
+    async with _ingestion_session(document_id) as db:
+        if db is None:
+            return
 
         # 1. Fetch document metadata
         stmt = select(Document).where(
@@ -55,6 +103,8 @@ async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> 
         doc = res.scalar_one_or_none()
         if not doc:
             logger.error("Document not found in DB: %s", document_id)
+            return
+        if doc.status == "ready" or (recovering and doc.status not in {"pending", "processing"}):
             return
 
         collection = f"tenant_{tenant_id}"
@@ -90,11 +140,15 @@ async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> 
                 exists = any(c.name == collection for c in collections.collections)
                 if not exists:
                     from qdrant_client.models import SparseVectorParams
-                    await client.create_collection(
-                        collection_name=collection,
-                        vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
-                        sparse_vectors_config={"bm25": SparseVectorParams(modifier=None)}
-                    )
+                    try:
+                        await client.create_collection(
+                            collection_name=collection,
+                            vectors_config=VectorParams(size=dim, distance=Distance.COSINE),
+                            sparse_vectors_config={"bm25": SparseVectorParams(modifier=None)},
+                        )
+                    except UnexpectedResponse:
+                        if not await client.collection_exists(collection):
+                            raise
 
                 # Assemble Qdrant points
                 # Pre-calculate global standard_code
@@ -147,12 +201,14 @@ async def ingest_document(document_id: str, local_path: str, tenant_id: str) -> 
                 await client.upsert(
                     collection_name=collection,
                     points=points,
+                    wait=True,
                 )
             finally:
                 await client.close()
 
             # 6. Update DB record to ready
             doc.status = "ready"
+            doc.error_message = None
             doc.chunk_count = len(chunks)
             doc.qdrant_collection = collection
             await db.commit()

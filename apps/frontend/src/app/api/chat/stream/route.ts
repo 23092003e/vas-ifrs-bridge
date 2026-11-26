@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(body),
+		signal: req.signal,
 	});
 
 	return forwardBackendResponse(upstream, { stream: upstream.ok });

@@ -8,7 +8,7 @@ from collections.abc import Awaitable
 from dataclasses import dataclass
 
 from qdrant_client import AsyncQdrantClient
-from qdrant_client.models import Condition, FieldCondition, Filter, MatchValue
+from qdrant_client.models import Condition, FieldCondition, Filter, MatchAny, MatchValue
 
 from app.core.errors import QdrantUnavailableError
 from app.rag.embedder import embed_query
@@ -162,6 +162,7 @@ async def retrieve(
     lang: str = "auto",
     k: int = RERANK_K,
     skip_rerank: bool = False,
+    standard_codes: tuple[str, ...] = (),
 ) -> list[RetrievedChunk]:
     """
     Full retrieval pipeline:
@@ -172,6 +173,13 @@ async def retrieve(
     """
     vec = await embed_query(query)
     flt = _build_filter(lang=lang, scope=scope, tenant_id=tenant_id)
+    if standard_codes:
+        must: list[Condition] = [FieldCondition(
+            key="standard_code", match=MatchAny(any=list(standard_codes))
+        )]
+        if flt is not None:
+            must.append(flt)
+        flt = Filter(must=must)
 
     client = _qdrant_client()
     try:
@@ -190,7 +198,7 @@ async def retrieve(
         payload = hit.payload or {}
         std = payload.get("standard_code") or "Unknown"
         hd = payload.get("heading", "")
-        t = payload.get("text_preview", "") or payload.get("text", "")
+        t = payload.get("text") or payload.get("text_preview", "")
         context_text = f"[{std}] {hd}\n{t}".strip()
         raw_chunks.append({
             "id": str(hit.id),
@@ -227,6 +235,7 @@ async def retrieve_multi(
     scope: str = "both",
     lang: str = "auto",
     k: int = RERANK_K,
+    require_available: bool = False,
 ) -> list[RetrievedChunk]:
     """Retrieve from mappings, standards (vas, ifrs), guidance and tenant KB concurrently, merge, rerank final."""
     if scope not in {"shared", "tenant", "both"}:
@@ -266,6 +275,9 @@ async def retrieve_multi(
         )
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
+    if require_available and results and all(isinstance(res, BaseException) for res in results):
+        raise QdrantUnavailableError("All knowledge retrieval requests failed")
+
     merged: list[dict] = []
     for res in results:
         if isinstance(res, BaseException):

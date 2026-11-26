@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import Depends, Request
+from fastapi import Depends, HTTPException, Request
 
 from app.core.tenant import TenantCtx
 from app.db.session import AsyncSession
@@ -20,3 +20,12 @@ async def get_tenant(request: Request) -> TenantCtx | None:
 
 DB = Annotated[AsyncSession, Depends(get_db)]
 Tenant = Annotated[TenantCtx | None, Depends(get_tenant)]
+
+
+async def require_tenant(tenant: Tenant) -> TenantCtx:
+    if tenant is None:
+        raise HTTPException(403, "Tenant access required")
+    return tenant
+
+
+Workspace = Annotated[TenantCtx, Depends(require_tenant)]

@@ -3,14 +3,43 @@
 from __future__ import annotations
 
 import csv
-import logging
+import re
+import unicodedata
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
 import openpyxl
 
-logger = logging.getLogger(__name__)
+_HEADERS = {
+    "account_code": (
+        "tài khoản",
+        "số hiệu",
+        "số hiệu tk",
+        "mã tài khoản",
+        "mã tk",
+        "account code",
+        "code",
+        "acct",
+    ),
+    "account_name": ("tên tài khoản", "tên tk", "account name", "description", "name"),
+    "debit": ("nợ", "debit", "dr"),
+    "credit": ("có", "credit", "cr"),
+    "balance": ("số dư", "dư cuối kỳ", "dư", "balance", "closing balance", "amount"),
+    "opening_debit": ("dư đầu kỳ nợ", "số dư đầu kỳ nợ", "nợ đầu kỳ", "opening debit"),
+    "opening_credit": ("dư đầu kỳ có", "số dư đầu kỳ có", "có đầu kỳ", "opening credit"),
+    "movement_debit": ("phát sinh nợ", "nợ phát sinh", "movement debit"),
+    "movement_credit": ("phát sinh có", "có phát sinh", "movement credit"),
+    "closing_debit": ("dư cuối kỳ nợ", "số dư cuối kỳ nợ", "nợ cuối kỳ", "closing debit"),
+    "closing_credit": ("dư cuối kỳ có", "số dư cuối kỳ có", "có cuối kỳ", "closing credit"),
+}
+_HEADER_ROLE = {alias: role for role, aliases in _HEADERS.items() for alias in aliases}
+_PERIODS = frozenset(
+    role for role in _HEADERS if role.startswith(("opening_", "movement_", "closing_"))
+)
+_MOVEMENTS = {"movement_debit", "movement_credit"}
+_SIMPLE_AMOUNTS = {"debit", "credit", "balance"}
+_GROUPED_AMOUNT = re.compile(r"[+-]?\d{1,3}(?:,\d{3})+(?:\.\d+)?")
 
 
 def parse(file_path: str) -> list[dict[str, Any]]:
@@ -18,7 +47,7 @@ def parse(file_path: str) -> list[dict[str, Any]]:
     path = Path(file_path)
     suffix = path.suffix.lower()
 
-    if suffix in (".xlsx", ".xls"):
+    if suffix == ".xlsx":
         return _parse_xlsx(path)
     elif suffix == ".csv":
         return _parse_csv(path)
@@ -27,56 +56,43 @@ def parse(file_path: str) -> list[dict[str, Any]]:
 
 
 def _find_header_and_mapping(rows: list[list[Any]]) -> tuple[int, dict[str, int]]:
-    """
-    Search for a header row containing GL keywords.
-    Returns (header_row_index, column_name_to_index_mapping).
-    """
-    keywords = {
-        "account_code": [
-            "tài khoản",
-            "số hiệu",
-            "mã tk",
-            "account code",
-            "account_code",
-            "code",
-            "acct",
-        ],
-        "account_name": [
-            "tên tài khoản",
-            "tên tk",
-            "account name",
-            "account_name",
-            "description",
-            "name",
-        ],
-        "debit": ["nợ", "debit", "dr", "nợ đầu kỳ", "nợ phát sinh"],
-        "credit": ["có", "credit", "cr", "có đầu kỳ", "có phát sinh"],
-        "balance": ["số dư", "dư cuối kỳ", "dư", "balance", "amount"],
-    }
-
+    """Find an explicit simple GL or full trial balance header."""
     for idx, row in enumerate(rows):
-        # Convert row cells to lower-case strings
-        str_cells = [str(c).lower().strip() if c is not None else "" for c in row]
+        mapping = {}
+        duplicates = set()
+        for position, cell in enumerate(row):
+            if not isinstance(cell, str):
+                continue
+            normalized = " ".join(
+                unicodedata.normalize("NFC", cell).casefold().replace("_", " ").split()
+            )
+            role = _HEADER_ROLE.get(normalized)
+            if role:
+                if role in mapping:
+                    duplicates.add(role)
+                mapping[role] = position
 
-        # Determine if this row looks like a header
-        matches = {}
-        for col_name, kw_list in keywords.items():
-            for c_idx, cell in enumerate(str_cells):
-                if any(kw in cell for kw in kw_list):
-                    matches[col_name] = c_idx
-                    break
+        if not {"account_code", "account_name"} <= mapping.keys():
+            continue
+        if duplicates:
+            raise ValueError(
+                f"Ambiguous GL header: duplicate columns for {', '.join(sorted(duplicates))}"
+            )
 
-        # If we matched at least account_code and account_name (and either debit/credit or balance)
-        if (
-            "account_code" in matches
-            and "account_name" in matches
-            and ("balance" in matches or ("debit" in matches and "credit" in matches))
+        periods = _PERIODS & mapping.keys()
+        simple = _SIMPLE_AMOUNTS & mapping.keys()
+        if periods and (
+            (periods == _PERIODS and not simple)
+            or (periods == _MOVEMENTS and simple <= {"balance"})
         ):
-            return idx, matches
+            return idx, mapping
+        if not periods and ({"debit", "credit"} <= simple or simple == {"balance"}):
+            return idx, mapping
+        raise ValueError(
+            "Unsupported GL header: expected a complete trial balance or simple debit/credit or balance"
+        )
 
-    # Default fallback: assume first row is header, search best-effort
-    fallback_matches = {"account_code": 0, "account_name": 1, "debit": 2, "credit": 3, "balance": 4}
-    return 0, fallback_matches
+    raise ValueError("GL header not found: expected account code, account name and amount columns")
 
 
 def _parse_csv(path: Path) -> list[dict[str, Any]]:
@@ -114,16 +130,21 @@ def _parse_xlsx(path: Path) -> list[dict[str, Any]]:
 def _to_decimal(val: Any) -> Decimal:
     if val is None:
         return Decimal(0)
-    if isinstance(val, (int, float)):
-        return Decimal(str(val))
-    # Clean string from commas, currency symbols, and spaces
-    str_val = str(val).replace(",", "").replace("$", "").replace("đ", "").strip()
-    if not str_val:
+    raw = str(val).strip()
+    if not raw:
         return Decimal(0)
+    cleaned = raw.strip("$đĐ").strip()
+    if "," in cleaned:
+        if not _GROUPED_AMOUNT.fullmatch(cleaned):
+            raise ValueError(f"Invalid amount: {val}")
+        cleaned = cleaned.replace(",", "")
     try:
-        return Decimal(str_val)
+        amount = Decimal(cleaned)
     except InvalidOperation as exc:
         raise ValueError(f"Invalid amount: {val}") from exc
+    if not amount.is_finite():
+        raise ValueError(f"Invalid amount: {val}")
+    return amount
 
 
 def _account_code(value: Any) -> str:
@@ -134,65 +155,44 @@ def _account_code(value: Any) -> str:
 
 def _extract_data_rows(data_rows: list[list[Any]], mapping: dict[str, int]) -> list[dict[str, Any]]:
     normalized: list[dict[str, Any]] = []
-
-    code_idx = mapping.get("account_code")
-    name_idx = mapping.get("account_name")
-    debit_idx = mapping.get("debit")
-    credit_idx = mapping.get("credit")
-    balance_idx = mapping.get("balance")
+    full_trial_balance = _PERIODS <= mapping.keys()
 
     for row in data_rows:
-        if not row:
-            continue
-
-        # Check that we have enough columns in this row
-        row_len = len(row)
-
-        account_code = (
-            _account_code(row[code_idx])
-            if code_idx is not None and code_idx < row_len and row[code_idx] is not None
-            else ""
-        )
-        account_name = (
-            str(row[name_idx]).strip()
-            if name_idx is not None and name_idx < row_len and row[name_idx] is not None
-            else ""
-        )
-
-        # Ignore empty account code rows
+        cells = {role: row[index] if index < len(row) else None for role, index in mapping.items()}
+        code = cells.get("account_code")
+        account_code = _account_code(code) if code is not None else ""
         if not account_code:
             continue
+        name = cells.get("account_name")
+        account_name = str(name).strip() if name is not None else ""
 
-        debit = (
-            _to_decimal(row[debit_idx])
-            if debit_idx is not None and debit_idx < row_len
-            else Decimal(0)
-        )
-        credit = (
-            _to_decimal(row[credit_idx])
-            if credit_idx is not None and credit_idx < row_len
-            else Decimal(0)
-        )
-        balance = (
-            _to_decimal(row[balance_idx])
-            if balance_idx is not None and balance_idx < row_len
-            else Decimal(0)
-        )
-
-        # If debit/credit is zero but balance is given, use balance for amount normalization
-        if debit == 0 and credit == 0 and balance != 0:
-            if balance > 0:
-                debit = balance
-            else:
-                credit = abs(balance)
+        amounts = {
+            role: _to_decimal(value)
+            for role, value in cells.items()
+            if role in _PERIODS or role in _SIMPLE_AMOUNTS
+        }
+        debit = amounts.get("movement_debit", amounts.get("debit", Decimal(0)))
+        credit = amounts.get("movement_credit", amounts.get("credit", Decimal(0)))
+        explicit_balance = cells.get("balance")
+        if full_trial_balance:
+            balance = amounts["closing_debit"] - amounts["closing_credit"]
+        else:
+            balance = (
+                amounts["balance"]
+                if explicit_balance is not None and str(explicit_balance).strip()
+                else debit - credit
+            )
+            if debit == credit == 0 and not _MOVEMENTS.intersection(mapping):
+                debit, credit = max(balance, Decimal(0)), max(-balance, Decimal(0))
 
         normalized.append(
             {
                 "account_code": account_code,
                 "account_name": account_name,
+                **{role: amount for role, amount in amounts.items() if role in _PERIODS},
                 "debit": debit,
                 "credit": credit,
-                "balance": balance or (debit - credit),
+                "balance": balance,
             }
         )
 

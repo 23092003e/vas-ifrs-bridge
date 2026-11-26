@@ -1,14 +1,6 @@
 export const MAX_DOCUMENT_SIZE_BYTES = 25 * 1024 * 1024;
 
-const ALLOWED_EXTENSIONS = new Set([
-	"pdf",
-	"docx",
-	"xlsx",
-	"xls",
-	"txt",
-	"md",
-	"csv",
-]);
+const ALLOWED_EXTENSIONS = new Set(["pdf", "docx", "xlsx", "txt", "md", "csv"]);
 
 export interface DocumentItem {
 	id: string;
